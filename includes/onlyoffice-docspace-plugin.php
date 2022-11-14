@@ -88,6 +88,10 @@ class OODSPlugin
 
     public function register_block()
     {
+        register_block_type(__DIR__ . '/../onlyoffice-docspace-wordpress-block-manager', array(
+            'description' => __('Add ONLYOFFICE DocSpace Manager', 'onlyoffice-docspace-plugin')
+        ));
+
         if (function_exists('wp_set_script_translations')) {
             wp_set_script_translations('onlyoffice-docspace-plugin', 'onlyoffice-docspace-plugin');
         }

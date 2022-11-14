@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "onlyoffice-docspace/onlyoffice-wordpress-docspace-block-manager",
+	"title": "ONLYOFFICE DocSpace Manager",
+	"category": "media",
+	"editorScript": "file:./build/index.js",
+	"keywords": ["onlyoffice", "docspace"],
+	"textdomain": "onlyoffice-docspace-plugin",
+	"attributes": {
+		"selectedAttachment": {
+			"type": "object",
+			"default": null
+		},
+		"frameId": {
+			"type": "string",
+			"default": null
+		},
+		"frameConfig": {
+			"type": "object",
+			"default": null
+		}
+	}
+}
