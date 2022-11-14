@@ -18,6 +18,7 @@ class OODSPlugin
         $this->set_locale();
         $this->define_admin_hooks();
         $this->define_public_hooks();
+        $this->init_ds_frame();
         $this->init_settings();
     }
 
@@ -29,6 +30,8 @@ class OODSPlugin
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/onlyoffice-docspace-admin.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/onlyoffice-docspace-public.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/onlyoffice-docspace-settings.php';
+
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/onlyoffice-docspace-frame.php';
 
         $this->loader = new OODSP_Loader();
     }
@@ -61,6 +64,14 @@ class OODSPlugin
         $this->loader->add_action('rest_api_init', $plugin_public, 'register_routes');
     }
 
+    private function init_ds_frame()
+    {
+        $plugin_ds_frame = new OODSP_DocSpace();
+        $this->loader->add_action('admin_menu', $plugin_ds_frame, 'init_menu');
+        $this->loader->add_action('wp_enqueue_scripts', $plugin_ds_frame, 'enqueue_scripts');
+        $this->loader->add_action('admin_enqueue_scripts', $plugin_ds_frame, 'enqueue_scripts');
+    }
+
     private function init_settings()
     {
         $plugin_settings = new OODSP_Settings($this->get_plugin_name(), $this->get_version());
@@ -72,5 +83,20 @@ class OODSPlugin
     public function run()
     {
         $this->loader->run();
+    }
+
+    public function get_plugin_name()
+    {
+        return $this->plugin_name;
+    }
+
+    public function get_loader()
+    {
+        return $this->loader;
+    }
+
+    public function get_version()
+    {
+        return $this->version;
     }
     }
