@@ -88,6 +88,10 @@ class OODSPlugin
 
     public function register_block()
     {
+        register_block_type(__DIR__ . '/../onlyoffice-docspace-wordpress-block-viewer', array(
+            'description' => __('Add ONLYOFFICE DocSpace Viewer', 'onlyoffice-docspace-plugin')
+        ));
+
         register_block_type(__DIR__ . '/../onlyoffice-docspace-wordpress-block-manager', array(
             'description' => __('Add ONLYOFFICE DocSpace Manager', 'onlyoffice-docspace-plugin')
         ));
@@ -116,4 +120,4 @@ class OODSPlugin
     {
         return $this->version;
     }
-    }
+}
