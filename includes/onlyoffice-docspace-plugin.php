@@ -20,6 +20,7 @@ class OODSPlugin
         $this->define_public_hooks();
         $this->init_ds_frame();
         $this->init_settings();
+        $this->init_blocks();
     }
 
     private function load_dependencies()
@@ -78,6 +79,18 @@ class OODSPlugin
 
         $this->loader->add_action('admin_menu', $plugin_settings, 'init_menu');
         $this->loader->add_action('admin_init', $plugin_settings, 'init');
+    }
+
+    private function init_blocks()
+    {
+        $this->loader->add_action('init', $this, 'register_block');
+    }
+
+    public function register_block()
+    {
+        if (function_exists('wp_set_script_translations')) {
+            wp_set_script_translations('onlyoffice-docspace-plugin', 'onlyoffice-docspace-plugin');
+        }
     }
 
     public function run()
