@@ -3,7 +3,12 @@
 class OODSP_Settings
 {
     const docspace_url = 'onlyoffice_settings_docspace_url';
-
+    const docspace_url_temp = 'onlyoffice_settings_docspace_url_temp';
+    const docspace_login = 'onlyoffice_settings_docspace_login';
+    const docspace_login_temp = 'onlyoffice_settings_docspace_login_temp';
+    const docspace_password = 'onlyoffice_settings_docspace_password';
+    const docspace_password_temp = 'onlyoffice_settings_docspace_password_temp';
+    
     public function init_menu()
     {
         add_submenu_page(
@@ -28,13 +33,35 @@ class OODSP_Settings
         );
 
         add_settings_field(
-            'onlyoffice_docspace_settings_docserver_url',
+            OODSP_Settings::docspace_url_temp,
             __('docspace url', 'onlyoffce-docspace-plugin'),
             array($this, 'docspace_url_cb'),
             'onlyoffice_docspace_settings_group',
             'onlyoffice_docspace_settings_general_section',
             array(
-                'label_for'         => OODSP_Settings::docspace_url
+                'label_for'         => OODSP_Settings::docspace_url_temp
+            )
+        );
+
+        add_settings_field(
+            OODSP_Settings::docspace_login_temp,
+            __('docspace login', 'onlyoffce-docspace-plugin'),
+            array($this, 'docspace_login_cb'),
+            'onlyoffice_docspace_settings_group',
+            'onlyoffice_docspace_settings_general_section',
+            array(
+                'label_for'         => OODSP_Settings::docspace_login_temp
+            )
+        );
+
+        add_settings_field(
+            OODSP_Settings::docspace_password_temp,
+            __('docspace password', 'onlyoffce-docspace-plugin'),
+            array($this, 'docspace_password_cb'),
+            'onlyoffice_docspace_settings_group',
+            'onlyoffice_docspace_settings_general_section',
+            array(
+                'label_for'         => OODSP_Settings::docspace_password_temp
             )
         );
     }
@@ -52,6 +79,28 @@ class OODSP_Settings
     <?php
     }
 
+    public function docspace_login_cb($args)
+    {
+        $options = get_option('onlyoffice_docspace_settings');
+?>
+        <input id="<?php echo esc_attr($args['label_for']) ?>" type="text" name="onlyoffice_docspace_settings[<?php echo esc_attr($args['label_for']); ?>]" value="<?php echo $options[$args['label_for']]; ?>">
+        <p class="description">
+            <?php esc_html_e('docspace login', 'onlyoffce-docspace-plugin'); ?>
+        </p>
+    <?php
+    }
+
+    public function docspace_password_cb($args)
+    {
+        $options = get_option('onlyoffice_docspace_settings');
+?>
+        <input id="<?php echo esc_attr($args['label_for']) ?>" type="text" name="onlyoffice_docspace_settings[<?php echo esc_attr($args['label_for']); ?>]" value="<?php echo $options[$args['label_for']]; ?>">
+        <p class="description">
+            <?php esc_html_e('docspace password', 'onlyoffce-docspace-plugin'); ?>
+        </p>
+    <?php
+    }
+
     public function general_section_callback($args)
     {
     ?>
@@ -61,6 +110,7 @@ class OODSP_Settings
 
     public function options_page()
     {
+        $should_wizard = false;
 
         if (!current_user_can('manage_options')) {
             return;
@@ -68,6 +118,14 @@ class OODSP_Settings
 
         if (isset($_GET['settings-updated'])) {
             add_settings_error('onlyoffice_docspace_settings_messages', 'onlyoffice_docspace_message', __('Settings Saved', 'onlyoffce-docspace-plugin'), 'updated'); // ToDo: can also check if settings are valid e.g. make connection to docServer
+            
+            $options = get_option('onlyoffice_docspace_settings');
+            if ($options[OODSP_Settings::docspace_url_temp] != $options[OODSP_Settings::docspace_url]
+                || $options[OODSP_Settings::docspace_login_temp] != $options[OODSP_Settings::docspace_login]
+                || $options[OODSP_Settings::docspace_password_temp] != $options[OODSP_Settings::docspace_password])
+            {
+                $should_wizard = true;
+            }
         }
 
         settings_errors('onlyoffice_docspace_settings_messages');
@@ -82,6 +140,10 @@ class OODSP_Settings
                 ?>
             </form>
         </div>
+
+        <?php if($should_wizard): ?>
+            <script><?php echo("location.href = location.href.replace('onlyoffice-docspace-settings', 'onlyoffice-docspace-wizard');");?></script>
+        <?php endif; ?>
 <?php
     }
 }

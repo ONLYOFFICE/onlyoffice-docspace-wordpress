@@ -33,6 +33,7 @@ class OODSPlugin
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/onlyoffice-docspace-settings.php';
 
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/onlyoffice-docspace-frame.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/onlyoffice-docspace-wizard.php';
 
         $this->loader = new OODSP_Loader();
     }
@@ -76,9 +77,13 @@ class OODSPlugin
     private function init_settings()
     {
         $plugin_settings = new OODSP_Settings($this->get_plugin_name(), $this->get_version());
+        $plugin_wizard = new OODSP_Wizard();
 
         $this->loader->add_action('admin_menu', $plugin_settings, 'init_menu');
         $this->loader->add_action('admin_init', $plugin_settings, 'init');
+
+        $this->loader->add_action('admin_menu', $plugin_wizard, 'init_menu');
+        $this->loader->add_action('admin_enqueue_scripts', $plugin_wizard, 'enqueue_scripts');
     }
 
     private function init_blocks()
