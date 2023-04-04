@@ -11,7 +11,7 @@ class OODSP_Settings
     
     public function init_menu()
     {
-        add_submenu_page(
+        $hook = add_submenu_page(
             'onlyoffice-docspace',
             'ONLYOFFICE DocSpace Settings',
             'Settings',
@@ -19,6 +19,22 @@ class OODSP_Settings
             'onlyoffice-docspace-settings',
             array($this, 'options_page')
         );
+
+        global $_wp_http_referer;
+        wp_reset_vars( array( '_wp_http_referer' ) );
+            
+        if ( ! empty( $_wp_http_referer ) && isset( $_SERVER['REQUEST_URI'] ) ) {
+            wp_safe_redirect( remove_query_arg( array( '_wp_http_referer', '_wpnonce' ), esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) );
+            exit;
+        }
+
+        add_action( "load-$hook", array( $this, 'add_docspace_users_table' ) );
+    }
+
+    public function add_docspace_users_table() {
+        add_screen_option( 'per_page' );
+        global $oodsp_users_list_table;
+        $oodsp_users_list_table = new OODSP_Users_List_Table();
     }
 
     public function init()
@@ -129,6 +145,8 @@ class OODSP_Settings
         }
 
         settings_errors('onlyoffice_docspace_settings_messages');
+
+        if (!isset($_GET['users'])) {
     ?>
         <div class="wrap">
             <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
@@ -139,11 +157,70 @@ class OODSP_Settings
                 submit_button('Save Settings');
                 ?>
             </form>
+
+            <p class="submit">
+				<?php submit_button('Sync Now', 'secondary', 'users', false,  array( 'onclick' => 'location.href = location.href + "&users=true";' ) ); ?>
+			</p>
         </div>
 
         <?php if($should_wizard): ?>
             <script><?php echo("location.href = location.href.replace('onlyoffice-docspace-settings', 'onlyoffice-docspace-wizard');");?></script>
         <?php endif; ?>
+        <?php
+            } else {
+                global $oodsp_users_list_table;
+                $pagenum = $oodsp_users_list_table->get_pagenum();
+                
+                global $_wp_http_referer;
+                wp_reset_vars( array( '_wp_http_referer' ) );
+                    
+                if ( ! empty( $_wp_http_referer ) && isset( $_SERVER['REQUEST_URI'] ) ) {
+                    wp_safe_redirect( remove_query_arg( array( '_wp_http_referer', '_wpnonce' ), esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) );
+                    exit;
+                }
+
+                $oodsp_users_list_table->prepare_items();
+                $total_pages = $oodsp_users_list_table->get_pagination_arg( 'total_pages' );
+                if ( $pagenum > $total_pages && $total_pages > 0 ) {
+                    wp_redirect( add_query_arg( 'paged', $total_pages ) );
+                    exit;
+                }
+?>
+
+<div class="wrap">
+    <h1 class="wp-heading-inline">
+        ONLYOFFICE DocSpace Settings
+    </h1>
+
+    <?php
+        global $usersearch;
+        if ( strlen( $usersearch ) ) {
+            echo '<span class="subtitle">';
+            printf(
+                __( 'Search results for: %s' ),
+                '<strong>' . esc_html( $usersearch ) . '</strong>'
+            );
+            echo '</span>';
+        }
+    ?>
+
+    <hr class="wp-header-end">
+    <?php $oodsp_users_list_table->views(); ?>
+
+    <form method="get">
+
+        <?php $oodsp_users_list_table->search_box( __( 'Search Users' ), 'user' ); ?>
+
+       <?php if ( ! empty( $_REQUEST['role'] ) ) { ?>
+            <input type="hidden" name="role" value="<?php echo esc_attr( $_REQUEST['role'] ); ?>" />
+        <?php } ?>
+        <?php $oodsp_users_list_table->display(); ?>
+    </form>
+
+    <div class="clear"></div>
+</div>
+
 <?php
+        }
     }
 }

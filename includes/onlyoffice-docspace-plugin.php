@@ -31,6 +31,7 @@ class OODSPlugin
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/onlyoffice-docspace-admin.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/onlyoffice-docspace-public.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/onlyoffice-docspace-settings.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/users/onlyoffice-docspace-users-list-table.php';
 
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/onlyoffice-docspace-frame.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/onlyoffice-docspace-wizard.php';
@@ -79,6 +80,11 @@ class OODSPlugin
         $plugin_settings = new OODSP_Settings($this->get_plugin_name(), $this->get_version());
         $plugin_wizard = new OODSP_Wizard();
 
+        add_filter( 'set-screen-option', function( $status, $option, $value ){
+            error_log("dfewe32");
+            return ( $option == 'docspace_page_onlyoffice_docspace_settings_per_page' ) ? (int) $value : $status;
+        }, 10, 3 );
+        
         $this->loader->add_action('admin_menu', $plugin_settings, 'init_menu');
         $this->loader->add_action('admin_init', $plugin_settings, 'init');
 
