@@ -1,134 +1,279 @@
 <?php
+/**
+ * The file that defines the core plugin class
+ *
+ * A class definition that includes attributes and functions used across both the
+ * public-facing side of the site and the admin area.
+ *
+ * @link       https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress
+ * @since      1.0.0
+ *
+ * @package    Onlyoffice_Docspace_Plugin
+ * @subpackage Onlyoffice_Docspace_Plugin/includes
+ */
 
-class OODSPlugin
-{
+/**
+ *
+ * (c) Copyright Ascensio System SIA 2023
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
 
-    protected $loader;
-    protected $plugin_name;
-    protected $version;
-    protected $settings;
+/**
+ * The core plugin class.
+ *
+ * This is used to define internationalization, admin-specific hooks, and
+ * public-facing site hooks.
+ *
+ * Also maintains the unique identifier of this plugin as well as the current
+ * version of the plugin.
+ *
+ * @package    Onlyoffice_Docspace_Plugin
+ * @subpackage Onlyoffice_Docspace_Plugin/includes
+ * @author     Ascensio System SIA <integration@onlyoffice.com>
+ */
+class OODSP_Plugin {
 
-    public function __construct()
-    {
+	/**
+	 * The loader that's responsible for maintaining and registering all hooks that power
+	 * the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      OODSP_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 */
+	protected $loader;
 
-        $this->version = ONLYOFFICE_DOCSPACE_PLUGIN_VERSION;
-        $this->plugin_name = 'onlyoffice-docspace-plugin';
+	/**
+	 * The unique identifier of this plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
+	 */
+	protected $plugin_name;
 
-        $this->load_dependencies();
-        $this->set_locale();
-        $this->define_admin_hooks();
-        $this->define_public_hooks();
-        $this->init_ds_frame();
-        $this->init_settings();
-        $this->init_blocks();
-    }
+	/**
+	 * The current version of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      string    $version    The current version of the plugin.
+	 */
+	protected $version;
 
-    private function load_dependencies()
-    {
+	/**
+	 * Define the core functionality of the plugin.
+	 *
+	 * Set the plugin name and the plugin version that can be used throughout the plugin.
+	 * Load the dependencies, define the locale, and set the hooks for the admin area and
+	 * the public-facing side of the site.
+	 *
+	 * @since    1.0.0
+	 */
+	public function __construct() {
 
-        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/onlyoffice-docspace-loader.php';
-        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/onlyoffice-docspace-i18n.php';
-        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/onlyoffice-docspace-admin.php';
-        require_once plugin_dir_path(dirname(__FILE__)) . 'public/onlyoffice-docspace-public.php';
-        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/onlyoffice-docspace-settings.php';
-        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/users/onlyoffice-docspace-users-list-table.php';
+		$this->version     = ONLYOFFICE_DOCSPACE_PLUGIN_VERSION;
+		$this->plugin_name = 'onlyoffice-docspace-plugin';
 
-        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/onlyoffice-docspace-frame.php';
-        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/onlyoffice-docspace-wizard.php';
+		$this->load_dependencies();
+		$this->set_locale();
+		$this->define_admin_hooks();
+		$this->define_public_hooks();
+		$this->init_ds_frame();
+		$this->init_settings();
+		$this->init_blocks();
+	}
 
-        $this->loader = new OODSP_Loader();
-    }
+	/**
+	 * Load the required dependencies for this plugin.
+	 *
+	 * Create an instance of the loader which will be used to register the hooks
+	 * with WordPress.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function load_dependencies() {
 
-    private function set_locale()
-    {
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/onlyoffice-docspace-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/onlyoffice-docspace-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/onlyoffice-docspace-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/onlyoffice-docspace-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/onlyoffice-docspace-settings.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/users/onlyoffice-docspace-users-list-table.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/onlyoffice-docspace-frame.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/onlyoffice-docspace-wizard.php';
 
-        $plugin_i18n = new OODSP_i18n();
+		$this->loader = new OODSP_Loader();
+	}
 
-        $this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
-    }
+	/**
+	 * Define the locale for this plugin for internationalization.
+	 *
+	 * Uses the Onlyoffice_Plugin_I18n class in order to set the domain and to register the hook
+	 * with WordPress.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function set_locale() {
 
-    private function define_admin_hooks()
-    {
+		$plugin_i18n = new OODSP_i18n();
 
-        $plugin_admin = new OODSP_Admin($this->get_plugin_name(), $this->get_version());
+		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+	}
 
-        $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
-        $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
-    }
+	/**
+	 * Register all of the hooks related to the admin area functionality
+	 * of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_admin_hooks() {
 
-    private function define_public_hooks()
-    {
+		$plugin_admin = new OODSP_Admin( $this->get_plugin_name(), $this->get_version() );
 
-        $plugin_public = new OODSP_Public($this->get_plugin_name(), $this->get_version());
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+	}
 
-        $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
-        $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
+	/**
+	 * Register all of the hooks related to the public-facing functionality
+	 * of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_public_hooks() {
 
-        $this->loader->add_action('rest_api_init', $plugin_public, 'register_routes');
-    }
+		$plugin_public = new OODSP_Public( $this->get_plugin_name(), $this->get_version() );
 
-    private function init_ds_frame()
-    {
-        $plugin_ds_frame = new OODSP_DocSpace();
-        $this->loader->add_action('admin_menu', $plugin_ds_frame, 'init_menu');
-        $this->loader->add_action('wp_enqueue_scripts', $plugin_ds_frame, 'enqueue_scripts');
-        $this->loader->add_action('admin_enqueue_scripts', $plugin_ds_frame, 'enqueue_scripts');
-    }
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
-    private function init_settings()
-    {
-        $plugin_settings = new OODSP_Settings($this->get_plugin_name(), $this->get_version());
-        $plugin_wizard = new OODSP_Wizard();
+		$this->loader->add_action( 'rest_api_init', $plugin_public, 'register_routes' );
+	}
 
-        add_filter( 'set-screen-option', function( $status, $option, $value ){
-            error_log("dfewe32");
-            return ( $option == 'docspace_page_onlyoffice_docspace_settings_per_page' ) ? (int) $value : $status;
-        }, 10, 3 );
-        
-        $this->loader->add_action('admin_menu', $plugin_settings, 'init_menu');
-        $this->loader->add_action('admin_init', $plugin_settings, 'init');
+	/**
+	 * Init DocSpace page.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function init_ds_frame() {
+		$plugin_ds_frame = new OODSP_DocSpace();
+		$this->loader->add_action( 'admin_menu', $plugin_ds_frame, 'init_menu' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_ds_frame, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_ds_frame, 'enqueue_scripts' );
+	}
 
-        $this->loader->add_action('admin_menu', $plugin_wizard, 'init_menu');
-        $this->loader->add_action('admin_enqueue_scripts', $plugin_wizard, 'enqueue_scripts');
-    }
+	/**
+	 * Init DocSpace Settings page.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function init_settings() {
+		$plugin_settings = new OODSP_Settings( $this->get_plugin_name(), $this->get_version() );
+		$plugin_wizard   = new OODSP_Wizard();
 
-    private function init_blocks()
-    {
-        $this->loader->add_action('init', $this, 'register_block');
-    }
+		add_filter(
+			'set-screen-option',
+			function( $status, $option, $value ) {
+				return ( 'docspace_page_onlyoffice_docspace_settings_per_page' === $option ) ? (int) $value : $status;
+			},
+			10,
+			3
+		);
 
-    public function register_block()
-    {
-        register_block_type(__DIR__ . '/../onlyoffice-docspace-wordpress-block-viewer', array(
-            'description' => __('Add ONLYOFFICE DocSpace Viewer', 'onlyoffice-docspace-plugin')
-        ));
+		$this->loader->add_action( 'admin_menu', $plugin_settings, 'init_menu' );
+		$this->loader->add_action( 'admin_init', $plugin_settings, 'init' );
 
-        register_block_type(__DIR__ . '/../onlyoffice-docspace-wordpress-block-manager', array(
-            'description' => __('Add ONLYOFFICE DocSpace Manager', 'onlyoffice-docspace-plugin')
-        ));
+		$this->loader->add_action( 'admin_menu', $plugin_wizard, 'init_menu' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_wizard, 'enqueue_scripts' );
+	}
 
-        if (function_exists('wp_set_script_translations')) {
-            wp_set_script_translations('onlyoffice-docspace-plugin', 'onlyoffice-docspace-plugin');
-        }
-    }
+	/**
+	 * Add action to register the onlyoffice-docspace-wordpress-block-viewer and onlyoffice-docspace-wordpress-block-manager and its dependencies.
+	 */
+	private function init_blocks() {
+		$this->loader->add_action( 'init', $this, 'register_block' );
+	}
 
-    public function run()
-    {
-        $this->loader->run();
-    }
+	/**
+	 * Register the onlyoffice-docspace-wordpress-block-viewer and onlyoffice-docspace-wordpress-block-manager and its dependencies.
+	 */
+	public function register_block() {
+		register_block_type(
+			__DIR__ . '/../onlyoffice-docspace-wordpress-block-viewer',
+			array(
+				'description' => __( 'Add ONLYOFFICE DocSpace Viewer', 'onlyoffice-docspace-plugin' ),
+			)
+		);
 
-    public function get_plugin_name()
-    {
-        return $this->plugin_name;
-    }
+		register_block_type(
+			__DIR__ . '/../onlyoffice-docspace-wordpress-block-manager',
+			array(
+				'description' => __( 'Add ONLYOFFICE DocSpace Manager', 'onlyoffice-docspace-plugin' ),
+			)
+		);
 
-    public function get_loader()
-    {
-        return $this->loader;
-    }
+		if ( function_exists( 'wp_set_script_translations' ) ) {
+			wp_set_script_translations( 'onlyoffice-docspace-plugin', 'onlyoffice-docspace-plugin' );
+		}
+	}
 
-    public function get_version()
-    {
-        return $this->version;
-    }
+	/**
+	 * Run the loader to execute all of the hooks with WordPress.
+	 *
+	 * @since    1.0.0
+	 */
+	public function run() {
+		$this->loader->run();
+	}
+
+	/**
+	 * The name of the plugin used to uniquely identify it within the context of
+	 * WordPress and to define internationalization functionality.
+	 *
+	 * @since     1.0.0
+	 * @return    string    The name of the plugin.
+	 */
+	public function get_plugin_name() {
+		return $this->plugin_name;
+	}
+
+	/**
+	 * The reference to the class that orchestrates the hooks with the plugin.
+	 *
+	 * @since     1.0.0
+	 * @return    Onlyoffice_Plugin_Loader    Orchestrates the hooks of the plugin.
+	 */
+	public function get_loader() {
+		return $this->loader;
+	}
+
+	/**
+	 * Retrieve the version number of the plugin.
+	 *
+	 * @since     1.0.0
+	 * @return    string    The version number of the plugin.
+	 */
+	public function get_version() {
+		return $this->version;
+	}
 }

@@ -48,7 +48,7 @@ define( 'ONLYOFFICE_DOCSPACE_PLUGIN_VERSION', '1.0.0' );
  * The code that runs during plugin activation.
  */
 function activate_onlyoffice_docspace_plugin() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/onlyoffice-docspace-activator.php';
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-oodsp-activator.php';
 	OODSP_Activator::activate();
 }
 
@@ -57,14 +57,14 @@ function activate_onlyoffice_docspace_plugin() {
  * This action is documented in includes/class-onlyoffice-plugin-deactivator.php
  */
 function deactivate_onlyoffice_docspace_plugin() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/onlyoffice-docspace-deactivator.php';
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-oodsp-deactivator.php';
 	OODSP_Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_onlyoffice_docspace_plugin' );
 register_deactivation_hook( __FILE__, 'deactivate_onlyoffice_docspace_plugin' );
 
-require plugin_dir_path( __FILE__ ) . 'includes/onlyoffice-docspace-plugin.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-oodsp-plugin.php';
 
 
 /**
