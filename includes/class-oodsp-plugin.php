@@ -107,15 +107,14 @@ class OODSP_Plugin {
 	 * @access   private
 	 */
 	private function load_dependencies() {
-
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/onlyoffice-docspace-loader.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/onlyoffice-docspace-i18n.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/onlyoffice-docspace-admin.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/onlyoffice-docspace-public.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/onlyoffice-docspace-settings.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/users/onlyoffice-docspace-users-list-table.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/onlyoffice-docspace-frame.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/onlyoffice-docspace-wizard.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-oodsp-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/users/class-oodsp-users-list-table.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-docspace.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-settings.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-wizard.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-oodsp-public.php';
 
 		$this->loader = new OODSP_Loader();
 	}
@@ -131,7 +130,7 @@ class OODSP_Plugin {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new OODSP_i18n();
+		$plugin_i18n = new OODSP_I18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 	}
@@ -188,7 +187,7 @@ class OODSP_Plugin {
 	 * @access   private
 	 */
 	private function init_settings() {
-		$plugin_settings = new OODSP_Settings( $this->get_plugin_name(), $this->get_version() );
+		$plugin_settings = new OODSP_Settings();
 		$plugin_wizard   = new OODSP_Wizard();
 
 		add_filter(
@@ -261,7 +260,7 @@ class OODSP_Plugin {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    Onlyoffice_Plugin_Loader    Orchestrates the hooks of the plugin.
+	 * @return    OODSP_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;

@@ -77,7 +77,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-oodsp-plugin.php';
  * @since    1.0.0
  */
 function run_onlyoffice_docspace_plugin() {
-	$plugin = new OODSPlugin();
+	$plugin = new OODSP_Plugin();
 	$plugin->run();
 }
 run_onlyoffice_docspace_plugin();
