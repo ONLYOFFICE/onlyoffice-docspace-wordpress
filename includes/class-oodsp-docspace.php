@@ -34,7 +34,7 @@
  * This class defines code necessary displaying a page ONLYOFFICE DocSpace.
  *
  * @package    Onlyoffice_Docspace_Plugin
- * @subpackage Onlyoffice_Docspace_Plugin/includes/files
+ * @subpackage Onlyoffice_Docspace_Plugin/includes
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
 class OODSP_DocSpace {

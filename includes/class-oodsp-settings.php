@@ -186,6 +186,9 @@ class OODSP_Settings {
 
 	/**
 	 * General section callback.
+	 *
+	 * @global string $settings_updated
+	 * @global string $users
 	 */
 	public function options_page() {
 		$should_wizard = false;
@@ -194,7 +197,10 @@ class OODSP_Settings {
 			return;
 		}
 
-		if ( isset( $_GET['settings-updated'] ) ) {
+		global $settings_updated;
+		wp_reset_vars( array( 'settings_updated' ) );
+
+		if ( ! empty( $settings_updated ) && sanitize_key( $settings_updated ) === 'true' ) {
 			add_settings_error(
 				'onlyoffice_docspace_settings_messages',
 				'onlyoffice_docspace_message',
@@ -256,7 +262,7 @@ class OODSP_Settings {
 			$oodsp_users_list_table->prepare_items();
 			$total_pages = $oodsp_users_list_table->get_pagination_arg( 'total_pages' );
 			if ( $pagenum > $total_pages && $total_pages > 0 ) {
-				wp_redirect( add_query_arg( 'paged', $total_pages ) );
+				wp_safe_redirect( add_query_arg( 'paged', $total_pages ) );
 				exit;
 			}
 			?>
@@ -274,7 +280,8 @@ class OODSP_Settings {
 				if ( strlen( $usersearch ) ) {
 					echo '<span class="subtitle">';
 					printf(
-						__( 'Search results for: %s' ),
+						/* translators: %s: Search query. */
+						esc_html_e( 'Search results for: %s' ),
 						'<strong>' . esc_html( $usersearch ) . '</strong>'
 					);
 					echo '</span>';
