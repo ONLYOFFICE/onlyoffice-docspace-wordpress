@@ -47,8 +47,22 @@ const Edit = ({ attributes, setAttributes }) => {
     var init = false;
 
     const [isOpen, setOpen] = useState( false );
-    const openModal = () => {
+    const [title, setTitle] = useState( "" );
+    const openModal = (e) => {
+        console.log(e.target.id);
+        switch (e.target.id) {
+            case ("selectFile"):
+                setTitle( "Select file" );
+                break;
+            case ("selectRoom"):
+                setTitle( "Select room" );
+                break;
+            default:
+                setTitle( "Select file" );
+        }
+
         setOpen( true );
+
         DocSpaceComponent.initScript().then(function () {
             if (!window.DocSpace || init) return;
             init = true;
@@ -68,12 +82,14 @@ const Edit = ({ attributes, setAttributes }) => {
                 instructions="Pick room or media file from your DocSpace "
                 >
                 <Button
+                    id="selectRoom"
                     variant="primary"
                     onClick={ openModal }
                 >
                     { 'Select room' }
                 </Button>
                 <Button
+                    id="selectFile"
                     variant="primary"
                     onClick={ openModal }
                     >
@@ -81,7 +97,7 @@ const Edit = ({ attributes, setAttributes }) => {
                 </Button>
             </Placeholder>
             { isOpen && (
-                <Modal onRequestClose={ closeModal } title="DocSpace">
+                <Modal onRequestClose={ closeModal } title={ title }>
                     <div id={"ds-frame-" + attributes.frameId}>Fallback text</div>
                 </Modal>
             ) }
