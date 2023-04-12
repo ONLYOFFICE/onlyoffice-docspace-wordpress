@@ -22,9 +22,7 @@ import json from '../block.json';
 import edit from './edit';
 import save from './save';
 
-export const blockStyle = {
-    padding: '20px',
-};
+export const blockStyle = { };
 
 export const onlyofficeIcon = (
     <svg

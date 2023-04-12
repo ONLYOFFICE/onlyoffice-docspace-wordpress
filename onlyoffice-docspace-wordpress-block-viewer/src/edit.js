@@ -17,8 +17,9 @@
 */
 
 import { useBlockProps } from '@wordpress/block-editor';
+import { Button, Placeholder } from '@wordpress/components';
 import { useEffect } from '@wordpress/element';
-import { blockStyle } from "./index";
+import { blockStyle, onlyofficeIcon } from "./index";
 
 const Edit = ({ attributes, setAttributes }) => {
 
@@ -47,17 +48,40 @@ const Edit = ({ attributes, setAttributes }) => {
     var init = false;
 
     const script = async () => {
-        await DocSpaceComponent.initScript();
-        if (!window.DocSpace || init) return;
-        init = true;
-        DocSpace.initFrame(Object.assign({}, attributes.frameConfig, { mode: "fileSelector" }));
+        // await DocSpaceComponent.initScript();
+        // if (!window.DocSpace || init) return;
+        // init = true;
+        // DocSpace.initFrame(Object.assign({}, attributes.frameConfig, { mode: "fileSelector" }));
     };
 
-    useEffect(script);
+    useEffect(script, []);
 
     return (
         <div {...blockProps}>
-            <div id={"ds-frame-" + attributes.frameId}>Fallback text</div>
+
+            <Placeholder
+                icon={onlyofficeIcon} 
+                label="ONLYOFFICE DocSpace Viewer"
+                instructions="Pick room or media file from your DocSpace "
+                >
+                <Button
+                    variant="primary"
+                    onClick={ () => {
+                        open();
+                    } }
+                >
+                    { 'Select room' }
+                </Button>
+                <Button
+                    variant="primary"
+                    onClick={ () => {
+                    open();
+                    } }
+                    >
+                    { 'Select file' }
+                </Button>
+            </Placeholder>
+            {/* <div id={"ds-frame-" + attributes.frameId}>Fallback text</div> */}
         </div>
     );
 };
