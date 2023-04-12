@@ -17,8 +17,8 @@
 */
 
 import { useBlockProps } from '@wordpress/block-editor';
-import { Button, Placeholder } from '@wordpress/components';
-import { useEffect } from '@wordpress/element';
+import { Button, Placeholder, Modal } from '@wordpress/components';
+import { useState } from '@wordpress/element';
 import { blockStyle, onlyofficeIcon } from "./index";
 
 const Edit = ({ attributes, setAttributes }) => {
@@ -46,18 +46,22 @@ const Edit = ({ attributes, setAttributes }) => {
 
     var init = false;
 
-    const script = async () => {
-        // await DocSpaceComponent.initScript();
-        // if (!window.DocSpace || init) return;
-        // init = true;
-        // DocSpace.initFrame(attributes.frameConfig);
-    };
-
-    useEffect(script, []);
-
+    const [isOpen, setOpen] = useState( false );
+    const openModal = () => {
+        setOpen( true );
+        DocSpaceComponent.initScript().then(function () {
+            if (!window.DocSpace || init) return;
+            init = true;
+            DocSpace.initFrame(attributes.frameConfig)
+        });
+    }
+    const closeModal = (e) => {
+        if(e._reactName != "onBlur") {
+            setOpen( false );
+        }
+    }
     return (
         <div {...blockProps}>
-
             <Placeholder
                 icon={onlyofficeIcon} 
                 label="ONLYOFFICE DocSpace Manager"
@@ -65,22 +69,22 @@ const Edit = ({ attributes, setAttributes }) => {
                 >
                 <Button
                     variant="primary"
-                    onClick={ () => {
-                        open();
-                    } }
+                    onClick={ openModal }
                 >
                     { 'Select room' }
                 </Button>
                 <Button
                     variant="primary"
-                    onClick={ () => {
-                    open();
-                    } }
+                    onClick={ openModal }
                     >
                     { 'Select file' }
                 </Button>
             </Placeholder>
-            {/* <div id={"ds-frame-" + attributes.frameId}>Fallback text</div> */}
+            { isOpen && (
+                <Modal onRequestClose={ closeModal } title="DocSpace">
+                    <div id={"ds-frame-" + attributes.frameId}>Fallback text</div>
+                </Modal>
+            ) }
         </div>
     );
 };
