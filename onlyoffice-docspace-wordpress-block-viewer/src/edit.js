@@ -17,8 +17,9 @@
 */
 
 import { useBlockProps } from '@wordpress/block-editor';
-import { useEffect } from '@wordpress/element';
-import { blockStyle } from "./index";
+import { Button, Placeholder, Modal } from '@wordpress/components';
+import { useState } from '@wordpress/element';
+import { blockStyle, onlyofficeIcon } from "./index";
 
 const Edit = ({ attributes, setAttributes }) => {
 
@@ -45,19 +46,48 @@ const Edit = ({ attributes, setAttributes }) => {
     }
 
     var init = false;
-
-    const script = async () => {
-        await DocSpaceComponent.initScript();
-        if (!window.DocSpace || init) return;
-        init = true;
-        DocSpace.initFrame(Object.assign({}, attributes.frameConfig, { mode: "fileSelector" }));
-    };
-
-    useEffect(script);
+    
+    const [isOpen, setOpen] = useState( false );
+    const openModal = () => {
+        setOpen( true );
+        DocSpaceComponent.initScript().then(function () {
+            if (!window.DocSpace || init) return;
+            init = true;
+            DocSpace.initFrame(attributes.frameConfig)
+        });
+    }
+    const closeModal = (e) => {
+        if(e._reactName != "onBlur") {
+            setOpen( false );
+        }
+    }
 
     return (
         <div {...blockProps}>
-            <div id={"ds-frame-" + attributes.frameId}>Fallback text</div>
+
+            <Placeholder
+                icon={onlyofficeIcon} 
+                label="ONLYOFFICE DocSpace Viewer"
+                instructions="Pick room or media file from your DocSpace "
+                >
+                <Button
+                    variant="primary"
+                    onClick={ openModal }
+                >
+                    { 'Select room' }
+                </Button>
+                <Button
+                    variant="primary"
+                    onClick={ openModal }
+                    >
+                    { 'Select file' }
+                </Button>
+            </Placeholder>
+            { isOpen && (
+                <Modal onRequestClose={ closeModal } title="DocSpace">
+                    <div id={"ds-frame-" + attributes.frameId}>Fallback text</div>
+                </Modal>
+            ) }
         </div>
     );
 };

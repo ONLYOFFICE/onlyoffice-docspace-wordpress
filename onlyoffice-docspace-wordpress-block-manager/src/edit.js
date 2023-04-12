@@ -17,8 +17,9 @@
 */
 
 import { useBlockProps } from '@wordpress/block-editor';
-import { useEffect } from '@wordpress/element';
-import { blockStyle } from "./index";
+import { Button, Placeholder, Modal } from '@wordpress/components';
+import { useState } from '@wordpress/element';
+import { blockStyle, onlyofficeIcon } from "./index";
 
 const Edit = ({ attributes, setAttributes }) => {
 
@@ -45,18 +46,61 @@ const Edit = ({ attributes, setAttributes }) => {
 
     var init = false;
 
-    const script = async () => {
-        await DocSpaceComponent.initScript();
-        if (!window.DocSpace || init) return;
-        init = true;
-        DocSpace.initFrame(attributes.frameConfig);
-    };
+    const [isOpen, setOpen] = useState( false );
+    const [title, setTitle] = useState( "" );
+    const openModal = (e) => {
+        console.log(e.target.id);
+        switch (e.target.id) {
+            case ("selectFile"):
+                setTitle( "Select file" );
+                break;
+            case ("selectRoom"):
+                setTitle( "Select room" );
+                break;
+            default:
+                setTitle( "Select file" );
+        }
 
-    useEffect(script);
+        setOpen( true );
 
+        DocSpaceComponent.initScript().then(function () {
+            if (!window.DocSpace || init) return;
+            init = true;
+            DocSpace.initFrame(attributes.frameConfig)
+        });
+    }
+    const closeModal = (e) => {
+        if(e._reactName != "onBlur") {
+            setOpen( false );
+        }
+    }
     return (
         <div {...blockProps}>
-            <div id={"ds-frame-" + attributes.frameId}>Fallback text</div>
+            <Placeholder
+                icon={onlyofficeIcon} 
+                label="ONLYOFFICE DocSpace Manager"
+                instructions="Pick room or media file from your DocSpace "
+                >
+                <Button
+                    id="selectRoom"
+                    variant="primary"
+                    onClick={ openModal }
+                >
+                    { 'Select room' }
+                </Button>
+                <Button
+                    id="selectFile"
+                    variant="primary"
+                    onClick={ openModal }
+                    >
+                    { 'Select file' }
+                </Button>
+            </Placeholder>
+            { isOpen && (
+                <Modal onRequestClose={ closeModal } title={ title }>
+                    <div id={"ds-frame-" + attributes.frameId}>Fallback text</div>
+                </Modal>
+            ) }
         </div>
     );
 };
