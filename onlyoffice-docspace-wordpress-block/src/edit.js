@@ -78,7 +78,7 @@ const Edit = ({ attributes, setAttributes }) => {
         <div {...blockProps}>
             <Placeholder
                 icon={onlyofficeIcon} 
-                label="ONLYOFFICE DocSpace Manager"
+                label="ONLYOFFICE DocSpace"
                 instructions="Pick room or media file from your DocSpace "
                 >
                 <Button

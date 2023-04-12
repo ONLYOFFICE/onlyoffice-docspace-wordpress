@@ -1,8 +1,8 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 2,
-	"name": "onlyoffice-docspace/onlyoffice-wordpress-docspace-block-manager",
-	"title": "ONLYOFFICE DocSpace Manager",
+	"name": "onlyoffice-docspace/onlyoffice-wordpress-docspace-block",
+	"title": "ONLYOFFICE DocSpace",
 	"category": "media",
 	"editorScript": "file:./build/index.js",
 	"keywords": ["onlyoffice", "docspace"],

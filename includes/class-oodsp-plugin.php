@@ -207,20 +207,20 @@ class OODSP_Plugin {
 	}
 
 	/**
-	 * Add action to register the onlyoffice-docspace-wordpress-block-manager and its dependencies.
+	 * Add action to register the onlyoffice-docspace-wordpress-block and its dependencies.
 	 */
 	private function init_blocks() {
 		$this->loader->add_action( 'init', $this, 'register_block' );
 	}
 
 	/**
-	 * Register the onlyoffice-docspace-wordpress-block-manager and its dependencies.
+	 * Register the onlyoffice-docspace-wordpress-block and its dependencies.
 	 */
 	public function register_block() {
 		register_block_type(
-			__DIR__ . '/../onlyoffice-docspace-wordpress-block-manager',
+			__DIR__ . '/../onlyoffice-docspace-wordpress-block',
 			array(
-				'description' => __( 'Add ONLYOFFICE DocSpace Manager', 'onlyoffice-docspace-plugin' ),
+				'description' => __( 'Add ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ),
 			)
 		);
 
