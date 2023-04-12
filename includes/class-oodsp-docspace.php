@@ -99,7 +99,7 @@ class OODSP_DocSpace {
 	 */
 	public function add_docspace_js() {
 		$options    = get_option( 'onlyoffice_docspace_settings' );
-		$script_url = $options[ OODSP_Settings::DOCSPACE_URL ] . 'static/scripts/api.js?withSubfolders=true&showHeader=false&showTitle=true&showMenu=false&showFilter=false';
+		$script_url = $options[ OODSP_Settings::DOCSPACE_URL_TEMP ] . 'static/scripts/api.js?withSubfolders=true&showHeader=false&showTitle=true&showMenu=false&showFilter=false';
 		wp_enqueue_script( 'onlyoffice_docspace_sdk', $script_url, array(), ONLYOFFICE_DOCSPACE_PLUGIN_VERSION, false );
 	}
 
@@ -122,7 +122,7 @@ class OODSP_DocSpace {
 		wp_localize_script(
 			$this->plugin_name . '-ds-component-script',
 			'DocSpaceComponent',
-			array( 'docSpaceUrl' => $options[ OODSP_Settings::DOCSPACE_URL ] )
+			array( 'docSpaceUrl' => $options[ OODSP_Settings::DOCSPACE_URL_TEMP ] )
 		);
 	}
 
