@@ -1,5 +1,15 @@
 <?php
 /**
+ * List Table API: OODSP_Users_List_Table class
+ *
+ * @link       https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress
+ * @since      1.0.0
+ *
+ * @package    Onlyoffice_Docspace_Plugin
+ * @subpackage Onlyoffice_Docspace_Plugin/includes/users
+ */
+
+/**
  *
  * (c) Copyright Ascensio System SIA 2023
  *
@@ -18,15 +28,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
- if ( ! class_exists( 'WP_List_Table' ) ) {
+
+if ( ! class_exists( 'WP_List_Table' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
 
+/**
+ * Core class used to implement displaying users in a list table for the network admin.
+ *
+ * @package    Onlyoffice_Plugin
+ * @subpackage Onlyoffice_Plugin/includes/files
+ * @author     Ascensio System SIA <integration@onlyoffice.com>
+ */
 class OODSP_Users_List_Table extends WP_List_Table {
 	/**
 	 * Constructor.
-	 *
-	 * @since 3.1.0
 	 *
 	 * @see WP_List_Table::__construct() for more information on default arguments.
 	 *
@@ -41,22 +57,18 @@ class OODSP_Users_List_Table extends WP_List_Table {
 			)
 		);
 	}
-	
+
 	/**
 	 * Check the current user's permissions.
-	 *
-	 * @since 3.1.0
 	 *
 	 * @return bool
 	 */
 	public function ajax_user_can() {
 		return current_user_can( 'list_users' );
 	}
-	
+
 	/**
 	 * Prepare the users list for display.
-	 *
-	 * @since 3.1.0
 	 *
 	 * @global string $role
 	 * @global string $usersearch
@@ -93,17 +105,8 @@ class OODSP_Users_List_Table extends WP_List_Table {
 			$args['order'] = $_REQUEST['order'];
 		}
 
-		/**
-		 * Filters the query arguments used to retrieve users for the current users list table.
-		 *
-		 * @since 4.4.0
-		 *
-		 * @param array $args Arguments passed to WP_User_Query to retrieve items for the current
-		 *                    users list table.
-		 */
 		$args = apply_filters( 'users_list_table_query_args', $args );
 
-		// Query the user IDs for this page.
 		$wp_user_search = new WP_User_Query( $args );
 
 		$this->items = $wp_user_search->get_results();
@@ -122,17 +125,12 @@ class OODSP_Users_List_Table extends WP_List_Table {
 	 * @since 3.1.0
 	 */
 	public function no_items() {
-		_e( 'No users found.' );
+		esc_html_e( 'No users found.' );
 	}
-	
+
 	/**
 	 * Return an associative array listing all the views that can be used
 	 * with this table.
-	 *
-	 * Provides a list of roles and user count for that role for easy
-	 * Filtersing of the user table.
-	 *
-	 * @since 3.1.0
 	 *
 	 * @global string $role
 	 *
@@ -218,6 +216,11 @@ class OODSP_Users_List_Table extends WP_List_Table {
 		return $this->get_views_links( $role_links );
 	}
 
+	/**
+	 * Retrieve an associative array of bulk actions available on this table.
+	 *
+	 * @return array Array of bulk action labels keyed by their action.
+	 */
 	protected function get_bulk_actions() {
 		$actions = array();
 
@@ -226,32 +229,28 @@ class OODSP_Users_List_Table extends WP_List_Table {
 
 		return $actions;
 	}
-	
+
 	/**
 	 * Get a list of columns for the list table.
-	 *
-	 * @since 3.1.0
 	 *
 	 * @return string[] Array of column titles keyed by their column name.
 	 */
 	public function get_columns() {
 		$columns = array(
-			'cb'       => '<input type="checkbox" />',
-			'username' => __( 'Username' ),
-			'name'     => __( 'Name' ),
-			'email'    => __( 'Email' ),
-			'role'     => __( 'Role' ),
-			'in_docspace'     => __( 'In DocSpace' ),
-			'type_user_in_docspace' => __( 'Type' )
+			'cb'                    => '<input type="checkbox" />',
+			'username'              => __( 'Username' ),
+			'name'                  => __( 'Name' ),
+			'email'                 => __( 'Email' ),
+			'role'                  => __( 'Role' ),
+			'in_docspace'           => __( 'In DocSpace' ),
+			'type_user_in_docspace' => __( 'Type' ),
 		);
 
 		return $columns;
 	}
-	
+
 	/**
 	 * Get a list of sortable columns for the list table.
-	 *
-	 * @since 3.1.0
 	 *
 	 * @return array Array of sortable columns.
 	 */
@@ -266,28 +265,20 @@ class OODSP_Users_List_Table extends WP_List_Table {
 
 	/**
 	 * Generate the list table rows.
-	 *
-	 * @since 3.1.0
 	 */
 	public function display_rows() {
 		foreach ( $this->items as $userid => $user_object ) {
 			echo "\n\t" . $this->single_row( $user_object, '', '' );
 		}
 	}
-	
+
 	/**
-	 * Generate HTML for a single row on the users.php admin panel.
-	 *
-	 * @since 3.1.0
-	 * @since 4.2.0 The `$style` parameter was deprecated.
-	 * @since 4.4.0 The `$role` parameter was deprecated.
+	 * Generate HTML for a single row.
 	 *
 	 * @param WP_User $user_object The current user object.
-	 * @param string  $style       Deprecated. Not used.
-	 * @param string  $role        Deprecated. Not used.
 	 * @return string Output for a single row.
 	 */
-	public function single_row( $user_object, $style = '', $role = '' ) {
+	public function single_row( $user_object ) {
 		if ( ! ( $user_object instanceof WP_User ) ) {
 			$user_object = get_userdata( (int) $user_object );
 		}
@@ -382,14 +373,14 @@ class OODSP_Users_List_Table extends WP_List_Table {
 						$row .= esc_html( $roles_list );
 						break;
 					case 'in_docspace':
-						if ($email == "admin@mail.ru") {
+						if ( 'admin@mail.ru' === $email ) {
 							$row .= "<img src='" . esc_url( plugins_url( '../../public/images/done.svg', __FILE__ ) ) . "'/>";
 						} else {
 							$row .= "<img src='" . esc_url( plugins_url( '../../public/images/delete.svg', __FILE__ ) ) . "'/>";
 						}
 						break;
 					case 'type_user_in_docspace':
-						$row .= esc_html( "User" );
+						$row .= esc_html( 'User' );
 						break;
 					default:
 						/**
@@ -411,66 +402,69 @@ class OODSP_Users_List_Table extends WP_List_Table {
 		return $row;
 	}
 
-		/**
-		 * Gets the name of the default primary column.
-		 *
-		 * @since 4.3.0
-		 *
-		 * @return string Name of the default primary column, in this case, 'username'.
-		 */
-		protected function get_default_primary_column_name() {
-			return 'username';
+	/**
+	 * Gets the name of the default primary column.
+	 *
+	 * @return string Name of the default primary column, in this case, 'username'.
+	 */
+	protected function get_default_primary_column_name() {
+		return 'username';
+	}
+
+	/**
+	 * Returns an array of translated user role names for a given user object.
+	 *
+	 * @param WP_User $user_object The WP_User object.
+	 * @return string[] An array of user role names keyed by role.
+	 */
+	protected function get_role_list( $user_object ) {
+		$wp_roles = wp_roles();
+
+		$role_list = array();
+
+		foreach ( $user_object->roles as $role ) {
+			if ( isset( $wp_roles->role_names[ $role ] ) ) {
+				$role_list[ $role ] = translate_user_role( $wp_roles->role_names[ $role ] );
+			}
+		}
+
+		if ( empty( $role_list ) ) {
+			$role_list['none'] = _x( 'None', 'no user roles' );
 		}
 
 		/**
-		 * Returns an array of translated user role names for a given user object.
+		 * Filters the returned array of translated role names for a user.
 		 *
-		 * @since 4.4.0
-		 *
-		 * @param WP_User $user_object The WP_User object.
-		 * @return string[] An array of user role names keyed by role.
+		 * @param string[] $role_list   An array of translated user role names keyed by role.
+		 * @param WP_User  $user_object A WP_User object.
 		 */
-		protected function get_role_list( $user_object ) {
-			$wp_roles = wp_roles();
+		return apply_filters( 'get_role_list', $role_list, $user_object );
+	}
 
-			$role_list = array();
 
-			foreach ( $user_object->roles as $role ) {
-				if ( isset( $wp_roles->role_names[ $role ] ) ) {
-					$role_list[ $role ] = translate_user_role( $wp_roles->role_names[ $role ] );
-				}
-			}
+	/**
+	 * Displays the search box.
+	 *
+	 * @param string $text     The 'submit' button label.
+	 * @param string $input_id ID attribute value for the search input field.
+	 * @global string $s
+	 * @global string $page
+	 */
+	public function search_box( $text, $input_id ) {
+		global $s, $page;
+		wp_reset_vars( array( 's', 'page' ) );
 
-			if ( empty( $role_list ) ) {
-				$role_list['none'] = _x( 'None', 'no user roles' );
-			}
-
-			/**
-			 * Filters the returned array of translated role names for a user.
-			 *
-			 * @since 4.4.0
-			 *
-			 * @param string[] $role_list   An array of translated user role names keyed by role.
-			 * @param WP_User  $user_object A WP_User object.
-			 */
-			return apply_filters( 'get_role_list', $role_list, $user_object );
+		if ( empty( $s ) && ! $this->has_items() ) {
+			return;
 		}
 
-		public function search_box( $text, $input_id ) {
-			global $s, $page;
-			wp_reset_vars( array( 's', 'page' ) );
-
-			if ( empty( $s ) && ! $this->has_items() ) {
-				return;
-			}
-
-			if ( ! empty( $page ) ) {
-				echo '<input type="hidden" name="page" value="' . esc_attr( $page ) . '" />';
-				echo '<input type="hidden" name="users" value="true" />';
-			}
-	
-			parent::search_box( $text, $input_id );
-
+		if ( ! empty( $page ) ) {
+			echo '<input type="hidden" name="page" value="' . esc_attr( $page ) . '" />';
+			echo '<input type="hidden" name="users" value="true" />';
 		}
+
+		parent::search_box( $text, $input_id );
 
 	}
+
+}
