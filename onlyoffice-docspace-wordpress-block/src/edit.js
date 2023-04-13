@@ -30,9 +30,24 @@ const Edit = ({ attributes, setAttributes }) => {
     //     setAttributes({ frameId: DocSpaceComponent.generateId() });
     // }
 
-    // if (!attributes.frameConfig && attributes.frameId) {
-    //     setAttributes({
+    if (!attributes.frameId) {
+        setAttributes({ frameId: DocSpaceComponent.generateId() });
+    }
 
+    if (!attributes.frameConfig && attributes.frameId) {
+        setAttributes({
+            frameConfig: {
+                "height": "400px",
+                "frameId": "ds-frame-" + attributes.frameId,
+                "mode": "manager",
+                "showHeader": false,
+                "showTitle": true,
+                "showMenu": false,
+                "showFilter": false,
+                "showAction": false,
+            }
+        });
+    }
 
     var init = false;
 
@@ -55,9 +70,9 @@ const Edit = ({ attributes, setAttributes }) => {
 
          setOpen( true );
 
-        var frameConfig = {
+        var fc = {
             "width": attributes.width || "800px",
-            "frameId": "ds-frame-select",
+            "frameId": "ds-frame-" + attributes.frameId,
             "height": attributes.height || "800px",
             "mode": attributes.mode || "manager",
             "showHeader": attributes.showHeader,
@@ -67,12 +82,20 @@ const Edit = ({ attributes, setAttributes }) => {
             "showAction": attributes.showAction
         };
 
-        if (attributes.src)  frameConfig.src =attributes.src ;
-        if (attributes.rootPath)  frameConfig.rootPath =attributes.rootPath ;
+        if (attributes.src)  fc.src =attributes.src ;
+        if (attributes.rootPath)  fc.rootPath =attributes.rootPath ;
 
-        console.log(frameConfig);
+        setAttributes({
+            frameConfig: fc
+        });
+
+        fc.frameId="ds-frame-select";
+
+
+
+        console.log(fc);
         DocSpaceComponent.initScript().then(function(){
-            DocSpace.initFrame(frameConfig);
+            DocSpace.initFrame(fc);
 
         });
     }

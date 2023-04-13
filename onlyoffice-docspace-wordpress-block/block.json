@@ -12,13 +12,40 @@
 			"type": "object",
 			"default": null
 		},
+		"frameConfig": {
+			"type": "object",
+			"default": null
+		},
 		"frameId": {
 			"type": "string",
 			"default": null
 		},
-		"frameConfig": {
-			"type": "object",
+		"width":  {
+			"type": "string",
 			"default": null
+		},
+		"height":{
+			"type": "string",
+			"default": null
+		},
+		"mode": {
+			"type": "string",
+			"default": null
+		},
+		"showHeader": {
+			"type": "boolean"
+		},
+		"showTitle": {
+			"type": "boolean"
+		},
+		"showMenu": {
+			"type": "boolean"
+		},
+		"showFilter": {
+			"type": "boolean"
+		},
+		"showAction": {
+			"type": "boolean"
 		}
 	}
 }

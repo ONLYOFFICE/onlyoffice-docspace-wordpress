@@ -17,9 +17,11 @@
 */
 
 const Save = ({ attributes }) => {
+    var t = attributes.frameConfig;
+    t.frameId = "ds-frame-" + attributes.frameId;
     return (
         <div>
-            <div class="ds-frame-view" data-config={JSON.stringify(attributes.frameConfig)} id={"ds-frame-" + attributes.frameId}>Fallback text</div>
+            <div class="ds-frame-view" data-config={JSON.stringify(t)} id={"ds-frame-" + attributes.frameId}>Fallback text</div>
         </div>
     );
 };
