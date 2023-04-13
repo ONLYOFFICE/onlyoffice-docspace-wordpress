@@ -41,6 +41,20 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
 class OODSP_Users_List_Table extends WP_List_Table {
+
+	/**
+	 * The list docspace users.
+	 *
+	 */
+	private $docspace_users;
+
+
+	/**
+	 * The list docspace users.
+	 *
+	 */
+	private $is_connected_to_docspace = false;
+
 	/**
 	 * Constructor.
 	 *
@@ -117,6 +131,40 @@ class OODSP_Users_List_Table extends WP_List_Table {
 				'per_page'    => $users_per_page,
 			)
 		);
+
+		$options  = get_option( 'onlyoffice_docspace_settings' );
+
+		$res_auth = wp_remote_post(
+			$options[ OODSP_Settings::DOCSPACE_URL_TEMP ] . "api/2.0/authentication",
+			array(
+				'headers' => array('Content-Type' => 'application/json; charset=utf-8'),
+				'body'    => json_encode(
+					array(
+						'userName' => $options[ OODSP_Settings::DOCSPACE_LOGIN_TEMP ],
+						'password' => $options[ OODSP_Settings::DOCSPACE_PASSWORD_TMP ]
+					)
+				),
+				'method'  => 'POST'
+			)
+		);
+
+		if ( !is_wp_error( $res_auth ) && 200 === wp_remote_retrieve_response_code( $res_auth ) ) {
+			$data_auth = json_decode( wp_remote_retrieve_body( $res_auth ), true );
+
+			$token = $data_auth['response']['token'];
+
+			$res_users = wp_remote_get(
+				$options[ OODSP_Settings::DOCSPACE_URL_TEMP ] . "api/2.0/people",
+				array('cookies' => array('asc_auth_key' => $token)) 
+			);
+			
+			if ( !is_wp_error( $res_users ) && 200 === wp_remote_retrieve_response_code( $res_users ) ) {
+				$data_users = json_decode( wp_remote_retrieve_body( $res_users ), true );
+				
+				$this->docspace_users = $data_users['response'];
+				$this->is_connected_to_docspace = true;
+			}
+		}
 	}
 
 	/**
@@ -264,11 +312,31 @@ class OODSP_Users_List_Table extends WP_List_Table {
 	}
 
 	/**
+	 * Generates the tbody element for the list table.
+	 *
+	 */
+	public function display_rows_or_placeholder() {
+		if ( $this->has_items() ) {
+			if ($this->is_connected_to_docspace) {
+				$this->display_rows();
+			} else {
+				echo '<tr class="no-items"><td class="colspanchange" colspan="' . $this->get_column_count() . '">';
+				echo '<span>Error to connect DocSpace Server!</space>';
+				echo '</td></tr>';
+			}
+		} else {
+			echo '<tr class="no-items"><td class="colspanchange" colspan="' . $this->get_column_count() . '">';
+			$this->no_items();
+			echo '</td></tr>';
+		}
+	}
+
+	/**
 	 * Generate the list table rows.
 	 */
 	public function display_rows() {
 		foreach ( $this->items as $userid => $user_object ) {
-			echo "\n\t" . $this->single_row( $user_object, '', '' );
+			echo "\n\t" . $this->single_row( $user_object );
 		}
 	}
 
@@ -294,6 +362,14 @@ class OODSP_Users_List_Table extends WP_List_Table {
 		if ( is_multisite() && current_user_can( 'manage_network_users' ) ) {
 			if ( in_array( $user_object->user_login, get_super_admins(), true ) ) {
 				$super_admin = ' &mdash; ' . __( 'Super Admin' );
+			}
+		}
+
+		$user_docspace_status = -1;
+
+		for($i = 0; $i < count( $this->docspace_users ); ++$i) {
+			if( $this->docspace_users[$i]['email'] === $email) {
+				$user_docspace_status =$this->docspace_users[$i]['activationStatus'];
 			}
 		}
 
@@ -373,8 +449,10 @@ class OODSP_Users_List_Table extends WP_List_Table {
 						$row .= esc_html( $roles_list );
 						break;
 					case 'in_docspace':
-						if ( 'admin@mail.ru' === $email ) {
+						if ( $user_docspace_status == 0 ) {
 							$row .= "<img src='" . esc_url( plugins_url( '../../public/images/done.svg', __FILE__ ) ) . "'/>";
+						} else if ( $user_docspace_status == 2 ) {
+							$row .= "Invited";
 						} else {
 							$row .= "<img src='" . esc_url( plugins_url( '../../public/images/delete.svg', __FILE__ ) ) . "'/>";
 						}
