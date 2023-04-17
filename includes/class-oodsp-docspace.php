@@ -55,6 +55,13 @@ class OODSP_DocSpace {
 	private $version;
 
 	/**
+	 *
+	 * @access   private
+	 * @var      OODSP_Settings    $plugin_settings
+	 */
+	private $plugin_settings;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @param      string $plugin_name       The name of this plugin.
@@ -63,6 +70,7 @@ class OODSP_DocSpace {
 	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
+		$this->plugin_settings = new OODSP_Settings();
 	}
 
 	/**
@@ -98,8 +106,7 @@ class OODSP_DocSpace {
 	 * @return void
 	 */
 	public function add_docspace_js() {
-		$options    = get_option( 'onlyoffice_docspace_settings' );
-		$script_url = $options[ OODSP_Settings::DOCSPACE_URL_TEMP ] . 'static/scripts/api.js?withSubfolders=true&showHeader=false&showTitle=true&showMenu=false&showFilter=false';
+		$script_url = $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL) . 'static/scripts/api.js?withSubfolders=true&showHeader=false&showTitle=true&showMenu=false&showFilter=false';
 		wp_enqueue_script( 'onlyoffice_docspace_sdk', $script_url, array(), ONLYOFFICE_DOCSPACE_PLUGIN_VERSION, false );
 	}
 
@@ -117,12 +124,10 @@ class OODSP_DocSpace {
 			true
 		);
 
-		$options = get_option( 'onlyoffice_docspace_settings' );
-
 		wp_localize_script(
 			$this->plugin_name . '-ds-component-script',
 			'DocSpaceComponent',
-			array( 'docSpaceUrl' => $options[ OODSP_Settings::DOCSPACE_URL_TEMP ] )
+			array( 'docSpaceUrl' => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL) )
 		);
 	}
 

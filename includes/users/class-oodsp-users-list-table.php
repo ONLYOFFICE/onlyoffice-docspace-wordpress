@@ -56,6 +56,11 @@ class OODSP_Users_List_Table extends WP_List_Table {
 	private $is_connected_to_docspace = false;
 
 	/**
+	 *
+	 */
+	private $plugin_settings;
+
+	/**
 	 * Constructor.
 	 *
 	 * @see WP_List_Table::__construct() for more information on default arguments.
@@ -70,6 +75,8 @@ class OODSP_Users_List_Table extends WP_List_Table {
 				'screen'   => isset( $args['screen'] ) ? $args['screen'] : null,
 			)
 		);
+
+		$this->plugin_settings = new OODSP_Settings();
 	}
 
 	/**
@@ -132,16 +139,14 @@ class OODSP_Users_List_Table extends WP_List_Table {
 			)
 		);
 
-		$options  = get_option( 'onlyoffice_docspace_settings' );
-
 		$res_auth = wp_remote_post(
-			$options[ OODSP_Settings::DOCSPACE_URL_TEMP ] . "api/2.0/authentication",
+			$this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL) . "api/2.0/authentication",
 			array(
 				'headers' => array('Content-Type' => 'application/json; charset=utf-8'),
 				'body'    => json_encode(
 					array(
-						'userName' => $options[ OODSP_Settings::DOCSPACE_LOGIN_TEMP ],
-						'password' => $options[ OODSP_Settings::DOCSPACE_PASSWORD_TMP ]
+						'userName' => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_LOGIN),
+						'password' => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_PASS)
 					)
 				),
 				'method'  => 'POST'
@@ -154,7 +159,7 @@ class OODSP_Users_List_Table extends WP_List_Table {
 			$token = $data_auth['response']['token'];
 
 			$res_users = wp_remote_get(
-				$options[ OODSP_Settings::DOCSPACE_URL_TEMP ] . "api/2.0/people",
+				$this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL) . "api/2.0/people",
 				array('cookies' => array('asc_auth_key' => $token)) 
 			);
 			

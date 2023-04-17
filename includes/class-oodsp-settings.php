@@ -42,32 +42,17 @@ class OODSP_Settings {
 	/**
 	 * ID setting docspace_url.
 	 */
-	const DOCSPACE_URL = 'onlyoffice_settings_docspace_url';
-
-	/**
-	 * ID setting docspace_url_tmp.
-	 */
-	const DOCSPACE_URL_TEMP = 'onlyoffice_settings_docspace_url_temp';
+	const DOCSPACE_URL = 'docspace_url';
 
 	/**
 	 * ID setting docspace_login.
 	 */
-	const DOCSPACE_LOGIN = 'onlyoffice_settings_docspace_login';
-
-	/**
-	 * ID setting docspace_login_temp.
-	 */
-	const DOCSPACE_LOGIN_TEMP = 'onlyoffice_settings_docspace_login_temp';
+	const DOCSPACE_LOGIN = 'docspace_login';
 
 	/**
 	 * ID setting docspace_password.
 	 */
-	const DOCSPACE_PASSWORD = 'onlyoffice_settings_docspace_password';
-
-	/**
-	 * ID setting docspace_password_temp.
-	 */
-	const DOCSPACE_PASSWORD_TMP = 'onlyoffice_settings_docspace_password_temp';
+	const DOCSPACE_PASS = 'docspace_pass';
 
 	/**
 	 * Init menu.
@@ -81,16 +66,16 @@ class OODSP_Settings {
 			'Settings',
 			'manage_options',
 			'onlyoffice-docspace-settings',
-			array( $this, 'options_page' )
+			array( $this, 'do_get' )
 		);
 
-		global $_wp_http_referer;
-		wp_reset_vars( array( '_wp_http_referer' ) );
+		// global $_wp_http_referer;
+		// wp_reset_vars( array( '_wp_http_referer' ) );
 
-		 if ( ! empty( $_wp_http_referer ) && isset( $_SERVER['REQUEST_URI'] ) ) {
-			// 	wp_safe_redirect( remove_query_arg( array( '_wp_http_referer', '_wpnonce' ), esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) );
-			// 	exit;
-		 }
+		//  if ( ! empty( $_wp_http_referer ) && isset( $_SERVER['REQUEST_URI'] ) ) {
+		// 	// 	wp_safe_redirect( remove_query_arg( array( '_wp_http_referer', '_wpnonce' ), esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) );
+		// 	// 	exit;
+		//  }
 
 		add_action( "load-$hook", array( $this, 'add_docspace_users_table' ) );
 	}
@@ -101,6 +86,7 @@ class OODSP_Settings {
 	 * @return void
 	 */
 	public function add_docspace_users_table() {
+		$this->do_post();
 		add_screen_option( 'per_page' );
 		global $oodsp_users_list_table;
 		$oodsp_users_list_table = new OODSP_Users_List_Table();
@@ -112,62 +98,60 @@ class OODSP_Settings {
 	 * @return void
 	 */
 	public function init() {
-		register_setting( 'onlyoffice_docspace_settings_group', 'onlyoffice_docspace_settings' );
+		register_setting( 'onlyoffice_docspace_settings', 'onlyoffice_docspace_settings' );
 
 		add_settings_section(
-			'onlyoffice_docspace_settings_general_section',
-			'',
-			array( $this, 'general_section_callback' ),
-			'onlyoffice_docspace_settings_group'
+			'general',
+			__( 'Configure ONLYOFFICE DocSpace connector settings ', 'onlyoffce-docspace-plugin' ),
+			'__return_false',
+			'onlyoffice_docspace_settings'
 		);
 
 		add_settings_field(
-			self::DOCSPACE_URL_TEMP,
+			self::DOCSPACE_URL,
 			__( 'DocSpace Service Address', 'onlyoffce-docspace-plugin' ),
 			array( $this, 'input_cb' ),
-			'onlyoffice_docspace_settings_group',
-			'onlyoffice_docspace_settings_general_section',
+			'onlyoffice_docspace_settings',
+			'general',
 			array(
-				'id' => self::DOCSPACE_URL_TEMP,
+				'id' => self::DOCSPACE_URL,
 			)
 		);
 
 		add_settings_field(
-			self::DOCSPACE_LOGIN_TEMP,
+			self::DOCSPACE_LOGIN,
 			__( 'Login', 'onlyoffce-docspace-plugin' ),
 			array( $this, 'input_cb' ),
-			'onlyoffice_docspace_settings_group',
-			'onlyoffice_docspace_settings_general_section',
+			'onlyoffice_docspace_settings',
+			'general',
 			array(
-				'id' => self::DOCSPACE_LOGIN_TEMP,
+				'id' => self::DOCSPACE_LOGIN,
 			)
 		);
 
 		add_settings_field(
-			self::DOCSPACE_PASSWORD_TMP,
+			self::DOCSPACE_PASS,
 			__( 'Password', 'onlyoffce-docspace-plugin' ),
-			array( $this, 'input_cb' ),
-			'onlyoffice_docspace_settings_group',
-			'onlyoffice_docspace_settings_general_section',
+			array( $this, 'input_pass_cb' ),
+			'onlyoffice_docspace_settings',
+			'general',
 			array(
-				'id' => self::DOCSPACE_PASSWORD_TMP,
+				'id' => self::DOCSPACE_PASS,
 			)
 		);
 	}
 
-	// ToDo: callbacks are mostly the same, refactor!
+	public function enqueue_scripts() {
+		wp_enqueue_script( 'user-profile' );
+	}
 
-	/**
-	 * General section callback.
-	 *
-	 * @param array $args Args.
-	 *
-	 * @return void
-	 */
-	public function general_section_callback( $args ) {
-		?>
-		<p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Configure ONLYOFFICE DocSpace connector settings ', 'onlyoffce-docspace-plugin' ); ?></p>
-		<?php
+	public function get_onlyoffice_docspace_setting( $key, $default = "" ) {
+		$options = get_option( 'onlyoffice_docspace_settings' );
+		if (array_key_exists( $key ,$options )) {
+			return $options[$key];
+		}
+
+		return $default;
 	}
 
 	/**
@@ -178,54 +162,41 @@ class OODSP_Settings {
 	 * @return void
 	 */
 	public function input_cb( $args ) {
-		$options = get_option( 'onlyoffice_docspace_settings' );
+		$id = $args['id'];
+		echo '<input id="' . esc_attr ( $id ) . '" name="' . esc_attr ( $id ) . '" type="text" value="' . esc_attr( $this->get_onlyoffice_docspace_setting( $id ) ) . '" />';
+		echo '<p class="description"></p>';
+	}
+
+	public function input_pass_cb( $args ) {
+		$id = $args['id'];
 		?>
-		<input id="<?php echo esc_attr( $args['id'] ); ?>" type="text" name="onlyoffice_docspace_settings[<?php echo esc_attr( $args['id'] ); ?>]" value="<?php echo esc_attr( $options[ $args['id'] ] ); ?>">
+		<div class="login js">
+			<div class="user-pass-wrap">
+				<div class="wp-pwd">
+					<input type="password" id="user_pass" name="<?php echo esc_attr ( $id ) ?>" class="input password-input" value="" />
+					<button type="button" class="button button-secondary wp-hide-pw hide-if-no-js" data-toggle="0" aria-label="<?php esc_attr_e( 'Show password' ); ?>">
+						<span class="dashicons dashicons-visibility" aria-hidden="true"></span>
+					</button>
+				</div>
+			</div>
+		</div
 		<?php
 	}
 
-	/**
-	 * General section callback.
-	 *
-	 * @global string $settings_updated
-	 * @global string $users
-	 */
-	public function options_page() {
-		$should_wizard = false;
-
+	public function do_get () {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
-
-		global $settings_updated;
-		wp_reset_vars( array( 'settings_updated' ) );
-
-		if ( ! empty( $settings_updated ) && sanitize_key( $settings_updated ) === 'true' ) {
-			add_settings_error(
-				'onlyoffice_docspace_settings_messages',
-				'onlyoffice_docspace_message',
-				__( 'Settings Saved', 'onlyoffce-docspace-plugin' ),
-				'updated'
-			); // ToDo: can also check if settings are valid e.g. make connection to docServer!
-
-			$options = get_option( 'onlyoffice_docspace_settings' );
-			if ( $options[ self::DOCSPACE_URL_TEMP ] !== $options[ self::DOCSPACE_URL ]
-				|| $options[ self::DOCSPACE_LOGIN_TEMP ] !== $options[ self::DOCSPACE_LOGIN ]
-				|| $options[ self::DOCSPACE_PASSWORD_TMP ] !== $options[ self::DOCSPACE_PASSWORD ] ) {
-				$should_wizard = true;
-			}
-		}
-
-		settings_errors( 'onlyoffice_docspace_settings_messages' );
 
 		if ( ! isset( $_GET['users'] ) ) {
 			?>
 			<div class="wrap">
 				<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-				<form action="options.php" method="post">
+				<?php settings_errors(); ?>
+				<form action="admin.php?page=onlyoffice-docspace-settings" method="post">
 					<?php
-					settings_fields( 'onlyoffice_docspace_settings_group' );
-					do_settings_sections( 'onlyoffice_docspace_settings_group' );
+					settings_fields( 'onlyoffice_docspace_settings' );
+					do_settings_sections( 'onlyoffice_docspace_settings' );
 					submit_button( 'Save Settings' );
 					?>
 				</form>
@@ -242,10 +213,6 @@ class OODSP_Settings {
 					<?php submit_button( 'Sync Now', 'secondary', 'users', false, array( 'onclick' => 'location.href = location.href + "&users=true";' ) ); ?>
 				</p>
 			</div>
-
-			<?php if ( $should_wizard ) : ?>
-				<script><?php echo( "location.href = location.href.replace('onlyoffice-docspace-settings', 'onlyoffice-docspace-wizard');" ); ?></script>
-			<?php endif; ?>
 			<?php
 		} else {
 			global $oodsp_users_list_table;
@@ -310,5 +277,86 @@ class OODSP_Settings {
 			</div>
 			<?php
 		}
+	}
+
+	public function do_post () {
+		if ( isset( $_POST[self::DOCSPACE_URL] ) && isset( $_POST[self::DOCSPACE_LOGIN] ) && isset( $_POST[self::DOCSPACE_PASS] ) ) {
+			check_admin_referer( 'onlyoffice_docspace_settings-options' );
+			
+			$docspace_url = $this->prepare_value( $_POST[self::DOCSPACE_URL] );
+			$docspace_login = $this->prepare_value( $_POST[self::DOCSPACE_LOGIN] );
+			$docspace_pass = $this->prepare_value( $_POST[self::DOCSPACE_PASS] );
+
+			$this->auth_docspace( $docspace_url, $docspace_login, $docspace_pass );
+			
+			if ( ! get_settings_errors() ) {
+				$value = array(
+					self::DOCSPACE_URL   =>  $docspace_url,
+					self::DOCSPACE_LOGIN => $docspace_login, 
+					self::DOCSPACE_PASS  => $docspace_pass,
+				);
+	
+				update_option( 'onlyoffice_docspace_settings', $value );
+
+				add_settings_error( 'general', 'settings_updated', __( 'Settings Saved', 'onlyoffce-docspace-plugin' ), 'success' );
+			}
+		
+			set_transient( 'settings_errors', get_settings_errors(), 30 );
+
+			wp_safe_redirect( admin_url( 'admin.php?page=onlyoffice-docspace-settings&settings-updated=true' ) );
+			exit;
+		}
+	}
+
+	private function auth_docspace ( $docspace_url, $docspace_login, $docspace_pass ) {
+		$res_auth = wp_remote_post(
+			$docspace_url . "api/2.0/authentication",
+			array(
+				'headers' => array('Content-Type' => 'application/json; charset=utf-8'),
+				'body'    => json_encode(
+					array(
+						'userName' => $docspace_login,
+						'password' => $docspace_pass
+					)
+				),
+				'method'  => 'POST'
+			)
+		);
+
+		if ( is_wp_error( $res_auth ) || 200 !== wp_remote_retrieve_response_code( $res_auth ) ) {
+			add_settings_error( 'general', 'settings_updated', 'Invalid credentials. Please try again!' );
+			return;
+		}
+
+		$data_auth = json_decode( wp_remote_retrieve_body( $res_auth ), true );
+
+		$token = $data_auth['response']['token'];
+
+		$res_users = wp_remote_get(
+			$docspace_url . "api/2.0/people/email?email=" . $docspace_login,
+			array('cookies' => array('asc_auth_key' => $token)) 
+		);
+			
+		if ( is_wp_error( $res_users ) || 200 !== wp_remote_retrieve_response_code( $res_users ) ) {
+			add_settings_error( 'general', 'settings_updated', 'Error getting data user. Please try again!' );
+			return;
+		}
+
+		$data_users = json_decode( wp_remote_retrieve_body( $res_users ), true );
+		
+		$docspace_user = $data_users['response'];
+
+		if ( ! $docspace_user['isAdmin'] ) {
+			add_settings_error( 'general', 'settings_updated', 'Not Admin. Please try again!' );
+			return;
+		}
+	}
+
+	private function prepare_value ( $value ) {
+		if ( ! is_array( $value ) ) {
+			$value = trim( $value );
+		}
+		
+		return wp_unslash( $value );
 	}
 }

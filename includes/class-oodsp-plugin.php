@@ -188,7 +188,7 @@ class OODSP_Plugin {
 	 */
 	private function init_settings() {
 		$plugin_settings = new OODSP_Settings();
-		$plugin_wizard   = new OODSP_Wizard( $this->get_plugin_name(), $this->get_version() );
+		// $plugin_wizard   = new OODSP_Wizard( $this->get_plugin_name(), $this->get_version() );
 
 		add_filter(
 			'set-screen-option',
@@ -201,9 +201,9 @@ class OODSP_Plugin {
 
 		$this->loader->add_action( 'admin_menu', $plugin_settings, 'init_menu' );
 		$this->loader->add_action( 'admin_init', $plugin_settings, 'init' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_settings, 'enqueue_scripts' );
 
-		$this->loader->add_action( 'admin_menu', $plugin_wizard, 'init_menu' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_wizard, 'enqueue_scripts' );
+		// $this->loader->add_action( 'admin_menu', $plugin_wizard, 'init_menu' );
 	}
 
 	/**
