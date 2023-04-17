@@ -44,5 +44,23 @@ class OODSP_Activator {
 	 *
 	 * @since    1.0.0
 	 */
-	public static function activate() { }
+	public static function activate() { 
+		global $wpdb;
+
+		$charset_collate = $wpdb->get_charset_collate();
+
+		$sql = "CREATE TABLE IF NOT EXISTS `{$wpdb->base_prefix}docspace_users` (
+		id bigint(50) NOT NULL AUTO_INCREMENT,
+		user_id bigint(20) UNSIGNED NOT NULL,
+		user_pass varchar(225),
+		PRIMARY KEY (id),
+		FOREIGN KEY (user_id) REFERENCES wp_users(ID)
+		) $charset_collate;";
+
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+		dbDelta( $sql );
+		$is_error = empty( $wpdb->last_error );
+		return $is_error;
+	}
+
 }

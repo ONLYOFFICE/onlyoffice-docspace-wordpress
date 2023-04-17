@@ -90,6 +90,40 @@ class OODSP_Settings {
 		add_screen_option( 'per_page' );
 		global $oodsp_users_list_table;
 		$oodsp_users_list_table = new OODSP_Users_List_Table();
+
+		if ( isset( $_REQUEST['wp_http_referer'] ) ) {
+			$redirect = remove_query_arg( array( 'wp_http_referer', 'updated', 'delete_count' ), wp_unslash( $_REQUEST['wp_http_referer'] ) );
+		} else {
+			$redirect = 'admin.php?page=onlyoffice-docspace-settings&users=true';
+		}
+
+		switch ( $oodsp_users_list_table->current_action() ) {
+			case 'invite':
+				check_admin_referer( 'bulk-users' );
+
+				
+				if ( empty( $_REQUEST['users'] ) ) {
+					wp_redirect( $redirect );
+					exit;
+				}
+
+
+				$userids = array_map( 'intval', (array) $_REQUEST['users'] );
+
+				error_log( print_r($userids, true));
+				foreach ( $userids as $id ) {
+					$data = array( 
+						'user_id' => $id,
+						'user_pass' => md5(wp_generate_password( 18 ))
+					);
+
+					global $wpdb;
+					$wpdb->insert( $wpdb->prefix . 'docspace_users', $data );
+				}
+
+				wp_redirect( $redirect );
+				exit;
+		}
 	}
 
 	/**
