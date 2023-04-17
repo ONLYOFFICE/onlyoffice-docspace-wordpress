@@ -1,12 +1,11 @@
 <?php
 /**
- * The admin-specific functionality of the plugin.
+ * Controller init ONLYOFFICE Docspace.
  *
  * @link       https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress
- * @since      1.0.0
  *
  * @package    Onlyoffice_Docspace_Plugin
- * @subpackage Onlyoffice_Docspace_Plugin/admin
+ * @subpackage Onlyoffice_Docspace_Plugin/controllers
  */
 
 /**
@@ -28,23 +27,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 /**
- * The admin-specific functionality of the plugin.
- *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the admin-specific stylesheet and JavaScript.
+ * Controller init ONLYOFFICE Docspace.
  *
  * @package    Onlyoffice_Docspace_Plugin
- * @subpackage Onlyoffice_Docspace_Plugin/admin
+ * @subpackage Onlyoffice_Docspace_Plugin/controllers
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
-final class OODSP_Admin {
-
+class OODSP_Frontend_Controller {
 	/**
 	 * The ID of this plugin.
 	 *
-	 * @since    1.0.0
 	 * @access   private
 	 * @var      string    $plugin_name    The ID of this plugin.
 	 */
@@ -53,7 +46,6 @@ final class OODSP_Admin {
 	/**
 	 * The version of this plugin.
 	 *
-	 * @since    1.0.0
 	 * @access   private
 	 * @var      string    $version    The current version of this plugin.
 	 */
@@ -69,31 +61,69 @@ final class OODSP_Admin {
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since    1.0.0
 	 * @param      string $plugin_name       The name of this plugin.
 	 * @param      string $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
-
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 		$this->plugin_settings = new OODSP_Settings();
 	}
 
 	/**
-	 * Register the stylesheets for the admin area.
-	 *
-	 * @since    1.0.0
+	 * Register ONLYOFFICE Docspace Shortcodes.
 	 */
-	public function enqueue_styles() { }
-
+	public function init_shortcodes() {
+		add_shortcode( 'onlyoffice-docspace', array( $this, 'wp_onlyoffice_shortcode' ) );
+	}
 
 	/**
-	 * Register the JavaScript for the admin area.
-	 *
-	 * @since    1.0.0
+	 * Register the onlyoffice-wordpress-block and its dependencies.
 	 */
-	public function enqueue_scripts() {
+	public function onlyoffice_custom_block() {
+		register_block_type(
+			__DIR__ . '/../onlyoffice-docspace-wordpress-block',
+			array(
+				'description' => __( 'Add ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ),
+				'render_callback' => array( $this, 'docspace_block_render_callback' ),
+			),
+		);
+
+		if ( function_exists( 'wp_set_script_translations' ) ) {
+			wp_set_script_translations( 'onlyoffice-docspace-plugin', 'onlyoffice-docspace-plugin' );
+		}
+	}
+
+	/**
+	 * Callback function for rendering the onlyoffice-wordpress-block.
+	 *
+	 * @param array $block_attributes List of attributes that where included in the block settings.
+	 * @return string Resulting HTML code for the table.
+	 */
+	public function docspace_block_render_callback ( array $block_attributes ) {
+		if ( $block_attributes ) {
+			return;
+		}
+
+		return $this->wp_onlyoffice_docspace_shortcode( $block_attributes );
+	}
+
+	/**
+	 * Handle Shortcode [onlyoffice /].
+	 *
+	 * @param array $attr List of attributes that where included in the Shortcode.
+	 * @return string Resulting HTML code.
+	 */
+	public function wp_onlyoffice_docspace_shortcode( $attr ) {
+		static $instance = 0;
+		$instance++;
+
+		$defaults_atts = array(
+			'frameId' => 'ds-frame-' . $instance,
+		);
+
+		$atts = shortcode_atts( $defaults_atts, $attr, 'onlyoffice-docspace' );
+
 		wp_enqueue_script(
 			$this->plugin_name . '-ds-component-script',
 			plugin_dir_url( __FILE__ ) . '../public/js/docspace-components-api.js',
@@ -107,5 +137,12 @@ final class OODSP_Admin {
 			'DocSpaceComponent',
 			array( 'docSpaceUrl' => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL) )
 		);
+
+		$output  = '<div>';
+		$output .= '<div class="ds-frame-view" data-config="' . wp_json_encode( $atts ) . '" id="ds-frame-' . $instance . '">Fallback text</div>';
+		$output .= '</div>';
+
+		return apply_filters( 'wp_onlyoffice_docspace_shortcode', $output, $atts );
 	}
+
 }

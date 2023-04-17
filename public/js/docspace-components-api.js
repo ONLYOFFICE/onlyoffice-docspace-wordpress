@@ -4,14 +4,14 @@
     var scriptTag = null;
     window.DocSpaceComponent.initScript = function () {
         return new Promise((res) => {
-            if (window.DocSpace || scriptTag) res();
+            if (window.DocSpace || scriptTag) return res();
             scriptTag = document.createElement("script");
             scriptTag.src = DocSpaceComponent.docSpaceUrl + "static/scripts/api.js";
             scriptTag.async = true;
             document.body.appendChild(scriptTag);
 
             scriptTag.addEventListener('load', () => {
-                res();
+                return res();
             })
         });
     };

@@ -94,7 +94,6 @@ class OODSP_Plugin {
 		$this->define_public_hooks();
 		$this->init_ds_frame();
 		$this->init_settings();
-		$this->init_blocks();
 	}
 
 	/**
@@ -108,6 +107,7 @@ class OODSP_Plugin {
 	 */
 	private function load_dependencies() {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-oodsp-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'controllers/class-oodsp-frontend-controller.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/users/class-oodsp-users-list-table.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-docspace.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-i18n.php';
@@ -178,6 +178,10 @@ class OODSP_Plugin {
 		$this->loader->add_action( 'admin_menu', $plugin_ds_frame, 'init_menu' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_ds_frame, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_ds_frame, 'enqueue_scripts' );
+
+		$OODSP_frontend_controller = new OODSP_Frontend_Controller( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_action( 'init', $OODSP_frontend_controller, 'init_shortcodes' );
+		$this->loader->add_action( 'init', $OODSP_frontend_controller, 'onlyoffice_custom_block' );
 	}
 
 	/**
@@ -204,29 +208,6 @@ class OODSP_Plugin {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_settings, 'enqueue_scripts' );
 
 		// $this->loader->add_action( 'admin_menu', $plugin_wizard, 'init_menu' );
-	}
-
-	/**
-	 * Add action to register the onlyoffice-docspace-wordpress-block and its dependencies.
-	 */
-	private function init_blocks() {
-		$this->loader->add_action( 'init', $this, 'register_block' );
-	}
-
-	/**
-	 * Register the onlyoffice-docspace-wordpress-block and its dependencies.
-	 */
-	public function register_block() {
-		register_block_type(
-			__DIR__ . '/../onlyoffice-docspace-wordpress-block',
-			array(
-				'description' => __( 'Add ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ),
-			)
-		);
-
-		if ( function_exists( 'wp_set_script_translations' ) ) {
-			wp_set_script_translations( 'onlyoffice-docspace-plugin', 'onlyoffice-docspace-plugin' );
-		}
 	}
 
 	/**

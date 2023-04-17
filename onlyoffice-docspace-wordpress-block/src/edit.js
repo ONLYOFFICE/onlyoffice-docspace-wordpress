@@ -19,91 +19,50 @@
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { CheckboxControl, Button, Placeholder, Modal,    PanelBody,
     __experimentalInputControl as InputControl } from '@wordpress/components';
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 import { blockStyle, onlyofficeIcon } from "./index";
 
 const Edit = ({ attributes, setAttributes }) => {
-
     const blockProps = useBlockProps({ style: blockStyle });
-
-    // if (!attributes.frameId) {
-    //     setAttributes({ frameId: DocSpaceComponent.generateId() });
-    // }
-
-    if (!attributes.frameId) {
-        setAttributes({ frameId: DocSpaceComponent.generateId() });
-    }
-
-    if (!attributes.frameConfig && attributes.frameId) {
-        setAttributes({
-            frameConfig: {
-                "height": "400px",
-                "frameId": "ds-frame-" + attributes.frameId,
-                "mode": "manager",
-                "showHeader": false,
-                "showTitle": true,
-                "showMenu": false,
-                "showFilter": false,
-                "showAction": false,
-            }
-        });
-    }
-
-    var init = false;
-
-    DocSpaceComponent.initScript();
-
     const [isOpen, setOpen] = useState( false );
     const [title, setTitle] = useState( "" );
+
+    useEffect(DocSpaceComponent.initScript, []);
+
     const openModal = (e) => {
-        console.log(e.target.id);
+        var config = {
+            "frameId": "ds-frame-select",
+            "height": "400px",
+            "mode": "viewer"
+        };
+
         switch (e.target.id) {
             case ("selectFile"):
                 setTitle( "Select file" );
+                config.mode = "viewer";
                 break;
             case ("selectRoom"):
                 setTitle( "Select room" );
+                config.mode = "manager";
                 break;
             default:
                 setTitle( "Select file" );
         }
 
-         setOpen( true );
-
-        var fc = {
-            "width": attributes.width || "800px",
-            "frameId": "ds-frame-" + attributes.frameId,
-            "height": attributes.height || "800px",
-            "mode": attributes.mode || "manager",
-            "showHeader": attributes.showHeader,
-            "showTitle": attributes.showTitle,
-            "showMenu": attributes.showMenu,
-            "showFilter": attributes.showFilter,
-            "showAction": attributes.showAction
-        };
-
-        if (attributes.src)  fc.src =attributes.src ;
-        if (attributes.rootPath)  fc.rootPath =attributes.rootPath ;
-
-        setAttributes({
-            frameConfig: fc
+        DocSpaceComponent.initScript().then(function() {
+            DocSpace.initFrame(config);
         });
 
-        fc.frameId="ds-frame-select";
-
-
-
-        console.log(fc);
-        DocSpaceComponent.initScript().then(function(){
-            DocSpace.initFrame(fc);
-
-        });
+        setOpen( true );
     }
+
     const closeModal = (e) => {
         if(e._reactName != "onBlur") {
+            DocSpace.destroyFrame();
             setOpen( false );
         }
     }
+
     return (
         <div {...blockProps}>
             <InspectorControls key="setting">

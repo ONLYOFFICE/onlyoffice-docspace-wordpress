@@ -16,13 +16,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+import { RawHTML } from '@wordpress/element';
+
 const Save = ({ attributes }) => {
-    var t = attributes.frameConfig;
-    t.frameId = "ds-frame-" + attributes.frameId;
-    return (
-        <div>
-            <div class="ds-frame-view" data-config={JSON.stringify(t)} id={"ds-frame-" + attributes.frameId}>Fallback text</div>
-        </div>
-    );
+    return <RawHTML>{ `[onlyoffice-docspace  /]` }</RawHTML>;
 };
 export default Save;
