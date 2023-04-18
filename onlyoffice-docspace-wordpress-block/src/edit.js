@@ -41,6 +41,7 @@ const Edit = ({ attributes, setAttributes }) => {
     const openModal = (e) => {
         var docspaceConfig = {
             "frameId": "ds-frame-select",
+            "width": "400px",
             "height": "500px",
             "mode": e.target.dataset.mode || null
         };
