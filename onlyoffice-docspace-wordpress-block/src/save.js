@@ -19,6 +19,40 @@
 import { RawHTML } from '@wordpress/element';
 
 const Save = ({ attributes }) => {
-    return <RawHTML>{ `[onlyoffice-docspace  /]` }</RawHTML>;
+    if ( !attributes.fileId ) {
+        return '';
+    }
+
+    let parameters = '';
+
+    if ( attributes.hasOwnProperty('width') ) {
+        parameters += 'width=' + attributes.width + ' ';
+    }
+
+    if ( attributes.hasOwnProperty('height') ) {
+        parameters += 'height=' + attributes.height + ' ';
+    }
+
+    if ( attributes.hasOwnProperty('showHeader') ) {
+        parameters += 'showHeader=' + attributes.showHeader + ' ';
+    }
+
+    if ( attributes.hasOwnProperty('showTitle') ) {
+        parameters += 'showTitle=' + attributes.showTitle + ' ';
+    }
+
+    if ( attributes.hasOwnProperty('showMenu') ) {
+        parameters += 'showMenu=' + attributes.showMenu + ' ';
+    }
+
+    if ( attributes.hasOwnProperty('showFilter') ) {
+        parameters += 'showFilter=' + attributes.showFilter + ' ';
+    }
+
+    if ( attributes.hasOwnProperty('showAction') ) {
+        parameters += 'showAction=' + attributes.showAction + ' ';
+    }
+
+    return <RawHTML>{ `[onlyoffice-docspace fileId=${ attributes.fileId } ${ parameters } /]` }</RawHTML>;
 };
 export default Save;

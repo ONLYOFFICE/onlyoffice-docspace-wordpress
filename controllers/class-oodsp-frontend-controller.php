@@ -101,7 +101,7 @@ class OODSP_Frontend_Controller {
 	 * @return string Resulting HTML code for the table.
 	 */
 	public function docspace_block_render_callback ( array $block_attributes ) {
-		if ( $block_attributes ) {
+		if ( !$block_attributes ) {
 			return;
 		}
 
@@ -120,6 +120,10 @@ class OODSP_Frontend_Controller {
 
 		$defaults_atts = array(
 			'frameId' => 'ds-frame-' . $instance,
+			'width'   => "100%",
+			'height'   => "100%",
+			'mode'   => "viewer",
+			'fileId'   => null,
 		);
 
 		$atts = shortcode_atts( $defaults_atts, $attr, 'onlyoffice-docspace' );
@@ -139,7 +143,7 @@ class OODSP_Frontend_Controller {
 		);
 
 		$output  = '<div>';
-		$output .= '<div class="ds-frame-view" data-config="' . wp_json_encode( $atts ) . '" id="ds-frame-' . $instance . '">Fallback text</div>';
+		$output .= "<div class='ds-frame-view' data-config='" . wp_json_encode( $atts ) . "' id='ds-frame-". $instance . "'>Fallback text</div>";
 		$output .= '</div>';
 
 		return apply_filters( 'wp_onlyoffice_docspace_shortcode', $output, $atts );

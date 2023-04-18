@@ -31,6 +31,7 @@
         var frames = document.getElementsByClassName("ds-frame-view");
 
         for (var frame of frames) {
+            console.log(JSON.parse(frame.dataset.config));
             DocSpaceComponent.init(JSON.parse(frame.dataset.config));
         }
     });

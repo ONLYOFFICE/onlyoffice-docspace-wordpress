@@ -1,7 +1,7 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 2,
-	"name": "onlyoffice-docspace/onlyoffice-wordpress-docspace-block",
+	"name": "onlyoffice-docspace/onlyoffice-docspace",
 	"title": "ONLYOFFICE DocSpace",
 	"category": "media",
 	"editorScript": "file:./build/index.js",
@@ -9,29 +9,17 @@
 	"keywords": ["onlyoffice", "docspace"],
 	"textdomain": "onlyoffice-docspace-plugin",
 	"attributes": {
-		"selectedAttachment": {
-			"type": "object",
-			"default": null
+		"fileId": {
+			"type": "number"
 		},
-		"frameConfig": {
-			"type": "object",
-			"default": null
-		},
-		"frameId": {
-			"type": "string",
-			"default": null
+		"fileName": {
+			"type": "string"
 		},
 		"width":  {
-			"type": "string",
-			"default": null
+			"type": "string"
 		},
 		"height":{
-			"type": "string",
-			"default": null
-		},
-		"mode": {
-			"type": "string",
-			"default": null
+			"type": "string"
 		},
 		"showHeader": {
 			"type": "boolean"

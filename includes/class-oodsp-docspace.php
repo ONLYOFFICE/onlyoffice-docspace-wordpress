@@ -116,19 +116,6 @@ class OODSP_DocSpace {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
-		// wp_enqueue_script(
-		// 	$this->plugin_name . '-ds-component-script',
-		// 	plugin_dir_url( __FILE__ ) . '../public/js/docspace-components-api.js',
-		// 	array( 'jquery' ),
-		// 	ONLYOFFICE_DOCSPACE_PLUGIN_VERSION,
-		// 	true
-		// );
-
-		// wp_localize_script(
-		// 	$this->plugin_name . '-ds-component-script',
-		// 	'DocSpaceComponent',
-		// 	array( 'docSpaceUrl' => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL) )
-		// );
 	}
 
 	/**

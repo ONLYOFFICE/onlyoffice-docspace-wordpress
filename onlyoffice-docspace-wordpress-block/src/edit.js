@@ -16,8 +16,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { CheckboxControl, Button, Placeholder, Modal,    PanelBody,
+import { useBlockProps, InspectorControls, HeightControl } from '@wordpress/block-editor';
+import { CheckboxControl, Button, Placeholder, Modal, PanelBody,
     __experimentalInputControl as InputControl } from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
 import { blockStyle, onlyofficeIcon } from "./index";
@@ -57,52 +57,61 @@ const Edit = ({ attributes, setAttributes }) => {
     const closeModal = (e) => {
         if(e._reactName != "onBlur") {
             setOpen( false );
+            setAttributes({ fileId: 1 });
         }
     }
 
     return (
         <div {...blockProps}>
-            <InspectorControls key="setting">
-                    <PanelBody title={ 'Settings' }>
-                        <InputControl label={' Width' } value={attributes.width} onChange={ ( value ) => setAttributes({ width: value }) } />
-                        <InputControl label={ 'Height' } value={attributes.height} onChange={ ( value ) => setAttributes({ height: value }) } />
-                        <InputControl label={ 'src' } value={attributes.src} onChange={ ( value ) => setAttributes({ src: value }) } />
-                        <InputControl label={ 'rootPath' } value={attributes.rootPath} onChange={ ( value ) => setAttributes({ rootPath: value }) } />
-                        <InputControl label={ 'mode' } value={attributes.mode} onChange={ ( value ) => setAttributes({ mode: value }) } />
-                        <CheckboxControl label={ 'showHeader' } checked={attributes.showHeader} onChange={ ( value ) => setAttributes({ showHeader: value }) } />
-                        <CheckboxControl label={ 'showTitle' } checked={attributes.showTitle} onChange={ ( value ) => setAttributes({ showTitle: value }) } />
-                        <CheckboxControl label={ 'showMenu' } checked={attributes.showMenu} onChange={ ( value ) => setAttributes({ showMenu: value }) } />
-                        <CheckboxControl label={ 'showFilter' } checked={attributes.showFilter} onChange={ ( value ) => setAttributes({ showFilter: value }) } />
-                        <CheckboxControl label={ 'showAction' } checked={attributes.showAction} onChange={ ( value ) => setAttributes({ showAction: value }) } />
-                    </PanelBody>
-            </InspectorControls>
-            <Placeholder
-                icon={onlyofficeIcon} 
-                label="ONLYOFFICE DocSpace"
-                instructions="Pick room or media file from your DocSpace "
-                >
-                <Button
-                    variant="primary"
-                    data-title="Select room"
-                    data-mode="room selector"
-                    onClick={ openModal }
-                >
-                    { 'Select room' }
-                </Button>
-                <Button
-                    variant="primary"
-                    data-title="Select file"
-                    data-mode="manager"
-                    onClick={ openModal }
+            {attributes.fileId ?
+                <div>
+                    <InspectorControls key="setting">
+                        <PanelBody title={ 'Settings' }>
+                            <HeightControl label={ 'Width' } value={attributes.width} onChange={ ( value ) => setAttributes({ width: value }) }/>
+                            <HeightControl label={ 'Height' } value={attributes.height} onChange={ ( value ) => setAttributes({ height: value }) }/>
+                            <CheckboxControl label={ 'Left menu' } checked={attributes.showMenu} onChange={ ( value ) => setAttributes({ showMenu: value }) } />
+                            <CheckboxControl label={ 'Navigation and Title' } checked={attributes.showTitle} onChange={ ( value ) => setAttributes({ showTitle: value }) } />
+                            <CheckboxControl label={ 'Action button' } checked={attributes.showAction} onChange={ ( value ) => setAttributes({ showAction: value }) } />
+                            <CheckboxControl label={ 'Search, Filter and Sort' } checked={attributes.showFilter} onChange={ ( value ) => setAttributes({ showFilter: value }) } />
+                            <CheckboxControl label={ 'Header' } checked={attributes.showHeader} onChange={ ( value ) => setAttributes({ showHeader: value }) } />
+                        </PanelBody>
+                    </InspectorControls>
+                    <p style={{display: 'flex'}}>
+                    {onlyofficeIcon}
+                    <p style={{marginLeft: '25px'}}> {attributes.fileName || ""}</p>
+                </p>
+                </div>
+            :
+            <div>
+                <Placeholder
+                    icon={onlyofficeIcon} 
+                    label="ONLYOFFICE DocSpace"
+                    instructions="Pick room or media file from your DocSpace "
                     >
-                    { 'Select file' }
-                </Button>
-            </Placeholder>
-            { isOpen && (
-                <Modal onRequestClose={ closeModal } title={ modalConfig.title }>
-                    <div id="ds-frame-select">Fallback text</div>
-                </Modal>
-            ) }
+                    <Button
+                        variant="primary"
+                        data-title="Select room"
+                        data-mode="room selector"
+                        onClick={ openModal }
+                    >
+                        { 'Select room' }
+                    </Button>
+                    <Button
+                        variant="primary"
+                        data-title="Select file"
+                        data-mode="manager"
+                        onClick={ openModal }
+                        >
+                        { 'Select file' }
+                    </Button>
+                </Placeholder>
+                { isOpen && (
+                    <Modal onRequestClose={ closeModal } title={ modalConfig.title }>
+                        <div id="ds-frame-select">Fallback text</div>
+                    </Modal>
+                ) }
+            </div>
+            }
         </div>
     );
 };
