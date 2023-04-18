@@ -25,40 +25,36 @@ import { blockStyle, onlyofficeIcon } from "./index";
 const Edit = ({ attributes, setAttributes }) => {
     const blockProps = useBlockProps({ style: blockStyle });
     const [isOpen, setOpen] = useState( false );
-    const [title, setTitle] = useState( "" );
+    const [modalConfig, setModalConfig] = useState( {} );
 
-    useEffect(DocSpaceComponent.initScript, []);
+    const script = () => {
+        DocSpaceComponent.initScript().then(function() {
+            if (isOpen) {
+                console.log(modalConfig.docspaceConfig);
+                DocSpace.initFrame(modalConfig.docspaceConfig);
+            }
+        });
+    };
+
+    useEffect(script, [isOpen]);
 
     const openModal = (e) => {
-        var config = {
+        var docspaceConfig = {
             "frameId": "ds-frame-select",
-            "height": "400px",
-            "mode": "viewer"
+            "height": "500px",
+            "mode": e.target.dataset.mode || null
         };
 
-        switch (e.target.id) {
-            case ("selectFile"):
-                setTitle( "Select file" );
-                config.mode = "viewer";
-                break;
-            case ("selectRoom"):
-                setTitle( "Select room" );
-                config.mode = "manager";
-                break;
-            default:
-                setTitle( "Select file" );
-        }
-
-        DocSpaceComponent.initScript().then(function() {
-            DocSpace.initFrame(config);
-        });
+        setModalConfig ({
+            title: e.target.dataset.title || "",
+            docspaceConfig: docspaceConfig
+        })
 
         setOpen( true );
     }
 
     const closeModal = (e) => {
         if(e._reactName != "onBlur") {
-            DocSpace.destroyFrame();
             setOpen( false );
         }
     }
@@ -85,22 +81,24 @@ const Edit = ({ attributes, setAttributes }) => {
                 instructions="Pick room or media file from your DocSpace "
                 >
                 <Button
-                    id="selectRoom"
                     variant="primary"
+                    data-title="Select room"
+                    data-mode="room selector"
                     onClick={ openModal }
                 >
                     { 'Select room' }
                 </Button>
                 <Button
-                    id="selectFile"
                     variant="primary"
+                    data-title="Select file"
+                    data-mode="manager"
                     onClick={ openModal }
                     >
                     { 'Select file' }
                 </Button>
             </Placeholder>
             { isOpen && (
-                <Modal onRequestClose={ closeModal } title={ title }>
+                <Modal onRequestClose={ closeModal } title={ modalConfig.title }>
                     <div id="ds-frame-select">Fallback text</div>
                 </Modal>
             ) }
