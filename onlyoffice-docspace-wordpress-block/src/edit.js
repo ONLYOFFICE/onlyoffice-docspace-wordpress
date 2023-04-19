@@ -26,6 +26,7 @@ const Edit = ({ attributes, setAttributes }) => {
     const blockProps = useBlockProps({ style: blockStyle });
     const [isOpen, setOpen] = useState( false );
     const [modalConfig, setModalConfig] = useState( {} );
+    const [showDefaultIcon, setShowDefaultIcon] = useState( false );
 
     const script = () => {
         DocSpaceComponent.initScript().then(function() {
@@ -38,12 +39,25 @@ const Edit = ({ attributes, setAttributes }) => {
 
     useEffect(script, [isOpen]);
 
+    const onSelectCallback = (e) => {
+        setAttributes({ fileId: e[0].id, fileName: e[0].label, icon: e[0].icon });
+        setOpen(false);
+    }
+
+    const onCloseCallback = () => {
+        setOpen(false);
+    }
+
     const openModal = (e) => {
         var docspaceConfig = {
             "frameId": "ds-frame-select",
             "width": "400px",
             "height": "500px",
-            "mode": e.target.dataset.mode || null
+            "mode": e.target.dataset.mode || null,
+            "events": {
+                "onSelectCallback": onSelectCallback,
+                "onCloseCallback": onCloseCallback
+            }
         };
 
         setModalConfig ({
@@ -77,7 +91,11 @@ const Edit = ({ attributes, setAttributes }) => {
                         </PanelBody>
                     </InspectorControls>
                     <p style={{display: 'flex'}}>
-                    {onlyofficeIcon}
+                    {attributes.icon && !showDefaultIcon ? 
+                        <img class='docspace-icon' src={ attributes.icon }  onerror={() => { console.log("tatat"); setShowDefaultIcon( true )}} />
+                        :
+                        <div>{onlyofficeIcon}</div>
+                    }
                     <p style={{marginLeft: '25px'}}> {attributes.fileName || ""}</p>
                 </p>
                 </div>

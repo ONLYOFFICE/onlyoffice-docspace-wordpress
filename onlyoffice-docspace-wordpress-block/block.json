@@ -15,6 +15,9 @@
 		"fileName": {
 			"type": "string"
 		},
+		"icon":  {
+			"type": "string"
+		},
 		"width":  {
 			"type": "string"
 		},
