@@ -16,9 +16,24 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-import { useBlockProps, InspectorControls, HeightControl } from '@wordpress/block-editor';
-import { CheckboxControl, Button, Placeholder, Modal, PanelBody,
-    __experimentalInputControl as InputControl } from '@wordpress/components';
+import {
+    useBlockProps,
+    InspectorControls,
+    HeightControl,
+    BlockControls
+} from '@wordpress/block-editor';
+import {
+    CheckboxControl,
+    Button,
+    Placeholder,
+    Modal,
+    PanelBody,
+    MenuItem,
+    NavigableMenu,
+    ToolbarButton,
+    ToolbarGroup,
+    Dropdown
+} from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
 import { blockStyle, onlyofficeIcon } from "./index";
 
@@ -39,8 +54,8 @@ const Edit = ({ attributes, setAttributes }) => {
 
     useEffect(script, [isOpen]);
 
-    const onSelectCallback = (e) => {
-        setAttributes({ fileId: e[0].id, fileName: e[0].label, icon: e[0].icon });
+    const onSelectCallback = (event) => {
+        setAttributes({ fileId: event[0].id, fileName: event[0].label, icon: event[0].icon });
         setOpen(false);
     }
 
@@ -48,12 +63,12 @@ const Edit = ({ attributes, setAttributes }) => {
         setOpen(false);
     }
 
-    const openModal = (e) => {
+    const openModal = (event) => {
         var docspaceConfig = {
             "frameId": "ds-frame-select",
             "width": "400px",
             "height": "500px",
-            "mode": e.target.dataset.mode || null,
+            "mode": event.target.dataset.mode || null,
             "events": {
                 "onSelectCallback": onSelectCallback,
                 "onCloseCallback": onCloseCallback
@@ -61,15 +76,15 @@ const Edit = ({ attributes, setAttributes }) => {
         };
 
         setModalConfig ({
-            title: e.target.dataset.title || "",
+            title: event.target.dataset.title || "",
             docspaceConfig: docspaceConfig
         })
 
         setOpen( true );
     }
 
-    const closeModal = (e) => {
-        if(e._reactName != "onBlur") {
+    const closeModal = (event) => {
+        if(event._reactName != "onBlur") {
             setOpen( false );
             setAttributes({ fileId: 1 });
         }
@@ -97,39 +112,81 @@ const Edit = ({ attributes, setAttributes }) => {
                         <div>{onlyofficeIcon}</div>
                     }
                     <p style={{marginLeft: '25px'}}> {attributes.fileName || ""}</p>
+                    <BlockControls>
+                        <ToolbarGroup>
+                            <Dropdown
+                                popoverProps={{ variant: 'toolbar' }}
+                                renderToggle={ ( { isOpenDropdown, onToggle } ) => (
+                                    <ToolbarButton
+                                        aria-expanded={ isOpenDropdown }
+                                        aria-haspopup="true"
+                                        onClick={ onToggle }
+                                    >
+                                        { 'Replace' }
+                                    </ToolbarButton>
+                                ) }
+                                renderContent={ ( { onClose } ) => (
+                                    <>
+                                        <NavigableMenu>
+                                            <MenuItem
+                                                onClick={ (event) => {
+                                                    event.target.dataset.title="Select room";
+                                                    event.target.dataset.mode="room selector";
+                                                    openModal(event);
+                                                    onClose(); 
+                                                }}
+                                            >
+                                                { 'Room' }
+                                            </MenuItem>
+                                            <MenuItem
+                                                onClick={ (event) => {
+                                                    event.target.dataset.title="Select file";
+                                                    event.target.dataset.mode="manager";
+                                                    openModal(event);
+                                                    onClose(); 
+                                                }}
+                                            >
+                                                { 'File' }
+                                            </MenuItem>
+                                        </NavigableMenu>
+                                    </>
+                                ) }
+                            />
+                        </ToolbarGroup>
+                    </BlockControls>
                 </p>
                 </div>
             :
-            <div>
-                <Placeholder
-                    icon={onlyofficeIcon} 
-                    label="ONLYOFFICE DocSpace"
-                    instructions="Pick room or media file from your DocSpace "
-                    >
-                    <Button
-                        variant="primary"
-                        data-title="Select room"
-                        data-mode="room selector"
-                        onClick={ openModal }
-                    >
-                        { 'Select room' }
-                    </Button>
-                    <Button
-                        variant="primary"
-                        data-title="Select file"
-                        data-mode="manager"
-                        onClick={ openModal }
+                <div>
+                    <Placeholder
+                        icon={onlyofficeIcon} 
+                        label="ONLYOFFICE DocSpace"
+                        instructions="Pick room or media file from your DocSpace "
                         >
-                        { 'Select file' }
-                    </Button>
-                </Placeholder>
-                { isOpen && (
-                    <Modal onRequestClose={ closeModal } title={ modalConfig.title }>
-                        <div id="ds-frame-select">Fallback text</div>
-                    </Modal>
-                ) }
-            </div>
+                        <Button
+                            variant="primary"
+                            data-title="Select room"
+                            data-mode="room selector"
+                            onClick={ openModal }
+                        >
+                            { 'Select room' }
+                        </Button>
+                        <Button
+                            variant="primary"
+                            data-title="Select file"
+                            data-mode="manager"
+                            onClick={ openModal }
+                            >
+                            { 'Select file' }
+                        </Button>
+                    </Placeholder>
+                </div>
             }
+            { isOpen && (
+                <Modal onRequestClose={ closeModal } title={ modalConfig.title }>
+                    <div id="ds-frame-select">Fallback text</div>
+                </Modal>
+            ) }
         </div>
     );
 };
