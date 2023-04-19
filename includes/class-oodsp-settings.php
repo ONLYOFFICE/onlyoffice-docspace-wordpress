@@ -181,7 +181,7 @@ class OODSP_Settings {
 
 	public function get_onlyoffice_docspace_setting( $key, $default = "" ) {
 		$options = get_option( 'onlyoffice_docspace_settings' );
-		if (! empty( $result ) && array_key_exists( $key, $options )) {
+		if (! empty( $options ) && array_key_exists( $key, $options )) {
 			return $options[$key];
 		}
 
