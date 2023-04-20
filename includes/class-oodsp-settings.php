@@ -55,6 +55,11 @@ class OODSP_Settings {
 	const DOCSPACE_PASS = 'docspace_pass';
 
 	/**
+	 * ID setting docspace_token.
+	 */
+	const DOCSPACE_TOKEN = 'docspace_token';
+
+	/**
 	 * Init menu.
 	 *
 	 * @return void
@@ -343,13 +348,29 @@ class OODSP_Settings {
 			$docspace_login = $this->prepare_value( $_POST[self::DOCSPACE_LOGIN] );
 			$docspace_pass = $this->prepare_value( $_POST[self::DOCSPACE_PASS] );
 
-			$this->auth_docspace( $docspace_url, $docspace_login, $docspace_pass );
-			
+			$docspace_url = substr($docspace_url, -1) === '/' ? $docspace_url : $docspace_url . '/';
+
+			$oodsp_request_manager = new OODSP_Request_Manager();
+
+			$res_auth = $oodsp_request_manager->auth_docspace( $docspace_url, $docspace_login, $docspace_pass );
+
+			if ( $res_auth['error'] === 1) {
+				add_settings_error( 'general', 'settings_updated', 'Invalid credentials. Please try again!' );
+			}
+
+			if ( $res_auth['error'] === 2) {
+				add_settings_error( 'general', 'settings_updated', 'Error getting data user. Please try again!' );
+			}
+			if ( $res_auth['error'] === 3) {
+				add_settings_error( 'general', 'settings_updated', 'Not Admin. Please try again!' );
+			}
+
 			if ( ! get_settings_errors() ) {
 				$value = array(
 					self::DOCSPACE_URL   =>  $docspace_url,
 					self::DOCSPACE_LOGIN => $docspace_login, 
 					self::DOCSPACE_PASS  => $docspace_pass,
+					self::DOCSPACE_TOKEN  => $res_auth['data'],
 				);
 	
 				update_option( 'onlyoffice_docspace_settings', $value );
@@ -361,50 +382,6 @@ class OODSP_Settings {
 
 			wp_safe_redirect( admin_url( 'admin.php?page=onlyoffice-docspace-settings&settings-updated=true' ) );
 			exit;
-		}
-	}
-
-	private function auth_docspace ( $docspace_url, $docspace_login, $docspace_pass ) {
-		$res_auth = wp_remote_post(
-			$docspace_url . "api/2.0/authentication",
-			array(
-				'headers' => array('Content-Type' => 'application/json; charset=utf-8'),
-				'body'    => json_encode(
-					array(
-						'userName' => $docspace_login,
-						'passwordHash' => $docspace_pass
-					)
-				),
-				'method'  => 'POST'
-			)
-		);
-
-		if ( is_wp_error( $res_auth ) || 200 !== wp_remote_retrieve_response_code( $res_auth ) ) {
-			add_settings_error( 'general', 'settings_updated', 'Invalid credentials. Please try again!' );
-			return;
-		}
-
-		$data_auth = json_decode( wp_remote_retrieve_body( $res_auth ), true );
-
-		$token = $data_auth['response']['token'];
-
-		$res_users = wp_remote_get(
-			$docspace_url . "api/2.0/people/email?email=" . $docspace_login,
-			array('cookies' => array('asc_auth_key' => $token)) 
-		);
-			
-		if ( is_wp_error( $res_users ) || 200 !== wp_remote_retrieve_response_code( $res_users ) ) {
-			add_settings_error( 'general', 'settings_updated', 'Error getting data user. Please try again!' );
-			return;
-		}
-
-		$data_users = json_decode( wp_remote_retrieve_body( $res_users ), true );
-		
-		$docspace_user = $data_users['response'];
-
-		if ( ! $docspace_user['isAdmin'] ) {
-			add_settings_error( 'general', 'settings_updated', 'Not Admin. Please try again!' );
-			return;
 		}
 	}
 

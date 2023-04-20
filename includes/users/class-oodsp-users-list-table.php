@@ -139,28 +139,14 @@ class OODSP_Users_List_Table extends WP_List_Table {
 			)
 		);
 
-		$res_auth = wp_remote_post(
-			$this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL) . "api/2.0/authentication",
-			array(
-				'headers' => array('Content-Type' => 'application/json; charset=utf-8'),
-				'body'    => json_encode(
-					array(
-						'userName' => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_LOGIN),
-						'passwordHash' => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_PASS)
-					)
-				),
-				'method'  => 'POST'
-			)
-		);
 
-		if ( !is_wp_error( $res_auth ) && 200 === wp_remote_retrieve_response_code( $res_auth ) ) {
-			$data_auth = json_decode( wp_remote_retrieve_body( $res_auth ), true );
-
-			$token = $data_auth['response']['token'];
-
+		$oodsp_request_manager = new OODSP_Request_Manager();
+		$res_auth = $oodsp_request_manager->auth_docspace();
+		
+		if ( !$res_auth['error'] ) {
 			$res_users = wp_remote_get(
 				$this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL) . "api/2.0/people",
-				array('cookies' => array('asc_auth_key' => $token)) 
+				array( 'cookies' => array( 'asc_auth_key' => $res_auth['data'] ) ) 
 			);
 			
 			if ( !is_wp_error( $res_users ) && 200 === wp_remote_retrieve_response_code( $res_users ) ) {

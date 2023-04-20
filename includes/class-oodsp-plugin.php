@@ -108,6 +108,7 @@ class OODSP_Plugin {
 	private function load_dependencies() {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-oodsp-admin.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'controllers/class-oodsp-frontend-controller.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/managers/class-oodsp-request-manager.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/users/class-oodsp-users-list-table.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-docspace.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-i18n.php';
