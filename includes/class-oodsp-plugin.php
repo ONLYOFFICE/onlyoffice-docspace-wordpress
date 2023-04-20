@@ -205,7 +205,6 @@ class OODSP_Plugin {
 
 		$this->loader->add_action( 'admin_menu', $plugin_settings, 'init_menu' );
 		$this->loader->add_action( 'admin_init', $plugin_settings, 'init' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_settings, 'enqueue_scripts' );
 
 		// $this->loader->add_action( 'admin_menu', $plugin_wizard, 'init_menu' );
 	}

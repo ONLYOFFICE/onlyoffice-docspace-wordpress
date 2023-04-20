@@ -2,16 +2,20 @@
     if (!window.DocSpaceComponent) window.DocSpaceComponent = {};
 
     var scriptTag = null;
-    window.DocSpaceComponent.initScript = function () {
-        return new Promise((res) => {
-            if (window.DocSpace || scriptTag) return res();
+    window.DocSpaceComponent.initScript = function (docSpaceUrl = DocSpaceComponent.docSpaceUrl) {
+        return new Promise((resolve, reject) => {
+            if (window.DocSpace || scriptTag) return resolve();
+            docSpaceUrl += docSpaceUrl.endsWith("/") ? "" : "/"
             scriptTag = document.createElement("script");
-            scriptTag.src = DocSpaceComponent.docSpaceUrl + "static/scripts/api.js";
+            scriptTag.src = docSpaceUrl + "static/scripts/api.js";
             scriptTag.async = true;
             document.body.appendChild(scriptTag);
 
             scriptTag.addEventListener('load', () => {
-                return res();
+                return resolve();
+            })
+            scriptTag.addEventListener('error', () => {
+                return reject();
             })
         });
     };

@@ -1,0 +1,23 @@
+#onlyoffice-docspace-settings .form-field input {
+    width: 25em;
+}
+
+.wp-pwd-input {
+    display: inline-block;
+}
+
+#onlyoffice-docspace-settings .form-table .form-required.form-invalid .wp-pwd-input:after {
+    content: "\f534";
+    font: normal 20px/1 dashicons;
+    color: #d63638;
+    margin-left: -25px;
+    vertical-align: middle;
+}
+
+#onlyoffice-docspace-settings .form-table .form-required.form-pwd.form-invalid td:after {
+    display: none !important;
+}
+
+#onlyoffice-docspace-settings .wp-pwd {
+    margin: 0;
+}

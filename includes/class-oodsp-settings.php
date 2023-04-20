@@ -149,6 +149,7 @@ class OODSP_Settings {
 			'general',
 			array(
 				'id' => self::DOCSPACE_URL,
+				'class' => 'form-field form-required'
 			)
 		);
 
@@ -160,6 +161,7 @@ class OODSP_Settings {
 			'general',
 			array(
 				'id' => self::DOCSPACE_LOGIN,
+				'class' => 'form-field form-required'
 			)
 		);
 
@@ -171,12 +173,9 @@ class OODSP_Settings {
 			'general',
 			array(
 				'id' => self::DOCSPACE_PASS,
+				'class' => 'form-field form-required form-pwd'
 			)
 		);
-	}
-
-	public function enqueue_scripts() {
-		wp_enqueue_script( 'user-profile' );
 	}
 
 	public function get_onlyoffice_docspace_setting( $key, $default = "" ) {
@@ -198,7 +197,6 @@ class OODSP_Settings {
 	public function input_cb( $args ) {
 		$id = $args['id'];
 		echo '<input id="' . esc_attr ( $id ) . '" name="' . esc_attr ( $id ) . '" type="text" value="' . esc_attr( $this->get_onlyoffice_docspace_setting( $id ) ) . '" />';
-		echo '<p class="description"></p>';
 	}
 
 	public function input_pass_cb( $args ) {
@@ -207,7 +205,9 @@ class OODSP_Settings {
 		<div class="login js">
 			<div class="user-pass-wrap">
 				<div class="wp-pwd">
-					<input type="password" id="user_pass" name="<?php echo esc_attr ( $id ) ?>" class="input password-input" value="" />
+					<div class="wp-pwd-input">
+						<input type="password" id="user_pass" name="<?php echo esc_attr ( $id ) ?>" class="input password-input" value="" />
+					</div>
 					<button type="button" class="button button-secondary wp-hide-pw hide-if-no-js" data-toggle="0" aria-label="<?php esc_attr_e( 'Show password' ); ?>">
 						<span class="dashicons dashicons-visibility" aria-hidden="true"></span>
 					</button>
@@ -223,15 +223,34 @@ class OODSP_Settings {
 		}
 
 		if ( ! isset( $_GET['users'] ) ) {
+			wp_enqueue_script( 'user-profile' );
+
+			wp_enqueue_script(
+				'onlyoffice-docspace-plugin',
+				plugin_dir_url( __FILE__ ) . 'js/oodsp-settings.js',
+				array( 'jquery' ),
+				ONLYOFFICE_DOCSPACE_PLUGIN_VERSION,
+				true
+			);
+
+			wp_enqueue_style(
+				'onlyoffice-docspace-plugin',
+				plugin_dir_url( __FILE__ ) . 'css/oodsp-settings.css'
+			);
+			wp_enqueue_style(
+				'onlyoffice-docspace-plugin-loader',
+				plugin_dir_url( __FILE__ ) . 'css/loader.css'
+			);
 			?>
 			<div class="wrap">
 				<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 				<?php settings_errors(); ?>
-				<form action="admin.php?page=onlyoffice-docspace-settings" method="post">
+				<div id="onlyoffice-docspace-settings-notice"></div>
+				<form id='onlyoffice-docspace-settings' action="admin.php?page=onlyoffice-docspace-settings" method="post">
 					<?php
 					settings_fields( 'onlyoffice_docspace_settings' );
 					do_settings_sections( 'onlyoffice_docspace_settings' );
-					submit_button( 'Save Settings' );
+					submit_button( 'Save Settings', 'primary', null, true, array( 'id' => 'save-settings' ) );
 					?>
 				</form>
 
@@ -311,6 +330,10 @@ class OODSP_Settings {
 			</div>
 			<?php
 		}
+		?>
+			<div hidden><div id="ds-frame" ></div></div>
+			<div id="onlyoffice-docspace-settings-loader" class="notification-dialog-background" hidden><div class="loader">Loading...</div></div>
+		<?php
 	}
 
 	public function do_post () {
@@ -350,7 +373,7 @@ class OODSP_Settings {
 				'body'    => json_encode(
 					array(
 						'userName' => $docspace_login,
-						'password' => $docspace_pass
+						'passwordHash' => $docspace_pass
 					)
 				),
 				'method'  => 'POST'

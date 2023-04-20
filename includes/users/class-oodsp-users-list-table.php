@@ -146,7 +146,7 @@ class OODSP_Users_List_Table extends WP_List_Table {
 				'body'    => json_encode(
 					array(
 						'userName' => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_LOGIN),
-						'password' => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_PASS)
+						'passwordHash' => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_PASS)
 					)
 				),
 				'method'  => 'POST'
