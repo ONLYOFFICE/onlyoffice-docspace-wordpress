@@ -255,13 +255,12 @@ class OODSP_Settings {
 				</form>
 
 				<h1 class="wp-heading-inline">
-					<?php __( 'DocSpace Users', 'onlyoffce-docspace-plugin' ); ?>
+					DocSpace Users
 				</h1>
 				<p> 
-					<?php __( 'To add new users to ONLYOFFICE DocSpace and to start working in plugin, please press', 'onlyoffce-docspace-plugin' ); ?>
-					<b><?php __( 'Sync Now', 'onlyoffce-docspace-plugin' ); ?></b>
+					To add new users to ONLYOFFICE DocSpace and to start working in plugin, please press
+					<b>Sync Now</b>
 				</p>
-
 				<p class="submit">
 					<?php submit_button( 'Sync Now', 'secondary', 'users', false, array( 'onclick' => 'location.href = location.href + "&users=true";' ) ); ?>
 				</p>
@@ -289,10 +288,10 @@ class OODSP_Settings {
 
 			<div class="wrap">
 				<h1 class="wp-heading-inline">
-					<?php __( 'DocSpace Users', 'onlyoffce-docspace-plugin' ); ?>
+					DocSpace Users
 				</h1>
 				<p> 
-					<?php __( 'To add new users to ONLYOFFICE DocSpace press Invite or select multiple users and press Invite selected users to DocSpace. To remove users from DocSpace press Disable icon. All new users will be added with User role, if you want to change the role go to Accounts. Role Room admin is paid!', 'onlyoffce-docspace-plugin' ); ?>
+					To add new users to ONLYOFFICE DocSpace press Invite or select multiple users and press Invite selected users to DocSpace. To remove users from DocSpace press Disable icon. All new users will be added with User role, if you want to change the role go to Accounts. Role Room admin is paid!
 				</p>
 
 				<?php
