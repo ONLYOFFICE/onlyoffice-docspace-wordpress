@@ -297,7 +297,7 @@ class OODSP_Settings {
 
 		wp_enqueue_script(
 			'onlyoffice-docspace-plugin',
-			plugin_dir_url( __FILE__ ) . 'js/oodsp-settings.js',
+			plugin_dir_url( __FILE__ ) . '../js/oodsp-settings.js',
 			array( 'jquery' ),
 			ONLYOFFICE_DOCSPACE_PLUGIN_VERSION,
 			true
@@ -305,12 +305,12 @@ class OODSP_Settings {
 
 		wp_enqueue_style(
 			'onlyoffice-docspace-plugin',
-			plugin_dir_url( __FILE__ ) . 'css/oodsp-settings.css'
+			plugin_dir_url( __FILE__ ) . '../css/oodsp-settings.css'
 		);
 		
 		wp_enqueue_style(
 			'onlyoffice-docspace-plugin-loader',
-			plugin_dir_url( __FILE__ ) . 'css/loader.css'
+			plugin_dir_url( __FILE__ ) . '../css/loader.css'
 		);
 
 		wp_enqueue_script( 'user-profile' );

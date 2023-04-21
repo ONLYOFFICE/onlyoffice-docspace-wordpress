@@ -110,10 +110,10 @@ class OODSP_Plugin {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'controllers/class-oodsp-frontend-controller.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/managers/class-oodsp-request-manager.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/users/class-oodsp-users-list-table.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/settings/class-oodsp-settings.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-docspace.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-i18n.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-loader.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-settings.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-wizard.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-oodsp-public.php';
 
