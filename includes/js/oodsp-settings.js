@@ -52,6 +52,19 @@
 		$('#onlyoffice-docspace-settings-loader').hide();
 	};
 
+    const generatePass = function() {
+        var chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
+        var passwordLength = 24;
+        var password = "";
+
+        for (var i = 0; i <= passwordLength; i++) {
+            var randomNumber = Math.floor(Math.random() * chars.length);
+            password += chars.substring(randomNumber, randomNumber +1);
+        }
+
+        return password;
+    }
+
     const settingsForm = $('#onlyoffice-docspace-settings');
 
     settingsForm.on('submit', function () {
@@ -91,6 +104,30 @@
         } else {
             return true;
         } 
+    } );
+
+    const usersForm = $('#onlyoffice-docspace-settings-users');
+
+    usersForm.on('submit', async function (event) {
+        if (!usersForm.attr("hashGenerated")) {
+            event.preventDefault();
+            showLoader();
+
+            const hashSettings = await DocSpace.getHashSettings();
+
+            const users = $('th.check-column[scope="row"] input');
+
+            for (var user of users) {
+                if ($(user).is(':checked')) {
+                    const hash = await DocSpace.createHash(generatePass(), hashSettings);
+
+                    $(user).val($(user).val() + "$$" + hash);
+                }
+            }
+
+            usersForm.attr("hashGenerated", true);
+            usersForm.submit();
+        }
     } );
 
     $('#wpbody-content').on( 'click', '.notice-dismiss', function( e ) {

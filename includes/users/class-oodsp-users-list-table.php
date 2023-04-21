@@ -141,20 +141,11 @@ class OODSP_Users_List_Table extends WP_List_Table {
 
 
 		$oodsp_request_manager = new OODSP_Request_Manager();
-		$res_auth = $oodsp_request_manager->auth_docspace();
-		
-		if ( !$res_auth['error'] ) {
-			$res_users = wp_remote_get(
-				$this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL) . "api/2.0/people",
-				array( 'cookies' => array( 'asc_auth_key' => $res_auth['data'] ) ) 
-			);
-			
-			if ( !is_wp_error( $res_users ) && 200 === wp_remote_retrieve_response_code( $res_users ) ) {
-				$data_users = json_decode( wp_remote_retrieve_body( $res_users ), true );
-				
-				$this->docspace_users = $data_users['response'];
-				$this->is_connected_to_docspace = true;
-			}
+		$res_docspace_users = $oodsp_request_manager->request_docspace_users();
+
+		if ( !$res_docspace_users['error'] ) {
+			$this->docspace_users = $res_docspace_users['data'];
+			$this->is_connected_to_docspace = true;
 		}
 	}
 
@@ -440,7 +431,7 @@ class OODSP_Users_List_Table extends WP_List_Table {
 						$row .= esc_html( $roles_list );
 						break;
 					case 'in_docspace':
-						if ( $user_docspace_status == 0 ) {
+						if ( $user_docspace_status == 0 ||  $user_docspace_status == 1) {
 							$row .= "<img src='" . esc_url( plugins_url( '../../public/images/done.svg', __FILE__ ) ) . "'/>";
 						} else if ( $user_docspace_status == 2 ) {
 							$row .= "Invited";

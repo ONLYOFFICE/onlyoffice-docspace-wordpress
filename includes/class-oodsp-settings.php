@@ -112,18 +112,86 @@ class OODSP_Settings {
 					exit;
 				}
 
-
-				$userids = array_map( 'intval', (array) $_REQUEST['users'] );
-
-				error_log( print_r($userids, true));
-				foreach ( $userids as $id ) {
-					$data = array( 
-						'user_id' => $id,
-						'user_pass' => md5(wp_generate_password( 18 ))
+				$users = array_map( function(string $user) {
+					$user = explode('$$', $user, 2);
+					return array(
+						'id' => $user[0],
+						'hash' => $user[1] 
 					);
+				}, (array) $_REQUEST['users'] );
 
-					global $wpdb;
-					$wpdb->insert( $wpdb->prefix . 'docspace_users', $data );
+				if ( empty( $users ) ) {
+					wp_redirect( $redirect );
+					exit;
+				}//todo:
+				
+				$oodsp_request_manager = new OODSP_Request_Manager();
+
+				$res_docspace_users = $oodsp_request_manager->request_docspace_users();
+
+				if ( $res_docspace_users['error'] ) {
+					// todo: error
+					wp_redirect( $redirect );
+					exit;
+				}
+
+				$docspace_users = array_map( 
+					function($docspace_user) {
+						return $docspace_user['email'];
+					},
+					$res_docspace_users['data']
+				);
+
+				$count_invited = $count_skipped = $count_error = 0;
+
+				foreach ( $users as $user ) {
+					$user_id   = $user['id'];
+					$user_hash = $user['hash'];
+
+					$user = get_user_to_edit( $user_id  );
+
+					if ( in_array( $user->user_email, $docspace_users ) ) {
+						$count_skipped++;
+					} else {
+						$res_invite_user = $oodsp_request_manager->request_invite_user(
+							$user->user_email,
+							$user_hash,
+							$user->first_name,
+							$user->last_name,
+							2,
+							$user->locale
+						);
+
+						if ( $res_invite_user['error'] ){
+							$count_error++;
+						} else {
+							global $wpdb;
+
+							$docspace_user_table = $wpdb->prefix . "docspace_users";
+
+							$result = $wpdb->update( 
+								$docspace_user_table , 
+								array( 
+									'user_id'   => $user_id,
+									'user_pass' => $user_hash
+								), 
+								array( 
+									'user_id' => $user_id ) 
+								);
+
+							if (!$result) {
+								$wpdb->insert( 
+									$docspace_user_table,
+									array( 
+										'user_id'   => $user_id,
+										'user_pass' => $user_hash
+									) 
+								);
+							}
+
+							$count_invited++;
+						} 
+					}
 				}
 
 				wp_redirect( $redirect );
@@ -227,26 +295,27 @@ class OODSP_Settings {
 			return;
 		}
 
-		if ( ! isset( $_GET['users'] ) ) {
-			wp_enqueue_script( 'user-profile' );
+		wp_enqueue_script(
+			'onlyoffice-docspace-plugin',
+			plugin_dir_url( __FILE__ ) . 'js/oodsp-settings.js',
+			array( 'jquery' ),
+			ONLYOFFICE_DOCSPACE_PLUGIN_VERSION,
+			true
+		);
 
-			wp_enqueue_script(
-				'onlyoffice-docspace-plugin',
-				plugin_dir_url( __FILE__ ) . 'js/oodsp-settings.js',
-				array( 'jquery' ),
-				ONLYOFFICE_DOCSPACE_PLUGIN_VERSION,
-				true
-			);
+		wp_enqueue_style(
+			'onlyoffice-docspace-plugin',
+			plugin_dir_url( __FILE__ ) . 'css/oodsp-settings.css'
+		);
+		
+		wp_enqueue_style(
+			'onlyoffice-docspace-plugin-loader',
+			plugin_dir_url( __FILE__ ) . 'css/loader.css'
+		);
 
-			wp_enqueue_style(
-				'onlyoffice-docspace-plugin',
-				plugin_dir_url( __FILE__ ) . 'css/oodsp-settings.css'
-			);
-			wp_enqueue_style(
-				'onlyoffice-docspace-plugin-loader',
-				plugin_dir_url( __FILE__ ) . 'css/loader.css'
-			);
-			?>
+		wp_enqueue_script( 'user-profile' );
+
+		if ( ! isset( $_GET['users'] ) ) { ?>
 			<div class="wrap">
 				<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 				<?php settings_errors(); ?>
@@ -289,6 +358,9 @@ class OODSP_Settings {
 				wp_safe_redirect( add_query_arg( 'paged', $total_pages ) );
 				exit;
 			}
+
+			$script_url = $this->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL) . 'static/scripts/api.js?withSubfolders=true&showHeader=false&showTitle=true&showMenu=false&showFilter=false';
+			wp_enqueue_script( 'onlyoffice_docspace_sdk', $script_url, array(), ONLYOFFICE_DOCSPACE_PLUGIN_VERSION, false );
 			?>
 
 			<div class="wrap">
@@ -315,7 +387,7 @@ class OODSP_Settings {
 				<hr class="wp-header-end">
 				<?php $oodsp_users_list_table->views(); ?>
 
-				<form method="get" l>
+				<form id="onlyoffice-docspace-settings-users" action="admin.php?page=onlyoffice-docspace-settings&users=true" method="post">
 
 					<?php $oodsp_users_list_table->search_box( __( 'Search Users' ), 'user' ); ?>
 
@@ -331,6 +403,9 @@ class OODSP_Settings {
 					<input type="hidden" name="page" value="onlyoffice-docspace-settings">
 					<?php submit_button( 'Back to main settings', 'secondary', false ); ?>
 				</form>
+			</div>
+			<div class="ds-frame" hidden>
+				<div id="ds-frame"></div>
 			</div>
 			<?php
 		}
@@ -389,7 +464,7 @@ class OODSP_Settings {
 		if ( ! is_array( $value ) ) {
 			$value = trim( $value );
 		}
-		
+
 		return wp_unslash( $value );
 	}
 }

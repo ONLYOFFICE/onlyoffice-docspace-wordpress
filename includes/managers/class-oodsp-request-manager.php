@@ -36,7 +36,11 @@
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
 class OODSP_Request_Manager {
-
+	const UNAUTHORIZED      = 1;
+	const USER_NOT_FOUND    = 2;
+	const FORBIDDEN         = 3;
+	const ERROR_USER_INVITE = 4;
+	const ERROR_GET_USERS   = 5;
 
 	/**
 	 *
@@ -49,8 +53,8 @@ class OODSP_Request_Manager {
 
 	public function auth_docspace ( $docspace_url = null, $docspace_login = null, $docspace_pass = null ) {
 		$result = array(
-			'error' => 0,
-			'data'  => null
+			'error' => NULL,
+			'data'  => NULL
 		);
 
 		$current_docspace_url = $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL);
@@ -74,13 +78,13 @@ class OODSP_Request_Manager {
 				$res_is_admin = $this->is_admin_docspace( $current_docspace_url, $current_docspace_login, $current_docspace_token );
 
 				if ( !$res_is_admin['error'] ) {
-					if ( $res_is_admin['data'] ) {
-						$result['data'] = $current_docspace_token;
-						return $result;
-					} else {
-						$result['error'] = 3; // Error user is not admin
+					if ( !$res_is_admin['data'] ) {
+						$result['error'] = self::FORBIDDEN; // Error user is not admin
 						return $result;
 					}
+
+					$result['data'] = $current_docspace_token; // Return current token
+					return $result;
 				}
 			}
 
@@ -94,46 +98,115 @@ class OODSP_Request_Manager {
 		$res_authentication = $this->request_authentication( $docspace_url, $docspace_login, $docspace_pass  );
 
 		if ( $res_authentication['error'] ) {
-			$result['error'] = 1; // Error authentication
-			return $result;
+			return $res_authentication; // Error authentication
 		}
 
 		// Check is admin with new token
 		$res_is_admin = $this->is_admin_docspace( $docspace_url, $docspace_login, $res_authentication['data'] );
 
 		if ( $res_is_admin['error'] ) {
-			$result['error'] = 2; // Error getting user data
-			return $result;
-		} else {
-			if ( $res_is_admin['data'] ) {
-				$options = get_option( 'onlyoffice_docspace_settings' );
-				$options[OODSP_Settings::DOCSPACE_TOKEN] = $res_authentication['data'];
-				update_option( 'onlyoffice_docspace_settings', $options );
-
-				$result['data'] = $res_authentication['data'];
-				return $result;
-			} else {
-				$result['error'] = 3; // Error user is not admin
-				return $result;
-			}
+			return $res_is_admin; // Error getting user data
 		}
+
+		if ( !$res_is_admin['data'] ) {
+			$result['error'] = self::FORBIDDEN; // Error user is not admin
+			return $result;
+		}
+
+		$options = get_option( 'onlyoffice_docspace_settings' );
+		$options[OODSP_Settings::DOCSPACE_TOKEN] = $res_authentication['data'];
+		update_option( 'onlyoffice_docspace_settings', $options );
+
+		$result['data'] = $res_authentication['data']; // Return new current token
+		return $result;
+	}
+
+	public function request_docspace_users () {
+		$result = array(
+			'error' => NULL,
+			'data'  => NULL
+		);
+
+		$res_auth = $this->auth_docspace();
+
+		if ( $res_auth['error'] ) {
+			return $res_auth;
+		}
+
+		$res_users = wp_remote_get(
+			$this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL) . "api/2.0/people",
+			array( 'cookies' => array( 'asc_auth_key' => $res_auth['data'] ) ) 
+		);
+		
+		if ( is_wp_error( $res_users ) && 200 === wp_remote_retrieve_response_code( $res_users ) ) {
+			$result['error'] = self::ERROR_GET_USERS;
+			return $result;
+		}
+
+		$body = json_decode( wp_remote_retrieve_body( $res_users ), true );
+		$users = $body['response'];
+		$result['data'] = $users;
+
+		return $result;
+	}
+
+	public function request_invite_user ( $email, $passwordHash, $firstname, $lastname, $type, $cultureName ) {
+		$result = array(
+			'error' => NULL,
+			'data'  => NULL
+		);
+
+		$res_auth = $this->auth_docspace();
+
+		if ( $res_auth['error'] ) {
+			return $res_auth;
+		}
+
+		$responce = wp_remote_post(
+			$this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL) . "api/2.0/people/active",
+			array(
+				'headers' => array('Content-Type' => 'application/json; charset=utf-8'),
+				'cookies' => array( 'asc_auth_key' => $res_auth['data'] ),
+				'body'    => json_encode(
+					array(
+						'email' => $email,
+						'passwordHash' => $passwordHash,
+						'firstname' => $firstname,
+						'lastname' => $lastname,
+						'type' => $type,
+						'cultureName' => $cultureName,
+					)
+				),
+				'method'  => 'POST'
+			)
+		);
+
+		if ( is_wp_error( $responce ) || 200 !== wp_remote_retrieve_response_code( $responce ) ) {
+			$result['error'] = self::ERROR_USER_INVITE;
+			return $result;
+		}
+
+		$body = json_decode( wp_remote_retrieve_body( $responce ), true );
+		$result['data'] = $body['response'];
+
+		return $result;
 	}
 
 	private function is_admin_docspace ( $docspace_url, $docspace_login, $docspace_token ) {
 		$result = array(
-			'error' => 0,
-			'data'   => null
+			'error' => NULL,
+			'data'  => NULL
 		);
 
 		$responce = wp_remote_get(
 			$docspace_url . "api/2.0/people/email?email=" . $docspace_login,
 			array(
 				'cookies' => array( 'asc_auth_key' => $docspace_token )
-			) 
+			)
 		);
 
 		if ( is_wp_error( $responce ) || 200 !== wp_remote_retrieve_response_code( $responce ) ) {
-			$result['error'] = 1;
+			$result['error'] = self::USER_NOT_FOUND;
 			return $result;
 		}
 
@@ -146,8 +219,8 @@ class OODSP_Request_Manager {
 
 	private function request_authentication ( $docspace_url, $docspace_login, $docspace_pass ) {
 		$result = array(
-			'error' => 0,
-			'data'   => false
+			'error' => NULL,
+			'data'  => NULL
 		);
 
 		$responce = wp_remote_post(
@@ -165,7 +238,7 @@ class OODSP_Request_Manager {
 		);
 
 		if ( is_wp_error( $responce ) || 200 !== wp_remote_retrieve_response_code( $responce ) ) {
-			$result['error'] = 1;
+			$result['error'] = self::UNAUTHORIZED;
 			return $result;
 		}
 
