@@ -38,6 +38,10 @@
  * @subpackage Onlyoffice_Docspace_Plugin/includes/settings
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
+
+require_once plugin_dir_path( dirname( __FILE__ ) ) . 'settings/actions/settings-update.php';
+require_once plugin_dir_path( dirname( __FILE__ ) ) . 'settings/actions/settings-invite-users.php';
+
 class OODSP_Settings {
 	/**
 	 * ID setting docspace_url.
@@ -95,9 +99,6 @@ class OODSP_Settings {
 
 		global $oodsp_users_list_table;
 		$oodsp_users_list_table = new OODSP_Users_List_Table();
-
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'settings/actions/settings-update.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'settings/actions/settings-invite-users.php';
 
 		switch ( $this->current_action() ) {
 			case 'update':
@@ -293,7 +294,10 @@ class OODSP_Settings {
 				?>
 
 				<hr class="wp-header-end">
-				<?php $oodsp_users_list_table->views(); ?>
+				<?php 
+					oodsp_users_messages();
+					$oodsp_users_list_table->views();
+				?>
 
 				<form id="onlyoffice-docspace-settings-users" action="admin.php?page=onlyoffice-docspace-settings&users=true" method="post">
 

@@ -31,15 +31,16 @@ function invite_users() {
     if ( empty( $users ) ) {
         wp_redirect( $redirect );
         exit;
-    }//todo:
+    }
 
     $oodsp_request_manager = new OODSP_Request_Manager();
-
     $res_docspace_users = $oodsp_request_manager->request_docspace_users();
 
     if ( $res_docspace_users['error'] ) {
-        // todo: error
-        wp_redirect( $redirect );
+        add_oodsp_users_message( 'users_invited', 'Error getting users from ONLYOFFICE DocSpace', 'error' );
+        set_transient( 'oodsp_users_messages', get_oodsp_users_messages(), 30 );
+
+        wp_safe_redirect( admin_url( 'admin.php?page=onlyoffice-docspace-settings&users=true&invited=true' ) );
         exit;
     }
 
@@ -101,8 +102,81 @@ function invite_users() {
             } 
         }
     }
+    
+    if ( $count_error !== 0 ) {
+        add_oodsp_users_message( 'users_invited', 'Invite with error for ' . $count_error .'/'. count( $users ) . ' users', 'error' );
+    }
+    
+    if ( $count_skipped !== 0 ) {
+        add_oodsp_users_message( 'users_invited', 'Invite skipped for ' . $count_skipped .'/'. count( $users ) . ' users', 'warning' );
+    }
 
-    wp_redirect( $redirect );
+    if ( $count_invited !== 0 ) {
+        add_oodsp_users_message( 'users_invited', 'Invite sucessed for ' . $count_invited .'/'. count( $users ) . ' users', 'success' );
+    }
+
+    set_transient( 'oodsp_users_messages', get_oodsp_users_messages(), 30 );
+
+    wp_safe_redirect( admin_url( 'admin.php?page=onlyoffice-docspace-settings&users=true&invited=true' ) );
     exit;
+}
 
+function add_oodsp_users_message( $code, $message, $type = 'error' ) {
+	global $wp_oodsp_users_messages;
+
+	$wp_oodsp_users_messages[] = array(
+		'code'    => $code,
+		'message' => $message,
+		'type'    => $type,
+	);
+}
+
+function get_oodsp_users_messages() {
+	global $wp_oodsp_users_messages;
+
+	if ( isset( $_GET['users'] ) && $_GET['users'] && get_transient( 'oodsp_users_messages' ) ) {
+		$wp_oodsp_users_messages = array_merge( (array) $wp_oodsp_users_messages, get_transient( 'oodsp_users_messages' ) );
+		delete_transient( 'oodsp_users_messages' );
+	}
+
+	if ( empty( $wp_oodsp_users_messages ) ) {
+		return array();
+	}
+
+	return $wp_oodsp_users_messages;
+}
+
+function oodsp_users_messages() {
+	$oodsp_users_messages = get_oodsp_users_messages();
+
+	if ( empty( $oodsp_users_messages ) ) {
+		return;
+	}
+
+	$output = '';
+
+	foreach ( $oodsp_users_messages as $key => $details ) {
+		if ( 'updated' === $details['type'] ) {
+			$details['type'] = 'success';
+		}
+
+		if ( in_array( $details['type'], array( 'error', 'success', 'warning', 'info' ), true ) ) {
+			$details['type'] = 'notice-' . $details['type'];
+		}
+
+		$css_id    = sprintf(
+			'oodsp_users-%s',
+			esc_attr( $details['code'] )
+		);
+		$css_class = sprintf(
+			'notice %s is-dismissible',
+			esc_attr( $details['type'] )
+		);
+
+		$output .= "<div id='$css_id' class='$css_class'> \n";
+		$output .= "<p><strong>{$details['message']}</strong></p>";
+		$output .= "</div> \n";
+	}
+
+	echo $output;
 }
