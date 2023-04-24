@@ -9,7 +9,7 @@
  * @since      1.0.0
  *
  * @package    Onlyoffice_Docspace_Plugin
- * @subpackage Onlyoffice_Docspace_Plugin/includes
+ * @subpackage Onlyoffice_Docspace_Plugin/includes/settings
  */
 
 /**
@@ -35,7 +35,7 @@
  * Plugin settings for ONLYOFFICE DocSpace Plugin.
  *
  * @package    Onlyoffice_Docspace_Plugin
- * @subpackage Onlyoffice_Docspace_Plugin/includes
+ * @subpackage Onlyoffice_Docspace_Plugin/includes/settings
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
 class OODSP_Settings {
@@ -82,7 +82,7 @@ class OODSP_Settings {
 		// 	// 	exit;
 		//  }
 
-		add_action( "load-$hook", array( $this, 'add_docspace_users_table' ) );
+		add_action( "load-$hook", array( $this, 'on_load_onlyoffice_docspace_settings' ) );
 	}
 
 	/**
@@ -90,113 +90,21 @@ class OODSP_Settings {
 	 *
 	 * @return void
 	 */
-	public function add_docspace_users_table() {
-		$this->do_post();
+	public function on_load_onlyoffice_docspace_settings() {
 		add_screen_option( 'per_page' );
+
 		global $oodsp_users_list_table;
 		$oodsp_users_list_table = new OODSP_Users_List_Table();
 
-		if ( isset( $_REQUEST['wp_http_referer'] ) ) {
-			$redirect = remove_query_arg( array( 'wp_http_referer', 'updated', 'delete_count' ), wp_unslash( $_REQUEST['wp_http_referer'] ) );
-		} else {
-			$redirect = 'admin.php?page=onlyoffice-docspace-settings&users=true';
-		}
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'settings/actions/settings-update.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'settings/actions/settings-invite-users.php';
 
-		switch ( $oodsp_users_list_table->current_action() ) {
+		switch ( $this->current_action() ) {
+			case 'update':
+				update_settings();
 			case 'invite':
-				check_admin_referer( 'bulk-users' );
-
-				
-				if ( empty( $_REQUEST['users'] ) ) {
-					wp_redirect( $redirect );
-					exit;
-				}
-
-				$users = array_map( function(string $user) {
-					$user = explode('$$', $user, 2);
-					return array(
-						'id' => $user[0],
-						'hash' => $user[1] 
-					);
-				}, (array) $_REQUEST['users'] );
-
-				if ( empty( $users ) ) {
-					wp_redirect( $redirect );
-					exit;
-				}//todo:
-				
-				$oodsp_request_manager = new OODSP_Request_Manager();
-
-				$res_docspace_users = $oodsp_request_manager->request_docspace_users();
-
-				if ( $res_docspace_users['error'] ) {
-					// todo: error
-					wp_redirect( $redirect );
-					exit;
-				}
-
-				$docspace_users = array_map( 
-					function($docspace_user) {
-						return $docspace_user['email'];
-					},
-					$res_docspace_users['data']
-				);
-
-				$count_invited = $count_skipped = $count_error = 0;
-
-				foreach ( $users as $user ) {
-					$user_id   = $user['id'];
-					$user_hash = $user['hash'];
-
-					$user = get_user_to_edit( $user_id  );
-
-					if ( in_array( $user->user_email, $docspace_users ) ) {
-						$count_skipped++;
-					} else {
-						$res_invite_user = $oodsp_request_manager->request_invite_user(
-							$user->user_email,
-							$user_hash,
-							$user->first_name,
-							$user->last_name,
-							2,
-							$user->locale
-						);
-
-						if ( $res_invite_user['error'] ){
-							$count_error++;
-						} else {
-							global $wpdb;
-
-							$docspace_user_table = $wpdb->prefix . "docspace_users";
-
-							$result = $wpdb->update( 
-								$docspace_user_table , 
-								array( 
-									'user_id'   => $user_id,
-									'user_pass' => $user_hash
-								), 
-								array( 
-									'user_id' => $user_id ) 
-								);
-
-							if (!$result) {
-								$wpdb->insert( 
-									$docspace_user_table,
-									array( 
-										'user_id'   => $user_id,
-										'user_pass' => $user_hash
-									) 
-								);
-							}
-
-							$count_invited++;
-						} 
-					}
-				}
-
-				wp_redirect( $redirect );
-				exit;
-		}
+				invite_users();
+		}	
 	}
 
 	/**
@@ -414,57 +322,15 @@ class OODSP_Settings {
 			<div id="onlyoffice-docspace-settings-loader" class="notification-dialog-background" hidden><div class="loader">Loading...</div></div>
 		<?php
 	}
-
-	public function do_post () {
-		if ( isset( $_POST[self::DOCSPACE_URL] ) && isset( $_POST[self::DOCSPACE_LOGIN] ) && isset( $_POST[self::DOCSPACE_PASS] ) ) {
-			check_admin_referer( 'onlyoffice_docspace_settings-options' );
-			
-			$docspace_url = $this->prepare_value( $_POST[self::DOCSPACE_URL] );
-			$docspace_login = $this->prepare_value( $_POST[self::DOCSPACE_LOGIN] );
-			$docspace_pass = $this->prepare_value( $_POST[self::DOCSPACE_PASS] );
-
-			$docspace_url = substr($docspace_url, -1) === '/' ? $docspace_url : $docspace_url . '/';
-
-			$oodsp_request_manager = new OODSP_Request_Manager();
-
-			$res_auth = $oodsp_request_manager->auth_docspace( $docspace_url, $docspace_login, $docspace_pass );
-
-			if ( $res_auth['error'] === 1) {
-				add_settings_error( 'general', 'settings_updated', 'Invalid credentials. Please try again!' );
-			}
-
-			if ( $res_auth['error'] === 2) {
-				add_settings_error( 'general', 'settings_updated', 'Error getting data user. Please try again!' );
-			}
-			if ( $res_auth['error'] === 3) {
-				add_settings_error( 'general', 'settings_updated', 'Not Admin. Please try again!' );
-			}
-
-			if ( ! get_settings_errors() ) {
-				$value = array(
-					self::DOCSPACE_URL   =>  $docspace_url,
-					self::DOCSPACE_LOGIN => $docspace_login, 
-					self::DOCSPACE_PASS  => $docspace_pass,
-					self::DOCSPACE_TOKEN  => $res_auth['data'],
-				);
-	
-				update_option( 'onlyoffice_docspace_settings', $value );
-
-				add_settings_error( 'general', 'settings_updated', __( 'Settings Saved', 'onlyoffce-docspace-plugin' ), 'success' );
-			}
-		
-			set_transient( 'settings_errors', get_settings_errors(), 30 );
-
-			wp_safe_redirect( admin_url( 'admin.php?page=onlyoffice-docspace-settings&settings-updated=true' ) );
-			exit;
-		}
-	}
-
-	private function prepare_value ( $value ) {
-		if ( ! is_array( $value ) ) {
-			$value = trim( $value );
+	private function current_action() {
+		if ( isset( $_REQUEST['filter_action'] ) && ! empty( $_REQUEST['filter_action'] ) ) {
+			return false;
 		}
 
-		return wp_unslash( $value );
+		if ( isset( $_REQUEST['action'] ) && -1 != $_REQUEST['action'] ) {
+			return $_REQUEST['action'];
+		}
+
+		return false;
 	}
 }
