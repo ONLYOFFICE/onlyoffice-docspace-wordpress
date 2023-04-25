@@ -347,11 +347,13 @@ class OODSP_Users_List_Table extends WP_List_Table {
 			}
 		}
 
-		$user_docspace_status = -1;
+		$docspace_user_status = -1;
+		$docspace_user_role_label = '';
 
 		for($i = 0; $i < count( $this->docspace_users ); ++$i) {
 			if( $this->docspace_users[$i]['email'] === $email) {
-				$user_docspace_status =$this->docspace_users[$i]['activationStatus'];
+				$docspace_user_status = $this->docspace_users[$i]['activationStatus'];
+				$docspace_user_role_label = $this->get_docspace_user_role_label( $this->docspace_users[$i] );
 			}
 		}
 
@@ -431,16 +433,29 @@ class OODSP_Users_List_Table extends WP_List_Table {
 						$row .= esc_html( $roles_list );
 						break;
 					case 'in_docspace':
-						if ( $user_docspace_status == 0 ||  $user_docspace_status == 1) {
-							$row .= "<img src='" . esc_url( plugins_url( '../../public/images/done.svg', __FILE__ ) ) . "'/>";
-						} else if ( $user_docspace_status == 2 ) {
-							$row .= "Invited";
-						} else {
-							$row .= "<img src='" . esc_url( plugins_url( '../../public/images/delete.svg', __FILE__ ) ) . "'/>";
+						global $wpdb;
+						$docspace_user_table = $wpdb->prefix . "docspace_users";
+
+						$res = $wpdb->get_row( $wpdb->prepare( "SELECT user_pass FROM $docspace_user_table WHERE user_id = %s LIMIT 1", $user_object->ID ) );
+
+						if ($res ) {
+							$res->user_pass;
 						}
+
+						if ( $docspace_user_status == 0 ||  $docspace_user_status == 1 ) {
+							if ( is_object( $res ) &&  !empty( $res->user_pass ) ) {
+								$row .= "<img src='" . esc_url( plugins_url( '../../public/images/done.svg', __FILE__ ) ) . "'/>";
+							} else {
+								$row .= '<div class="tooltip" style="cursor: pointer">';
+								$row .= '<div class="tooltip-text">' . $this->get_label_for_unauthorized() . '</div>';
+								$row .= "<img  src='" . esc_url( plugins_url( '../../public/images/not_authorization.svg', __FILE__ ) ) . "'/>";
+								$row .= '</div>';
+							}
+						}
+
 						break;
 					case 'type_user_in_docspace':
-						$row .= esc_html( 'User' );
+						$row .= esc_html( $docspace_user_role_label );
 						break;
 					default:
 						/**
@@ -525,6 +540,31 @@ class OODSP_Users_List_Table extends WP_List_Table {
 
 		parent::search_box( $text, $input_id );
 
+	}
+
+	private function get_docspace_user_role_label ( $docspace_user ) {
+		if ( $docspace_user['isOwner'] ) {
+			return 'Owner';
+		} else if ( $docspace_user['isAdmin'] ) {
+			return 'DocSpace admin';
+		} else if ( $docspace_user['isCollaborator'] ) {
+			return 'Power user';
+		} else if ( $docspace_user['isVisitor'] ) {
+			return 'User';
+		} else {
+			return 'Room admin';
+		}
+	}
+
+	private function get_label_for_unauthorized () {
+		$output = '<b>Problem with synchronization accounts between WordPress and DocSpace</b></br></br>';
+		$output .='<b>Possible cause:</b> DocSpace account was not created via DocSpace plugin for WordPress.</br></br>';
+		$output .='To solve this problem:</br>';
+		$output .='1. Delete existing account with this email from DocSpace.</br>';
+		$output .='2. Create new DocSpace account via DocSpace settings in Wordpress.</br></br>';
+		$output .='<b>Careful:</b> safe existing files before deleting acount from DocSpace';
+
+		return $output;
 	}
 
 }
