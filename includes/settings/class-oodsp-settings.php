@@ -78,14 +78,6 @@ class OODSP_Settings {
 			array( $this, 'do_get' )
 		);
 
-		// global $_wp_http_referer;
-		// wp_reset_vars( array( '_wp_http_referer' ) );
-
-		//  if ( ! empty( $_wp_http_referer ) && isset( $_SERVER['REQUEST_URI'] ) ) {
-		// 	// 	wp_safe_redirect( remove_query_arg( array( '_wp_http_referer', '_wpnonce' ), esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) );
-		// 	// 	exit;
-		//  }
-
 		add_action( "load-$hook", array( $this, 'on_load_onlyoffice_docspace_settings' ) );
 	}
 
@@ -105,7 +97,15 @@ class OODSP_Settings {
 				update_settings();
 			case 'invite':
 				invite_users();
-		}	
+		}
+
+		global $_wp_http_referer;
+		wp_reset_vars( array( '_wp_http_referer' ) );
+
+		if ( ! empty( $_wp_http_referer ) && isset( $_SERVER['REQUEST_URI'] ) ) {
+			wp_safe_redirect( remove_query_arg( array( '_wp_http_referer', '_wpnonce' ), esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) );
+			exit;
+		}
 	}
 
 	/**
@@ -276,30 +276,28 @@ class OODSP_Settings {
 				<h1 class="wp-heading-inline">
 					DocSpace Users
 				</h1>
-				<p> 
-					To add new users to ONLYOFFICE DocSpace press Invite or select multiple users and press Invite selected users to DocSpace. To remove users from DocSpace press Disable icon. All new users will be added with User role, if you want to change the role go to Accounts. Role Room admin is paid!
-				</p>
-
 				<?php
 				global $usersearch;
 				if ( strlen( $usersearch ) ) {
 					echo '<span class="subtitle">';
 					printf(
 						/* translators: %s: Search query. */
-						esc_html_e( 'Search results for: %s' ),
+						__( 'Search results for: %s' ),
 						'<strong>' . esc_html( $usersearch ) . '</strong>'
 					);
 					echo '</span>';
 				}
 				?>
-
+				<p> 
+					To add new users to ONLYOFFICE DocSpace press Invite or select multiple users and press Invite selected users to DocSpace. To remove users from DocSpace press Disable icon. All new users will be added with User role, if you want to change the role go to Accounts. Role Room admin is paid!
+				</p>
 				<hr class="wp-header-end">
 				<?php 
 					oodsp_users_messages();
 					$oodsp_users_list_table->views();
 				?>
 
-				<form id="onlyoffice-docspace-settings-users" action="admin.php?page=onlyoffice-docspace-settings&users=true" method="post">
+				<form id="onlyoffice-docspace-settings-users" >
 
 					<?php $oodsp_users_list_table->search_box( __( 'Search Users' ), 'user' ); ?>
 

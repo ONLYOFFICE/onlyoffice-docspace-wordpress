@@ -109,7 +109,7 @@
     const usersForm = $('#onlyoffice-docspace-settings-users');
 
     usersForm.on('submit', async function (event) {
-        if (!usersForm.attr("hashGenerated")) {
+        if (event.originalEvent.submitter.id === 'doaction' && !usersForm.attr("hashGenerated")) {
             event.preventDefault();
             showLoader();
 
@@ -125,7 +125,9 @@
                 }
             }
 
-            usersForm.attr("hashGenerated", true);
+            usersForm.attr('hashGenerated', true);
+            usersForm.attr('action', 'admin.php?page=onlyoffice-docspace-settings&users=true');
+            usersForm.attr('method', 'POST');
             usersForm.submit();
         }
     } );
