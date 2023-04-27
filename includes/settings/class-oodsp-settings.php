@@ -288,7 +288,7 @@ class OODSP_Settings {
 					echo '</span>';
 				}
 				?>
-				<p> 
+				<p style='max-width: 455px;'> 
 					To add new users to ONLYOFFICE DocSpace press Invite or select multiple users and press Invite selected users to DocSpace. To remove users from DocSpace press Disable icon. All new users will be added with User role, if you want to change the role go to Accounts. Role Room admin is paid!
 				</p>
 				<hr class="wp-header-end">
@@ -308,7 +308,6 @@ class OODSP_Settings {
 				</form>
 
 				<div class="clear"></div>
-
 				<form  method="get">
 					<input type="hidden" name="page" value="onlyoffice-docspace-settings">
 					<?php submit_button( 'Back to main settings', 'secondary', false ); ?>
