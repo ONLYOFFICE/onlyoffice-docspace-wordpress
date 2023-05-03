@@ -41,7 +41,7 @@ function update_settings() {
 
             update_option( 'onlyoffice_docspace_settings', $value );
 
-            add_settings_error( 'general', 'settings_updated', __( 'Settings Saved', 'onlyoffce-docspace-plugin' ), 'success' );
+            add_settings_error( 'general', 'settings_updated', __( 'Settings Saved', 'onlyoffice-docspace-plugin' ), 'success' );
         }
 
         set_transient( 'settings_errors', get_settings_errors(), 30 );

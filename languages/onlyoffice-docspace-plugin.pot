@@ -1,0 +1,30 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "ONLYOFFICE DocSpace Settings"
+msgstr ""
+
+msgid "DocSpace Service Address"
+msgstr ""
+
+msgid "Login"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "DocSpace Users"
+msgstr ""
+
+msgid "To add new users to ONLYOFFICE DocSpace and to start working in plugin, please press"
+msgstr ""
+
+msgid "Sync Now"
+msgstr ""
+
+msgid "Back to main settings"
+msgstr ""

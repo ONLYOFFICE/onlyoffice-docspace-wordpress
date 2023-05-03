@@ -36,3 +36,18 @@
 .tooltip:hover .tooltip-text {
     display: block;
 }
+
+.go-back-in-header {
+    display: inline-block;
+    margin: 0px;
+    position: absolute;
+    margin-left: 10px;
+}
+
+.go-back-in-header p {
+    margin: 0px;
+}
+
+.subtitle {
+    display: block;
+}

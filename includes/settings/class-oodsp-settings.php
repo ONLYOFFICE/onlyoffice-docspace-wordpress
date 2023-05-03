@@ -71,8 +71,8 @@ class OODSP_Settings {
 	public function init_menu() {
 		$hook = add_submenu_page(
 			'onlyoffice-docspace',
-			'ONLYOFFICE DocSpace Settings',
-			'Settings',
+			__( 'ONLYOFFICE DocSpace Settings', 'onlyoffice-docspace-plugin' ),
+			__( 'Settings', 'onlyoffice-docspace-plugin' ),
 			'manage_options',
 			'onlyoffice-docspace-settings',
 			array( $this, 'do_get' )
@@ -118,14 +118,14 @@ class OODSP_Settings {
 
 		add_settings_section(
 			'general',
-			__( 'Configure ONLYOFFICE DocSpace connector settings ', 'onlyoffce-docspace-plugin' ),
+			'',
 			'__return_false',
 			'onlyoffice_docspace_settings'
 		);
 
 		add_settings_field(
 			self::DOCSPACE_URL,
-			__( 'DocSpace Service Address', 'onlyoffce-docspace-plugin' ),
+			__( 'DocSpace Service Address', 'onlyoffice-docspace-plugin' ),
 			array( $this, 'input_cb' ),
 			'onlyoffice_docspace_settings',
 			'general',
@@ -137,7 +137,7 @@ class OODSP_Settings {
 
 		add_settings_field(
 			self::DOCSPACE_LOGIN,
-			__( 'Login', 'onlyoffce-docspace-plugin' ),
+			__( 'Login', 'onlyoffice-docspace-plugin' ),
 			array( $this, 'input_cb' ),
 			'onlyoffice_docspace_settings',
 			'general',
@@ -149,7 +149,7 @@ class OODSP_Settings {
 
 		add_settings_field(
 			self::DOCSPACE_PASS,
-			__( 'Password', 'onlyoffce-docspace-plugin' ),
+			__( 'Password', 'onlyoffice-docspace-plugin' ),
 			array( $this, 'input_pass_cb' ),
 			'onlyoffice_docspace_settings',
 			'general',
@@ -233,19 +233,17 @@ class OODSP_Settings {
 					<?php
 					settings_fields( 'onlyoffice_docspace_settings' );
 					do_settings_sections( 'onlyoffice_docspace_settings' );
-					submit_button( 'Save Settings', 'primary', null, true, array( 'id' => 'save-settings' ) );
+					submit_button( __( 'Save', 'onlyoffice-docspace-plugin' ), 'primary', null, true, array( 'id' => 'save-settings' ) );
 					?>
 				</form>
 
-				<h1 class="wp-heading-inline">
-					DocSpace Users
-				</h1>
-				<p> 
-					To add new users to ONLYOFFICE DocSpace and to start working in plugin, please press
-					<b>Sync Now</b>
+				<h1 class="wp-heading-inline"><?php esc_html_e( 'DocSpace Users', 'onlyoffice-docspace-plugin' ); ?></h1>
+				<p>
+					<?php esc_html_e( 'To add new users to ONLYOFFICE DocSpace and to start working in plugin, please press', 'onlyoffice-docspace-plugin' ); ?>
+					<b><?php esc_html_e( 'Sync Now', 'onlyoffice-docspace-plugin' ); ?></b>
 				</p>
 				<p class="submit">
-					<?php submit_button( 'Sync Now', 'secondary', 'users', false, array( 'onclick' => 'location.href = location.href + "&users=true";' ) ); ?>
+					<?php submit_button( __('Sync Now', 'onlyoffice-docspace-plugin' ), 'secondary', 'users', false, array( 'onclick' => 'location.href = location.href + "&users=true";' ) ); ?>
 				</p>
 			</div>
 			<?php
@@ -273,9 +271,13 @@ class OODSP_Settings {
 			?>
 
 			<div class="wrap">
-				<h1 class="wp-heading-inline">
-					DocSpace Users
-				</h1>
+				<h1 class="wp-heading-inline"><?php esc_html_e( 'DocSpace Users', 'onlyoffice-docspace-plugin' ); ?></h1>
+
+				<form method="get" class="go-back-in-header">
+					<input type="hidden" name="page" value="onlyoffice-docspace-settings">
+					<?php submit_button(  __('Back to main settings', 'onlyoffice-docspace-plugin' ), 'secondary', false ); ?>
+				</form>
+				
 				<?php
 				global $usersearch;
 				if ( strlen( $usersearch ) ) {
@@ -288,9 +290,7 @@ class OODSP_Settings {
 					echo '</span>';
 				}
 				?>
-				<p style='max-width: 455px;'> 
-					To add new users to ONLYOFFICE DocSpace press Invite or select multiple users and press Invite selected users to DocSpace. To remove users from DocSpace press Disable icon. All new users will be added with User role, if you want to change the role go to Accounts. Role Room admin is paid!
-				</p>
+
 				<hr class="wp-header-end">
 				<?php 
 					oodsp_users_messages();
@@ -308,10 +308,6 @@ class OODSP_Settings {
 				</form>
 
 				<div class="clear"></div>
-				<form  method="get">
-					<input type="hidden" name="page" value="onlyoffice-docspace-settings">
-					<?php submit_button( 'Back to main settings', 'secondary', false ); ?>
-				</form>
 			</div>
 			<div class="ds-frame" hidden>
 				<div id="ds-frame"></div>
@@ -319,8 +315,8 @@ class OODSP_Settings {
 			<?php
 		}
 		?>
-			<div hidden><div id="ds-frame" ></div></div>
-			<div id="onlyoffice-docspace-settings-loader" class="notification-dialog-background" hidden><div class="loader">Loading...</div></div>
+			<div hidden><div id="ds-frame"></div></div>
+			<div id="onlyoffice-docspace-settings-loader" class="notification-dialog-background" hidden><div class="loader"></div></div>
 		<?php
 	}
 	private function current_action() {
