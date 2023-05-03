@@ -79,7 +79,7 @@ class OODSP_DocSpace {
 	 * @return void
 	 */
 	public function init_menu() {
-		$hook = null;
+		$logo_svg = file_get_contents( plugin_dir_path( dirname( __FILE__ ) ) . '/public/images/logo.svg' );
 
 		add_menu_page(
 			'DocSpace',
@@ -87,7 +87,7 @@ class OODSP_DocSpace {
 			'manage_options',
 			'onlyoffice-docspace',
 			array( $this, 'docspace_page' ),
-			'dashicons-media-document'
+			'data:image/svg+xml;base64,' . base64_encode( $logo_svg )
 		);
 
 		$hook = add_submenu_page(
