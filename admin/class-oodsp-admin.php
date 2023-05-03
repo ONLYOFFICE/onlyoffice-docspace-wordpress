@@ -105,7 +105,10 @@ final class OODSP_Admin {
 		wp_localize_script(
 			$this->plugin_name . '-ds-component-script',
 			'DocSpaceComponent',
-			array( 'docSpaceUrl' => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL) )
+			array( 
+				'docSpaceUrl' => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL),
+				'user'        => wp_get_current_user()->user_email
+			)
 		);
 	}
 }
