@@ -1,21 +1,22 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
+"Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Language: ru\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: Poedit 3.0.1\n"
-
 
 msgid "ONLYOFFICE DocSpace Settings"
 msgstr "Настройки ONLYOFFICE DocSpace"
 
+#: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Settings"
 msgstr "Настройки"
 
@@ -42,3 +43,55 @@ msgstr "Синхронизировать сейчас"
 
 msgid "Back to main settings"
 msgstr "Вернуться к основным настройкам"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Width"
+msgstr "Ширина"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Height"
+msgstr "Высота"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Left menu"
+msgstr "Левое меню"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Navigation and Title"
+msgstr "Навигация и заголовок"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Action button"
+msgstr "Кнопка действия"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Search, Filter and Sort"
+msgstr "Поиск, фильтрация и сортировка"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Header"
+msgstr "Заголовок"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Replace"
+msgstr "Заменить"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Select room"
+msgstr "Выбрать комнату"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Select file"
+msgstr "Выбрать файл"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Room"
+msgstr "Комната"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "File"
+msgstr "Файл"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Pick room or media file from your DocSpace"
+msgstr "Выберите комнату или медиафайл из DocSpace"

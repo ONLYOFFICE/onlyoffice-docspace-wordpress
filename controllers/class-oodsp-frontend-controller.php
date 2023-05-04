@@ -90,7 +90,11 @@ class OODSP_Frontend_Controller {
 		);
 
 		if ( function_exists( 'wp_set_script_translations' ) ) {
-			wp_set_script_translations( 'onlyoffice-docspace-plugin', 'onlyoffice-docspace-plugin' );
+			wp_set_script_translations( 
+				'onlyoffice-docspace-onlyoffice-docspace-editor-script', 
+				'onlyoffice-docspace-plugin',
+				plugin_dir_path( dirname( __FILE__ ) ) . 'languages/' 
+			);
 		}
 	}
 

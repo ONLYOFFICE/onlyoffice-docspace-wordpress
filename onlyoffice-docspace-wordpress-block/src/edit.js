@@ -36,6 +36,7 @@ import {
 } from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
 import { blockStyle, onlyofficeIcon } from "./index";
+import { __ } from '@wordpress/i18n';
 
 const Edit = ({ attributes, setAttributes }) => {
     const blockProps = useBlockProps({ style: blockStyle });
@@ -44,12 +45,16 @@ const Edit = ({ attributes, setAttributes }) => {
     const [showDefaultIcon, setShowDefaultIcon] = useState( false );
 
     const script = () => {
-        DocSpaceComponent.initScript().then(function() {
-            if (isOpen) {
-                console.log(modalConfig.docspaceConfig);
-                DocSpace.initFrame(modalConfig.docspaceConfig);
-            }
-        });
+        // DocSpaceComponent.initScript().then(function() {
+        //     if (isOpen) {
+        //         console.log(modalConfig.docspaceConfig);
+        //         DocSpace.initFrame(modalConfig.docspaceConfig);
+
+        //         setTimeout(function() {
+        //             DocSpaceComponent.login();
+        //         }, 5000);
+        //     }
+        // });
     };
 
     useEffect(script, [isOpen]);
@@ -95,19 +100,19 @@ const Edit = ({ attributes, setAttributes }) => {
             {attributes.fileId ?
                 <div>
                     <InspectorControls key="setting">
-                        <PanelBody title={ 'Settings' }>
-                            <HeightControl label={ 'Width' } value={attributes.width} onChange={ ( value ) => setAttributes({ width: value }) }/>
-                            <HeightControl label={ 'Height' } value={attributes.height} onChange={ ( value ) => setAttributes({ height: value }) }/>
-                            <CheckboxControl label={ 'Left menu' } checked={attributes.showMenu} onChange={ ( value ) => setAttributes({ showMenu: value }) } />
-                            <CheckboxControl label={ 'Navigation and Title' } checked={attributes.showTitle} onChange={ ( value ) => setAttributes({ showTitle: value }) } />
-                            <CheckboxControl label={ 'Action button' } checked={attributes.showAction} onChange={ ( value ) => setAttributes({ showAction: value }) } />
-                            <CheckboxControl label={ 'Search, Filter and Sort' } checked={attributes.showFilter} onChange={ ( value ) => setAttributes({ showFilter: value }) } />
-                            <CheckboxControl label={ 'Header' } checked={attributes.showHeader} onChange={ ( value ) => setAttributes({ showHeader: value }) } />
+                        <PanelBody title={ __("Settings", "onlyoffice-docspace-plugin") }>
+                            <HeightControl label={ __("Width", "onlyoffice-docspace-plugin") } value={attributes.width} onChange={ ( value ) => setAttributes({ width: value }) }/>
+                            <HeightControl label={ __("Height", "onlyoffice-docspace-plugin") } value={attributes.height} onChange={ ( value ) => setAttributes({ height: value }) }/>
+                            <CheckboxControl label={ __("Left menu", "onlyoffice-docspace-plugin") } checked={attributes.showMenu} onChange={ ( value ) => setAttributes({ showMenu: value }) } />
+                            <CheckboxControl label={ __("Navigation and Title", "onlyoffice-docspace-plugin") } checked={attributes.showTitle} onChange={ ( value ) => setAttributes({ showTitle: value }) } />
+                            <CheckboxControl label={ __("Action button", "onlyoffice-docspace-plugin") } checked={attributes.showAction} onChange={ ( value ) => setAttributes({ showAction: value }) } />
+                            <CheckboxControl label={ __("Search, Filter and Sort", "onlyoffice-docspace-plugin") } checked={attributes.showFilter} onChange={ ( value ) => setAttributes({ showFilter: value }) } />
+                            <CheckboxControl label={ __("Header", "onlyoffice-docspace-plugin") } checked={attributes.showHeader} onChange={ ( value ) => setAttributes({ showHeader: value }) } />
                         </PanelBody>
                     </InspectorControls>
                     <p style={{display: 'flex'}}>
                     {attributes.icon && !showDefaultIcon ? 
-                        <img class='docspace-icon' src={ attributes.icon }  onerror={() => { console.log("tatat"); setShowDefaultIcon( true )}} />
+                        <img class='docspace-icon' src={ attributes.icon }  onerror={() => setShowDefaultIcon( true ) } />
                         :
                         <div>{onlyofficeIcon}</div>
                     }
@@ -122,7 +127,7 @@ const Edit = ({ attributes, setAttributes }) => {
                                         aria-haspopup="true"
                                         onClick={ onToggle }
                                     >
-                                        { 'Replace' }
+                                        { __("Replace", "onlyoffice-docspace-plugin") }
                                     </ToolbarButton>
                                 ) }
                                 renderContent={ ( { onClose } ) => (
@@ -130,23 +135,23 @@ const Edit = ({ attributes, setAttributes }) => {
                                         <NavigableMenu>
                                             <MenuItem
                                                 onClick={ (event) => {
-                                                    event.target.dataset.title="Select room";
+                                                    event.target.dataset.title=__("Select room", "onlyoffice-docspace-plugin");
                                                     event.target.dataset.mode="room selector";
                                                     openModal(event);
                                                     onClose(); 
                                                 }}
                                             >
-                                                { 'Room' }
+                                                { __("Room", "onlyoffice-docspace-plugin") }
                                             </MenuItem>
                                             <MenuItem
                                                 onClick={ (event) => {
-                                                    event.target.dataset.title="Select file";
+                                                    event.target.dataset.title=__("Select file", "onlyoffice-docspace-plugin");
                                                     event.target.dataset.mode="manager";
                                                     openModal(event);
                                                     onClose(); 
                                                 }}
                                             >
-                                                { 'File' }
+                                                { __("File", "onlyoffice-docspace-plugin") }
                                             </MenuItem>
                                         </NavigableMenu>
                                     </>
@@ -161,23 +166,23 @@ const Edit = ({ attributes, setAttributes }) => {
                     <Placeholder
                         icon={onlyofficeIcon} 
                         label="ONLYOFFICE DocSpace"
-                        instructions="Pick room or media file from your DocSpace "
+                        instructions={ __("Pick room or media file from your DocSpace", "onlyoffice-docspace-plugin") }
                         >
                         <Button
                             variant="primary"
-                            data-title="Select room"
+                            data-title={ __("Select room", "onlyoffice-docspace-plugin") }
                             data-mode="room selector"
                             onClick={ openModal }
                         >
-                            { 'Select room' }
+                            { __("Select room", "onlyoffice-docspace-plugin") }
                         </Button>
                         <Button
                             variant="primary"
-                            data-title="Select file"
+                            data-title={ __("Select file", "onlyoffice-docspace-plugin") }
                             data-mode="manager"
                             onClick={ openModal }
                             >
-                            { 'Select file' }
+                            { __("Select file", "onlyoffice-docspace-plugin") }
                         </Button>
                     </Placeholder>
                 </div>

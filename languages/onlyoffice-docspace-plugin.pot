@@ -5,6 +5,10 @@ msgstr ""
 msgid "ONLYOFFICE DocSpace Settings"
 msgstr ""
 
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Settings"
+msgstr "Настройки"
+
 msgid "DocSpace Service Address"
 msgstr ""
 
@@ -27,4 +31,56 @@ msgid "Sync Now"
 msgstr ""
 
 msgid "Back to main settings"
+msgstr ""
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Width"
+msgstr ""
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Height"
+msgstr ""
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Left menu"
+msgstr ""
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Navigation and Title"
+msgstr ""
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Action button"
+msgstr ""
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Search, Filter and Sort"
+msgstr ""
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Header"
+msgstr ""
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Replace"
+msgstr ""
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Select room"
+msgstr ""
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Select file"
+msgstr ""
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Room"
+msgstr ""
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "File"
+msgstr ""
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Pick room or media file from your DocSpace"
 msgstr ""
