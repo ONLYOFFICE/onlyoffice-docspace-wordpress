@@ -44,6 +44,18 @@ msgstr "Синхронизировать сейчас"
 msgid "Back to main settings"
 msgstr "Вернуться к основным настройкам"
 
+msgid "Settings saved"
+msgstr "Настройки сохранены"
+
+msgid "Invalid credentials. Please try again!"
+msgstr "Недействительные учетные данные. Пожалуйста, попробуйте еще раз!"
+
+msgid "Error getting data user. Please try again!"
+msgstr "Ошибка получения данных пользователя. Пожалуйста, попробуйте еще раз!"
+
+msgid "The specified user is not a DocSpace administrator!"
+msgstr "Указанный пользователь не является администратором DocSpace!"
+
 msgid "Error getting users from ONLYOFFICE DocSpace"
 msgstr "Ошибка получения пользователей ONLYOFFICE DocSpace"
 

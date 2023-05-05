@@ -21,14 +21,13 @@ function update_settings() {
         $res_auth = $oodsp_request_manager->auth_docspace( $docspace_url, $docspace_login, $docspace_pass );
 
         if ( $res_auth['error'] === 1) {
-            add_settings_error( 'general', 'settings_updated', 'Invalid credentials. Please try again!' );
+            add_settings_error( 'general', 'settings_updated', __( 'Invalid credentials. Please try again!', 'onlyoffice-docspace-plugin' ) );
         }
-
         if ( $res_auth['error'] === 2) {
-            add_settings_error( 'general', 'settings_updated', 'Error getting data user. Please try again!' );
+            add_settings_error( 'general', 'settings_updated', __( 'Error getting data user. Please try again!', 'onlyoffice-docspace-plugin' ) );
         }
         if ( $res_auth['error'] === 3) {
-            add_settings_error( 'general', 'settings_updated', 'Not Admin. Please try again!' );
+            add_settings_error( 'general', 'settings_updated', __( 'The specified user is not a DocSpace administrator!', 'onlyoffice-docspace-plugin' ) );
         }
 
         if ( ! get_settings_errors() ) {
@@ -41,7 +40,7 @@ function update_settings() {
 
             update_option( 'onlyoffice_docspace_settings', $value );
 
-            add_settings_error( 'general', 'settings_updated', __( 'Settings Saved', 'onlyoffice-docspace-plugin' ), 'success' );
+            add_settings_error( 'general', 'settings_updated', __( 'Settings saved', 'onlyoffice-docspace-plugin' ), 'success' );
         }
 
         set_transient( 'settings_errors', get_settings_errors(), 30 );
