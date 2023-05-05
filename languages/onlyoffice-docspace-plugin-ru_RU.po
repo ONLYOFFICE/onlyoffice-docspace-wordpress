@@ -44,6 +44,18 @@ msgstr "Синхронизировать сейчас"
 msgid "Back to main settings"
 msgstr "Вернуться к основным настройкам"
 
+msgid "Error getting users from ONLYOFFICE DocSpace"
+msgstr "Ошибка получения пользователей ONLYOFFICE DocSpace"
+
+msgid "Invite with error for %s/%s users"
+msgstr "Приглашение закончилось с ошибкой %s/%s пользователей"
+
+msgid "Invite skipped for %s/%s users"
+msgstr "Пропущено приглашение для %s/%s пользователей"
+
+msgid "Invite sucessed for %s/%s users"
+msgstr "Успешно приглашено %s/%s пользователей"
+
 #: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Width"
 msgstr "Ширина"
@@ -94,4 +106,4 @@ msgstr "Файл"
 
 #: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Pick room or media file from your DocSpace"
-msgstr "Выберите комнату или медиафайл из DocSpace"
+msgstr "Выберите комнату или медиафайл из DocSpace "

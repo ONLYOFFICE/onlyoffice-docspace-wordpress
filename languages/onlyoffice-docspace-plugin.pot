@@ -2,12 +2,23 @@ msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
+
+
+
+
+
+
+
+
+
+
+
 msgid "ONLYOFFICE DocSpace Settings"
 msgstr ""
 
 #: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Settings"
-msgstr "Настройки"
+msgstr ""
 
 msgid "DocSpace Service Address"
 msgstr ""
@@ -31,6 +42,18 @@ msgid "Sync Now"
 msgstr ""
 
 msgid "Back to main settings"
+msgstr ""
+
+msgid "Error getting users from ONLYOFFICE DocSpace"
+msgstr ""
+
+msgid "Invite with error for %s/%s users"
+msgstr ""
+
+msgid "Invite skipped for %s/%s"
+msgstr ""
+
+msgid "Invite sucessed for %s/%s users"
 msgstr ""
 
 #: onlyoffice-docspace-wordpress-block/build/index.js

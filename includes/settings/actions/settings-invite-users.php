@@ -37,7 +37,7 @@ function invite_users() {
     $res_docspace_users = $oodsp_request_manager->request_docspace_users();
 
     if ( $res_docspace_users['error'] ) {
-        add_oodsp_users_message( 'users_invited', 'Error getting users from ONLYOFFICE DocSpace', 'error' );
+        add_oodsp_users_message( 'users_invited', __( 'Error getting users from ONLYOFFICE DocSpace' ), 'error' );
         set_transient( 'oodsp_users_messages', get_oodsp_users_messages(), 30 );
 
         wp_safe_redirect( admin_url( 'admin.php?page=onlyoffice-docspace-settings&users=true&invited=true' ) );
@@ -104,15 +104,15 @@ function invite_users() {
     }
     
     if ( $count_error !== 0 ) {
-        add_oodsp_users_message( 'users_invited', 'Invite with error for ' . $count_error .'/'. count( $users ) . ' users', 'error' );
+        add_oodsp_users_message( 'users_invited', sprintf( __( 'Invite with error for %s/%s users', 'onlyoffice-docspace-plugin' ),  $count_error,  count( $users ) ), 'error' );
     }
     
     if ( $count_skipped !== 0 ) {
-        add_oodsp_users_message( 'users_invited', 'Invite skipped for ' . $count_skipped .'/'. count( $users ) . ' users', 'warning' );
+        add_oodsp_users_message( 'users_invited', sprintf( __('Invite skipped for %s/%s users', 'onlyoffice-docspace-plugin'),  $count_skipped,  count( $users ) ), 'warning' );
     }
 
     if ( $count_invited !== 0 ) {
-        add_oodsp_users_message( 'users_invited', 'Invite sucessed for ' . $count_invited .'/'. count( $users ) . ' users', 'success' );
+        add_oodsp_users_message( 'users_invited', sprintf( __( 'Invite sucessed for %s/%s users', 'onlyoffice-docspace-plugin' ),  $count_invited,  count( $users ) ), 'success' );
     }
 
     set_transient( 'oodsp_users_messages', get_oodsp_users_messages(), 30 );
