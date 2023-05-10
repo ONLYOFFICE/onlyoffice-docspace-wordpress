@@ -115,8 +115,10 @@ class OODSP_DocSpace {
 	 */
 	public function docspace_page() {
 		?>
-		<div class="ds-frame" >
-			<div id="ds-frame"></div>
+		<div class="wrap"> 
+			<div class="ds-frame" style="height: calc(100vh - 65px - 32px);">
+				<div id="ds-frame"></div>
+			</div>
 		</div>
 		<script>
 			document.addEventListener('DOMContentLoaded', function () {
