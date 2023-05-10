@@ -26,11 +26,6 @@
             .substring(1);
     }
 
-    window.DocSpaceComponent.init = async function (config) {
-        await DocSpaceComponent.initScript();
-        DocSpace.initFrame(config);
-    }
-
     window.DocSpaceComponent.renderError = function (id, error) {
         const target = document.getElementById(id);
 
@@ -39,6 +34,9 @@
 
         if (id.endsWith("selector")) {
             errorDiv.classList.add("selector");
+        }
+        if (id.startsWith("onlyoffice-docpace-block")) {
+            errorDiv.classList.add("viewer");
         }
 
         errorDiv.innerHTML = `
@@ -53,13 +51,4 @@
         target.innerHTML = "";
         target.appendChild(errorDiv);
     }
-
-    document.addEventListener('DOMContentLoaded', function () {
-        var frames = document.getElementsByClassName("ds-frame-view");
-
-        for (var frame of frames) {
-            console.log(JSON.parse(frame.dataset.config));
-            DocSpaceComponent.init(JSON.parse(frame.dataset.config));
-        }
-    });
 })();

@@ -87,7 +87,7 @@ final class OODSP_Admin {
 	 */
 	public function enqueue_styles() {
 		wp_enqueue_style(
-			'onlyoffice-docspace-plugin',
+			$this->plugin_name . '-ds-component-style',
 			plugin_dir_url( __FILE__ ) . '../public/css/docspace-components-api.css'
 		);
 	 }

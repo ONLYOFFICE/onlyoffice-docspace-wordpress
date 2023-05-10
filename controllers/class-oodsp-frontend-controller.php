@@ -123,7 +123,7 @@ class OODSP_Frontend_Controller {
 		$instance++;
 
 		$defaults_atts = array(
-			'frameId' => 'ds-frame-' . $instance,
+			'frameId' => 'onlyoffice-docpace-block-' . $instance,
 			'width'   => "100%",
 			'height'   => "100%",
 			'mode'   => "viewer",
@@ -143,11 +143,28 @@ class OODSP_Frontend_Controller {
 		wp_localize_script(
 			$this->plugin_name . '-ds-component-script',
 			'DocSpaceComponent',
-			array( 'docSpaceUrl' => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL) )
+			array( 
+				'docSpaceUrl' => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL),
+				'user'          => wp_get_current_user()->user_email,
+				'wp_plugin_url' => WP_PLUGIN_URL
+			)
+		);
+
+		wp_enqueue_script(
+			'oodsp-frontend-controller',
+			plugin_dir_url( __FILE__ ) . 'js/oodsp-frontend-controller.js',
+			array( ),
+			ONLYOFFICE_DOCSPACE_PLUGIN_VERSION,
+			true
+		);
+
+		wp_enqueue_style(
+			$this->plugin_name . '-ds-component-style',
+			plugin_dir_url( __FILE__ ) . '../public/css/docspace-components-api.css'
 		);
 
 		$output  = '<div>';
-		$output .= "<div class='ds-frame-view' data-config='" . wp_json_encode( $atts ) . "' id='ds-frame-". $instance . "'>Fallback text</div>";
+		$output .= "<div class='onlyoffice-docpace-block' data-config='" . wp_json_encode( $atts ) . "' id='onlyoffice-docpace-block-". $instance . "' style='overflow: overlay; width:". $atts['width'] ."; height:". $atts['height'] ."'>Fallback text</div>";
 		$output .= '</div>';
 
 		return apply_filters( 'wp_onlyoffice_docspace_shortcode', $output, $atts );

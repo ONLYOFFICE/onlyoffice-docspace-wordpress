@@ -11,6 +11,10 @@
     padding: 0px;
 }
 
+.error-stub.viewer {
+    padding: 0px;
+}
+
 .error-stub .unavailable-header {
     text-align: center;    
     
@@ -35,6 +39,10 @@
 .error-stub.selector .unavailable-icon {
     margin-top: 25px;
     margin-bottom: 25px;
+}
+
+.error-stub.viewer .unavailable-icon {
+    margin:0;
 }
 
 .error-stub .unavailable-message {
