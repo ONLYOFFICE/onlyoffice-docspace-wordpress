@@ -85,7 +85,12 @@ final class OODSP_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles() { }
+	public function enqueue_styles() {
+		wp_enqueue_style(
+			'onlyoffice-docspace-plugin',
+			plugin_dir_url( __FILE__ ) . '../public/css/docspace-components-api.css'
+		);
+	 }
 
 
 	/**
@@ -106,8 +111,9 @@ final class OODSP_Admin {
 			$this->plugin_name . '-ds-component-script',
 			'DocSpaceComponent',
 			array( 
-				'docSpaceUrl' => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL),
-				'user'        => wp_get_current_user()->user_email
+				'docSpaceUrl'   => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL),
+				'user'          => wp_get_current_user()->user_email,
+				'wp_plugin_url' => WP_PLUGIN_URL
 			)
 		);
 	}

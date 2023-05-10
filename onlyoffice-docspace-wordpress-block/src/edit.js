@@ -45,16 +45,22 @@ const Edit = ({ attributes, setAttributes }) => {
     const [showDefaultIcon, setShowDefaultIcon] = useState( false );
 
     const script = () => {
-        // DocSpaceComponent.initScript().then(function() {
-        //     if (isOpen) {
-        //         console.log(modalConfig.docspaceConfig);
-        //         DocSpace.initFrame(modalConfig.docspaceConfig);
+        DocSpaceComponent.initScript().then(function() {
+            if (isOpen) {
+                console.log(modalConfig.docspaceConfig);
+                DocSpace["ds-frame"].initFrame(modalConfig.docspaceConfig);
 
-        //         setTimeout(function() {
-        //             DocSpaceComponent.login();
-        //         }, 5000);
-        //     }
-        // });
+                // setTimeout(function() {
+                //     DocSpaceComponent.login();
+
+                //     setError({
+                //         message: __("Content of ONLYOFFICE DocSpace Connector is available for authorized users with granted permissions. Please register to start working in ONLYOFFICE DocSpace")
+                //     })
+                // }, 5000);
+            }
+        }).catch(function() {
+            DocSpaceComponent.renderError(modalConfig.docspaceConfig.frameId, { message: __("Portal unavailable! Please contact the administrator!", "onlyoffice-docspace-plugin") })
+        });
     };
 
     useEffect(script, [isOpen]);
@@ -70,7 +76,7 @@ const Edit = ({ attributes, setAttributes }) => {
 
     const openModal = (event) => {
         var docspaceConfig = {
-            "frameId": "ds-frame-select",
+            "frameId": "ds-frame-selector",
             "width": "400px",
             "height": "500px",
             "mode": event.target.dataset.mode || null,
@@ -189,7 +195,7 @@ const Edit = ({ attributes, setAttributes }) => {
             }
             { isOpen && (
                 <Modal onRequestClose={ closeModal } title={ modalConfig.title }>
-                    <div id="ds-frame-select">Fallback text</div>
+                    <div id="ds-frame-selector"></div>
                 </Modal>
             ) }
         </div>

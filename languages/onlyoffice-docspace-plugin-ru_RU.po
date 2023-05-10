@@ -119,3 +119,7 @@ msgstr "Файл"
 #: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Pick room or media file from your DocSpace"
 msgstr "Выберите комнату или медиафайл из DocSpace "
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Portal unavailable! Please contact the administrator!"
+msgstr "Портал недоступен! Пожалуйста, свяжитесь с администратором!"

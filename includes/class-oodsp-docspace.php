@@ -101,16 +101,6 @@ class OODSP_DocSpace {
 	}
 
 	/**
-	 * Add DocSpace API JS.
-	 *
-	 * @return void
-	 */
-	public function add_docspace_js() {
-		$script_url = $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL) . 'static/scripts/api.js?withSubfolders=true&showHeader=false&showTitle=true&showMenu=false&showFilter=false';
-		wp_enqueue_script( 'onlyoffice_docspace_sdk', $script_url, array(), ONLYOFFICE_DOCSPACE_PLUGIN_VERSION, false );
-	}
-
-	/**
 	 * Register the JavaScript for the DocSpace page.
 	 *
 	 * @since    1.0.0
@@ -124,12 +114,19 @@ class OODSP_DocSpace {
 	 * @return void
 	 */
 	public function docspace_page() {
-		$this->add_docspace_js();
-
 		?>
-		<div class="ds-frame" style="height: 100vh;">
-			<div id="ds-frame">Fallback text</div>
+		<div class="ds-frame" >
+			<div id="ds-frame"></div>
 		</div>
+		<script>
+			document.addEventListener('DOMContentLoaded', function () {
+				DocSpaceComponent.initScript().then(function() {
+
+				}).catch(function() {
+					DocSpaceComponent.renderError("ds-frame", { message: "<?php esc_html_e('Portal unavailable! Please contact the administrator!', 'onlyoffice-docspace-plugin') ?>"})
+				});
+			});
+		</script>
 		<?php
 	}
 }
