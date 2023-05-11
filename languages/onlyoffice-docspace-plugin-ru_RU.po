@@ -41,6 +41,30 @@ msgstr "Чтобы добавить новых пользователей в ONL
 msgid "Sync Now"
 msgstr "Синхронизировать сейчас"
 
+msgid "DocSpace User Status"
+msgstr "Статус пользователя DocSpace"
+
+msgid "DocSpace User Type"
+msgstr "Тип пользователя DocSpace"
+
+msgid "Owner"
+msgstr "Владелец"
+
+msgid "DocSpace admin"
+msgstr "Администратор DocSpace"
+
+msgid "Power user"
+msgstr "Опытный пользователь"
+
+msgid "User"
+msgstr "Пользователь"
+
+msgid "Room admin"
+msgstr "Администратор комнаты"
+
+msgid "Invite to Docspace"
+msgstr "Пригласить в Docspace"
+
 msgid "Back to main settings"
 msgstr "Вернуться к основным настройкам"
 
@@ -67,6 +91,18 @@ msgstr "Пропущено приглашение для %s/%s пользова�
 
 msgid "Invite sucessed for %s/%s users"
 msgstr "Успешно приглашено %s/%s пользователей"
+
+msgid "Problem with the account synchronization between WordPress and ONLYOFFICE DocSpace"
+msgstr "Проблема с синхронизацией аккаунтов между WordPress и ONLYOFFICE DocSpace"
+
+msgid "Possible cause:"
+msgstr "Возможная причина:"
+
+msgid "DocSpace account was not created via the DocSpace plugin for WordPress"
+msgstr "Учетная запись DocSpace не была создана с помощью плагина DocSpace для WordPress."
+
+msgid "Seamless login is unavailable. Users will need to login into DocSpace to have access to the plugin."
+msgstr "Бесшовный вход недоступен. Пользователям необходимо будет войти в DocSpace, чтобы получить доступ к плагину."
 
 #: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Width"

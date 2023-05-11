@@ -41,6 +41,30 @@ msgstr ""
 msgid "Sync Now"
 msgstr ""
 
+msgid "DocSpace User Status"
+msgstr ""
+
+msgid "DocSpace User Type"
+msgstr ""
+
+msgid "Owner"
+msgstr ""
+
+msgid "DocSpace admin"
+msgstr ""
+
+msgid "Power user"
+msgstr ""
+
+msgid "User"
+msgstr ""
+
+msgid "Room admin"
+msgstr ""
+
+msgid "Invite to Docspace"
+msgstr ""
+
 msgid "Back to main settings"
 msgstr ""
 
@@ -67,6 +91,18 @@ msgstr ""
 
 msgid "Invite sucessed for %s/%s users"
 msgstr ""
+
+msgid "Problem with the account synchronization between WordPress and ONLYOFFICE DocSpace"
+msgid ""
+
+msgid "Possible cause:"
+msgid ""
+
+msgid "DocSpace account was not created via the DocSpace plugin for WordPress"
+msgid ""
+
+msgid "Seamless login is unavailable. Users will need to login into DocSpace to have access to the plugin."
+msgid ""
 
 #: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Width"

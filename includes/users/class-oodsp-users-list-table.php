@@ -254,7 +254,7 @@ class OODSP_Users_List_Table extends WP_List_Table {
 	protected function get_bulk_actions() {
 		$actions = array();
 
-		$actions['invite'] = __( 'Invite to Docspace' );
+		$actions['invite'] = __( 'Invite to Docspace', 'onlyoffice-docspace-plugin' );
 		$actions['delete'] = __( 'Delete from Docspace' );
 
 		return $actions;
@@ -272,8 +272,8 @@ class OODSP_Users_List_Table extends WP_List_Table {
 			'name'                  => __( 'Name' ),
 			'email'                 => __( 'Email' ),
 			'role'                  => __( 'Role' ),
-			'in_docspace'           => __( 'In DocSpace' ),
-			'type_user_in_docspace' => __( 'Type' ),
+			'in_docspace'           => __( 'DocSpace User Status', 'onlyoffice-docspace-plugin' ),
+			'type_user_in_docspace' => __( 'DocSpace User Type', 'onlyoffice-docspace-plugin' ),
 		);
 
 		return $columns;
@@ -303,7 +303,7 @@ class OODSP_Users_List_Table extends WP_List_Table {
 				$this->display_rows();
 			} else {
 				echo '<tr class="no-items"><td class="colspanchange" colspan="' . $this->get_column_count() . '">';
-				echo '<span>Error to connect DocSpace Server!</space>';
+				echo '<span>'. __( 'Error getting users from ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ) . '</space>';
 				echo '</td></tr>';
 			}
 		} else {
@@ -544,25 +544,22 @@ class OODSP_Users_List_Table extends WP_List_Table {
 
 	private function get_docspace_user_role_label ( $docspace_user ) {
 		if ( $docspace_user['isOwner'] ) {
-			return 'Owner';
+			return __( 'Owner', 'onlyoffice-docspace-plugin' );
 		} else if ( $docspace_user['isAdmin'] ) {
-			return 'DocSpace admin';
+			return __( 'DocSpace admin', 'onlyoffice-docspace-plugin' );
 		} else if ( $docspace_user['isCollaborator'] ) {
-			return 'Power user';
+			return __( 'Power user', 'onlyoffice-docspace-plugin' );
 		} else if ( $docspace_user['isVisitor'] ) {
-			return 'User';
+			return __( 'User', 'onlyoffice-docspace-plugin' );
 		} else {
-			return 'Room admin';
+			return __( 'Room admin', 'onlyoffice-docspace-plugin' );
 		}
 	}
 
 	private function get_label_for_unauthorized () {
-		$output = '<b>Problem with synchronization accounts between WordPress and DocSpace</b></br></br>';
-		$output .='<b>Possible cause:</b> DocSpace account was not created via DocSpace plugin for WordPress.</br></br>';
-		$output .='To solve this problem:</br>';
-		$output .='1. Delete existing account with this email from DocSpace.</br>';
-		$output .='2. Create new DocSpace account via DocSpace settings in Wordpress.</br></br>';
-		$output .='<b>Careful:</b> safe existing files before deleting acount from DocSpace';
+		$output = '<b>'. __( 'Problem with the account synchronization between WordPress and ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ) .'</b></br></br>';
+		$output .= '<b>'. __( 'Possible cause:', 'onlyoffice-docspace-plugin' ) .'</b> '. __( 'DocSpace account was not created via the DocSpace plugin for WordPress', 'onlyoffice-docspace-plugin' ) .'</br></br>';
+		$output .= __( 'Seamless login is unavailable. Users will need to login into DocSpace to have access to the plugin.', 'onlyoffice-docspace-plugin' );
 
 		return $output;
 	}

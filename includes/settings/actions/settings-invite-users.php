@@ -37,7 +37,7 @@ function invite_users() {
     $res_docspace_users = $oodsp_request_manager->request_docspace_users();
 
     if ( $res_docspace_users['error'] ) {
-        add_oodsp_users_message( 'users_invited', __( 'Error getting users from ONLYOFFICE DocSpace' ), 'error' );
+        add_oodsp_users_message( 'users_invited', __( 'Error getting users from ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ), 'error' );
         set_transient( 'oodsp_users_messages', get_oodsp_users_messages(), 30 );
 
         wp_safe_redirect( admin_url( 'admin.php?page=onlyoffice-docspace-settings&users=true&invited=true' ) );
