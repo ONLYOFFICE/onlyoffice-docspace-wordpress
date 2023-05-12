@@ -265,9 +265,6 @@ class OODSP_Settings {
 				wp_safe_redirect( add_query_arg( 'paged', $total_pages ) );
 				exit;
 			}
-
-			$script_url = $this->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL) . 'static/scripts/api.js?withSubfolders=true&showHeader=false&showTitle=true&showMenu=false&showFilter=false';
-			wp_enqueue_script( 'onlyoffice_docspace_sdk', $script_url, array(), ONLYOFFICE_DOCSPACE_PLUGIN_VERSION, false );
 			?>
 
 			<div class="wrap">
@@ -309,13 +306,10 @@ class OODSP_Settings {
 
 				<div class="clear"></div>
 			</div>
-			<div class="ds-frame" hidden>
-				<div id="ds-frame"></div>
-			</div>
 			<?php
 		}
 		?>
-			<div hidden><div id="ds-frame"></div></div>
+			<div hidden><div id="docspace-system-frame"></div></div>
 			<div id="onlyoffice-docspace-settings-loader" class="notification-dialog-background" hidden><div class="loader"></div></div>
 		<?php
 	}
