@@ -90,5 +90,29 @@ class OODSP_Public {
 	 *
 	 * @since    1.0.0
 	 */
-	public function register_routes() {}
+	public function register_routes() {
+		register_rest_route( 'oodsp', '/credential', array(
+			'methods'  => 'POST',
+			'callback' => array($this, 'get_credential')
+		) );
+	}
+
+	public function get_credential() {
+		if ( isset( $_COOKIE[LOGGED_IN_COOKIE] ) ) {
+			$user_id = wp_validate_auth_cookie( $_COOKIE[LOGGED_IN_COOKIE], 'logged_in' );
+
+			if ( $user_id ) {
+				global $wpdb;
+				$docspace_user_table = $wpdb->prefix . "docspace_users";
+
+				$res = $wpdb->get_row( $wpdb->prepare( "SELECT user_pass FROM $docspace_user_table WHERE user_id = %s LIMIT 1", $user_id ) );
+
+				if ($res) {
+					return $res->user_pass;
+				}
+			}
+		} 
+
+		return new WP_Error( 'rest_forbidden', '', array( 'status' => 401 ) );
+	}
 }

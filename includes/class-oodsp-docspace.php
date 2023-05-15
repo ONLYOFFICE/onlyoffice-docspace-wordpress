@@ -117,15 +117,24 @@ class OODSP_DocSpace {
 		?>
 		<div class="wrap"> 
 			<div class="ds-frame" style="height: calc(100vh - 65px - 32px);">
-				<div id="ds-frame"></div>
+				<div id="oodsp-manager-frame"></div>
 			</div>
 		</div>
 		<script>
 			document.addEventListener('DOMContentLoaded', function () {
 				DocSpaceComponent.initScript().then(function() {
-
-				}).catch(function() {
-					DocSpaceComponent.renderError("ds-frame", { message: "<?php esc_html_e('Portal unavailable! Please contact the administrator!', 'onlyoffice-docspace-plugin') ?>"})
+					DocSpaceComponent.initLoginDocSpace(
+						"oodsp-manager-frame", 
+						function() {
+							DocSpace.SDK.initManager({
+								frameId: "oodsp-manager-frame",
+								showMenu: true
+							});
+						},
+						function() {
+							DocSpaceComponent.renderError("oodsp-manager-frame", { message: "<?php esc_html_e('Portal unavailable! Please contact the administrator!', 'onlyoffice-docspace-plugin') ?>"})
+						}
+					);
 				});
 			});
 		</script>

@@ -112,7 +112,10 @@ final class OODSP_Admin {
 			'DocSpaceComponent',
 			array( 
 				'docSpaceUrl'   => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL),
-				'user'          => wp_get_current_user()->user_email,
+				'user'          => array( 'email' => wp_get_current_user()->user_email ),
+				'сredentialUrl' => get_option( 'permalink_structure' ) 
+						? get_option( 'siteurl' ) . '/index.php?rest_route=/oodsp/credentials'
+						: get_option( 'siteurl' ) . '/wp-json/oodsp/credentials',
 				'wp_plugin_url' => WP_PLUGIN_URL
 			)
 		);

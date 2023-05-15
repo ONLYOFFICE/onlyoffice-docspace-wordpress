@@ -51,4 +51,48 @@
         target.innerHTML = "";
         target.appendChild(errorDiv);
     }
+
+    window.DocSpaceComponent.getCredentials = function (сredentialUrl) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", сredentialUrl, false);
+        xhr.send();
+
+        if (xhr.status === 200) {
+            return JSON.parse(xhr.responseText);
+        }
+
+        return null;
+    }
+
+    window.DocSpaceComponent.initLoginDocSpace = function (frameId, onSuccess, onError) {
+        DocSpace.SDK.initFrame({
+            frameId: frameId,
+            mode: "system",
+            events: {
+                onAppReady: async function() {
+                    if (!window.DocSpaceComponent.onAppReady) { // ToDo: Delete after fixes
+                        window.DocSpaceComponent.onAppReady = true;
+
+                        const userInfo = await DocSpace.SDK.frames[frameId].getUserInfo();
+
+                        if (userInfo && userInfo.email === DocSpaceComponent.user.email){
+                            onSuccess();
+                        } else {
+                            const hash = DocSpaceComponent.getCredentials(DocSpaceComponent.сredentialUrl);
+
+                            DocSpace.SDK.frames[frameId].login(DocSpaceComponent.user.email, hash)
+                                .then(function(response) {
+                                    //ToDO: check response, need fix response
+                                    onSuccess();
+                                }
+                            );
+                        } 
+                    }
+                },
+                onAppError: async function() {
+                    onError();
+                }
+            }
+        });
+    };
 })();
