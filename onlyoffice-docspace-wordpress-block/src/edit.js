@@ -47,19 +47,28 @@ const Edit = ({ attributes, setAttributes }) => {
     const script = () => {
         DocSpaceComponent.initScript().then(function() {
             if (isOpen) {
-                console.log(modalConfig.docspaceConfig);
-                DocSpace["ds-frame"].initFrame(modalConfig.docspaceConfig);
-
-                // setTimeout(function() {
-                //     DocSpaceComponent.login();
-
-                //     setError({
-                //         message: __("Content of ONLYOFFICE DocSpace Connector is available for authorized users with granted permissions. Please register to start working in ONLYOFFICE DocSpace")
-                //     })
-                // }, 5000);
+                DocSpaceComponent.initLoginDocSpace(
+                    "oodsp-selector-frame",
+                    null,
+                    function() {
+                        DocSpace.SDK.initFrame({
+                            frameId: "oodsp-selector-frame",
+                            width: "400px",
+                            height: "500px",
+                            mode: modalConfig.mode,
+                            events: {
+                                onSelectCallback: onSelectCallback,
+                                onCloseCallback: onCloseCallback,
+                            }
+                        });
+                    },
+                    function() {
+                        DocSpaceComponent.renderError("oodsp-selector-frame", { message: __("Portal unavailable! Please contact the administrator!", "onlyoffice-docspace-plugin") })
+                    }
+                );
             }
         }).catch(function() {
-            DocSpaceComponent.renderError(modalConfig.docspaceConfig.frameId, { message: __("Portal unavailable! Please contact the administrator!", "onlyoffice-docspace-plugin") })
+            DocSpaceComponent.renderError("oodsp-selector-frame", { message: __("Portal unavailable! Please contact the administrator!", "onlyoffice-docspace-plugin") })
         });
     };
 
@@ -75,20 +84,9 @@ const Edit = ({ attributes, setAttributes }) => {
     }
 
     const openModal = (event) => {
-        var docspaceConfig = {
-            "frameId": "ds-frame-selector",
-            "width": "400px",
-            "height": "500px",
-            "mode": event.target.dataset.mode || null,
-            "events": {
-                "onSelectCallback": onSelectCallback,
-                "onCloseCallback": onCloseCallback
-            }
-        };
-
         setModalConfig ({
             title: event.target.dataset.title || "",
-            docspaceConfig: docspaceConfig
+            mode: event.target.dataset.mode || null
         })
 
         setOpen( true );
@@ -97,7 +95,6 @@ const Edit = ({ attributes, setAttributes }) => {
     const closeModal = (event) => {
         if(event._reactName != "onBlur") {
             setOpen( false );
-            setAttributes({ fileId: 1 });
         }
     }
 
@@ -142,7 +139,7 @@ const Edit = ({ attributes, setAttributes }) => {
                                             <MenuItem
                                                 onClick={ (event) => {
                                                     event.target.dataset.title=__("Select room", "onlyoffice-docspace-plugin");
-                                                    event.target.dataset.mode="room selector";
+                                                    event.target.dataset.mode="room-selector";
                                                     openModal(event);
                                                     onClose(); 
                                                 }}
@@ -152,7 +149,7 @@ const Edit = ({ attributes, setAttributes }) => {
                                             <MenuItem
                                                 onClick={ (event) => {
                                                     event.target.dataset.title=__("Select file", "onlyoffice-docspace-plugin");
-                                                    event.target.dataset.mode="manager";
+                                                    event.target.dataset.mode="file-selector";
                                                     openModal(event);
                                                     onClose(); 
                                                 }}
@@ -177,7 +174,7 @@ const Edit = ({ attributes, setAttributes }) => {
                         <Button
                             variant="primary"
                             data-title={ __("Select room", "onlyoffice-docspace-plugin") }
-                            data-mode="room selector"
+                            data-mode="room-selector"
                             onClick={ openModal }
                         >
                             { __("Select room", "onlyoffice-docspace-plugin") }
@@ -185,7 +182,7 @@ const Edit = ({ attributes, setAttributes }) => {
                         <Button
                             variant="primary"
                             data-title={ __("Select file", "onlyoffice-docspace-plugin") }
-                            data-mode="manager"
+                            data-mode="file-selector"
                             onClick={ openModal }
                             >
                             { __("Select file", "onlyoffice-docspace-plugin") }
@@ -195,7 +192,7 @@ const Edit = ({ attributes, setAttributes }) => {
             }
             { isOpen && (
                 <Modal onRequestClose={ closeModal } title={ modalConfig.title }>
-                    <div id="ds-frame-selector"></div>
+                    <div id="oodsp-selector-frame"></div>
                 </Modal>
             ) }
         </div>
