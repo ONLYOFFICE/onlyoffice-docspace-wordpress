@@ -83,7 +83,7 @@
             DocSpaceComponent.initScript($('#docspace_url').val().trim())
                 .then(async function() { // ToDo: onAppReady, onError
                     DocSpace.SDK.initFrame({
-                        frameId: "docspace-system-frame",
+                        frameId: "oodsp-system-frame",
                         mode: "system",
                         events: {
                             "onAppReady": function() {
@@ -95,8 +95,8 @@
                         }
                     });
                     setTimeout(async function() {
-                        const hashSettings = await DocSpace.SDK.frames["docspace-system-frame"].getHashSettings();
-                        const hash = await DocSpace.SDK.frames["docspace-system-frame"].createHash(pass.trim(), hashSettings);
+                        const hashSettings = await DocSpace.SDK.frames["oodsp-system-frame"].getHashSettings();
+                        const hash = await DocSpace.SDK.frames["oodsp-system-frame"].createHash(pass.trim(), hashSettings);
                         settingsForm.append(
                             $( '<input />' )
                                 .attr('id', "hash")
@@ -124,13 +124,13 @@
             event.preventDefault();
             showLoader();
 
-            const hashSettings = await DocSpace.SDK.frames['docspace-system-frame'].getHashSettings();
+            const hashSettings = await DocSpace.SDK.frames['oodsp-system-frame'].getHashSettings();
 
             const users = $('th.check-column[scope="row"] input');
 
             for (var user of users) {
                 if ($(user).is(':checked')) {
-                    const hash = await DocSpace.SDK.frames['docspace-system-frame'].createHash(generatePass(), hashSettings);
+                    const hash = await DocSpace.SDK.frames['oodsp-system-frame'].createHash(generatePass(), hashSettings);
 
                     $(user).val($(user).val() + "$$" + hash);
                 }
@@ -158,16 +158,8 @@
     DocSpaceComponent.initScript()
         .then(function(e) { // ToDo: onAppReady, onError
             DocSpace.SDK.initFrame({
-                frameId: "docspace-system-frame",
-                mode: "system",
-                events: {
-                    "onAppReady": function() {
-                        alert("onAppReady");
-                    },
-                    "onAppError": function() {
-                        alert("onAppError");
-                    }
-                }
+                frameId: "oodsp-system-frame",
+                mode: "system"
             });
         });
 }( jQuery ) );

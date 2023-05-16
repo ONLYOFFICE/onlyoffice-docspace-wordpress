@@ -309,7 +309,7 @@ class OODSP_Settings {
 			<?php
 		}
 		?>
-			<div hidden><div id="docspace-system-frame"></div></div>
+			<div hidden><div id="oodsp-system-frame"></div></div>
 			<div id="onlyoffice-docspace-settings-loader" class="notification-dialog-background" hidden><div class="loader"></div></div>
 		<?php
 	}
