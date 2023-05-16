@@ -126,11 +126,13 @@ class OODSP_Frontend_Controller {
 			'frameId' => 'onlyoffice-docpace-block-' . $instance,
 			'width'   => "100%",
 			'height'   => "100%",
-			'mode'   => "viewer",
-			'fileId'   => null,
+			'mode'   => "manager",
+			'itemId'   => null,
 		);
 
 		$atts = shortcode_atts( $defaults_atts, $attr, 'onlyoffice-docspace' );
+
+		$atts['id'] = $attr['fileId'];
 
 		wp_enqueue_script(
 			$this->plugin_name . '-ds-component-script',
