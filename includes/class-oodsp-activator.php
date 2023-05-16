@@ -48,8 +48,10 @@ class OODSP_Activator {
 		global $wpdb;
 
 		$charset_collate = $wpdb->get_charset_collate();
+		$oodsp_users_table = $wpdb->prefix . OODSP_Security_Manager::DOCSPACE_USERS_TABLE;
 
-		$sql = "CREATE TABLE IF NOT EXISTS `{$wpdb->base_prefix}docspace_users` (
+
+		$sql = "CREATE TABLE IF NOT EXISTS `{oodsp_users_table}` (
 		id bigint(50) NOT NULL AUTO_INCREMENT,
 		user_id bigint(20) UNSIGNED NOT NULL,
 		user_pass varchar(225),

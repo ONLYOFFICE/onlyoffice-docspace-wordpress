@@ -433,17 +433,12 @@ class OODSP_Users_List_Table extends WP_List_Table {
 						$row .= esc_html( $roles_list );
 						break;
 					case 'in_docspace':
-						global $wpdb;
-						$docspace_user_table = $wpdb->prefix . "docspace_users";
+						$oodsp_security_manager = new OODSP_Security_Manager();
 
-						$res = $wpdb->get_row( $wpdb->prepare( "SELECT user_pass FROM $docspace_user_table WHERE user_id = %s LIMIT 1", $user_object->ID ) );
-
-						if ($res ) {
-							$res->user_pass;
-						}
-
-						if ( $docspace_user_status == 0 ||  $docspace_user_status == 1 ) {
-							if ( is_object( $res ) &&  !empty( $res->user_pass ) ) {
+						$user_pass = $oodsp_security_manager->get_oodsp_user_pass( $user_object->ID );
+						
+						if ( $docspace_user_status == 0 || $docspace_user_status == 1 ) {
+							if ( !empty( $user_pass ) ) {
 								$row .= "<img src='" . esc_url( plugins_url( '../../public/images/done.svg', __FILE__ ) ) . "'/>";
 							} else {
 								$row .= '<div class="tooltip" style="cursor: pointer">';

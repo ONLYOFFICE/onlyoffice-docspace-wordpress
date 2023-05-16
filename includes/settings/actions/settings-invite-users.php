@@ -74,29 +74,9 @@ function invite_users() {
             if ( $res_invite_user['error'] ){
                 $count_error++;
             } else {
-                global $wpdb;
+                $oodsp_security_manager = new OODSP_Security_Manager();
 
-                $docspace_user_table = $wpdb->prefix . "docspace_users";
-
-                $result = $wpdb->update( 
-                    $docspace_user_table , 
-                    array( 
-                        'user_id'   => $user_id,
-                        'user_pass' => $user_hash
-                    ), 
-                    array( 
-                        'user_id' => $user_id ) 
-                    );
-
-                if (!$result) {
-                    $wpdb->insert( 
-                        $docspace_user_table,
-                        array( 
-                            'user_id'   => $user_id,
-                            'user_pass' => $user_hash
-                        ) 
-                    );
-                }
+				$oodsp_security_manager->set_oodsp_user_pass( $user_id, $user_hash );
 
                 $count_invited++;
             } 

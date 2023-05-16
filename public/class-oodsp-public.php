@@ -109,14 +109,9 @@ class OODSP_Public {
 			$user_id = wp_validate_auth_cookie( $_COOKIE[LOGGED_IN_COOKIE], 'logged_in' );
 
 			if ( $user_id ) {
-				global $wpdb;
-				$docspace_user_table = $wpdb->prefix . "docspace_users";
-
-				$res = $wpdb->get_row( $wpdb->prepare( "SELECT user_pass FROM $docspace_user_table WHERE user_id = %s LIMIT 1", $user_id ) );
-
-				if ($res) {
-					return $res->user_pass;
-				}
+				$oodsp_security_manager = new OODSP_Security_Manager();
+				
+				return $oodsp_security_manager->get_oodsp_user_pass( $user_id );
 			}
 		} 
 
@@ -129,39 +124,14 @@ class OODSP_Public {
 			$body = json_decode( $request->get_body(), true );
 
 			if ( $user_id && !empty( $body['hash'] ) ) {
-				global $wpdb;
+				$oodsp_security_manager = new OODSP_Security_Manager();
 
-				$docspace_user_table = $wpdb->prefix . "docspace_users";
+				$result = $oodsp_security_manager->set_oodsp_user_pass( $user_id, $body['hash'] );
 
-				$result = $wpdb->get_row( $wpdb->prepare( "SELECT user_pass FROM $docspace_user_table WHERE user_id = %s LIMIT 1", $user_id ) );
-
-				if ($result) {
-					$updated = $wpdb->update( 
-						$docspace_user_table, 
-						array( 
-							'user_id'   => $user_id,
-							'user_pass' => $body['hash']
-						), 
-						array( 'user_id' => $user_id ) 
-					);
-
-					if (!$updated) {
-						return wp_send_json_error();
-					}
-				} else {
-					$inseted = $wpdb->insert( 
-						$docspace_user_table,
-						array(
-							'user_id'   => $user_id,
-							'user_pass' => $body['hash']
-						)
-					);
-
-					if (!$inseted) {
-						return wp_send_json_error();
-					}
+				if ( ! $result ) {
+					return wp_send_json_error();
 				}
-
+				
 				return wp_send_json_success();
 			}
 		} 
