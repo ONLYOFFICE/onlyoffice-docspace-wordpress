@@ -92,13 +92,15 @@ class OODSP_Public {
 	 */
 	public function register_routes() {
 		register_rest_route( 'oodsp', '/credential', array(
-			'methods'  => 'POST',
-			'callback' => array($this, 'get_oodsp_credential')
+			'methods'             => 'POST',
+			'callback'            => array($this, 'get_oodsp_credential'),
+			'permission_callback' => array($this, 'permissions_check')
 		) );
 
 		register_rest_route( 'oodsp', '/credential', array(
 			'methods'  => 'PUT',
-			'callback' => array($this, 'set_oodsp_credential')
+			'callback' => array($this, 'set_oodsp_credential'),
+			'permission_callback' => array($this, 'permissions_check')
 		) );
 	}
 
@@ -110,7 +112,7 @@ class OODSP_Public {
 				global $wpdb;
 				$docspace_user_table = $wpdb->prefix . "docspace_users";
 
-				$res = $wpdb->get_row( $wpdb->prepare( "SELECT user_pass FROM $docspace_user_table WHERE user_id = %s LIMIT 1", $user_id + 324324 ) );
+				$res = $wpdb->get_row( $wpdb->prepare( "SELECT user_pass FROM $docspace_user_table WHERE user_id = %s LIMIT 1", $user_id ) );
 
 				if ($res) {
 					return $res->user_pass;
@@ -165,5 +167,17 @@ class OODSP_Public {
 		} 
 
 		return new WP_Error( 'rest_forbidden', '', array( 'status' => 401 ) );
+	}
+
+	public function permissions_check( $request ) {
+		if ( isset( $_COOKIE[LOGGED_IN_COOKIE] ) ) {
+			$user_id = wp_validate_auth_cookie( $_COOKIE[LOGGED_IN_COOKIE], 'logged_in' );
+
+			if ( $user_id ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }
