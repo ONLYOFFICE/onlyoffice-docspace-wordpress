@@ -64,7 +64,7 @@
         return null;
     }
 
-    window.DocSpaceComponent.initLoginDocSpace = function (frameId, onSuccess, onError) {
+    window.DocSpaceComponent.initLoginDocSpace = function (frameId, password, onSuccess, onError) {
         DocSpace.SDK.initFrame({
             frameId: frameId,
             mode: "system",
@@ -78,11 +78,34 @@
                         if (userInfo && userInfo.email === DocSpaceComponent.user.email){
                             onSuccess();
                         } else {
-                            const hash = DocSpaceComponent.getCredentials(DocSpaceComponent.сredentialUrl);
+                            var hash = null;
+
+                            if (password) {
+                                const hashSettings = await DocSpace.SDK.frames[frameId].getHashSettings();
+                                hash = await DocSpace.SDK.frames[frameId].createHash(password.trim(), hashSettings);
+                            } else {
+                                hash = DocSpaceComponent.getCredentials(DocSpaceComponent.сredentialUrl);
+                            }
+
+                            if (hash === null || hash.length === "") {
+                                DocSpaceComponent.renderLoginWindow(frameId, onSuccess, onError);
+                            }
 
                             DocSpace.SDK.frames[frameId].login(DocSpaceComponent.user.email, hash)
                                 .then(function(response) {
                                     //ToDO: check response, need fix response
+                                    // onError: function () {
+                                        // DocSpaceComponent.renderLoginWindow();
+                                    // }
+
+                                    if (password) {
+                                        var xhr = new XMLHttpRequest();
+                                        xhr.open("PUT", DocSpaceComponent.сredentialUrl, false);
+                                        xhr.send(JSON.stringify({
+                                            hash: hash
+                                        }));
+                                    }
+
                                     onSuccess();
                                 }
                             );
@@ -94,5 +117,24 @@
                 }
             }
         });
+    };
+
+    window.DocSpaceComponent.renderLoginWindow = function (frameId, onSuccess, onError) {
+        DocSpace.SDK.frames[frameId].destroyFrame();
+
+        const loginTemplate = wp.template( 'oodsp-login' );
+        const target = document.getElementById(frameId);
+
+        target.innerHTML = loginTemplate({
+            email: DocSpaceComponent.user.email
+        });
+
+        document.getElementById("oodsp-login-form").onsubmit = function(e) {
+            e.preventDefault();
+
+            var password = document.getElementById("oodsp-password").value;
+            window.DocSpaceComponent.onAppReady = false; //ToDo: remove
+            window.DocSpaceComponent.initLoginDocSpace(frameId, password, onSuccess, onError)
+        };
     };
 })();

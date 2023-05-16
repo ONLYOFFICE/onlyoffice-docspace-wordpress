@@ -93,11 +93,16 @@ class OODSP_Public {
 	public function register_routes() {
 		register_rest_route( 'oodsp', '/credential', array(
 			'methods'  => 'POST',
-			'callback' => array($this, 'get_credential')
+			'callback' => array($this, 'get_oodsp_credential')
+		) );
+
+		register_rest_route( 'oodsp', '/credential', array(
+			'methods'  => 'PUT',
+			'callback' => array($this, 'set_oodsp_credential')
 		) );
 	}
 
-	public function get_credential() {
+	public function get_oodsp_credential( $request ) {
 		if ( isset( $_COOKIE[LOGGED_IN_COOKIE] ) ) {
 			$user_id = wp_validate_auth_cookie( $_COOKIE[LOGGED_IN_COOKIE], 'logged_in' );
 
@@ -105,11 +110,57 @@ class OODSP_Public {
 				global $wpdb;
 				$docspace_user_table = $wpdb->prefix . "docspace_users";
 
-				$res = $wpdb->get_row( $wpdb->prepare( "SELECT user_pass FROM $docspace_user_table WHERE user_id = %s LIMIT 1", $user_id ) );
+				$res = $wpdb->get_row( $wpdb->prepare( "SELECT user_pass FROM $docspace_user_table WHERE user_id = %s LIMIT 1", $user_id + 324324 ) );
 
 				if ($res) {
 					return $res->user_pass;
 				}
+			}
+		} 
+
+		return new WP_Error( 'rest_forbidden', '', array( 'status' => 401 ) );
+	}
+
+	public function set_oodsp_credential( $request ) {
+		if ( isset( $_COOKIE[LOGGED_IN_COOKIE] ) ) {
+			$user_id = wp_validate_auth_cookie( $_COOKIE[LOGGED_IN_COOKIE], 'logged_in' );
+			$body = json_decode( $request->get_body(), true );
+
+			if ( $user_id && !empty( $body['hash'] ) ) {
+				global $wpdb;
+
+				$docspace_user_table = $wpdb->prefix . "docspace_users";
+
+				$result = $wpdb->get_row( $wpdb->prepare( "SELECT user_pass FROM $docspace_user_table WHERE user_id = %s LIMIT 1", $user_id ) );
+
+				if ($result) {
+					$updated = $wpdb->update( 
+						$docspace_user_table, 
+						array( 
+							'user_id'   => $user_id,
+							'user_pass' => $body['hash']
+						), 
+						array( 'user_id' => $user_id ) 
+					);
+
+					if (!$updated) {
+						return wp_send_json_error();
+					}
+				} else {
+					$inseted = $wpdb->insert( 
+						$docspace_user_table,
+						array(
+							'user_id'   => $user_id,
+							'user_pass' => $body['hash']
+						)
+					);
+
+					if (!$inseted) {
+						return wp_send_json_error();
+					}
+				}
+
+				return wp_send_json_success();
 			}
 		} 
 

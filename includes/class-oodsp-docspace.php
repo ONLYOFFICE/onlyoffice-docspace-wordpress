@@ -124,7 +124,8 @@ class OODSP_DocSpace {
 			document.addEventListener('DOMContentLoaded', function () {
 				DocSpaceComponent.initScript().then(function() {
 					DocSpaceComponent.initLoginDocSpace(
-						"oodsp-manager-frame", 
+						"oodsp-manager-frame",
+						null,
 						function() {
 							DocSpace.SDK.initManager({
 								frameId: "oodsp-manager-frame",
@@ -137,6 +138,35 @@ class OODSP_DocSpace {
 					);
 				});
 			});
+		</script>
+		<?php
+	}
+
+	public function docspace_login_template() {
+		?>
+		<script type="text/html" id="tmpl-oodsp-login">
+			<div class="oodsp-login">
+				<form name="loginform" id="oodsp-login-form">
+					<p>
+						<label for="user_login">Email</label>
+						<input type="text" name="log" id="user_login" aria-describedby="login-message" class="input" disabled value="{{data.email}}" size="20" autocapitalize="off" autocomplete="username">
+					</p>
+
+					<div class="user-pass-wrap">
+						<label for="user_pass">Password</label>
+						<div class="wp-pwd">
+							<input type="password" name="pwd" id="oodsp-password" aria-describedby="login-message" class="input password-input" value="" size="20" autocomplete="current-password" spellcheck="false">
+							<button type="button" class="button button-secondary wp-hide-pw hide-if-no-js" data-toggle="0" aria-label="Show password">
+								<span class="dashicons dashicons-visibility" aria-hidden="true"></span>
+							</button>
+						</div>
+					</div>
+
+					<p class="submit">
+						<input type="submit" name="wp-submit" id="oodsp-submit-password" class="button button-primary button-large" value="Sign in">
+					</p>
+				</form>
+			</div>
 		</script>
 		<?php
 	}

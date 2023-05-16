@@ -119,5 +119,7 @@ final class OODSP_Admin {
 				'wp_plugin_url' => WP_PLUGIN_URL
 			)
 		);
+
+		wp_enqueue_script('user-profile');
 	}
 }

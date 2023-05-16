@@ -179,6 +179,7 @@ class OODSP_Plugin {
 		$this->loader->add_action( 'admin_menu', $plugin_ds_frame, 'init_menu' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_ds_frame, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_ds_frame, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_footer', $plugin_ds_frame, 'docspace_login_template', 30 );
 
 		$OODSP_frontend_controller = new OODSP_Frontend_Controller( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'init', $OODSP_frontend_controller, 'init_shortcodes' );

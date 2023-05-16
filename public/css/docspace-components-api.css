@@ -56,3 +56,9 @@
 .error-stub.selector .unavailable-message {
     width: 345px;
 }
+
+.oodsp-login {
+    width: 320px;
+    margin: auto;
+    padding: 15% 0 0;
+}
