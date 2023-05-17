@@ -20,13 +20,13 @@ function update_settings() {
 
         $res_auth = $oodsp_request_manager->auth_docspace( $docspace_url, $docspace_login, $docspace_pass );
 
-        if ( $res_auth['error'] === 1) {
+        if ( $res_auth['error'] === OODSP_Request_Manager::UNAUTHORIZED) {
             add_settings_error( 'general', 'settings_updated', __( 'Invalid credentials. Please try again!', 'onlyoffice-docspace-plugin' ) );
         }
-        if ( $res_auth['error'] === 2) {
+        if ( $res_auth['error'] === OODSP_Request_Manager::USER_NOT_FOUND) {
             add_settings_error( 'general', 'settings_updated', __( 'Error getting data user. Please try again!', 'onlyoffice-docspace-plugin' ) );
         }
-        if ( $res_auth['error'] === 3) {
+        if ( $res_auth['error'] === OODSP_Request_Manager::FORBIDDEN) {
             add_settings_error( 'general', 'settings_updated', __( 'The specified user is not a DocSpace administrator!', 'onlyoffice-docspace-plugin' ) );
         }
 
@@ -41,6 +41,18 @@ function update_settings() {
             update_option( 'onlyoffice_docspace_settings', $value );
 
             add_settings_error( 'general', 'settings_updated', __( 'Settings saved', 'onlyoffice-docspace-plugin' ), 'success' );
+
+            $res_create_public_user = $oodsp_request_manager->request_create_public_user(  $docspace_url, $res_auth['data'] );
+
+            if ( $res_create_public_user['error'] === OODSP_Request_Manager::ERROR_USER_INVITE) {
+                add_settings_error( 'general', 'settings_updated', __( 'Public DocSpace user was not created! View content will not be available on public pages.', 'onlyoffice-docspace-plugin' ), 'warning' );
+            } else if ( $res_create_public_user['error'] === OODSP_Request_Manager::ERROR_SET_USER_PASS) {
+                add_settings_error( 'general', 'settings_updated', __( 'Public DocSpace user already created, but failed to update authorization.', 'onlyoffice-docspace-plugin' ), 'warning' );
+            } else if ( $res_create_public_user['error'] ) {
+                add_settings_error( 'general', 'settings_updated', __( 'Public DocSpace user was not created. View content will not be available on public pages.', 'onlyoffice-docspace-plugin' ), 'warning' );
+            } else {
+                add_settings_error( 'general', 'settings_updated', __( 'Public DocSpace user successfully created.', 'onlyoffice-docspace-plugin' ), 'success' );
+            }
         }
 
         set_transient( 'settings_errors', get_settings_errors(), 30 );

@@ -80,6 +80,15 @@ msgstr ""
 msgid "The specified user is not a DocSpace administrator!"
 msgstr ""
 
+msgid "Public DocSpace user was not created! View content will not be available on public pages."
+msgstr ""
+
+msgid "Public DocSpace user already created, but failed to update authorization."
+msgstr ""
+
+msgid "Public DocSpace user successfully created."
+msgstr ""
+
 msgid "Error getting users from ONLYOFFICE DocSpace"
 msgstr ""
 

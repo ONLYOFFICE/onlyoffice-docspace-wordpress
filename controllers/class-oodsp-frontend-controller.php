@@ -35,6 +35,11 @@
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
 class OODSP_Frontend_Controller {
+	const OODSP_PUBLIC_USER_LOGIN = 'wp_public_user@wp_public_user.com';
+	const OODSP_PUBLIC_USER_PASS = '8c6b8b3e59010d7c925a47039f749d86fbdc9b37257cd262f2dae7c84a106505';
+	const OODSP_PUBLIC_USER_FIRSTNAME = 'wp_public_user';
+	const OODSP_PUBLIC_USER_LASTNAME = 'wp_public_user';
+	
 	/**
 	 * The ID of this plugin.
 	 *
