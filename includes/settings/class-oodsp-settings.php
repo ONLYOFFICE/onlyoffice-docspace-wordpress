@@ -184,7 +184,7 @@ class OODSP_Settings {
 	public function input_pass_cb( $args ) {
 		$id = $args['id'];
 		?>
-		<div class="login js">
+		<div class="js">
 			<div class="user-pass-wrap">
 				<div class="wp-pwd">
 					<div class="wp-pwd-input">

@@ -90,6 +90,8 @@ final class OODSP_Admin {
 			$this->plugin_name . '-ds-component-style',
 			plugin_dir_url( __FILE__ ) . '../public/css/docspace-components-api.css'
 		);
+
+		wp_enqueue_style( 'login' );
 	 }
 
 

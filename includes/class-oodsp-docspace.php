@@ -145,15 +145,18 @@ class OODSP_DocSpace {
 	public function docspace_login_template() {
 		?>
 		<script type="text/html" id="tmpl-oodsp-login">
-			<div class="oodsp-login">
+			<div class="oodsp-login login">
+				<div id="login_error">	
+					<strong>Error:</strong> The username field is empty.<br>
+					<strong>Error:</strong> The password field is empty.<br>
+				</div>
 				<form name="loginform" id="oodsp-login-form">
-					<p>
-						<label for="user_login">Email</label>
-						<input type="text" name="log" id="user_login" aria-describedby="login-message" class="input" disabled value="{{data.email}}" size="20" autocapitalize="off" autocomplete="username">
+					<p style="padding-bottom: 25px;">
+						<label for="user_login">Your account {{{data.email}}} will be synced with DocSpace, enter the password from DocSpace</label>
 					</p>
 
 					<div class="user-pass-wrap">
-						<label for="user_pass">Password</label>
+						<label for="user_pass">DocSpace Password</label>
 						<div class="wp-pwd">
 							<input type="password" name="pwd" id="oodsp-password" aria-describedby="login-message" class="input password-input" value="" size="20" autocomplete="current-password" spellcheck="false">
 							<button type="button" class="button button-secondary wp-hide-pw hide-if-no-js" data-toggle="0" aria-label="Show password">
@@ -162,8 +165,8 @@ class OODSP_DocSpace {
 						</div>
 					</div>
 
-					<p class="submit">
-						<input type="submit" name="wp-submit" id="oodsp-submit-password" class="button button-primary button-large" value="Sign in">
+					<p>
+						<input style="width: 100%;"  type="submit" name="wp-submit" id="oodsp-submit-password" class="button button-primary button-large" value="Login">
 					</p>
 				</form>
 			</div>
