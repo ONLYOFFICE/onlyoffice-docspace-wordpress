@@ -58,7 +58,7 @@
         xhr.send();
 
         if (xhr.status === 200) {
-            return JSON.parse(xhr.responseText);
+            return JSON.parse(xhr.responseText || null);
         }
 
         return null;
