@@ -150,7 +150,7 @@ class OODSP_Request_Manager {
 		return $result;
 	}
 
-	public function request_invite_user ( $email, $passwordHash, $firstname, $lastname, $type, $cultureName ) {
+	public function request_invite_user ( $email, $passwordHash, $firstname, $lastname, $type ) {
 		$result = array(
 			'error' => NULL,
 			'data'  => NULL
@@ -173,8 +173,7 @@ class OODSP_Request_Manager {
 						'passwordHash' => $passwordHash,
 						'firstname' => $firstname,
 						'lastname' => $lastname,
-						'type' => $type,
-						'cultureName' => $cultureName,
+						'type' => $type
 					)
 				),
 				'method'  => 'POST'

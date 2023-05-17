@@ -67,8 +67,7 @@ function invite_users() {
                 $user_hash,
                 $user->first_name,
                 $user->last_name,
-                2,
-                $user->locale
+                2
             );
 
             if ( $res_invite_user['error'] ){
