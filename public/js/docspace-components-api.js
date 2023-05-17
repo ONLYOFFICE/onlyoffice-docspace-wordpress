@@ -137,4 +137,38 @@
             window.DocSpaceComponent.initLoginDocSpace(frameId, password, onSuccess, onError)
         };
     };
+
+    window.DocSpaceComponent.initPublicDocSpace = function (frameId, onSuccess, onError) {
+        DocSpace.SDK.initFrame({
+            frameId: frameId,
+            mode: "system",
+            events: {
+                onAppReady: async function() {
+                    if (!window.DocSpaceComponent.onAppReady) { // ToDo: Delete after fixes
+                        window.DocSpaceComponent.onAppReady = true;
+
+                        const userInfo = await DocSpace.SDK.frames[frameId].getUserInfo();
+
+                        if (userInfo && userInfo.email === DocSpaceComponent.publicUser.email) {
+                            onSuccess();
+                        } else {
+                            DocSpace.SDK.frames[frameId].login(DocSpaceComponent.publicUser.email, DocSpaceComponent.publicUser.password)
+                                .then(function(response) {
+                                    //ToDO: check response, need fix response
+                                    // onError: function () {
+                                        // DocSpaceComponent.renderLoginWindow();
+                                    // }
+
+                                    onSuccess();
+                                }
+                            );
+                        } 
+                    }
+                },
+                onAppError: async function() {
+                    onError();
+                }
+            }
+        });
+    };
 })();

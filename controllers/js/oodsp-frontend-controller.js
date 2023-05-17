@@ -1,14 +1,30 @@
 (function () {
     document.addEventListener('DOMContentLoaded', function () {
         var frames = document.getElementsByClassName("onlyoffice-docpace-block");
+        var oodspConfigs = [];
+
+        for (var frame of frames) {;
+            oodspConfigs.push(JSON.parse(frame.dataset.config));
+        }
 
         DocSpaceComponent.initScript().then(function() {
-            for (var frame of [...frames]) {;
-                DocSpace["ds-frame"].initFrame(JSON.parse(frame.dataset.config));
-            }
+            DocSpaceComponent.initPublicDocSpace(
+                oodspConfigs[0].frameId,
+                function() {
+                    for (var config of oodspConfigs) {;
+                        DocSpace.SDK.initFrame(config);
+                    }
+                },
+                function() {
+                    for (var config of oodspConfigs) {;
+                        DocSpaceComponent.renderError(config.frameId, { message: "Portal unavailable! Please contact the administrator!" });
+                    }
+                }
+            );
+            
         }).catch(function() {
-            for (var frame of frames) {;
-                DocSpaceComponent.renderError(frame.id, { message: "Portal unavailable! Please contact the administrator!" });
+            for (var config of oodspConfigs) {;
+                DocSpaceComponent.renderError(config.frameId, { message: "Portal unavailable! Please contact the administrator!" });
             }
         });
     });

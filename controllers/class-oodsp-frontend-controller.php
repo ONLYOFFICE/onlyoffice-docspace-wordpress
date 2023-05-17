@@ -79,7 +79,7 @@ class OODSP_Frontend_Controller {
 	 * Register ONLYOFFICE Docspace Shortcodes.
 	 */
 	public function init_shortcodes() {
-		add_shortcode( 'onlyoffice-docspace', array( $this, 'wp_onlyoffice_shortcode' ) );
+		add_shortcode( 'onlyoffice-docspace', array( $this, 'wp_onlyoffice_docspace_shortcode' ) );
 	}
 
 	/**
@@ -118,7 +118,7 @@ class OODSP_Frontend_Controller {
 	}
 
 	/**
-	 * Handle Shortcode [onlyoffice /].
+	 * Handle Shortcode [onlyoffice-docspace /].
 	 *
 	 * @param array $attr List of attributes that where included in the Shortcode.
 	 * @return string Resulting HTML code.
@@ -151,8 +151,12 @@ class OODSP_Frontend_Controller {
 			$this->plugin_name . '-ds-component-script',
 			'DocSpaceComponent',
 			array( 
-				'docSpaceUrl' => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL),
+				'docSpaceUrl'   => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL),
 				'user'          => wp_get_current_user()->user_email,
+				'publicUser'    => array( 
+					'email'    => OODSP_Frontend_Controller::OODSP_PUBLIC_USER_LOGIN,
+					'password' => OODSP_Frontend_Controller::OODSP_PUBLIC_USER_PASS,
+				),
 				'wp_plugin_url' => WP_PLUGIN_URL
 			)
 		);
@@ -171,7 +175,7 @@ class OODSP_Frontend_Controller {
 		);
 
 		$output  = '<div>';
-		$output .= "<div class='onlyoffice-docpace-block' data-config='" . wp_json_encode( $atts ) . "' id='onlyoffice-docpace-block-". $instance . "' style='overflow: overlay; width:". $atts['width'] ."; height:". $atts['height'] ."'>Fallback text</div>";
+		$output .= "<div class='onlyoffice-docpace-block' data-config='" . wp_json_encode( $atts ) . "' id='onlyoffice-docpace-block-". $instance . "' style='overflow: overlay; width:". $atts['width'] ."; height:". $atts['height'] ."'></div>";
 		$output .= '</div>';
 
 		return apply_filters( 'wp_onlyoffice_docspace_shortcode', $output, $atts );
