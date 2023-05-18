@@ -81,30 +81,40 @@
 
             const pass = $('#user_pass').val().trim();
             DocSpaceComponent.initScript($('#docspace_url').val().trim())
-                .then(async function() { // ToDo: onAppReady, onError
+                .then(async function() {
                     DocSpace.SDK.initFrame({
                         frameId: "oodsp-system-frame",
                         mode: "system",
                         events: {
-                            "onAppReady": function() {
-                                alert("onAppReady");
+                            "onAppReady": async function() {
+                                if (!window.DocSpaceComponent.onAppReady) { // ToDo: Delete after fixes
+                                    window.DocSpaceComponent.onAppReady = true;
+                                    const hashSettings = await DocSpace.SDK.frames["oodsp-system-frame"].getHashSettings();
+                                    const hash = await DocSpace.SDK.frames["oodsp-system-frame"].createHash(pass.trim(), hashSettings);
+                                    settingsForm.append(
+                                        $( '<input />' )
+                                            .attr('id', "hash")
+                                            .attr('name', "docspace_pass")
+                                            .attr('hidden', "true")
+                                            .attr('value', hash));
+
+                                    const hashCurrentUser = await DocSpace.SDK.frames["oodsp-system-frame"].createHash(generatePass(), hashSettings);
+                                    settingsForm.append(
+                                        $( '<input />' )
+                                            .attr('id', "hash-current-user")
+                                            .attr('name', "hash_current_user")
+                                            .attr('hidden', "true")
+                                            .attr('value', hashCurrentUser));
+
+                                    $('#user_pass').val('')
+                                    settingsForm.submit();
+                                }
                             },
                             "onAppError": function() {
                                 alert("onAppError");
                             }
                         }
                     });
-                    setTimeout(async function() {
-                        const hashSettings = await DocSpace.SDK.frames["oodsp-system-frame"].getHashSettings();
-                        const hash = await DocSpace.SDK.frames["oodsp-system-frame"].createHash(pass.trim(), hashSettings);
-                        settingsForm.append(
-                            $( '<input />' )
-                                .attr('id', "hash")
-                                .attr('name', "docspace_pass")
-                                .attr('hidden', "true")
-                                .attr('value', hash));
-                        settingsForm.submit();
-                    }, 1000);
                 }).catch(function() {
                     const errorMessage = "Undefined API"; //ToDo: message i18n
                     hideLoader();

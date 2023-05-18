@@ -89,6 +89,15 @@ msgstr ""
 msgid "Public DocSpace user successfully created."
 msgstr ""
 
+msgid "User %s already exits in DocSpace!"
+msgstr ""
+
+msgid "User %s successfully created in DocSpace with role Room Admin."
+msgstr ""
+
+msgid "Error create user %s in DocSpace!"
+msgstr ""
+
 msgid "Error getting users from ONLYOFFICE DocSpace"
 msgstr ""
 

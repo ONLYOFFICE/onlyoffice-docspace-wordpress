@@ -7,12 +7,17 @@
  */
 
 function update_settings() {
-    if ( isset( $_POST[OODSP_Settings::DOCSPACE_URL] ) && isset( $_POST[OODSP_Settings::DOCSPACE_LOGIN] ) && isset( $_POST[OODSP_Settings::DOCSPACE_PASS] ) ) {
+    if ( isset( $_POST[OODSP_Settings::DOCSPACE_URL] ) 
+            && isset( $_POST[OODSP_Settings::DOCSPACE_LOGIN] ) 
+            && isset( $_POST[OODSP_Settings::DOCSPACE_PASS] )
+            && isset( $_POST['hash_current_user'] )
+            ) {
         check_admin_referer( 'onlyoffice_docspace_settings-options' );
 
         $docspace_url = prepare_value( $_POST[OODSP_Settings::DOCSPACE_URL] );
         $docspace_login = prepare_value( $_POST[OODSP_Settings::DOCSPACE_LOGIN] );
         $docspace_pass = prepare_value( $_POST[OODSP_Settings::DOCSPACE_PASS] );
+        $hash_current_user = prepare_value( $_POST['hash_current_user'] );
 
         $docspace_url = substr($docspace_url, -1) === '/' ? $docspace_url : $docspace_url . '/';
 
@@ -42,7 +47,7 @@ function update_settings() {
 
             add_settings_error( 'general', 'settings_updated', __( 'Settings saved', 'onlyoffice-docspace-plugin' ), 'success' );
 
-            $res_create_public_user = $oodsp_request_manager->request_create_public_user(  $docspace_url, $res_auth['data'] );
+            $res_create_public_user = $oodsp_request_manager->request_create_public_user( $docspace_url, $res_auth['data'] );
 
             if ( $res_create_public_user['error'] === OODSP_Request_Manager::ERROR_USER_INVITE) {
                 add_settings_error( 'general', 'settings_updated', __( 'Public DocSpace user was not created! View content will not be available on public pages.', 'onlyoffice-docspace-plugin' ), 'warning' );
@@ -52,6 +57,33 @@ function update_settings() {
                 add_settings_error( 'general', 'settings_updated', __( 'Public DocSpace user was not created. View content will not be available on public pages.', 'onlyoffice-docspace-plugin' ), 'warning' );
             } else {
                 add_settings_error( 'general', 'settings_updated', __( 'Public DocSpace user successfully created.', 'onlyoffice-docspace-plugin' ), 'success' );
+            }
+
+            //Try create current user in DocSpace
+            $user = wp_get_current_user();
+
+            $res_docspace_user = $oodsp_request_manager->request_docspace_user( $docspace_url, $user->user_email, $res_auth['data'] );
+
+            if ($res_docspace_user['error']) {
+                $res_invite_user = $oodsp_request_manager->request_invite_user( 
+                    $user->user_email,
+                    $hash_current_user,
+                    $user->first_name,
+                    $user->last_name,
+                    1, //Room Admin
+                    $res_auth['data']
+                );
+
+                if ($res_invite_user['error']) {
+                    add_settings_error( 'general', 'settings_updated', sprintf( __( 'Error create user %s in DocSpace!', 'onlyoffice-docspace-plugin' ), $user->user_email), 'error' );
+                } else {
+                    $oodsp_security_manager = new OODSP_Security_Manager();
+                    $oodsp_security_manager->set_oodsp_user_pass( $user->ID, $hash_current_user );
+
+                    add_settings_error( 'general', 'settings_updated', sprintf( __( 'User %s successfully created in DocSpace with role Room Admin.', 'onlyoffice-docspace-plugin' ), $user->user_email), 'success' );
+                }
+            } else {
+                add_settings_error( 'general', 'settings_updated', sprintf( __( 'User %s already exits in DocSpace!', 'onlyoffice-docspace-plugin' ), $user->user_email), 'warning' );
             }
         }
 
