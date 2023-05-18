@@ -145,28 +145,41 @@ class OODSP_DocSpace {
 	public function docspace_login_template() {
 		?>
 		<script type="text/html" id="tmpl-oodsp-login">
-			<div class="oodsp-login login">
-				<div id="login_error">	
-					<strong>Error:</strong> The username field is empty.<br>
-					<strong>Error:</strong> The password field is empty.<br>
+			<div class="oodsp-login login js">
+				<div id="login_error" hidden>
 				</div>
 				<form name="loginform" id="oodsp-login-form">
+					<h1 id="header">
+						<?php esc_html_e( 'WordPress requests access to your ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ) ?>
+						<br>
+						<a href="{{data.url}}" target="_blank">{{{data.domain}}}</a>
+					</h1>
+					<h1>
+						<a></a>
+						<a id="union" style="background-image: url('<?php echo plugins_url( '../public/images/union.svg', __FILE__ ) ; ?>');"></a>
+						<a id="logo-onlyoffice" style="background-image: url('<?php echo plugins_url( '../public/images/onlyoffice.svg', __FILE__ ) ; ?>');"></a>
+					</h1>
+					
 					<p style="padding-bottom: 25px;">
-						<label for="user_login">Your account {{{data.email}}} will be synced with DocSpace, enter the password from DocSpace</label>
+						<label for="user_login">
+						<?php
+							/* translators: %s: User email. */
+							printf( __( 'Your account <b>%s</b> will be synced with your DocSpace. Please enter your DocSpace password in the field below:', 'onlyoffice-docspace-plugin' ), '{{ data.email }}' );
+							?>
+						</label>
 					</p>
 
 					<div class="user-pass-wrap">
-						<label for="user_pass">DocSpace Password</label>
 						<div class="wp-pwd">
 							<input type="password" name="pwd" id="oodsp-password" aria-describedby="login-message" class="input password-input" value="" size="20" autocomplete="current-password" spellcheck="false">
-							<button type="button" class="button button-secondary wp-hide-pw hide-if-no-js" data-toggle="0" aria-label="Show password">
+							<button type="button" class="button button-secondary wp-hide-pw hide-if-no-js" data-toggle="0" aria-label="<?php esc_attr_e( 'Show password' ); ?>">
 								<span class="dashicons dashicons-visibility" aria-hidden="true"></span>
 							</button>
 						</div>
 					</div>
 
 					<p>
-						<input style="width: 100%;"  type="submit" name="wp-submit" id="oodsp-submit-password" class="button button-primary button-large" value="Login">
+						<input style="width: 100%;"  type="submit" name="wp-submit" id="oodsp-submit-password" class="button button-primary button-large" value="<?php esc_attr_e( 'Log In' ); ?>">
 					</p>
 				</form>
 			</div>

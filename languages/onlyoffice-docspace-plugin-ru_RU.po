@@ -159,3 +159,12 @@ msgstr "Выберите комнату или медиафайл из DocSpace 
 #: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Portal unavailable! Please contact the administrator!"
 msgstr "Портал недоступен! Пожалуйста, свяжитесь с администратором!"
+
+msgid "WordPress requests access to your ONLYOFFICE DocSpace"
+msgstr "WordPress запрашивает доступ к вашему ONLYOFFICE DocSpace"
+
+msgid "Your account <b>%s</b> will be synced with your DocSpace. Please enter your DocSpace password in the field below:"
+msgstr "Ваша учетная запись <b>%s</b> будет синхронизирована с вашим DocSpace. Пожалуйста, введите свой пароль DocSpace в поле ниже:"
+
+msgid "Login"
+msgstr "Авторизоваться"

@@ -88,7 +88,11 @@
                             }
 
                             if (hash === null || hash.length === "") {
-                                DocSpaceComponent.renderLoginWindow(frameId, onSuccess, onError);
+                                DocSpace.SDK.frames[frameId].destroyFrame();
+                                wp.oodsp.login(frameId, DocSpaceComponent.docSpaceUrl, DocSpaceComponent.user.email, null, function (password) {
+                                    window.DocSpaceComponent.initLoginDocSpace(frameId, password, onSuccess, onError);
+                                });
+                                return;
                             }
 
                             DocSpace.SDK.frames[frameId].login(DocSpaceComponent.user.email, hash)
@@ -117,25 +121,6 @@
                 }
             }
         });
-    };
-
-    window.DocSpaceComponent.renderLoginWindow = function (frameId, onSuccess, onError) {
-        DocSpace.SDK.frames[frameId].destroyFrame();
-
-        const loginTemplate = wp.template( 'oodsp-login' );
-        const target = document.getElementById(frameId);
-
-        target.innerHTML = loginTemplate({
-            email: DocSpaceComponent.user.email
-        });
-
-        document.getElementById("oodsp-login-form").onsubmit = function(e) {
-            e.preventDefault();
-
-            var password = document.getElementById("oodsp-password").value;
-            window.DocSpaceComponent.onAppReady = false; //ToDo: remove
-            window.DocSpaceComponent.initLoginDocSpace(frameId, password, onSuccess, onError)
-        };
     };
 
     window.DocSpaceComponent.initPublicDocSpace = function (frameId, onSuccess, onError) {

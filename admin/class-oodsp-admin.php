@@ -102,6 +102,22 @@ final class OODSP_Admin {
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_script(
+			$this->plugin_name . '-oodsp-login.js',
+			plugin_dir_url( __FILE__ ) . '../includes/js/oodsp-login.js',
+			array( 'jquery' ),
+			ONLYOFFICE_DOCSPACE_PLUGIN_VERSION,
+			true
+		);
+
+		wp_localize_script(
+			$this->plugin_name . '-oodsp-login.js',
+			'messages',
+			array( 
+				'empty-password' => __('<strong>Error:</strong> The password field is empty.')
+			)
+		);
+
+		wp_enqueue_script(
 			$this->plugin_name . '-ds-component-script',
 			plugin_dir_url( __FILE__ ) . '../public/js/docspace-components-api.js',
 			array( 'jquery' ),
