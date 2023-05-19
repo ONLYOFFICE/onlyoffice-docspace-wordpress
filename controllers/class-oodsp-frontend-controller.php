@@ -147,16 +147,30 @@ class OODSP_Frontend_Controller {
 			true
 		);
 
+		$post = get_post();
+
+		if ( $post->post_status === 'private' ) {
+			$oodsp_security_manager = new OODSP_Security_Manager();
+
+			$user = array( 
+				'email' => wp_get_current_user()->user_email,
+				'password' => $oodsp_security_manager->get_oodsp_user_pass( wp_get_current_user()->ID )
+			);
+		} else {
+			$user = array( 
+				'email'    => OODSP_Frontend_Controller::OODSP_PUBLIC_USER_LOGIN,
+				'password' => OODSP_Frontend_Controller::OODSP_PUBLIC_USER_PASS,
+			);
+		}
+
+		error_log(print_r($user, true));
+
 		wp_localize_script(
 			$this->plugin_name . '-ds-component-script',
 			'DocSpaceComponent',
 			array( 
 				'docSpaceUrl'   => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL),
-				'user'          => wp_get_current_user()->user_email,
-				'publicUser'    => array( 
-					'email'    => OODSP_Frontend_Controller::OODSP_PUBLIC_USER_LOGIN,
-					'password' => OODSP_Frontend_Controller::OODSP_PUBLIC_USER_PASS,
-				),
+				'user'          => $user,
 				'wp_plugin_url' => WP_PLUGIN_URL
 			)
 		);

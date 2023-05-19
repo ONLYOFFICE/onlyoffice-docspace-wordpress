@@ -134,10 +134,10 @@
 
                         const userInfo = await DocSpace.SDK.frames[frameId].getUserInfo();
 
-                        if (userInfo && userInfo.email === DocSpaceComponent.publicUser.email) {
+                        if (userInfo && userInfo.email === DocSpaceComponent.user.email) {
                             onSuccess();
                         } else {
-                            DocSpace.SDK.frames[frameId].login(DocSpaceComponent.publicUser.email, DocSpaceComponent.publicUser.password)
+                            DocSpace.SDK.frames[frameId].login(DocSpaceComponent.user.email, DocSpaceComponent.user.password)
                                 .then(function(response) {
                                     //ToDO: check response, need fix response
                                     // onError: function () {
