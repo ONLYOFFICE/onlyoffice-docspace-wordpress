@@ -20,13 +20,15 @@ function invite_users() {
         exit;
     }
 
-    $users = array_map( function(string $user) {
-        $user = explode('$$', $user, 2);
-        return array(
-            'id' => $user[0],
-            'hash' => $user[1] 
-        );
-    }, (array) $_REQUEST['users'] );
+    if (is_array($_REQUEST['users'])) {
+        $users = array_map( function(string $user) {
+            $user = explode('$$', $user, 2);
+            return array(
+                'id' => $user[0],
+                'hash' => $user[1] 
+            );
+        }, (array) $_REQUEST['users'] );
+    }
 
     if ( empty( $users ) ) {
         wp_redirect( $redirect );
