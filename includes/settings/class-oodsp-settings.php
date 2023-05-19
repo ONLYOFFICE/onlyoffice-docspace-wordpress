@@ -233,6 +233,14 @@ class OODSP_Settings {
 					<?php
 					settings_fields( 'onlyoffice_docspace_settings' );
 					do_settings_sections( 'onlyoffice_docspace_settings' );
+					?>
+					<div class="oodsp-settings-notice">
+					
+						<p>
+						<?php echo __( 'The current user will be added to DocSpace with the <b>Room admin</b> role.', 'onlyoffice-docspace-plugin' ); ?>
+						</p>
+					</div>
+					<?php
 					submit_button( __( 'Save', 'onlyoffice-docspace-plugin' ), 'primary', null, true, array( 'id' => 'save-settings' ) );
 					?>
 				</form>
@@ -240,10 +248,10 @@ class OODSP_Settings {
 				<h1 class="wp-heading-inline"><?php esc_html_e( 'DocSpace Users', 'onlyoffice-docspace-plugin' ); ?></h1>
 				<p>
 					<?php esc_html_e( 'To add new users to ONLYOFFICE DocSpace and to start working in plugin, please press', 'onlyoffice-docspace-plugin' ); ?>
-					<b><?php esc_html_e( 'Sync Now', 'onlyoffice-docspace-plugin' ); ?></b>
+					<b><?php esc_html_e( 'Export Now', 'onlyoffice-docspace-plugin' ); ?></b>
 				</p>
 				<p class="submit">
-					<?php submit_button( __('Sync Now', 'onlyoffice-docspace-plugin' ), 'secondary', 'users', false, array( 'onclick' => 'location.href = location.href + "&users=true";' ) ); ?>
+					<?php submit_button( __('Export Now', 'onlyoffice-docspace-plugin' ), 'secondary', 'users', false, array( 'onclick' => 'location.href = location.href + "&users=true";' ) ); ?>
 				</p>
 			</div>
 			<?php
@@ -274,6 +282,10 @@ class OODSP_Settings {
 					<input type="hidden" name="page" value="onlyoffice-docspace-settings">
 					<?php submit_button(  __('Back to main settings', 'onlyoffice-docspace-plugin' ), 'secondary', false ); ?>
 				</form>
+
+				<p>
+					<?php echo __('To add new users to ONLYOFFICE DocSpace select multiple users and press <b>Invite to DocSpace</b>. All new users will be added with <b>User</b> role, if you want to change the role go to Accounts. Role <b>Room admin</b> is paid!', 'onlyoffice-docspace-plugin') ?>
+				</p>
 				
 				<?php
 				global $usersearch;

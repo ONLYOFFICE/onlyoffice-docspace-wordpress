@@ -255,7 +255,6 @@ class OODSP_Users_List_Table extends WP_List_Table {
 		$actions = array();
 
 		$actions['invite'] = __( 'Invite to Docspace', 'onlyoffice-docspace-plugin' );
-		$actions['delete'] = __( 'Delete from Docspace' );
 
 		return $actions;
 	}

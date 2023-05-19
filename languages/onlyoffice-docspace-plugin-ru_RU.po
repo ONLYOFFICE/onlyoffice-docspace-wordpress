@@ -32,14 +32,20 @@ msgstr "Пароль"
 msgid "Save"
 msgstr "Сохранить"
 
+msgid "The current user will be added to DocSpace with the <b>Room admin</b> role."
+msgstr "Текущий пользователь будет добавлен в DocSpace с ролью <b>Администратор комнаты</b>."
+
 msgid "DocSpace Users"
 msgstr "Пользователи DocSpace"
 
 msgid "To add new users to ONLYOFFICE DocSpace and to start working in plugin, please press"
 msgstr "Чтобы добавить новых пользователей в ONLYOFFICE DocSpace и начать работу в плагине, нажмите"
 
-msgid "Sync Now"
-msgstr "Синхронизировать сейчас"
+msgid "Export Now"
+msgstr "Экспортировать сейчас"
+
+msgid "To add new users to ONLYOFFICE DocSpace select multiple users and press <b>Invite to DocSpace</b>. All new users will be added with <b>User</b> role, if you want to change the role go to Accounts. Role <b>Room admin</b> is paid!"
+msgstr "Чтобы добавить новых пользователей в ONLYOFFICE DocSpace, выберите нескольких пользователей и нажмите <b>Пригласить в DocSpace</b>. Все новые пользователи будут добавляться с ролью <b>Пользователь</b>. Если вы хотите изменить роль, перейдите в Аккаунты. Роль <b>Администратор комнаты</b> платная!"
 
 msgid "DocSpace User Status"
 msgstr "Статус пользователя DocSpace"
