@@ -14,13 +14,14 @@ window.wp = window.wp || {};
 
         $('#' + frameId).html(loginTemplate({ 
             email: email, 
-            url: url,
-            domain: new URL(url).host
+            domain: new URL(url).host,
+            error: error ? messages['auth-failed'] : null
         }));
 
         $('#oodsp-login-form').submit( function( event ) {
             window.DocSpaceComponent.onAppReady = false; //ToDo: remove
             event.preventDefault();
+            $("#login_error").html();
 
             var password = $('#oodsp-password').val();
 

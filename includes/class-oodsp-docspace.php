@@ -146,13 +146,20 @@ class OODSP_DocSpace {
 		?>
 		<script type="text/html" id="tmpl-oodsp-login">
 			<div class="oodsp-login login js">
-				<div id="login_error" hidden>
+				<div id="login_error"
+				<#
+				if ( ! data.error ) {
+					#> hidden <#
+				}
+				#>
+				>
+					{{{data.error}}}
 				</div>
 				<form name="loginform" id="oodsp-login-form">
 					<h1 id="header">
 						<?php esc_html_e( 'WordPress requests access to your ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ) ?>
 						<br>
-						<a href="{{data.url}}" target="_blank">{{{data.domain}}}</a>
+						<span>{{{data.domain}}}</span>
 					</h1>
 					<h1>
 						<a></a>
