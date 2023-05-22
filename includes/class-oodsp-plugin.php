@@ -115,7 +115,6 @@ class OODSP_Plugin {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-docspace.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-i18n.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-loader.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-wizard.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-oodsp-public.php';
 
 		$this->loader = new OODSP_Loader();
