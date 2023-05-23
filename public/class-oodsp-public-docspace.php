@@ -133,7 +133,7 @@ class OODSP_Public_DocSpace {
 
 		wp_enqueue_script(
 			'docspace-component-api',
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'public/js/docspace-component-api.js',
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'assets/js/docspace-component-api.js',
 			array(),
 			ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION,
 			true
@@ -156,7 +156,7 @@ class OODSP_Public_DocSpace {
 
 		wp_enqueue_style(
 			'docspace-components-api',
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'public/css/docspace-component-api.css'
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'assets/css/docspace-component-api.css'
 		);
 
 		wp_enqueue_script(
