@@ -72,19 +72,20 @@ class OODSP_DocSpace {
 		);
 
 		wp_enqueue_script(
-			'docspace-components-api',
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'public/js/docspace-components-api.js',
+			'docspace-component-api',
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'public/js/docspace-component-api.js',
 			array(),
 			ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION,
 			true
 		);
 
 		wp_localize_script(
-			'docspace-components-api',
+			'docspace-component-api',
 			'DocSpaceComponent',
 			array(
 				'url'         => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL),
 				'currentUser' => wp_get_current_user()->user_email,
+				'isPublic'    => false,
 				'ajaxUrl'     => admin_url('admin-ajax.php'),
 				'images'      => array(
 					'onlyoffice'        => plugins_url( 'public/images/onlyoffice.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),

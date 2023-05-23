@@ -58,20 +58,25 @@ class OODSP_Ajax {
 	}
 
 	public function oodsp_credentials() {
-		$user = wp_get_current_user();
+		$user      = wp_get_current_user();
+		$is_public = isset( $_REQUEST['is_public'] ) ? $_REQUEST['is_public'] : '';
 
-		$hash = isset( $_REQUEST['hash'] ) ? $_REQUEST['hash'] : '';
-
-		if( ! empty( $hash ) ) {
-			$result = $this->security_manager->set_oodsp_user_pass( $user->ID, $hash );
-			
-			if ( ! $result ) {
-				return wp_die( '0', 400 );
-			}
-			
-			$pass = $hash;
+		if( ! empty( $is_public ) &&  $is_public === "true" ) {
+			$pass = $this->public_docspace::OODSP_PUBLIC_USER_PASS;
 		} else {
-			$pass = $this->security_manager->get_oodsp_user_pass( $user->ID );
+			$hash = isset( $_REQUEST['hash'] ) ? $_REQUEST['hash'] : '';
+
+			if( ! empty( $hash ) ) {
+				$result = $this->security_manager->set_oodsp_user_pass( $user->ID, $hash );
+				
+				if ( ! $result ) {
+					return wp_die( '0', 400 );
+				}
+				
+				$pass = $hash;
+			} else {
+				$pass = $this->security_manager->get_oodsp_user_pass( $user->ID );
+			}
 		}
 
 		wp_die( $pass );

@@ -54,9 +54,15 @@
 
     window.DocSpaceComponent.oodspCredentials = function () {
         var xhr = new XMLHttpRequest();
+        var postData = "action=oodsp_credentials";
+        
+        if (DocSpaceComponent.isPublic) {
+            postData += "&is_public=true";
+        }
+
         xhr.open("POST", DocSpaceComponent.ajaxUrl, false);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-        xhr.send("action=oodsp_credentials");
+        xhr.send(postData);
 
         if (xhr.status === 200) {
             return xhr.responseText || null;
@@ -138,7 +144,9 @@
                         if (userInfo && userInfo.email === DocSpaceComponent.currentUser) {
                             onSuccess();
                         } else {
-                            DocSpace.SDK.frames[frameId].login(DocSpaceComponent.currentUser, DocSpaceComponent.user.password)
+                            const hash = DocSpaceComponent.oodspCredentials();
+
+                            DocSpace.SDK.frames[frameId].login(DocSpaceComponent.currentUser, hash)
                                 .then(function(response) {
                                     //ToDO: check response, need fix response
                                     // onError: function () {

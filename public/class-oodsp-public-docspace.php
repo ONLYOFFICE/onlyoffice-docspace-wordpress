@@ -124,14 +124,16 @@ class OODSP_Public_DocSpace {
 		$post = get_post();
 
 		if ( $post->post_status === 'private' ) {
-			$curentUser = wp_get_current_user()->user_email;
+			$is_public = false;
+			$current_user = wp_get_current_user()->user_email;
 		} else {
-			$curentUser = self::OODSP_PUBLIC_USER_LOGIN;
+			$is_public = true;
+			$current_user = self::OODSP_PUBLIC_USER_LOGIN;
 		}
 
 		wp_enqueue_script(
-			'docspace-components-api',
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'public/js/docspace-components-api.js',
+			'docspace-component-api',
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'public/js/docspace-component-api.js',
 			array(),
 			ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION,
 			true
@@ -142,10 +144,11 @@ class OODSP_Public_DocSpace {
 			'DocSpaceComponent',
 			array( 
 				'url'         => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL),
-				'currentUser' => $curentUser,
+				'currentUser' => $current_user,
+				'isPublic'    => $is_public,
 				'ajaxUrl'     => admin_url('admin-ajax.php'),
 				'images'      => array(
-					'logo'        => plugins_url( 'public/images/onlyoffice.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
+					'onlyoffice'  => plugins_url( 'public/images/onlyoffice.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
 					'unavailable' => plugins_url( 'public/images/unavailable.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE )
 				)
 			)
