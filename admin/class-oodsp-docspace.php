@@ -39,38 +39,78 @@
  */
 class OODSP_DocSpace {
 	/**
-	 * The ID of this plugin.
-	 *
-	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
-	 */
-	private $plugin_name;
-
-	/**
-	 * The version of this plugin.
-	 *
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
-	 */
-	private $version;
-
-	/**
 	 *
 	 * @access   private
 	 * @var      OODSP_Settings    $plugin_settings
 	 */
 	private $plugin_settings;
 
-	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @param      string $plugin_name       The name of this plugin.
-	 * @param      string $version    The version of this plugin.
-	 */
-	public function __construct( $plugin_name, $version ) {
-		$this->plugin_name = $plugin_name;
-		$this->version     = $version;
+	public function __construct() {
 		$this->plugin_settings = new OODSP_Settings();
+	}
+
+	/**
+	 * Register the JavaScript for the DocSpace area.
+	 * 
+	 * @since    1.0.0
+	 */
+	public function enqueue_scripts() {
+		wp_enqueue_script(
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-login',
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/js/login.js',
+			array( 'jquery' ),
+			ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION,
+			true
+		);
+
+		wp_localize_script(
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-login',
+			'messages',
+			array( 
+				'empty-password' => __('<strong>Error:</strong> The password field is empty.')
+			)
+		);
+
+		wp_enqueue_script(
+			'docspace-components-api',
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'public/js/docspace-components-api.js',
+			array(),
+			ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION,
+			true
+		);
+
+		wp_localize_script(
+			'docspace-components-api',
+			'DocSpaceComponent',
+			array(
+				'url'   => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL),
+				'user'          => array( 'email' => wp_get_current_user()->user_email ),
+				'сredentialUrl' => get_option( 'permalink_structure' ) 
+						? get_option( 'siteurl' ) . '/index.php?rest_route=/oodsp/credential'
+						: get_option( 'siteurl' ) . '/wp-json/oodsp/credential',
+				'images' => array(
+					'logo' => plugins_url( 'public/images/onlyoffice.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
+					'unavailable' => plugins_url( 'public/images/unavailable.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE )
+				)
+			)
+		);
+
+		wp_enqueue_script('user-profile');
+	}
+
+
+ 	/**
+	 * Register the stylesheets for the DocSpace area.
+	 *
+	 * @since    1.0.0
+	 */
+	public function enqueue_styles() {
+		wp_enqueue_style(
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-login',
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/css/login.css'
+		);
+
+		wp_enqueue_style( 'login' );
 	}
 
 	/**
@@ -79,7 +119,7 @@ class OODSP_DocSpace {
 	 * @return void
 	 */
 	public function init_menu() {
-		$logo_svg = file_get_contents( plugin_dir_path( dirname( __FILE__ ) ) . '/public/images/logo.svg' );
+		$logo_svg = file_get_contents( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'public/images/logo.svg' );
 
 		add_menu_page(
 			'DocSpace',
@@ -98,14 +138,6 @@ class OODSP_DocSpace {
 			'onlyoffice-docspace',
 			array( $this, 'docspace_page' )
 		);
-	}
-
-	/**
-	 * Register the JavaScript for the DocSpace page.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_scripts() {
 	}
 
 	/**

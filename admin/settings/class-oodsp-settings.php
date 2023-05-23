@@ -205,24 +205,24 @@ class OODSP_Settings {
 		}
 
 		wp_enqueue_script(
-			'onlyoffice-docspace-plugin',
-			plugin_dir_url( __FILE__ ) . '../js/oodsp-settings.js',
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-settings',
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/js/settings.js',
 			array( 'jquery' ),
-			ONLYOFFICE_DOCSPACE_PLUGIN_VERSION,
+			ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION,
 			true
 		);
 
+		wp_enqueue_script( 'user-profile' );
+
 		wp_enqueue_style(
-			'onlyoffice-docspace-plugin',
-			plugin_dir_url( __FILE__ ) . '../css/oodsp-settings.css'
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-settings',
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/css/settings.css'
 		);
 		
 		wp_enqueue_style(
-			'onlyoffice-docspace-plugin-loader',
-			plugin_dir_url( __FILE__ ) . '../css/loader.css'
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-loader',
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . '../css/loader.css'
 		);
-
-		wp_enqueue_script( 'user-profile' );
 
 		if ( ! isset( $_GET['users'] ) ) { ?>
 			<div class="wrap">

@@ -84,16 +84,14 @@ class OODSP_Plugin {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-
-		$this->version     = ONLYOFFICE_DOCSPACE_PLUGIN_VERSION;
-		$this->plugin_name = 'onlyoffice-docspace-plugin';
+		$this->version     = ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION;
+		$this->plugin_name = ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME;
 
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 		$this->init_ds_frame();
-		$this->init_settings();
 	}
 
 	/**
@@ -106,13 +104,12 @@ class OODSP_Plugin {
 	 * @access   private
 	 */
 	private function load_dependencies() {
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-oodsp-admin.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'controllers/class-oodsp-frontend-controller.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/managers/class-oodsp-request-manager.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/managers/class-oodsp-security-manager.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/users/class-oodsp-users-list-table.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/settings/class-oodsp-settings.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-docspace.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/settings/class-oodsp-settings.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-oodsp-docspace.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-i18n.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-loader.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-oodsp-public.php';
@@ -144,11 +141,26 @@ class OODSP_Plugin {
 	 * @access   private
 	 */
 	private function define_admin_hooks() {
+		$plugin_docspace = new OODSP_DocSpace();
 
-		$plugin_admin = new OODSP_Admin( $this->get_plugin_name(), $this->get_version() );
+		$this->loader->add_action( 'admin_menu', $plugin_docspace, 'init_menu' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_docspace, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_docspace, 'enqueue_styles' );
+		$this->loader->add_action( 'admin_footer', $plugin_docspace, 'docspace_login_template', 30 );
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$plugin_settings = new OODSP_Settings();
+
+		add_filter(
+			'set-screen-option',
+			function( $status, $option, $value ) {
+				return ( 'docspace_page_onlyoffice_docspace_settings_per_page' === $option ) ? (int) $value : $status;
+			},
+			10,
+			3
+		);
+
+		$this->loader->add_action( 'admin_menu', $plugin_settings, 'init_menu' );
+		$this->loader->add_action( 'admin_init', $plugin_settings, 'init' );
 	}
 
 	/**
@@ -175,41 +187,12 @@ class OODSP_Plugin {
 	 * @access   private
 	 */
 	private function init_ds_frame() {
-		$plugin_ds_frame = new OODSP_DocSpace( $this->get_plugin_name(), $this->get_version() );
-		$this->loader->add_action( 'admin_menu', $plugin_ds_frame, 'init_menu' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_ds_frame, 'enqueue_scripts' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_ds_frame, 'enqueue_scripts' );
-		$this->loader->add_action( 'admin_footer', $plugin_ds_frame, 'docspace_login_template', 30 );
 
 		$OODSP_frontend_controller = new OODSP_Frontend_Controller( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'init', $OODSP_frontend_controller, 'init_shortcodes' );
 		$this->loader->add_action( 'init', $OODSP_frontend_controller, 'onlyoffice_custom_block' );
 	}
 
-	/**
-	 * Init DocSpace Settings page.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function init_settings() {
-		$plugin_settings = new OODSP_Settings();
-		// $plugin_wizard   = new OODSP_Wizard( $this->get_plugin_name(), $this->get_version() );
-
-		add_filter(
-			'set-screen-option',
-			function( $status, $option, $value ) {
-				return ( 'docspace_page_onlyoffice_docspace_settings_per_page' === $option ) ? (int) $value : $status;
-			},
-			10,
-			3
-		);
-
-		$this->loader->add_action( 'admin_menu', $plugin_settings, 'init_menu' );
-		$this->loader->add_action( 'admin_init', $plugin_settings, 'init' );
-
-		// $this->loader->add_action( 'admin_menu', $plugin_wizard, 'init_menu' );
-	}
 
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.

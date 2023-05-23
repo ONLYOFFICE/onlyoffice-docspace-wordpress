@@ -2,7 +2,7 @@
     if (!window.DocSpaceComponent) window.DocSpaceComponent = {};
 
     var scriptTag = null;
-    window.DocSpaceComponent.initScript = function (docSpaceUrl = DocSpaceComponent.docSpaceUrl) {
+    window.DocSpaceComponent.initScript = function (docSpaceUrl = DocSpaceComponent.url) {
         return new Promise((resolve, reject) => {
             if (window.DocSpace || scriptTag) return resolve();
             docSpaceUrl += docSpaceUrl.endsWith("/") ? "" : "/"
@@ -41,10 +41,10 @@
 
         errorDiv.innerHTML = `
             <div class="unavailable-header">
-                <img src="${DocSpaceComponent.wp_plugin_url}/onlyoffice-docspace-wordpress/public/images/onlyoffice.svg" />
+                <img src="${DocSpaceComponent.images.logo}" />
                 <span><b>ONLYOFFICE</b> DocSpace</span>
             </div>
-            <img class="unavailable-icon" src="${DocSpaceComponent.wp_plugin_url}/onlyoffice-docspace-wordpress/public/images/unavailable.svg" />
+            <img class="unavailable-icon" src="${DocSpaceComponent.images.unavailable}" />
             <div class="unavailable-message">${error.message}</div>
         `;
 
