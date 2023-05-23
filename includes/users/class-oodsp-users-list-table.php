@@ -438,11 +438,11 @@ class OODSP_Users_List_Table extends WP_List_Table {
 						
 						if ( $docspace_user_status == 0 || $docspace_user_status == 1 ) {
 							if ( !empty( $user_pass ) ) {
-								$row .= "<img src='" . esc_url( plugins_url( '../../public/images/done.svg', __FILE__ ) ) . "'/>";
+								$row .= "<img src='" . esc_url( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/images/done.svg' ) . "'/>";
 							} else {
 								$row .= '<div class="tooltip" style="cursor: pointer">';
 								$row .= '<div class="tooltip-text">' . $this->get_label_for_unauthorized() . '</div>';
-								$row .= "<img  src='" . esc_url( plugins_url( '../../public/images/not_authorization.svg', __FILE__ ) ) . "'/>";
+								$row .= "<img  src='" . esc_url( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/images/not_authorization.svg' ) . "'/>";
 								$row .= '</div>';
 							}
 						}

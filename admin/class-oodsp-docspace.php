@@ -34,7 +34,7 @@
  * This class defines code necessary displaying a page ONLYOFFICE DocSpace.
  *
  * @package    Onlyoffice_Docspace_Plugin
- * @subpackage Onlyoffice_Docspace_Plugin/includes
+ * @subpackage Onlyoffice_Docspace_Plugin/admin
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
 class OODSP_DocSpace {
@@ -83,13 +83,11 @@ class OODSP_DocSpace {
 			'docspace-components-api',
 			'DocSpaceComponent',
 			array(
-				'url'   => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL),
-				'user'          => array( 'email' => wp_get_current_user()->user_email ),
-				'сredentialUrl' => get_option( 'permalink_structure' ) 
-						? get_option( 'siteurl' ) . '/index.php?rest_route=/oodsp/credential'
-						: get_option( 'siteurl' ) . '/wp-json/oodsp/credential',
-				'images' => array(
-					'logo' => plugins_url( 'public/images/onlyoffice.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
+				'url'         => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL),
+				'currentUser' => wp_get_current_user()->user_email,
+				'ajaxUrl'     => admin_url('admin-ajax.php'),
+				'images'      => array(
+					'onlyoffice'        => plugins_url( 'public/images/onlyoffice.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
 					'unavailable' => plugins_url( 'public/images/unavailable.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE )
 				)
 			)
@@ -106,8 +104,13 @@ class OODSP_DocSpace {
 	 */
 	public function enqueue_styles() {
 		wp_enqueue_style(
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-login',
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/css/login.css'
+			'docspace-components-api',
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'public/css/docspace-component-api.css'
+		);
+
+		wp_enqueue_style(
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-settings',
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/css/settings.css'
 		);
 
 		wp_enqueue_style( 'login' );
@@ -119,7 +122,7 @@ class OODSP_DocSpace {
 	 * @return void
 	 */
 	public function init_menu() {
-		$logo_svg = file_get_contents( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'public/images/logo.svg' );
+		$logo_svg = file_get_contents( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/images/logo.svg' );
 
 		add_menu_page(
 			'DocSpace',
@@ -195,8 +198,8 @@ class OODSP_DocSpace {
 					</h1>
 					<h1>
 						<a></a>
-						<a id="union" style="background-image: url('<?php echo plugins_url( '../public/images/union.svg', __FILE__ ) ; ?>');"></a>
-						<a id="logo-onlyoffice" style="background-image: url('<?php echo plugins_url( '../public/images/onlyoffice.svg', __FILE__ ) ; ?>');"></a>
+						<a id="union" style="background-image: url('<?php echo ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/images/union.svg'; ?>');"></a>
+						<a id="logo-onlyoffice" style="background-image: url('<?php echo ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/images/onlyoffice.svg'; ?>');"></a>
 					</h1>
 					
 					<p style="padding-bottom: 25px;">

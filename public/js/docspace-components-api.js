@@ -41,7 +41,7 @@
 
         errorDiv.innerHTML = `
             <div class="unavailable-header">
-                <img src="${DocSpaceComponent.images.logo}" />
+                <img src="${DocSpaceComponent.images.onlyoffice}" />
                 <span><b>ONLYOFFICE</b> DocSpace</span>
             </div>
             <img class="unavailable-icon" src="${DocSpaceComponent.images.unavailable}" />
@@ -52,13 +52,14 @@
         target.appendChild(errorDiv);
     }
 
-    window.DocSpaceComponent.getCredentials = function (сredentialUrl) {
+    window.DocSpaceComponent.oodspCredentials = function () {
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", сredentialUrl, false);
-        xhr.send();
+        xhr.open("POST", DocSpaceComponent.ajaxUrl, false);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+        xhr.send("action=oodsp_credentials");
 
         if (xhr.status === 200) {
-            return JSON.parse(xhr.responseText || null);
+            return xhr.responseText || null;
         }
 
         return null;
@@ -75,7 +76,7 @@
 
                         const userInfo = await DocSpace.SDK.frames[frameId].getUserInfo();
 
-                        if (userInfo && userInfo.email === DocSpaceComponent.user.email){
+                        if (userInfo && userInfo.email === DocSpaceComponent.currentUser){
                             onSuccess();
                         } else {
                             var hash = null;
@@ -84,18 +85,18 @@
                                 const hashSettings = await DocSpace.SDK.frames[frameId].getHashSettings();
                                 hash = await DocSpace.SDK.frames[frameId].createHash(password.trim(), hashSettings);
                             } else {
-                                hash = DocSpaceComponent.getCredentials(DocSpaceComponent.сredentialUrl);
+                                hash = DocSpaceComponent.oodspCredentials();
                             }
 
                             if (hash === null || hash.length === "") {
                                 DocSpace.SDK.frames[frameId].destroyFrame();
-                                wp.oodsp.login(frameId, DocSpaceComponent.docSpaceUrl, DocSpaceComponent.user.email, null, function (password) {
+                                wp.oodsp.login(frameId, DocSpaceComponent.docSpaceUrl, DocSpaceComponent.currentUser, null, function (password) {
                                     window.DocSpaceComponent.initLoginDocSpace(frameId, password, onSuccess, onError);
                                 });
                                 return;
                             }
 
-                            DocSpace.SDK.frames[frameId].login(DocSpaceComponent.user.email, hash)
+                            DocSpace.SDK.frames[frameId].login(DocSpaceComponent.currentUser, hash)
                                 .then(function(response) {
                                     //ToDO: check response, need fix response
                                     // onError: function () {
@@ -134,10 +135,10 @@
 
                         const userInfo = await DocSpace.SDK.frames[frameId].getUserInfo();
 
-                        if (userInfo && userInfo.email === DocSpaceComponent.user.email) {
+                        if (userInfo && userInfo.email === DocSpaceComponent.currentUser) {
                             onSuccess();
                         } else {
-                            DocSpace.SDK.frames[frameId].login(DocSpaceComponent.user.email, DocSpaceComponent.user.password)
+                            DocSpace.SDK.frames[frameId].login(DocSpaceComponent.currentUser, DocSpaceComponent.user.password)
                                 .then(function(response) {
                                     //ToDO: check response, need fix response
                                     // onError: function () {

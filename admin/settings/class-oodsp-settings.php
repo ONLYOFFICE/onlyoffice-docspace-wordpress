@@ -35,7 +35,7 @@
  * Plugin settings for ONLYOFFICE DocSpace Plugin.
  *
  * @package    Onlyoffice_Docspace_Plugin
- * @subpackage Onlyoffice_Docspace_Plugin/includes/settings
+ * @subpackage Onlyoffice_Docspace_Plugin/admin/settings
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
 

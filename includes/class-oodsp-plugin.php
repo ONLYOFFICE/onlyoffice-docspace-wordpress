@@ -91,7 +91,6 @@ class OODSP_Plugin {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-		$this->init_ds_frame();
 	}
 
 	/**
@@ -104,15 +103,15 @@ class OODSP_Plugin {
 	 * @access   private
 	 */
 	private function load_dependencies() {
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'controllers/class-oodsp-frontend-controller.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/settings/class-oodsp-settings.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-oodsp-docspace.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-oodsp-ajax.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/managers/class-oodsp-request-manager.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/managers/class-oodsp-security-manager.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/users/class-oodsp-users-list-table.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/settings/class-oodsp-settings.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-oodsp-docspace.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-i18n.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-loader.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-oodsp-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-oodsp-public-docspace.php';
 
 		$this->loader = new OODSP_Loader();
 	}
@@ -161,7 +160,11 @@ class OODSP_Plugin {
 
 		$this->loader->add_action( 'admin_menu', $plugin_settings, 'init_menu' );
 		$this->loader->add_action( 'admin_init', $plugin_settings, 'init' );
-	}
+
+		$plugin_ajax = new OODSP_Ajax();
+		$this->loader->add_action( 'wp_ajax_oodsp_credentials', $plugin_ajax, 'oodsp_credentials' );
+		$this->loader->add_action( 'wp_ajax_no_priv_oodsp_credentials', $plugin_ajax, 'no_priv_oodsp_credentials' );
+	}	
 
 	/**
 	 * Register all of the hooks related to the public-facing functionality
@@ -171,28 +174,11 @@ class OODSP_Plugin {
 	 * @access   private
 	 */
 	private function define_public_hooks() {
+		$plugin_public_docspace = new OODSP_Public_DocSpace();
 
-		$plugin_public = new OODSP_Public( $this->get_plugin_name(), $this->get_version() );
-
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
-		$this->loader->add_action( 'rest_api_init', $plugin_public, 'register_routes' );
+		$this->loader->add_action( 'init', $plugin_public_docspace, 'init_shortcodes' );
+		$this->loader->add_action( 'init', $plugin_public_docspace, 'onlyoffice_custom_block' );
 	}
-
-	/**
-	 * Init DocSpace page.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function init_ds_frame() {
-
-		$OODSP_frontend_controller = new OODSP_Frontend_Controller( $this->get_plugin_name(), $this->get_version() );
-		$this->loader->add_action( 'init', $OODSP_frontend_controller, 'init_shortcodes' );
-		$this->loader->add_action( 'init', $OODSP_frontend_controller, 'onlyoffice_custom_block' );
-	}
-
 
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.

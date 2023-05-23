@@ -5,7 +5,7 @@
  * @link       https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress
  *
  * @package    Onlyoffice_Docspace_Plugin
- * @subpackage Onlyoffice_Docspace_Plugin/controllers
+ * @subpackage Onlyoffice_Docspace_Plugin/public
  */
 
 /**
@@ -31,30 +31,14 @@
  * Controller init ONLYOFFICE Docspace.
  *
  * @package    Onlyoffice_Docspace_Plugin
- * @subpackage Onlyoffice_Docspace_Plugin/controllers
+ * @subpackage Onlyoffice_Docspace_Plugin/public
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
-class OODSP_Frontend_Controller {
+class OODSP_Public_DocSpace {
 	const OODSP_PUBLIC_USER_LOGIN = 'wp_public_user@wp_public_user.com';
 	const OODSP_PUBLIC_USER_PASS = '8c6b8b3e59010d7c925a47039f749d86fbdc9b37257cd262f2dae7c84a106505';
 	const OODSP_PUBLIC_USER_FIRSTNAME = 'wp_public_user';
 	const OODSP_PUBLIC_USER_LASTNAME = 'wp_public_user';
-	
-	/**
-	 * The ID of this plugin.
-	 *
-	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
-	 */
-	private $plugin_name;
-
-	/**
-	 * The version of this plugin.
-	 *
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
-	 */
-	private $version;
 
 	/**
 	 *
@@ -69,9 +53,7 @@ class OODSP_Frontend_Controller {
 	 * @param      string $plugin_name       The name of this plugin.
 	 * @param      string $version    The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
-		$this->plugin_name = $plugin_name;
-		$this->version     = $version;
+	public function __construct() {
 		$this->plugin_settings = new OODSP_Settings();
 	}
 
@@ -87,7 +69,7 @@ class OODSP_Frontend_Controller {
 	 */
 	public function onlyoffice_custom_block() {
 		register_block_type(
-			__DIR__ . '/../onlyoffice-docspace-wordpress-block',
+			plugin_dir_path(ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE) . 'onlyoffice-docspace-wordpress-block',
 			array(
 				'description' => __( 'Add ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ),
 				'render_callback' => array( $this, 'docspace_block_render_callback' ),
@@ -98,7 +80,7 @@ class OODSP_Frontend_Controller {
 			wp_set_script_translations( 
 				'onlyoffice-docspace-onlyoffice-docspace-editor-script', 
 				'onlyoffice-docspace-plugin',
-				plugin_dir_path( dirname( __FILE__ ) ) . 'languages/' 
+				ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'languages/' 
 			);
 		}
 	}
@@ -139,53 +121,47 @@ class OODSP_Frontend_Controller {
 
 		$atts['id'] = $attr['fileId'];
 
-		wp_enqueue_script(
-			$this->plugin_name . '-ds-component-script',
-			plugin_dir_url( __FILE__ ) . '../public/js/docspace-components-api.js',
-			array( 'jquery' ),
-			ONLYOFFICE_DOCSPACE_PLUGIN_VERSION,
-			true
-		);
-
 		$post = get_post();
 
 		if ( $post->post_status === 'private' ) {
-			$oodsp_security_manager = new OODSP_Security_Manager();
-
-			$user = array( 
-				'email' => wp_get_current_user()->user_email,
-				'password' => $oodsp_security_manager->get_oodsp_user_pass( wp_get_current_user()->ID )
-			);
+			$curentUser = wp_get_current_user()->user_email;
 		} else {
-			$user = array( 
-				'email'    => OODSP_Frontend_Controller::OODSP_PUBLIC_USER_LOGIN,
-				'password' => OODSP_Frontend_Controller::OODSP_PUBLIC_USER_PASS,
-			);
+			$curentUser = self::OODSP_PUBLIC_USER_LOGIN;
 		}
 
-		error_log(print_r($user, true));
-
-		wp_localize_script(
-			$this->plugin_name . '-ds-component-script',
-			'DocSpaceComponent',
-			array( 
-				'docSpaceUrl'   => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL),
-				'user'          => $user,
-				'wp_plugin_url' => WP_PLUGIN_URL
-			)
-		);
-
 		wp_enqueue_script(
-			'oodsp-frontend-controller',
-			plugin_dir_url( __FILE__ ) . 'js/oodsp-frontend-controller.js',
-			array( ),
-			ONLYOFFICE_DOCSPACE_PLUGIN_VERSION,
+			'docspace-components-api',
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'public/js/docspace-components-api.js',
+			array(),
+			ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION,
 			true
 		);
 
+		wp_localize_script(
+			'docspace-component-api',
+			'DocSpaceComponent',
+			array( 
+				'url'         => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL),
+				'currentUser' => $curentUser,
+				'ajaxUrl'     => admin_url('admin-ajax.php'),
+				'images'      => array(
+					'logo'        => plugins_url( 'public/images/onlyoffice.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
+					'unavailable' => plugins_url( 'public/images/unavailable.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE )
+				)
+			)
+		);
+
 		wp_enqueue_style(
-			$this->plugin_name . '-ds-component-style',
-			plugin_dir_url( __FILE__ ) . '../public/css/docspace-components-api.css'
+			'docspace-components-api',
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'public/css/docspace-component-api.css'
+		);
+
+		wp_enqueue_script(
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-public-docspace',
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'public/js/public-docspace.js',
+			array( 'jquery' ),
+			ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION,
+			true
 		);
 
 		$output  = '<div>';
