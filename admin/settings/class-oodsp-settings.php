@@ -221,7 +221,7 @@ class OODSP_Settings {
 		
 		wp_enqueue_style(
 			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-loader',
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . '../css/loader.css'
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/css/loader.css'
 		);
 
 		if ( ! isset( $_GET['users'] ) ) { ?>

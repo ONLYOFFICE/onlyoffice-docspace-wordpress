@@ -221,21 +221,21 @@ class OODSP_Request_Manager {
 	}
 
 	public function request_create_public_user ( $docspace_url, $docspace_token ) {
-		$res_docspace_user = $this->request_docspace_user( $docspace_url, OODSP_Frontend_Controller::OODSP_PUBLIC_USER_LOGIN, $docspace_token );
+		$res_docspace_user = $this->request_docspace_user( $docspace_url, OODSP_Public_DocSpace::OODSP_PUBLIC_USER_LOGIN, $docspace_token );
 
 		if ( $res_docspace_user['error'] ) {
 			return $this->request_invite_user( 
-				OODSP_Frontend_Controller::OODSP_PUBLIC_USER_LOGIN,
-				OODSP_Frontend_Controller::OODSP_PUBLIC_USER_PASS,
-				OODSP_Frontend_Controller::OODSP_PUBLIC_USER_FIRSTNAME,
-				OODSP_Frontend_Controller::OODSP_PUBLIC_USER_LASTNAME,
+				OODSP_Public_DocSpace::OODSP_PUBLIC_USER_LOGIN,
+				OODSP_Public_DocSpace::OODSP_PUBLIC_USER_PASS,
+				OODSP_Public_DocSpace::OODSP_PUBLIC_USER_FIRSTNAME,
+				OODSP_Public_DocSpace::OODSP_PUBLIC_USER_LASTNAME,
 				2,
 				$docspace_token
 			);
 		} else {
 			return $this->request_set_user_pass( 
 				$res_docspace_user['data']['id'],
-				OODSP_Frontend_Controller::OODSP_PUBLIC_USER_PASS,
+				OODSP_Public_DocSpace::OODSP_PUBLIC_USER_PASS,
 				$docspace_token
 			);
 		}
