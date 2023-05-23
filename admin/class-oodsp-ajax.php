@@ -76,6 +76,10 @@ class OODSP_Ajax {
 				$pass = $hash;
 			} else {
 				$pass = $this->security_manager->get_oodsp_user_pass( $user->ID );
+
+				if ( empty( $pass) ) {
+					return wp_die( '0', 404 );
+				}
 			}
 		}
 

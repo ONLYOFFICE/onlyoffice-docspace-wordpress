@@ -52,12 +52,16 @@
         target.appendChild(errorDiv);
     }
 
-    window.DocSpaceComponent.oodspCredentials = function () {
+    window.DocSpaceComponent.oodspCredentials = function (hash = null) {
         var xhr = new XMLHttpRequest();
         var postData = "action=oodsp_credentials";
         
         if (DocSpaceComponent.isPublic) {
             postData += "&is_public=true";
+        }
+        
+        if (hash) {
+            postData += "&hash=" + hash;
         }
 
         xhr.open("POST", DocSpaceComponent.ajaxUrl, false);
@@ -72,9 +76,8 @@
     }
 
     window.DocSpaceComponent.initLoginDocSpace = function (frameId, password, onSuccess, onError) {
-        DocSpace.SDK.initFrame({
+        DocSpace.SDK.initSystem({
             frameId: frameId,
-            mode: "system",
             events: {
                 onAppReady: async function() {
                     if (!window.DocSpaceComponent.onAppReady) { // ToDo: Delete after fixes
@@ -96,7 +99,7 @@
 
                             if (hash === null || hash.length === "") {
                                 DocSpace.SDK.frames[frameId].destroyFrame();
-                                wp.oodsp.login(frameId, DocSpaceComponent.docSpaceUrl, DocSpaceComponent.currentUser, null, function (password) {
+                                wp.oodsp.login(frameId, DocSpaceComponent.url, DocSpaceComponent.currentUser, null, function (password) {
                                     window.DocSpaceComponent.initLoginDocSpace(frameId, password, onSuccess, onError);
                                 });
                                 return;
@@ -104,19 +107,21 @@
 
                             DocSpace.SDK.frames[frameId].login(DocSpaceComponent.currentUser, hash)
                                 .then(function(response) {
-                                    //ToDO: check response, need fix response
-                                    // onError: function () {
-                                        // DocSpaceComponent.renderLoginWindow();
-                                    // }
-
-                                    if (password) {
-                                        var xhr = new XMLHttpRequest();
-                                        xhr.open("PUT", DocSpaceComponent.сredentialUrl, false);
-                                        xhr.send(JSON.stringify({
-                                            hash: hash
-                                        }));
+                                    if(response.status && response.status !== 200) {
+                                        DocSpace.SDK.frames[frameId].destroyFrame();
+                                        wp.oodsp.login(
+                                            frameId,
+                                            DocSpaceComponent.url,
+                                            DocSpaceComponent.currentUser,
+                                            true, 
+                                            function (password) {
+                                                window.DocSpaceComponent.initLoginDocSpace(frameId, password, onSuccess, onError);
+                                            }
+                                        );
+                                        return;
                                     }
 
+                                    DocSpaceComponent.oodspCredentials(hash);
                                     onSuccess();
                                 }
                             );

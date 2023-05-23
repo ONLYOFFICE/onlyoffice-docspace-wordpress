@@ -82,9 +82,8 @@
             const pass = $('#user_pass').val().trim();
             DocSpaceComponent.initScript($('#docspace_url').val().trim())
                 .then(async function() {
-                    DocSpace.SDK.initFrame({
+                    DocSpace.SDK.initSystem({
                         frameId: "oodsp-system-frame",
-                        mode: "system",
                         events: {
                             "onAppReady": async function() {
                                 if (!window.DocSpaceComponent.onAppReady) { // ToDo: Delete after fixes
@@ -167,9 +166,8 @@
 
     DocSpaceComponent.initScript()
         .then(function(e) { // ToDo: onAppReady, onError
-            DocSpace.SDK.initFrame({
-                frameId: "oodsp-system-frame",
-                mode: "system"
+            DocSpace.SDK.initSystem({
+                frameId: "oodsp-system-frame"
             });
         });
 }( jQuery ) );

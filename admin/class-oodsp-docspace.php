@@ -67,7 +67,8 @@ class OODSP_DocSpace {
 			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-login',
 			'messages',
 			array( 
-				'empty-password' => __('<strong>Error:</strong> The password field is empty.')
+				'empty-password' => __('<strong>Error:</strong> The password field is empty.'),
+				'auth-failed'    => __('<strong>Error:</strong> User authentication failed', 'onlyoffice-docspace-plugin'),
 			)
 		);
 
@@ -110,8 +111,8 @@ class OODSP_DocSpace {
 		);
 
 		wp_enqueue_style(
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-settings',
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/css/settings.css'
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-login',
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/css/login.css'
 		);
 
 		wp_enqueue_style( 'login' );

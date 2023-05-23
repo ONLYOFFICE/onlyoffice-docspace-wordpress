@@ -174,3 +174,6 @@ msgstr "Ваша учетная запись <b>%s</b> будет синхрон
 
 msgid "Login"
 msgstr "Авторизоваться"
+
+msgid "<strong>Error:</strong> User authentication failed"
+msgstr "<strong>Ошибка:</strong> Не удалось выполнить аутентификацию пользователя"
