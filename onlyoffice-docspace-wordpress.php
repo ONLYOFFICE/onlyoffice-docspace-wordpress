@@ -43,7 +43,7 @@
  */
 define( 'ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME', 'onlyoffice-docspace-wordpress' );
 define( 'ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION', '1.0.0' );
-define( 'ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL', plugin_dir_url(__FILE__) );
+define( 'ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE', __FILE__ );
 
 
