@@ -1,11 +1,11 @@
 <?php
 /**
- * Controller init ONLYOFFICE Docspace.
+ * Public ONLYOFFICE Docspace.
  *
  * @link       https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress
  *
- * @package    Onlyoffice_Docspace_Plugin
- * @subpackage Onlyoffice_Docspace_Plugin/public
+ * @package    Onlyoffice_Docspace_Wordpress
+ * @subpackage Onlyoffice_Docspace_Wordpress/public
  */
 
 /**
@@ -28,19 +28,20 @@
  */
 
 /**
- * Controller init ONLYOFFICE Docspace.
+ * Public ONLYOFFICE Docspace.
  *
- * @package    Onlyoffice_Docspace_Plugin
- * @subpackage Onlyoffice_Docspace_Plugin/public
+ * @package    Onlyoffice_Docspace_Wordpress
+ * @subpackage Onlyoffice_Docspace_Wordpress/public
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
 class OODSP_Public_DocSpace {
-	const OODSP_PUBLIC_USER_LOGIN = 'wp_public_user@wp_public_user.com';
-	const OODSP_PUBLIC_USER_PASS = '8c6b8b3e59010d7c925a47039f749d86fbdc9b37257cd262f2dae7c84a106505';
+	const OODSP_PUBLIC_USER_LOGIN     = 'wp_public_user@wp_public_user.com';
+	const OODSP_PUBLIC_USER_PASS      = '8c6b8b3e59010d7c925a47039f749d86fbdc9b37257cd262f2dae7c84a106505';
 	const OODSP_PUBLIC_USER_FIRSTNAME = 'wp_public_user';
-	const OODSP_PUBLIC_USER_LASTNAME = 'wp_public_user';
+	const OODSP_PUBLIC_USER_LASTNAME  = 'wp_public_user';
 
 	/**
+	 * OODSP_Settings
 	 *
 	 * @access   private
 	 * @var      OODSP_Settings    $plugin_settings
@@ -49,9 +50,6 @@ class OODSP_Public_DocSpace {
 
 	/**
 	 * Initialize the class and set its properties.
-	 *
-	 * @param      string $plugin_name       The name of this plugin.
-	 * @param      string $version    The version of this plugin.
 	 */
 	public function __construct() {
 		$this->plugin_settings = new OODSP_Settings();
@@ -69,18 +67,18 @@ class OODSP_Public_DocSpace {
 	 */
 	public function onlyoffice_custom_block() {
 		register_block_type(
-			plugin_dir_path(ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE) . 'onlyoffice-docspace-wordpress-block',
+			plugin_dir_path( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ) . 'onlyoffice-docspace-wordpress-block',
 			array(
-				'description' => __( 'Add ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ),
+				'description'     => __( 'Add ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ),
 				'render_callback' => array( $this, 'docspace_block_render_callback' ),
 			),
 		);
 
 		if ( function_exists( 'wp_set_script_translations' ) ) {
-			wp_set_script_translations( 
-				'onlyoffice-docspace-onlyoffice-docspace-editor-script', 
+			wp_set_script_translations(
+				'onlyoffice-docspace-onlyoffice-docspace-editor-script',
 				'onlyoffice-docspace-plugin',
-				ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'languages/' 
+				ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'languages/'
 			);
 		}
 	}
@@ -91,8 +89,8 @@ class OODSP_Public_DocSpace {
 	 * @param array $block_attributes List of attributes that where included in the block settings.
 	 * @return string Resulting HTML code for the table.
 	 */
-	public function docspace_block_render_callback ( array $block_attributes ) {
-		if ( !$block_attributes ) {
+	public function docspace_block_render_callback( array $block_attributes ) {
+		if ( ! $block_attributes ) {
 			return;
 		}
 
@@ -111,10 +109,10 @@ class OODSP_Public_DocSpace {
 
 		$defaults_atts = array(
 			'frameId' => 'onlyoffice-docpace-block-' . $instance,
-			'width'   => "100%",
-			'height'   => "100%",
-			'mode'   => "manager",
-			'itemId'   => null,
+			'width'   => '100%',
+			'height'  => '100%',
+			'mode'    => 'manager',
+			'itemId'  => null,
 		);
 
 		$atts = shortcode_atts( $defaults_atts, $attr, 'onlyoffice-docspace' );
@@ -123,11 +121,11 @@ class OODSP_Public_DocSpace {
 
 		$post = get_post();
 
-		if ( $post->post_status === 'private' ) {
-			$is_public = false;
+		if ( 'private' === $post->post_status ) {
+			$is_public    = false;
 			$current_user = wp_get_current_user()->user_email;
 		} else {
-			$is_public = true;
+			$is_public    = true;
 			$current_user = self::OODSP_PUBLIC_USER_LOGIN;
 		}
 
@@ -142,21 +140,23 @@ class OODSP_Public_DocSpace {
 		wp_localize_script(
 			'docspace-component-api',
 			'DocSpaceComponent',
-			array( 
-				'url'         => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL),
+			array(
+				'url'         => $this->plugin_settings->get_onlyoffice_docspace_setting( OODSP_Settings::DOCSPACE_URL ),
 				'currentUser' => $current_user,
 				'isPublic'    => $is_public,
-				'ajaxUrl'     => admin_url('admin-ajax.php'),
+				'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
 				'images'      => array(
 					'onlyoffice'  => plugins_url( 'public/images/onlyoffice.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
-					'unavailable' => plugins_url( 'public/images/unavailable.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE )
-				)
+					'unavailable' => plugins_url( 'public/images/unavailable.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
+				),
 			)
 		);
 
 		wp_enqueue_style(
 			'docspace-components-api',
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'assets/css/docspace-component-api.css'
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'assets/css/docspace-component-api.css',
+			array(),
+			ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION
 		);
 
 		wp_enqueue_script(
@@ -168,7 +168,7 @@ class OODSP_Public_DocSpace {
 		);
 
 		$output  = '<div>';
-		$output .= "<div class='onlyoffice-docpace-block' data-config='" . wp_json_encode( $atts ) . "' id='onlyoffice-docpace-block-". $instance . "' style='overflow: overlay; width:". $atts['width'] ."; height:". $atts['height'] ."'></div>";
+		$output .= "<div class='onlyoffice-docpace-block' data-config='" . wp_json_encode( $atts ) . "' id='onlyoffice-docpace-block-" . $instance . "' style='overflow: overlay; width:" . $atts['width'] . '; height:' . $atts['height'] . "'></div>";
 		$output .= '</div>';
 
 		return apply_filters( 'wp_onlyoffice_docspace_shortcode', $output, $atts );
