@@ -8,8 +8,8 @@
  * @link       https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress
  * @since      1.0.0
  *
- * @package    Onlyoffice_Docspace_Plugin
- * @subpackage Onlyoffice_Docspace_Plugin/includes
+ * @package    Onlyoffice_Docspace_Wordpress
+ * @subpackage Onlyoffice_Docspace_Wordpress/includes
  */
 
 /**
@@ -40,8 +40,8 @@
  * Also maintains the unique identifier of this plugin as well as the current
  * version of the plugin.
  *
- * @package    Onlyoffice_Docspace_Plugin
- * @subpackage Onlyoffice_Docspace_Plugin/includes
+ * @package    Onlyoffice_Docspace_Wordpress
+ * @subpackage Onlyoffice_Docspace_Wordpress/includes
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
 class OODSP_Plugin {
@@ -164,7 +164,7 @@ class OODSP_Plugin {
 		$plugin_ajax = new OODSP_Ajax();
 		$this->loader->add_action( 'wp_ajax_oodsp_credentials', $plugin_ajax, 'oodsp_credentials' );
 		$this->loader->add_action( 'wp_ajax_no_priv_oodsp_credentials', $plugin_ajax, 'no_priv_oodsp_credentials' );
-	}	
+	}
 
 	/**
 	 * Register all of the hooks related to the public-facing functionality

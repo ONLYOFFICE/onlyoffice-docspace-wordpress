@@ -5,8 +5,8 @@
  * @link       https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress
  * @since      1.0.0
  *
- * @package    Onlyoffice_Docspace_Plugin
- * @subpackage Onlyoffice_Docspace_Plugin/includes
+ * @package    Onlyoffice_Docspace_Wordpress
+ * @subpackage Onlyoffice_Docspace_Wordpress/includes
  */
 
 /**
@@ -33,8 +33,8 @@
  *
  * This class defines all code necessary to run during the plugin's activation.
  *
- * @package    Onlyoffice_Docspace_Plugin
- * @subpackage Onlyoffice_Docspace_Plugin/includes
+ * @package    Onlyoffice_Docspace_Wordpress
+ * @subpackage Onlyoffice_Docspace_Wordpress/includes
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
 class OODSP_Activator {
@@ -44,14 +44,13 @@ class OODSP_Activator {
 	 *
 	 * @since    1.0.0
 	 */
-	public static function activate() { 
+	public static function activate() {
 		global $wpdb;
 
-		$charset_collate = $wpdb->get_charset_collate();
+		$charset_collate   = $wpdb->get_charset_collate();
 		$oodsp_users_table = $wpdb->prefix . OODSP_Security_Manager::DOCSPACE_USERS_TABLE;
 
-
-		$sql = "CREATE TABLE IF NOT EXISTS `{oodsp_users_table}` (
+		$sql = "CREATE TABLE IF NOT EXISTS $oodsp_users_table (
 		id bigint(50) NOT NULL AUTO_INCREMENT,
 		user_id bigint(20) UNSIGNED NOT NULL,
 		user_pass varchar(225),
