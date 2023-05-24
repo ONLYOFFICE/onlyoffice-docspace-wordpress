@@ -5,8 +5,8 @@
  * @link       https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress
  * @since      1.0.0
  *
- * @package    Onlyoffice_Docspace_Plugin
- * @subpackage Onlyoffice_Docspace_Plugin/includes/users
+ * @package    Onlyoffice_Docspace_Wordpress
+ * @subpackage Onlyoffice_Docspace_Wordpress/includes/users
  */
 
 /**
@@ -36,27 +36,31 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 /**
  * Core class used to implement displaying users in a list table for the network admin.
  *
- * @package    Onlyoffice_Plugin
- * @subpackage Onlyoffice_Plugin/includes/files
+ * @package    Onlyoffice_Docspace_Wordpress
+ * @subpackage Onlyoffice_Docspace_Wordpress/includes/users
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
 class OODSP_Users_List_Table extends WP_List_Table {
 
 	/**
-	 * The list docspace users.
+	 * The list DocSpace users.
 	 *
+	 * @var      array    $docspace_users
 	 */
 	private $docspace_users;
 
 
 	/**
-	 * The list docspace users.
+	 * The is connected to DocSpace flag.
 	 *
+	 * @var      boolean    $is_connected_to_docspace
 	 */
 	private $is_connected_to_docspace = false;
 
 	/**
+	 * OODSP_Settings
 	 *
+	 * @var      OODSP_Settings    $is_connected_to_docspace
 	 */
 	private $plugin_settings;
 
@@ -92,14 +96,14 @@ class OODSP_Users_List_Table extends WP_List_Table {
 	 * Prepare the users list for display.
 	 *
 	 * @global string $role
-	 * @global string $usersearch
+	 * @global string $s
+	 * @global string $orderby
+	 * @global string $order
 	 */
 	public function prepare_items() {
-		global $role, $usersearch;
+		global $role, $s, $orderby, $order;
 
-		$usersearch = isset( $_REQUEST['s'] ) ? wp_unslash( trim( $_REQUEST['s'] ) ) : '';
-
-		$role = isset( $_REQUEST['role'] ) ? $_REQUEST['role'] : '';
+		wp_reset_vars( array( 's', 'role', 'orderby', 'order' ) );
 
 		$per_page       = 'docspace_page_onlyoffice_docspace_settings_per_page';
 		$users_per_page = $this->get_items_per_page( $per_page );
@@ -110,7 +114,7 @@ class OODSP_Users_List_Table extends WP_List_Table {
 			'number' => $users_per_page,
 			'offset' => ( $paged - 1 ) * $users_per_page,
 			'role'   => $role,
-			'search' => $usersearch,
+			'search' => $s,
 			'fields' => 'all_with_meta',
 		);
 
@@ -118,12 +122,12 @@ class OODSP_Users_List_Table extends WP_List_Table {
 			$args['search'] = '*' . $args['search'] . '*';
 		}
 
-		if ( isset( $_REQUEST['orderby'] ) ) {
-			$args['orderby'] = $_REQUEST['orderby'];
+		if ( ! empty( $orderby ) ) {
+			$args['orderby'] = $orderby;
 		}
 
-		if ( isset( $_REQUEST['order'] ) ) {
-			$args['order'] = $_REQUEST['order'];
+		if ( ! empty( $order ) ) {
+			$args['order'] = $order;
 		}
 
 		$args = apply_filters( 'users_list_table_query_args', $args );
@@ -139,12 +143,11 @@ class OODSP_Users_List_Table extends WP_List_Table {
 			)
 		);
 
-
 		$oodsp_request_manager = new OODSP_Request_Manager();
-		$res_docspace_users = $oodsp_request_manager->request_docspace_users();
+		$res_docspace_users    = $oodsp_request_manager->request_docspace_users();
 
-		if ( !$res_docspace_users['error'] ) {
-			$this->docspace_users = $res_docspace_users['data'];
+		if ( ! $res_docspace_users['error'] ) {
+			$this->docspace_users           = $res_docspace_users['data'];
 			$this->is_connected_to_docspace = true;
 		}
 	}
@@ -294,19 +297,18 @@ class OODSP_Users_List_Table extends WP_List_Table {
 
 	/**
 	 * Generates the tbody element for the list table.
-	 *
 	 */
 	public function display_rows_or_placeholder() {
 		if ( $this->has_items() ) {
-			if ($this->is_connected_to_docspace) {
+			if ( $this->is_connected_to_docspace ) {
 				$this->display_rows();
 			} else {
-				echo '<tr class="no-items"><td class="colspanchange" colspan="' . $this->get_column_count() . '">';
-				echo '<span>'. __( 'Error getting users from ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ) . '</space>';
+				echo '<tr class="no-items"><td class="colspanchange" colspan="' . esc_attr( $this->get_column_count() ) . '">';
+				echo '<span>' . esc_html_e( 'Error getting users from ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ) . '</space>';
 				echo '</td></tr>';
 			}
 		} else {
-			echo '<tr class="no-items"><td class="colspanchange" colspan="' . $this->get_column_count() . '">';
+			echo '<tr class="no-items"><td class="colspanchange" colspan="' . esc_attr( $this->get_column_count() ) . '">';
 			$this->no_items();
 			echo '</td></tr>';
 		}
@@ -317,7 +319,7 @@ class OODSP_Users_List_Table extends WP_List_Table {
 	 */
 	public function display_rows() {
 		foreach ( $this->items as $userid => $user_object ) {
-			echo "\n\t" . $this->single_row( $user_object );
+			echo wp_kses_post( $this->single_row( $user_object ) );
 		}
 	}
 
@@ -346,13 +348,14 @@ class OODSP_Users_List_Table extends WP_List_Table {
 			}
 		}
 
-		$docspace_user_status = -1;
+		$docspace_user_status     = -1;
 		$docspace_user_role_label = '';
+		$count_docspace_users     = count( $this->docspace_users );
 
-		for($i = 0; $i < count( $this->docspace_users ); ++$i) {
-			if( $this->docspace_users[$i]['email'] === $email) {
-				$docspace_user_status = $this->docspace_users[$i]['activationStatus'];
-				$docspace_user_role_label = $this->get_docspace_user_role_label( $this->docspace_users[$i] );
+		for ( $i = 0; $i < $count_docspace_users; ++$i ) {
+			if ( $this->docspace_users[ $i ]['email'] === $email ) {
+				$docspace_user_status     = $this->docspace_users[ $i ]['activationStatus'];
+				$docspace_user_role_label = $this->get_docspace_user_role_label( $this->docspace_users[ $i ] );
 			}
 		}
 
@@ -435,9 +438,9 @@ class OODSP_Users_List_Table extends WP_List_Table {
 						$oodsp_security_manager = new OODSP_Security_Manager();
 
 						$user_pass = $oodsp_security_manager->get_oodsp_user_pass( $user_object->ID );
-						
-						if ( $docspace_user_status == 0 || $docspace_user_status == 1 ) {
-							if ( !empty( $user_pass ) ) {
+
+						if ( 0 === $docspace_user_status || 1 === $docspace_user_status ) {
+							if ( ! empty( $user_pass ) ) {
 								$row .= "<img src='" . esc_url( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/images/done.svg' ) . "'/>";
 							} else {
 								$row .= '<div class="tooltip" style="cursor: pointer">';
@@ -536,23 +539,31 @@ class OODSP_Users_List_Table extends WP_List_Table {
 
 	}
 
-	private function get_docspace_user_role_label ( $docspace_user ) {
+	/**
+	 * Return label for role DocSpace user.
+	 *
+	 * @param string $docspace_user     The DocSpace user.
+	 */
+	private function get_docspace_user_role_label( $docspace_user ) {
 		if ( $docspace_user['isOwner'] ) {
 			return __( 'Owner', 'onlyoffice-docspace-plugin' );
-		} else if ( $docspace_user['isAdmin'] ) {
+		} elseif ( $docspace_user['isAdmin'] ) {
 			return __( 'DocSpace admin', 'onlyoffice-docspace-plugin' );
-		} else if ( $docspace_user['isCollaborator'] ) {
+		} elseif ( $docspace_user['isCollaborator'] ) {
 			return __( 'Power user', 'onlyoffice-docspace-plugin' );
-		} else if ( $docspace_user['isVisitor'] ) {
+		} elseif ( $docspace_user['isVisitor'] ) {
 			return __( 'User', 'onlyoffice-docspace-plugin' );
 		} else {
 			return __( 'Room admin', 'onlyoffice-docspace-plugin' );
 		}
 	}
 
-	private function get_label_for_unauthorized () {
-		$output = '<b>'. __( 'Problem with the account synchronization between WordPress and ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ) .'</b></br></br>';
-		$output .= '<b>'. __( 'Possible cause:', 'onlyoffice-docspace-plugin' ) .'</b> '. __( 'DocSpace account was not created via the DocSpace plugin for WordPress', 'onlyoffice-docspace-plugin' ) .'</br></br>';
+	/**
+	 * Return label for unauthorized user status.
+	 */
+	private function get_label_for_unauthorized() {
+		$output  = '<b>' . __( 'Problem with the account synchronization between WordPress and ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ) . '</b></br></br>';
+		$output .= '<b>' . __( 'Possible cause:', 'onlyoffice-docspace-plugin' ) . '</b> ' . __( 'DocSpace account was not created via the DocSpace plugin for WordPress', 'onlyoffice-docspace-plugin' ) . '</br></br>';
 		$output .= __( 'Seamless login is unavailable. Users will need to login into DocSpace to have access to the plugin.', 'onlyoffice-docspace-plugin' );
 
 		return $output;
