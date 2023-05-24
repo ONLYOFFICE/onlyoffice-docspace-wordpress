@@ -5,8 +5,8 @@
  * @link       https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress
  * @since      1.0.0
  *
- * @package    Onlyoffice_Docspace_Plugin
- * @subpackage Onlyoffice_Docspace_Plugin/includes/managers
+ * @package    Onlyoffice_Docspace_Wordpress
+ * @subpackage Onlyoffice_Docspace_Wordpress/includes/managers
  */
 
 /**
@@ -31,47 +31,59 @@
 /**
  * Request manager
  *
- * @package    Onlyoffice_Docspace_Plugin
- * @subpackage Onlyoffice_Docspace_Plugin/includes/managers
+ * @package    Onlyoffice_Docspace_Wordpress
+ * @subpackage Onlyoffice_Docspace_Wordpress/includes/managers
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
 class OODSP_Security_Manager {
-	const DOCSPACE_USERS_TABLE = "docspace_users";
+	const DOCSPACE_USERS_TABLE = 'docspace_users';
 
-	public function set_oodsp_user_pass ( $user_id, $password ) {
+	/**
+	 * Add DocSpace user password to DB.
+	 *
+	 * @param string $user_id User ID.
+	 * @param string $password Password DocSpace user.
+	 */
+	public function set_oodsp_user_pass( $user_id, $password ) {
 		global $wpdb;
 		$oodsp_users_table = $wpdb->prefix . self::DOCSPACE_USERS_TABLE;
 
 		$old_user_pass = $this->get_oodsp_user_pass( $user_id );
 
 		if ( $old_user_pass ) {
-			$result = $wpdb->update( 
-				$oodsp_users_table, 
-				array( 
-					'user_id'   => $user_id,
-					'user_pass' => $password
-				), 
-				array( 'user_id' => $user_id ) 
-			);
-
-		} else {
-			$result = $wpdb->insert( 
+			$result = $wpdb->update(
 				$oodsp_users_table,
 				array(
 					'user_id'   => $user_id,
-					'user_pass' => $password
+					'user_pass' => $password,
+				),
+				array( 'user_id' => $user_id )
+			); // db call ok; no-cache ok.
+
+		} else {
+			$result = $wpdb->insert(
+				$oodsp_users_table,
+				array(
+					'user_id'   => $user_id,
+					'user_pass' => $password,
 				)
-			);
+			); // db call ok; no-cache ok.
 		}
 
 		return $result;
 	}
 
-	public function get_oodsp_user_pass ($user_id) {
+	/**
+	 * Return DocSpace user password.
+	 *
+	 * @param string $user_id User ID.
+	 */
+	public function get_oodsp_user_pass( $user_id ) {
 		global $wpdb;
 		$oodsp_users_table = $wpdb->prefix . self::DOCSPACE_USERS_TABLE;
 
-		$result = $wpdb->get_row( $wpdb->prepare( "SELECT user_pass FROM $oodsp_users_table WHERE user_id = %s LIMIT 1", $user_id ) );
+		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$result = $wpdb->get_row( $wpdb->prepare( "SELECT user_pass FROM $oodsp_users_table WHERE user_id = %s LIMIT 1", $user_id ) ); // db call ok; no-cache ok.
 
 		if ( ! empty( $result ) ) {
 			return $result->user_pass;
