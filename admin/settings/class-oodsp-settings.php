@@ -8,8 +8,8 @@
  * @link       https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress
  * @since      1.0.0
  *
- * @package    Onlyoffice_Docspace_Plugin
- * @subpackage Onlyoffice_Docspace_Plugin/includes/settings
+ * @package    Onlyoffice_Docspace_Wordpress
+ * @subpackage Onlyoffice_Docspace_Wordpress/includes/settings
  */
 
 /**
@@ -31,17 +31,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/**
- * Plugin settings for ONLYOFFICE DocSpace Plugin.
- *
- * @package    Onlyoffice_Docspace_Plugin
- * @subpackage Onlyoffice_Docspace_Plugin/admin/settings
- * @author     Ascensio System SIA <integration@onlyoffice.com>
- */
-
 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'settings/actions/settings-update.php';
 require_once plugin_dir_path( dirname( __FILE__ ) ) . 'settings/actions/settings-invite-users.php';
 
+/**
+ * Plugin settings for ONLYOFFICE DocSpace Plugin.
+ *
+ * @package    Onlyoffice_Docspace_Wordpress
+ * @subpackage Onlyoffice_Docspace_Wordpress/admin/settings
+ * @author     Ascensio System SIA <integration@onlyoffice.com>
+ */
 class OODSP_Settings {
 	/**
 	 * ID setting docspace_url.
@@ -95,8 +94,10 @@ class OODSP_Settings {
 		switch ( $this->current_action() ) {
 			case 'update':
 				update_settings();
+				break;
 			case 'invite':
 				invite_users();
+				break;
 		}
 
 		global $_wp_http_referer;
@@ -130,8 +131,8 @@ class OODSP_Settings {
 			'onlyoffice_docspace_settings',
 			'general',
 			array(
-				'id' => self::DOCSPACE_URL,
-				'class' => 'form-field form-required'
+				'id'    => self::DOCSPACE_URL,
+				'class' => 'form-field form-required',
 			)
 		);
 
@@ -142,8 +143,8 @@ class OODSP_Settings {
 			'onlyoffice_docspace_settings',
 			'general',
 			array(
-				'id' => self::DOCSPACE_LOGIN,
-				'class' => 'form-field form-required'
+				'id'    => self::DOCSPACE_LOGIN,
+				'class' => 'form-field form-required',
 			)
 		);
 
@@ -154,16 +155,22 @@ class OODSP_Settings {
 			'onlyoffice_docspace_settings',
 			'general',
 			array(
-				'id' => self::DOCSPACE_PASS,
-				'class' => 'form-field form-required form-pwd'
+				'id'    => self::DOCSPACE_PASS,
+				'class' => 'form-field form-required form-pwd',
 			)
 		);
 	}
 
-	public function get_onlyoffice_docspace_setting( $key, $default = "" ) {
+	/**
+	 * Return ONLYOFFICE DocSpace Setting
+	 *
+	 * @param string $key Setting key.
+	 * @param string $default Default value.
+	 */
+	public function get_onlyoffice_docspace_setting( $key, $default = '' ) {
 		$options = get_option( 'onlyoffice_docspace_settings' );
-		if (! empty( $options ) && array_key_exists( $key, $options )) {
-			return $options[$key];
+		if ( ! empty( $options ) && array_key_exists( $key, $options ) ) {
+			return $options[ $key ];
 		}
 
 		return $default;
@@ -178,9 +185,16 @@ class OODSP_Settings {
 	 */
 	public function input_cb( $args ) {
 		$id = $args['id'];
-		echo '<input id="' . esc_attr ( $id ) . '" name="' . esc_attr ( $id ) . '" type="text" value="' . esc_attr( $this->get_onlyoffice_docspace_setting( $id ) ) . '" />';
+		echo '<input id="' . esc_attr( $id ) . '" name="' . esc_attr( $id ) . '" type="text" value="' . esc_attr( $this->get_onlyoffice_docspace_setting( $id ) ) . '" />';
 	}
 
+	/**
+	 * Input pass cb
+	 *
+	 * @param array $args Args.
+	 *
+	 * @return void
+	 */
 	public function input_pass_cb( $args ) {
 		$id = $args['id'];
 		?>
@@ -188,7 +202,7 @@ class OODSP_Settings {
 			<div class="user-pass-wrap">
 				<div class="wp-pwd">
 					<div class="wp-pwd-input">
-						<input type="password" id="user_pass" name="<?php echo esc_attr ( $id ) ?>" class="input password-input" value="" />
+						<input type="password" id="user_pass" name="<?php echo esc_attr( $id ); ?>" class="input password-input" value="" />
 					</div>
 					<button type="button" class="button button-secondary wp-hide-pw hide-if-no-js" data-toggle="0" aria-label="<?php esc_attr_e( 'Show password' ); ?>">
 						<span class="dashicons dashicons-visibility" aria-hidden="true"></span>
@@ -199,7 +213,10 @@ class OODSP_Settings {
 		<?php
 	}
 
-	public function do_get () {
+	/**
+	 * Return result for get request.
+	 */
+	public function do_get() {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
@@ -216,15 +233,23 @@ class OODSP_Settings {
 
 		wp_enqueue_style(
 			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-settings',
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/css/settings.css'
-		);
-		
-		wp_enqueue_style(
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-loader',
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/css/loader.css'
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/css/settings.css',
+			array(),
+			ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION
 		);
 
-		if ( ! isset( $_GET['users'] ) ) { ?>
+		wp_enqueue_style(
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-loader',
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/css/loader.css',
+			array(),
+			ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION
+		);
+
+		global $users;
+		wp_reset_vars( array( 'users' ) );
+
+		if ( 'true' !== $users ) {
+			?>
 			<div class="wrap">
 				<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 				<?php settings_errors(); ?>
@@ -235,9 +260,17 @@ class OODSP_Settings {
 					do_settings_sections( 'onlyoffice_docspace_settings' );
 					?>
 					<div class="oodsp-settings-notice">
-					
 						<p>
-						<?php echo __( 'The current user will be added to DocSpace with the <b>Room admin</b> role.', 'onlyoffice-docspace-plugin' ); ?>
+						<?php
+						echo wp_kses(
+							__( 'The current user will be added to DocSpace with the <b>Room admin</b> role.', 'onlyoffice-docspace-plugin' ),
+							array(
+								'b' => array(
+									'class' => array(),
+								),
+							)
+						);
+						?>
 						</p>
 					</div>
 					<?php
@@ -251,7 +284,7 @@ class OODSP_Settings {
 					<b><?php esc_html_e( 'Export Now', 'onlyoffice-docspace-plugin' ); ?></b>
 				</p>
 				<p class="submit">
-					<?php submit_button( __('Export Now', 'onlyoffice-docspace-plugin' ), 'secondary', 'users', false, array( 'onclick' => 'location.href = location.href + "&users=true";' ) ); ?>
+					<?php submit_button( __( 'Export Now', 'onlyoffice-docspace-plugin' ), 'secondary', 'users', false, array( 'onclick' => 'location.href = location.href + "&users=true";' ) ); ?>
 				</p>
 			</div>
 			<?php
@@ -280,18 +313,26 @@ class OODSP_Settings {
 
 				<form method="get" class="go-back-in-header">
 					<input type="hidden" name="page" value="onlyoffice-docspace-settings">
-					<?php submit_button(  __('Back to main settings', 'onlyoffice-docspace-plugin' ), 'secondary', false ); ?>
+					<?php submit_button( __( 'Back to main settings', 'onlyoffice-docspace-plugin' ), 'secondary', false ); ?>
 				</form>
 
 				<p>
-					<?php echo __('To add new users to ONLYOFFICE DocSpace select multiple users and press <b>Invite to DocSpace</b>. All new users will be added with <b>User</b> role, if you want to change the role go to Accounts. Role <b>Room admin</b> is paid!', 'onlyoffice-docspace-plugin') ?>
+					<?php
+					echo wp_kses(
+						__( 'To add new users to ONLYOFFICE DocSpace select multiple users and press <b>Invite to DocSpace</b>. All new users will be added with <b>User</b> role, if you want to change the role go to Accounts. Role <b>Room admin</b> is paid!', 'onlyoffice-docspace-plugin' ),
+						array(
+							'b' => array(
+								'class' => array(),
+							),
+						)
+					);
+					?>
 				</p>
-				
 				<?php
 				global $usersearch;
 				if ( strlen( $usersearch ) ) {
 					echo '<span class="subtitle">';
-					printf(
+					sprintf(
 						/* translators: %s: Search query. */
 						__( 'Search results for: %s' ),
 						'<strong>' . esc_html( $usersearch ) . '</strong>'
@@ -301,18 +342,24 @@ class OODSP_Settings {
 				?>
 
 				<hr class="wp-header-end">
-				<?php 
+				<?php
 					oodsp_users_messages();
 					$oodsp_users_list_table->views();
 				?>
 
 				<form id="onlyoffice-docspace-settings-users" >
+					<?php
+						$oodsp_users_list_table->search_box( __( 'Search Users' ), 'user' );
 
-					<?php $oodsp_users_list_table->search_box( __( 'Search Users' ), 'user' ); ?>
+						global $role;
+						wp_reset_vars( array( 'role' ) );
 
-					<?php if ( ! empty( $_REQUEST['role'] ) ) { ?>
-						<input type="hidden" name="role" value="<?php echo esc_attr( $_REQUEST['role'] ); ?>" />
-					<?php } ?>
+					if ( ! empty( $role ) ) {
+						?>
+					<input type="hidden" name="role" value="<?php echo esc_attr( $role ); ?>" />
+						<?php
+					}
+					?>
 					<?php $oodsp_users_list_table->display(); ?>
 				</form>
 
@@ -325,13 +372,20 @@ class OODSP_Settings {
 			<div id="onlyoffice-docspace-settings-loader" class="notification-dialog-background" hidden><div class="loader"></div></div>
 		<?php
 	}
+
+	/**
+	 * Return current actrion.
+	 */
 	private function current_action() {
-		if ( isset( $_REQUEST['filter_action'] ) && ! empty( $_REQUEST['filter_action'] ) ) {
+		global $filter_action, $action;
+		wp_reset_vars( array( 'filter_action', 'action' ) );
+
+		if ( ! empty( $filter_action ) ) {
 			return false;
 		}
 
-		if ( isset( $_REQUEST['action'] ) && -1 != $_REQUEST['action'] ) {
-			return $_REQUEST['action'];
+		if ( ! empty( $action ) && -1 !== $action ) {
+			return $action;
 		}
 
 		return false;
