@@ -319,7 +319,10 @@ class OODSP_Users_List_Table extends WP_List_Table {
 	 */
 	public function display_rows() {
 		foreach ( $this->items as $userid => $user_object ) {
-			echo wp_kses_post( $this->single_row( $user_object ) );
+			echo wp_kses(
+				$this->single_row( $user_object ),
+				$this->get_allowed_html()
+			);
 		}
 	}
 
@@ -569,4 +572,57 @@ class OODSP_Users_List_Table extends WP_List_Table {
 		return $output;
 	}
 
+	/**
+	 * Return allowed html.
+	 */
+	private function get_allowed_html() {
+		return array(
+			'tr'     => array(
+				'id' => array(),
+			),
+			'th'     => array(
+				'scope' => array(),
+				'class' => array(),
+			),
+			'label'  => array(
+				'class' => array(),
+				'for'   => array(),
+			),
+			'input'  => array(
+				'id'    => array(),
+				'type'  => array(),
+				'name'  => array(),
+				'value' => array(),
+				'class' => array(),
+			),
+			'td'     => array(
+				'class'        => array(),
+				'data-colname' => array(),
+			),
+			'br'     => array(),
+			'div'    => array(
+				'class' => array(),
+				'style' => array(),
+			),
+			'img'    => array(
+				'src'      => array(),
+				'alt'      => array(),
+				'srcset'   => array(),
+				'class'    => array(),
+				'height'   => array(),
+				'width'    => array(),
+				'loading'  => array(),
+				'decoding' => array(),
+			),
+
+			'strong' => array(),
+			'span'   => array(
+				'class'       => array(),
+				'aria-hidden' => array(),
+			),
+			'a'      => array(
+				'href' => array(),
+			),
+		);
+	}
 }
