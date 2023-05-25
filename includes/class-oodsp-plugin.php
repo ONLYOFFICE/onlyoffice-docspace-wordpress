@@ -163,7 +163,7 @@ class OODSP_Plugin {
 
 		$plugin_ajax = new OODSP_Ajax();
 		$this->loader->add_action( 'wp_ajax_oodsp_credentials', $plugin_ajax, 'oodsp_credentials' );
-		$this->loader->add_action( 'wp_ajax_no_priv_oodsp_credentials', $plugin_ajax, 'no_priv_oodsp_credentials' );
+		$this->loader->add_action( 'wp_ajax_nopriv_oodsp_credentials', $plugin_ajax, 'no_priv_oodsp_credentials' );
 	}
 
 	/**
