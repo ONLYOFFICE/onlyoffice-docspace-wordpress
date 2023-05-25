@@ -32,10 +32,10 @@
         let errorDiv = document.createElement('div');
         errorDiv.className="error-stub";
 
-        if (id.endsWith("selector")) {
+        if (id.includes("selector")) {
             errorDiv.classList.add("selector");
-        }
-        if (id.startsWith("onlyoffice-docpace-block")) {
+        } else if (id.includes("manager")) {
+        } else {
             errorDiv.classList.add("viewer");
         }
 

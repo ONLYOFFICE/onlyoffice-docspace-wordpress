@@ -149,6 +149,15 @@ class OODSP_Users_List_Table extends WP_List_Table {
 		if ( ! $res_docspace_users['error'] ) {
 			$this->docspace_users           = $res_docspace_users['data'];
 			$this->is_connected_to_docspace = true;
+		} else {
+			$this->items = array();
+
+			$this->set_pagination_args(
+				array(
+					'total_items' => 0,
+					'per_page'    => $users_per_page,
+				)
+			);
 		}
 	}
 
@@ -299,14 +308,12 @@ class OODSP_Users_List_Table extends WP_List_Table {
 	 * Generates the tbody element for the list table.
 	 */
 	public function display_rows_or_placeholder() {
-		if ( $this->has_items() ) {
-			if ( $this->is_connected_to_docspace ) {
+		if ( ! $this->is_connected_to_docspace ) {
+			echo '<tr class="no-items"><td class="colspanchange" colspan="' . esc_attr( $this->get_column_count() ) . '">';
+			echo '<span>' . esc_html_e( 'Error getting users from ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ) . '</space>';
+			echo '</td></tr>';
+		} elseif ( $this->has_items() ) {
 				$this->display_rows();
-			} else {
-				echo '<tr class="no-items"><td class="colspanchange" colspan="' . esc_attr( $this->get_column_count() ) . '">';
-				echo '<span>' . esc_html_e( 'Error getting users from ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ) . '</space>';
-				echo '</td></tr>';
-			}
 		} else {
 			echo '<tr class="no-items"><td class="colspanchange" colspan="' . esc_attr( $this->get_column_count() ) . '">';
 			$this->no_items();

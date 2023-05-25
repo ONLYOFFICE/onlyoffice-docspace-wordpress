@@ -76,9 +76,9 @@ class OODSP_Public_DocSpace {
 
 		if ( function_exists( 'wp_set_script_translations' ) ) {
 			wp_set_script_translations(
-				'onlyoffice-docspace-onlyoffice-docspace-editor-script',
+				'onlyoffice-docspace-wordpress-onlyoffice-docspace-editor-script',
 				'onlyoffice-docspace-plugin',
-				ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'languages/'
+				plugin_dir_path( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ) . 'languages/'
 			);
 		}
 	}

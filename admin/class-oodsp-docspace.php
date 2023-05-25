@@ -175,6 +175,8 @@ class OODSP_DocSpace {
 							DocSpaceComponent.renderError("oodsp-manager-frame", { message: "<?php esc_html_e( 'Portal unavailable! Please contact the administrator!', 'onlyoffice-docspace-plugin' ); ?>"})
 						}
 					);
+				}).catch(function() {
+					DocSpaceComponent.renderError("oodsp-manager-frame", { message: "<?php esc_html_e( 'Portal unavailable! Please contact the administrator!', 'onlyoffice-docspace-plugin' ); ?>"})
 				});
 			});
 		</script>
