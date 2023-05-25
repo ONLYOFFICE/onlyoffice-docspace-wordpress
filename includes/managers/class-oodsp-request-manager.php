@@ -217,7 +217,7 @@ class OODSP_Request_Manager {
 			return $result;
 		}
 
-		$body           = wp_json_encode( wp_remote_retrieve_body( $responce ), true );
+		$body           = json_decode( wp_remote_retrieve_body( $responce ), true );
 		$result['data'] = $body['response'];
 
 		return $result;
@@ -248,7 +248,7 @@ class OODSP_Request_Manager {
 			return $result;
 		}
 
-		$body           = wp_json_encode( wp_remote_retrieve_body( $responce ), true );
+		$body           = json_decode( wp_remote_retrieve_body( $responce ), true );
 		$result['data'] = $body['response'];
 
 		return $result;
@@ -313,7 +313,7 @@ class OODSP_Request_Manager {
 			return $result;
 		}
 
-		$body           = wp_json_encode( wp_remote_retrieve_body( $responce ), true );
+		$body           = json_decode( wp_remote_retrieve_body( $responce ), true );
 		$result['data'] = $body['response'];
 
 		return $result;
