@@ -89,14 +89,14 @@ msgstr "Указанный пользователь не является адм
 msgid "Error getting users from ONLYOFFICE DocSpace"
 msgstr "Ошибка получения пользователей ONLYOFFICE DocSpace"
 
-msgid "Invite with error for %s/%s users"
-msgstr "Приглашение закончилось с ошибкой %s/%s пользователей"
+msgid "Invite with error for %1$s/%2$s users"
+msgstr "Приглашение закончилось с ошибкой %1$s/%2$s пользователей"
 
-msgid "Invite skipped for %s/%s users"
-msgstr "Пропущено приглашение для %s/%s пользователей"
+msgid "Invite skipped for %1$s/%2$s users"
+msgstr "Пропущено приглашение для %1$s/%2$s пользователей"
 
-msgid "Invite sucessed for %s/%s users"
-msgstr "Успешно приглашено %s/%s пользователей"
+msgid "Invite sucessed for %1$s/%2$s users"
+msgstr "Успешно приглашено %1$s/%2$s пользователей"
 
 msgid "Problem with the account synchronization between WordPress and ONLYOFFICE DocSpace"
 msgstr "Проблема с синхронизацией аккаунтов между WordPress и ONLYOFFICE DocSpace"

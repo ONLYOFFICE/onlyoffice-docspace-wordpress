@@ -107,13 +107,13 @@ msgstr ""
 msgid "Error getting users from ONLYOFFICE DocSpace"
 msgstr ""
 
-msgid "Invite with error for %s/%s users"
+msgid "Invite with error for %1$s/%2$s users"
 msgstr ""
 
-msgid "Invite skipped for %s/%s"
+msgid "Invite skipped for %1$s/%2$s users"
 msgstr ""
 
-msgid "Invite sucessed for %s/%s users"
+msgid "Invite sucessed for %1$s/%2$s users"
 msgstr ""
 
 msgid "Problem with the account synchronization between WordPress and ONLYOFFICE DocSpace"
