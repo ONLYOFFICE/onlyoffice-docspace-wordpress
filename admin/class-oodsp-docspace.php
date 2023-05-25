@@ -5,8 +5,8 @@
  * @link       https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress
  * @since      1.0.0
  *
- * @package    Onlyoffice_Docspace_Plugin
- * @subpackage Onlyoffice_Docspace_Plugin/includes/files
+ * @package    Onlyoffice_Docspace_Wordpress
+ * @subpackage Onlyoffice_Docspace_Wordpress/admin
  */
 
 /**
@@ -33,26 +33,29 @@
  *
  * This class defines code necessary displaying a page ONLYOFFICE DocSpace.
  *
- * @package    Onlyoffice_Docspace_Plugin
- * @subpackage Onlyoffice_Docspace_Plugin/admin
+ * @package    Onlyoffice_Docspace_Wordpress
+ * @subpackage Onlyoffice_Docspace_Wordpress/admin
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
 class OODSP_DocSpace {
 	/**
+	 * OODSP_Settings
 	 *
 	 * @access   private
 	 * @var      OODSP_Settings    $plugin_settings
 	 */
 	private $plugin_settings;
 
+
+	/**
+	 * Initialize the class and set its properties.
+	 */
 	public function __construct() {
 		$this->plugin_settings = new OODSP_Settings();
 	}
 
 	/**
 	 * Register the JavaScript for the DocSpace area.
-	 * 
-	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_script(
@@ -66,9 +69,9 @@ class OODSP_DocSpace {
 		wp_localize_script(
 			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-login',
 			'messages',
-			array( 
-				'empty-password' => __('<strong>Error:</strong> The password field is empty.'),
-				'auth-failed'    => __('<strong>Error:</strong> User authentication failed', 'onlyoffice-docspace-plugin'),
+			array(
+				'empty-password' => __( '<strong>Error:</strong> The password field is empty.' ),
+				'auth-failed'    => __( '<strong>Error:</strong> User authentication failed', 'onlyoffice-docspace-plugin' ),
 			)
 		);
 
@@ -84,35 +87,36 @@ class OODSP_DocSpace {
 			'docspace-component-api',
 			'DocSpaceComponent',
 			array(
-				'url'         => $this->plugin_settings->get_onlyoffice_docspace_setting(OODSP_Settings::DOCSPACE_URL),
+				'url'         => $this->plugin_settings->get_onlyoffice_docspace_setting( OODSP_Settings::DOCSPACE_URL ),
 				'currentUser' => wp_get_current_user()->user_email,
 				'isPublic'    => false,
-				'ajaxUrl'     => admin_url('admin-ajax.php'),
+				'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
 				'images'      => array(
-					'onlyoffice'        => plugins_url( 'public/images/onlyoffice.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
-					'unavailable' => plugins_url( 'public/images/unavailable.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE )
-				)
+					'onlyoffice'  => plugins_url( 'public/images/onlyoffice.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
+					'unavailable' => plugins_url( 'public/images/unavailable.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
+				),
 			)
 		);
 
-		wp_enqueue_script('user-profile');
+		wp_enqueue_script( 'user-profile' );
 	}
 
-
- 	/**
+	/**
 	 * Register the stylesheets for the DocSpace area.
-	 *
-	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
 		wp_enqueue_style(
 			'docspace-components-api',
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'assets/css/docspace-component-api.css'
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'assets/css/docspace-component-api.css',
+			array(),
+			ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION
 		);
 
 		wp_enqueue_style(
 			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-login',
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/css/login.css'
+			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/css/login.css',
+			array(),
+			ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION
 		);
 
 		wp_enqueue_style( 'login' );
@@ -120,8 +124,6 @@ class OODSP_DocSpace {
 
 	/**
 	 * Init menu.
-	 *
-	 * @return void
 	 */
 	public function init_menu() {
 		$logo_svg = file_get_contents( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/images/logo.svg' );
@@ -170,7 +172,7 @@ class OODSP_DocSpace {
 							});
 						},
 						function() {
-							DocSpaceComponent.renderError("oodsp-manager-frame", { message: "<?php esc_html_e('Portal unavailable! Please contact the administrator!', 'onlyoffice-docspace-plugin') ?>"})
+							DocSpaceComponent.renderError("oodsp-manager-frame", { message: "<?php esc_html_e( 'Portal unavailable! Please contact the administrator!', 'onlyoffice-docspace-plugin' ); ?>"})
 						}
 					);
 				});
@@ -179,6 +181,11 @@ class OODSP_DocSpace {
 		<?php
 	}
 
+	/**
+	 *  DocSpace login template.
+	 *
+	 * @return void
+	 */
 	public function docspace_login_template() {
 		?>
 		<script type="text/html" id="tmpl-oodsp-login">
@@ -194,22 +201,32 @@ class OODSP_DocSpace {
 				</div>
 				<form name="loginform" id="oodsp-login-form">
 					<h1 id="header">
-						<?php esc_html_e( 'WordPress requests access to your ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ) ?>
+						<?php esc_html_e( 'WordPress requests access to your ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ); ?>
 						<br>
 						<span>{{{data.domain}}}</span>
 					</h1>
 					<h1>
 						<a></a>
-						<a id="union" style="background-image: url('<?php echo ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/images/union.svg'; ?>');"></a>
-						<a id="logo-onlyoffice" style="background-image: url('<?php echo ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/images/onlyoffice.svg'; ?>');"></a>
+						<a id="union" style="background-image: url('<?php echo esc_attr( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL ) . 'admin/images/union.svg'; ?>');"></a>
+						<a id="logo-onlyoffice" style="background-image: url('<?php echo esc_attr( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL ) . 'admin/images/onlyoffice.svg'; ?>');"></a>
 					</h1>
-					
+
 					<p style="padding-bottom: 25px;">
 						<label for="user_login">
 						<?php
-							/* translators: %s: User email. */
-							printf( __( 'Your account <b>%s</b> will be synced with your DocSpace. Please enter your DocSpace password in the field below:', 'onlyoffice-docspace-plugin' ), '{{ data.email }}' );
-							?>
+							printf(
+								wp_kses(
+									/* translators: %s: User email. */
+									__( 'Your account <b>%s</b> will be synced with your DocSpace. Please enter your DocSpace password in the field below:', 'onlyoffice-docspace-plugin' ),
+									array(
+										'b' => array(
+											'class' => array(),
+										),
+									),
+								),
+								'{{ data.email }}'
+							);
+						?>
 						</label>
 					</p>
 

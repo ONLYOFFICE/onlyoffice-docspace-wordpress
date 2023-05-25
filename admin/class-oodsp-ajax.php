@@ -1,12 +1,12 @@
 <?php
 /**
- * Page ONLYOFFICE DocSpace.
+ * OODPS Admin ajax.
  *
  * @link       https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress
  * @since      1.0.0
  *
- * @package    Onlyoffice_Docspace_Plugin
- * @subpackage Onlyoffice_Docspace_Plugin/includes/files
+ * @package    Onlyoffice_Docspace_Wordpress
+ * @subpackage Onlyoffice_Docspace_Wordpress/admin
  */
 
 /**
@@ -29,65 +29,74 @@
  */
 
 /**
- * Page ONLYOFFICE DocSpace.
+ * OODPS Admin ajax.
  *
- * This class defines code necessary displaying a page ONLYOFFICE DocSpace.
- *
- * @package    Onlyoffice_Docspace_Plugin
- * @subpackage Onlyoffice_Docspace_Plugin/admin
+ * @package    Onlyoffice_Docspace_Wordpress
+ * @subpackage Onlyoffice_Docspace_Wordpress/admin
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
 class OODSP_Ajax {
 	/**
+	 * OODSP_Security_Manager
 	 *
 	 * @access   private
 	 * @var      OODSP_Security_Manager    $security_manager
 	 */
 	private $security_manager;
 
-		/**
+	/**
+	 * OODSP_Settings
 	 *
 	 * @access   private
-	 * @var      OODSP_Security_Manager    $security_manager
+	 * @var      OODSP_Settings    $plugin_settings
 	 */
 	private $public_docspace;
 
+	/**
+	 * Initialize the class and set its properties.
+	 */
 	public function __construct() {
 		$this->security_manager = new OODSP_Security_Manager();
-		$this->public_docspace = new OODSP_Public_DocSpace();
+		$this->public_docspace  = new OODSP_Public_DocSpace();
 	}
 
+	/**
+	 * DocSpace Credentials.
+	 */
 	public function oodsp_credentials() {
 		$user      = wp_get_current_user();
-		$is_public = isset( $_REQUEST['is_public'] ) ? $_REQUEST['is_public'] : '';
+		$is_public = isset( $_REQUEST['is_public'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['is_public'] ) ) : ''; // phpcs:ignore
 
-		if( ! empty( $is_public ) &&  $is_public === "true" ) {
+		if ( ! empty( $is_public ) && 'true' === $is_public ) {
 			$pass = $this->public_docspace::OODSP_PUBLIC_USER_PASS;
 		} else {
-			$hash = isset( $_REQUEST['hash'] ) ? $_REQUEST['hash'] : '';
+			$hash = isset( $_REQUEST['hash'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['hash'] ) ) : ''; // phpcs:ignore
 
-			if( ! empty( $hash ) ) {
+			if ( ! empty( $hash ) ) {
 				$result = $this->security_manager->set_oodsp_user_pass( $user->ID, $hash );
-				
+
 				if ( ! $result ) {
 					return wp_die( '0', 400 );
 				}
-				
+
 				$pass = $hash;
 			} else {
 				$pass = $this->security_manager->get_oodsp_user_pass( $user->ID );
 
-				if ( empty( $pass) ) {
+				if ( empty( $pass ) ) {
 					return wp_die( '0', 404 );
 				}
 			}
 		}
 
-		wp_die( $pass );
+		wp_die( esc_attr( $pass ) );
 	}
 
+	/**
+	 * DocSpace Credentials public.
+	 */
 	public function no_priv_oodsp_credentials() {
-		wp_die( $this->public_docspace::OODSP_PUBLIC_USER_PASS );
+		wp_die( esc_attr( $this->public_docspace::OODSP_PUBLIC_USER_PASS ) );
 	}
 
 }
