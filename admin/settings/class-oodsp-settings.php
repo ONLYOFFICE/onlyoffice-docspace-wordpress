@@ -9,7 +9,7 @@
  * @since      1.0.0
  *
  * @package    Onlyoffice_Docspace_Wordpress
- * @subpackage Onlyoffice_Docspace_Wordpress/includes/settings
+ * @subpackage Onlyoffice_Docspace_Wordpress/admin/settings
  */
 
 /**
