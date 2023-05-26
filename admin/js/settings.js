@@ -194,14 +194,18 @@
 		}
 	);
 
-	DocSpaceComponent.initScript()
-		.then(
-			function(e) { // ToDo: onAppReady, onError.
-				DocSpace.SDK.initSystem(
-					{
-						frameId: 'oodsp-system-frame'
-					}
-				);
-			}
-		);
+	var searchParams = new URLSearchParams(window.location.search);
+
+	if ( 'true' === searchParams.get('users') ) {
+		DocSpaceComponent.initScript()
+			.then(
+				function(e) { // ToDo: onAppReady, onError.
+					DocSpace.SDK.initSystem(
+						{
+							frameId: 'oodsp-system-frame'
+						}
+					);
+				}
+			);
+	}
 }( jQuery ) );
