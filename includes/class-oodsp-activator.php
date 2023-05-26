@@ -55,13 +55,27 @@ class OODSP_Activator {
 		user_id bigint(20) UNSIGNED NOT NULL,
 		user_pass varchar(225),
 		PRIMARY KEY (id),
-		FOREIGN KEY (user_id) REFERENCES wp_users(ID)
+		FOREIGN KEY (user_id) REFERENCES wp_users(ID) 
 		) $charset_collate;";
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 		dbDelta( $sql );
 		$is_error = empty( $wpdb->last_error );
 		return $is_error;
+	}
+
+	/**
+	 * Set defaults on unistall.
+	 */
+	public static function uninstall() {
+		global $wpdb;
+
+		$oodsp_users_table = $wpdb->prefix . OODSP_Security_Manager::DOCSPACE_USERS_TABLE;
+
+		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.SchemaChange
+		$wpdb->query( $wpdb->prepare( "DROP TABLE IF EXISTS $oodsp_users_table" ) ); // db call ok; no-cache ok.
+
+		delete_option( 'onlyoffice_docspace_settings' );
 	}
 
 }
