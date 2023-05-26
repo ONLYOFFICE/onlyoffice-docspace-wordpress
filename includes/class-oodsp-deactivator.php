@@ -45,4 +45,18 @@ class OODSP_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() { }
+
+	/**
+	 * Set defaults on unistall.
+	 */
+	public static function uninstall() {
+		global $wpdb;
+
+		$oodsp_users_table = $wpdb->prefix . OODSP_Security_Manager::DOCSPACE_USERS_TABLE;
+
+		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.SchemaChange
+		$wpdb->query( $wpdb->prepare( "DROP TABLE IF EXISTS $oodsp_users_table" ) ); // db call ok; no-cache ok.
+
+		delete_option( 'onlyoffice_docspace_settings' );
+	}
 }
