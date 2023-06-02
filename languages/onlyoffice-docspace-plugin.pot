@@ -74,6 +74,10 @@ msgstr ""
 msgid "Back to main settings"
 msgstr ""
 
+#: admin/js/settings.js
+msgid "ONLYOFFICE DocSpace cannot be reached."
+msgstr ""
+
 msgid "Settings saved"
 msgstr ""
 
@@ -190,5 +194,10 @@ msgstr ""
 msgid "Your account <b>%s</b> will be synced with your DocSpace. Please enter your DocSpace password in the field below:"
 msgstr ""
 
-msgid "<strong>Error:</strong> User authentication failed"
+#: admin/js/login.js
+msgid "<strong>Error:</strong> User authentication failed."
+msgstr ""
+
+#: admin/js/login.js
+msgid "<strong>Error:</strong> The password field is empty."
 msgstr ""

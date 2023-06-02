@@ -130,9 +130,8 @@
 						}
 					).catch(
 						function() {
-							const errorMessage = 'Undefined API'; // ToDo: message i18n.
 							hideLoader();
-							addNotice( errorMessage, 'error' );
+							addNotice( wp.i18n.__( 'ONLYOFFICE DocSpace cannot be reached.', 'onlyoffice-docspace-plugin' ), 'error' );
 						}
 					);
 				return false;

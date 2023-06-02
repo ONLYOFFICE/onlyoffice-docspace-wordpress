@@ -19,7 +19,7 @@ window.wp = window.wp || {};
 				{
 					email: email,
 					domain: new URL( url ).host,
-					error: error ? messages['auth-failed'] : null
+					error: error ? __( '<strong>Error:</strong> User authentication failed.', 'onlyoffice-docspace-plugin' ) : null
 				}
 			)
 		);
@@ -33,7 +33,7 @@ window.wp = window.wp || {};
 				var password = $( '#oodsp-password' ).val();
 
 				if ( '' == password.trim() ) {
-					$( '#login_error' ).html( messages['empty-password'] );
+					$( '#login_error' ).html( __( '<strong>Error:</strong> The password field is empty.', 'onlyoffice-docspace-plugin' ) );
 					$( '#login_error' ).show();
 				} else {
 					callback( password );

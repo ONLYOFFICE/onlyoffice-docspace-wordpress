@@ -229,6 +229,14 @@ class OODSP_Settings {
 			true
 		);
 
+		if ( function_exists( 'wp_set_script_translations' ) ) {
+			wp_set_script_translations(
+				ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-settings',
+				'onlyoffice-docspace-plugin',
+				plugin_dir_path( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ) . 'languages/'
+			);
+		}
+
 		wp_enqueue_script( 'user-profile' );
 
 		wp_enqueue_style(

@@ -66,14 +66,13 @@ class OODSP_DocSpace {
 			true
 		);
 
-		wp_localize_script(
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-login',
-			'messages',
-			array(
-				'empty-password' => __( '<strong>Error:</strong> The password field is empty.' ),
-				'auth-failed'    => __( '<strong>Error:</strong> User authentication failed', 'onlyoffice-docspace-plugin' ),
-			)
-		);
+		if ( function_exists( 'wp_set_script_translations' ) ) {
+			wp_set_script_translations(
+				ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-login',
+				'onlyoffice-docspace-plugin',
+				plugin_dir_path( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ) . 'languages/'
+			);
+		}
 
 		wp_enqueue_script(
 			'docspace-component-api',
