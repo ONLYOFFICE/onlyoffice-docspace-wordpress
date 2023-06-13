@@ -51,16 +51,7 @@ const Edit = ({ attributes, setAttributes }) => {
                     "oodsp-selector-frame",
                     null,
                     function() {
-                        DocSpace.SDK.initFrame({
-                            frameId: "oodsp-selector-frame",
-                            width: "400px",
-                            height: "500px",
-                            mode: modalConfig.mode,
-                            events: {
-                                onSelectCallback: onSelectCallback,
-                                onCloseCallback: onCloseCallback,
-                            }
-                        });
+                        DocSpace.SDK.initFrame(modalConfig);
                     },
                     function() {
                         DocSpaceComponent.renderError("oodsp-selector-frame", { message: __("Portal unavailable! Please contact the administrator!", "onlyoffice-docspace-plugin") })
@@ -74,8 +65,13 @@ const Edit = ({ attributes, setAttributes }) => {
 
     useEffect(script, [isOpen]);
 
-    const onSelectCallback = (event) => {
-        setAttributes({ fileId: event[0].id, fileName: event[0].label, icon: event[0].icon });
+    const onSelectRoomCallback = (event) => {
+        setAttributes({ roomId: event[0].id, name: event[0].label, icon: event[0].icon });
+        setOpen(false);
+    }
+
+    const onSelectFileCallback = (event) => {
+        setAttributes({ fileId: event.id, name: event.title });
         setOpen(false);
     }
 
@@ -84,9 +80,28 @@ const Edit = ({ attributes, setAttributes }) => {
     }
 
     const openModal = (event) => {
+        const mode = event.target.dataset.mode || null;
+        var onSelectCallback = null;
+
+        switch (mode) {
+            case "room-selector":
+                onSelectCallback = onSelectRoomCallback;
+                break;
+            case "file-selector":
+                onSelectCallback = onSelectFileCallback;
+                break;
+        }
+
         setModalConfig ({
+            frameId: "oodsp-selector-frame",
             title: event.target.dataset.title || "",
-            mode: event.target.dataset.mode || null
+            width: "400px",
+            height: "500px",
+            mode: mode,
+            events: {
+                onSelectCallback: onSelectCallback,
+                onCloseCallback: onCloseCallback,
+            }
         })
 
         setOpen( true );
@@ -100,7 +115,7 @@ const Edit = ({ attributes, setAttributes }) => {
 
     return (
         <div {...blockProps}>
-            {attributes.fileId ?
+            {attributes.roomId || attributes.fileId ?
                 <div>
                     <InspectorControls key="setting">
                         <PanelBody title={ __("Settings", "onlyoffice-docspace-plugin") }>
@@ -119,7 +134,7 @@ const Edit = ({ attributes, setAttributes }) => {
                         :
                         <div>{onlyofficeIcon}</div>
                     }
-                    <p style={{marginLeft: '25px'}}> {attributes.fileName || ""}</p>
+                    <p style={{marginLeft: '25px'}}> {attributes.name || ""}</p>
                     <BlockControls>
                         <ToolbarGroup>
                             <Dropdown

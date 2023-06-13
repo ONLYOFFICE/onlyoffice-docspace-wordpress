@@ -90,7 +90,7 @@ class OODSP_Public_DocSpace {
 	 * @return string Resulting HTML code for the table.
 	 */
 	public function docspace_block_render_callback( array $block_attributes ) {
-		if ( ! $block_attributes ) {
+		if ( ! $block_attributes || ( ! array_key_exists( 'roomId', $block_attributes ) && ! array_key_exists( 'fileId', $block_attributes ) ) ) {
 			return;
 		}
 
@@ -111,13 +111,19 @@ class OODSP_Public_DocSpace {
 			'frameId' => 'onlyoffice-docpace-block-' . $instance,
 			'width'   => '100%',
 			'height'  => '100%',
-			'mode'    => 'manager',
-			'itemId'  => null,
 		);
 
 		$atts = shortcode_atts( $defaults_atts, $attr, 'onlyoffice-docspace' );
 
-		$atts['id'] = $attr['fileId'];
+		if ( array_key_exists( 'roomId', $attr ) ) {
+			$atts['id'] = $attr['roomId'];
+			$atts['mode'] = 'manager';
+		} else if ( array_key_exists( 'fileId', $attr ) ) {
+			$atts['id'] = $attr['fileId'];
+			$atts['mode'] = 'editor';
+		}
+		
+		error_log("dsafasdfdsf");
 
 		$post = get_post();
 

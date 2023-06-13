@@ -12,7 +12,10 @@
 		"fileId": {
 			"type": "number"
 		},
-		"fileName": {
+		"roomId": {
+			"type": "number"
+		},
+		"name": {
 			"type": "string"
 		},
 		"icon":  {

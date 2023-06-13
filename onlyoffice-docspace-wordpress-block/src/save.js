@@ -19,17 +19,23 @@
 import { RawHTML } from '@wordpress/element';
 
 const Save = ({ attributes }) => {
-    if ( !attributes.fileId ) {
+    if ( !attributes.roomId && !attributes.fileId ) {
         return '';
     }
 
     let parameters = '';
 
-    if ( attributes.hasOwnProperty('width') ) {
+    if ( attributes.hasOwnProperty('roomId') && attributes.roomId.length > 0 ) {
+        parameters += 'roomId=' + attributes.roomId + ' ';
+    } else if (attributes.hasOwnProperty('fileId') && attributes.fileId.length > 0) {
+        parameters += 'fileId=' + attributes.fileId + ' ';
+    }
+
+    if ( attributes.hasOwnProperty('width') && attributes.width.length > 0 ) {
         parameters += 'width=' + attributes.width + ' ';
     }
 
-    if ( attributes.hasOwnProperty('height') ) {
+    if ( attributes.hasOwnProperty('height') && attributes.height.length > 0 ) {
         parameters += 'height=' + attributes.height + ' ';
     }
 
@@ -53,6 +59,6 @@ const Save = ({ attributes }) => {
         parameters += 'showAction=' + attributes.showAction + ' ';
     }
 
-    return <RawHTML>{ `[onlyoffice-docspace fileId=${ attributes.fileId } ${ parameters } /]` }</RawHTML>;
+    return <RawHTML>{ `[onlyoffice-docspace ${ parameters } /]` }</RawHTML>;
 };
 export default Save;
