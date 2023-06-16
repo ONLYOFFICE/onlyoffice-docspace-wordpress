@@ -130,7 +130,7 @@ class OODSP_DocSpace {
 		add_menu_page(
 			'DocSpace',
 			'DocSpace',
-			'manage_options',
+			'read',
 			'onlyoffice-docspace',
 			array( $this, 'docspace_page' ),
 			'data:image/svg+xml;base64,' . base64_encode( $logo_svg )
@@ -140,7 +140,7 @@ class OODSP_DocSpace {
 			'onlyoffice-docspace',
 			'DocSpace',
 			'DocSpace',
-			'manage_options',
+			'read',
 			'onlyoffice-docspace',
 			array( $this, 'docspace_page' )
 		);
