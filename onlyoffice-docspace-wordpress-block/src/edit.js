@@ -71,7 +71,7 @@ const Edit = ({ attributes, setAttributes }) => {
     }
 
     const onSelectFileCallback = (event) => {
-        setAttributes({ fileId: event.id, name: event.title });
+        setAttributes({ fileId: event.id, name: event.title, icon: event.icon });
         setOpen(false);
     }
 
