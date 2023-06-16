@@ -80,53 +80,51 @@
             frameId: frameId,
             events: {
                 onAppReady: async function() {
-                    if (!window.DocSpaceComponent.onAppReady) { // ToDo: Delete after fixes
-                        window.DocSpaceComponent.onAppReady = true;
+                    const userInfo = await DocSpace.SDK.frames[frameId].getUserInfo();
 
-                        const userInfo = await DocSpace.SDK.frames[frameId].getUserInfo();
+                    if (userInfo && userInfo.email === DocSpaceComponent.currentUser){
+                        onSuccess();
+                    } else {
+                        var hash = null;
 
-                        if (userInfo && userInfo.email === DocSpaceComponent.currentUser){
-                            onSuccess();
+                        if (password) {
+                            const hashSettings = await DocSpace.SDK.frames[frameId].getHashSettings();
+                            hash = await DocSpace.SDK.frames[frameId].createHash(password.trim(), hashSettings);
                         } else {
-                            var hash = null;
+                            hash = DocSpaceComponent.oodspCredentials();
+                        }
 
-                            if (password) {
-                                const hashSettings = await DocSpace.SDK.frames[frameId].getHashSettings();
-                                hash = await DocSpace.SDK.frames[frameId].createHash(password.trim(), hashSettings);
-                            } else {
-                                hash = DocSpaceComponent.oodspCredentials();
-                            }
+                        if (hash === null || hash.length === "") {
+                            DocSpace.SDK.frames[frameId].destroyFrame();
+                            wp.oodsp.login(frameId, DocSpaceComponent.url, DocSpaceComponent.currentUser, null, function (password) {
+                                window.DocSpaceComponent.initLoginDocSpace(frameId, password, onSuccess, onError);
+                            });
+                            return;
+                        }
 
-                            if (hash === null || hash.length === "") {
-                                DocSpace.SDK.frames[frameId].destroyFrame();
-                                wp.oodsp.login(frameId, DocSpaceComponent.url, DocSpaceComponent.currentUser, null, function (password) {
-                                    window.DocSpaceComponent.initLoginDocSpace(frameId, password, onSuccess, onError);
-                                });
-                                return;
-                            }
-
-                            DocSpace.SDK.frames[frameId].login(DocSpaceComponent.currentUser, hash)
-                                .then(function(response) {
-                                    if(response.status && response.status !== 200) {
-                                        DocSpace.SDK.frames[frameId].destroyFrame();
-                                        wp.oodsp.login(
-                                            frameId,
-                                            DocSpaceComponent.url,
-                                            DocSpaceComponent.currentUser,
-                                            true, 
-                                            function (password) {
-                                                window.DocSpaceComponent.initLoginDocSpace(frameId, password, onSuccess, onError);
-                                            }
-                                        );
-                                        return;
-                                    }
-
-                                    DocSpaceComponent.oodspCredentials(hash);
-                                    onSuccess();
+                        DocSpace.SDK.frames[frameId].login(DocSpaceComponent.currentUser, hash)
+                            .then(function(response) {
+                                if(response.status && response.status !== 200) {
+                                    DocSpace.SDK.frames[frameId].destroyFrame();
+                                    wp.oodsp.login(
+                                        frameId,
+                                        DocSpaceComponent.url,
+                                        DocSpaceComponent.currentUser,
+                                        true, 
+                                        function (password) {
+                                            window.DocSpaceComponent.initLoginDocSpace(frameId, password, onSuccess, onError);
+                                        }
+                                    );
+                                    return;
                                 }
-                            );
-                        } 
-                    }
+
+                                if (password) {
+                                    DocSpaceComponent.oodspCredentials(hash);
+                                }
+                                onSuccess();
+                            }
+                        );
+                    } 
                 },
                 onAppError: async function() {
                     onError();
@@ -141,28 +139,25 @@
             mode: "system",
             events: {
                 onAppReady: async function() {
-                    if (!window.DocSpaceComponent.onAppReady) { // ToDo: Delete after fixes
-                        window.DocSpaceComponent.onAppReady = true;
+                    console.log("onAppReady: initPublicDocSpace");
+                    const userInfo = await DocSpace.SDK.frames[frameId].getUserInfo();
 
-                        const userInfo = await DocSpace.SDK.frames[frameId].getUserInfo();
+                    if (userInfo && userInfo.email === DocSpaceComponent.currentUser) {
+                        onSuccess();
+                    } else {
+                        const hash = DocSpaceComponent.oodspCredentials();
 
-                        if (userInfo && userInfo.email === DocSpaceComponent.currentUser) {
-                            onSuccess();
-                        } else {
-                            const hash = DocSpaceComponent.oodspCredentials();
+                        DocSpace.SDK.frames[frameId].login(DocSpaceComponent.currentUser, hash)
+                            .then(function(response) {
+                                //ToDO: check response, need fix response
+                                // onError: function () {
+                                    // DocSpaceComponent.renderLoginWindow();
+                                // }
 
-                            DocSpace.SDK.frames[frameId].login(DocSpaceComponent.currentUser, hash)
-                                .then(function(response) {
-                                    //ToDO: check response, need fix response
-                                    // onError: function () {
-                                        // DocSpaceComponent.renderLoginWindow();
-                                    // }
-
-                                    onSuccess();
-                                }
-                            );
-                        } 
-                    }
+                                onSuccess();
+                            }
+                        );
+                    } 
                 },
                 onAppError: async function() {
                     onError();
