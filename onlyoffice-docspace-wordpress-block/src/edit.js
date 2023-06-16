@@ -67,15 +67,18 @@ const Edit = ({ attributes, setAttributes }) => {
 
     const onSelectRoomCallback = (event) => {
         setAttributes({ roomId: event[0].id, name: event[0].label, icon: event[0].icon });
+        DocSpace.SDK.frames["oodsp-selector-frame"].destroyFrame();
         setOpen(false);
     }
 
     const onSelectFileCallback = (event) => {
         setAttributes({ fileId: event.id, name: event.title, icon: event.icon });
+        DocSpace.SDK.frames["oodsp-selector-frame"].destroyFrame();
         setOpen(false);
     }
 
     const onCloseCallback = () => {
+        DocSpace.SDK.frames["oodsp-selector-frame"].destroyFrame();
         setOpen(false);
     }
 
@@ -109,6 +112,7 @@ const Edit = ({ attributes, setAttributes }) => {
 
     const closeModal = (event) => {
         if(event._reactName != "onBlur") {
+            DocSpace.SDK.frames["oodsp-selector-frame"].destroyFrame();
             setOpen( false );
         }
     }
