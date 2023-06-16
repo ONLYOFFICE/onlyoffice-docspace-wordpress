@@ -165,4 +165,17 @@
             }
         });
     };
+
+    window.DocSpaceComponent.getAbsoluteUrl = function (url) {
+        docSpaceUrl = DocSpaceComponent.url.endsWith("/") ? DocSpaceComponent.url.slice(0, -1) : DocSpaceComponent.url;
+
+        if (url.startsWith("http://") || url.startsWith("https://")) {
+            var origin = new URL(url).origin;
+            url = url.replace(origin, docSpaceUrl);
+        } else {
+            url = docSpaceUrl + url;
+        }
+
+        return url;
+    };
 })();

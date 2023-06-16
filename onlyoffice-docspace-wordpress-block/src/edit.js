@@ -134,7 +134,7 @@ const Edit = ({ attributes, setAttributes }) => {
                     </InspectorControls>
                     <p style={{display: 'flex'}}>
                     {attributes.icon && !showDefaultIcon ? 
-                        <img class='docspace-icon' src={ attributes.icon }  onerror={() => setShowDefaultIcon( true ) } />
+                        <img class='docspace-icon' src={ DocSpaceComponent.getAbsoluteUrl(attributes.icon) }  onerror={() => setShowDefaultIcon( true ) } />
                         :
                         <div>{onlyofficeIcon}</div>
                     }
