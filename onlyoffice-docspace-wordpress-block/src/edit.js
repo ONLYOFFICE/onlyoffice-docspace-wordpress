@@ -23,7 +23,6 @@ import {
     BlockControls
 } from '@wordpress/block-editor';
 import {
-    CheckboxControl,
     Button,
     Placeholder,
     Modal,
@@ -125,11 +124,6 @@ const Edit = ({ attributes, setAttributes }) => {
                         <PanelBody title={ __("Settings", "onlyoffice-docspace-plugin") }>
                             <HeightControl label={ __("Width", "onlyoffice-docspace-plugin") } value={attributes.width} onChange={ ( value ) => setAttributes({ width: value }) }/>
                             <HeightControl label={ __("Height", "onlyoffice-docspace-plugin") } value={attributes.height} onChange={ ( value ) => setAttributes({ height: value }) }/>
-                            <CheckboxControl label={ __("Left menu", "onlyoffice-docspace-plugin") } checked={attributes.showMenu} onChange={ ( value ) => setAttributes({ showMenu: value }) } />
-                            <CheckboxControl label={ __("Navigation and Title", "onlyoffice-docspace-plugin") } checked={attributes.showTitle} onChange={ ( value ) => setAttributes({ showTitle: value }) } />
-                            <CheckboxControl label={ __("Action button", "onlyoffice-docspace-plugin") } checked={attributes.showAction} onChange={ ( value ) => setAttributes({ showAction: value }) } />
-                            <CheckboxControl label={ __("Search, Filter and Sort", "onlyoffice-docspace-plugin") } checked={attributes.showFilter} onChange={ ( value ) => setAttributes({ showFilter: value }) } />
-                            <CheckboxControl label={ __("Header", "onlyoffice-docspace-plugin") } checked={attributes.showHeader} onChange={ ( value ) => setAttributes({ showHeader: value }) } />
                         </PanelBody>
                     </InspectorControls>
                     <p style={{display: 'flex'}}>
@@ -210,7 +204,7 @@ const Edit = ({ attributes, setAttributes }) => {
                 </div>
             }
             { isOpen && (
-                <Modal onRequestClose={ closeModal } title={ modalConfig.title }>
+                <Modal onRequestClose={ closeModal } title={ modalConfig.title } style={{ minHeight: "576px" }}>
                     <div id="oodsp-selector-frame"></div>
                 </Modal>
             ) }

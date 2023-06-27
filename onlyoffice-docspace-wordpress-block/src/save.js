@@ -25,9 +25,9 @@ const Save = ({ attributes }) => {
 
     let parameters = '';
 
-    if ( attributes.hasOwnProperty('roomId') && attributes.roomId.length > 0 ) {
+    if ( attributes.hasOwnProperty('roomId')) {
         parameters += 'roomId=' + attributes.roomId + ' ';
-    } else if (attributes.hasOwnProperty('fileId') && attributes.fileId.length > 0) {
+    } else if (attributes.hasOwnProperty('fileId')) {
         parameters += 'fileId=' + attributes.fileId + ' ';
     }
 
@@ -37,26 +37,6 @@ const Save = ({ attributes }) => {
 
     if ( attributes.hasOwnProperty('height') && attributes.height.length > 0 ) {
         parameters += 'height=' + attributes.height + ' ';
-    }
-
-    if ( attributes.hasOwnProperty('showHeader') ) {
-        parameters += 'showHeader=' + attributes.showHeader + ' ';
-    }
-
-    if ( attributes.hasOwnProperty('showTitle') ) {
-        parameters += 'showTitle=' + attributes.showTitle + ' ';
-    }
-
-    if ( attributes.hasOwnProperty('showMenu') ) {
-        parameters += 'showMenu=' + attributes.showMenu + ' ';
-    }
-
-    if ( attributes.hasOwnProperty('showFilter') ) {
-        parameters += 'showFilter=' + attributes.showFilter + ' ';
-    }
-
-    if ( attributes.hasOwnProperty('showAction') ) {
-        parameters += 'showAction=' + attributes.showAction + ' ';
     }
 
     return <RawHTML>{ `[onlyoffice-docspace ${ parameters } /]` }</RawHTML>;

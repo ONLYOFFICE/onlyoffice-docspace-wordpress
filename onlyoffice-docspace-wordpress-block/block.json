@@ -26,21 +26,6 @@
 		},
 		"height":{
 			"type": "string"
-		},
-		"showHeader": {
-			"type": "boolean"
-		},
-		"showTitle": {
-			"type": "boolean"
-		},
-		"showMenu": {
-			"type": "boolean"
-		},
-		"showFilter": {
-			"type": "boolean"
-		},
-		"showAction": {
-			"type": "boolean"
 		}
 	}
 }
