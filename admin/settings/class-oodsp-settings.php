@@ -271,7 +271,7 @@ class OODSP_Settings {
 						<p>
 						<?php
 						echo wp_kses(
-							__( 'The current user will be added to DocSpace with the <b>Room admin</b> role.', 'onlyoffice-docspace-plugin' ),
+							__( 'The current user will be added to DocSpace with the <b>Room admin</b> role. <b>WordPress Viewer</b> user will be added to DocSpace with View Only access.', 'onlyoffice-docspace-plugin' ),
 							array(
 								'b' => array(
 									'class' => array(),
