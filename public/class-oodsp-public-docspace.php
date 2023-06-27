@@ -110,7 +110,8 @@ class OODSP_Public_DocSpace {
 		$defaults_atts = array(
 			'frameId' => 'onlyoffice-docpace-block-' . $instance,
 			'width'   => '100%',
-			'height'  => '100%',
+			'height'  => '500px',
+			'mode'    => 'manager'
 		);
 
 		$atts = shortcode_atts( $defaults_atts, $attr, 'onlyoffice-docspace' );
@@ -122,8 +123,14 @@ class OODSP_Public_DocSpace {
 			$atts['id'] = $attr['fileId'];
 			$atts['mode'] = 'editor';
 		}
-		
-		error_log("dsafasdfdsf");
+
+		if (empty($atts['width'])) {
+			$atts['width'] = $defaults_atts['width'];
+		}
+
+		if (empty($atts['height'])) {
+			$atts['height'] = $defaults_atts['height'];
+		}
 
 		$post = get_post();
 
