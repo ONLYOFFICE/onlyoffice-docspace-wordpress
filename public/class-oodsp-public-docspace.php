@@ -35,10 +35,10 @@
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
 class OODSP_Public_DocSpace {
-	const OODSP_PUBLIC_USER_LOGIN     = 'wp_public_user@wp_public_user.com';
+	const OODSP_PUBLIC_USER_LOGIN     = 'wpviewer@onlyoffice.com';
 	const OODSP_PUBLIC_USER_PASS      = '8c6b8b3e59010d7c925a47039f749d86fbdc9b37257cd262f2dae7c84a106505';
-	const OODSP_PUBLIC_USER_FIRSTNAME = 'wp_public_user';
-	const OODSP_PUBLIC_USER_LASTNAME  = 'wp_public_user';
+	const OODSP_PUBLIC_USER_FIRSTNAME = 'WordPress'; 
+	const OODSP_PUBLIC_USER_LASTNAME  = 'Viewer';
 
 	/**
 	 * OODSP_Settings
