@@ -133,10 +133,12 @@
         });
     };
 
-    window.DocSpaceComponent.initPublicDocSpace = function (frameId, onSuccess, onError) {
+    window.DocSpaceComponent.initPublicDocSpace = function (frameId, width, height, onSuccess, onError) {
         DocSpace.SDK.initFrame({
             frameId: frameId,
             mode: "system",
+            width: width,
+            height: height,
             events: {
                 onAppReady: async function() {
                     console.log("onAppReady: initPublicDocSpace");

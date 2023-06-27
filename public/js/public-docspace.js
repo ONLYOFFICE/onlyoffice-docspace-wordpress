@@ -17,19 +17,19 @@
 
 			DocSpaceComponent.initScript().then(
 				function() {
-					DocSpaceComponent.initPublicDocSpace(
-						oodspConfigs[0].frameId,
-						function() {
-							for ( var config of oodspConfigs ) {
+					for ( var config of oodspConfigs ) {
+						DocSpaceComponent.initPublicDocSpace(
+							config.frameId,
+							config.width || null,
+							config.height || null,
+							function() {
 								DocSpace.SDK.initFrame( config );
-							}
-						},
-						function() {
-							for ( var config of oodspConfigs ) {
+							},
+							function() {
 								DocSpaceComponent.renderError( config.frameId, { message: "Portal unavailable! Please contact the administrator!" } );
 							}
-						}
-					);
+						);
+					}
 				}
 			).catch(
 				function() {
