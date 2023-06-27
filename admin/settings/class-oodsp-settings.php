@@ -286,6 +286,12 @@ class OODSP_Settings {
 					?>
 				</form>
 
+				<?php 
+				if ( !empty( $this->get_onlyoffice_docspace_setting( self::DOCSPACE_URL ) )
+					&& !empty( $this->get_onlyoffice_docspace_setting( self::DOCSPACE_LOGIN ) )
+					&& !empty( $this->get_onlyoffice_docspace_setting( self::DOCSPACE_PASS ) )
+					) {
+				?>
 				<h1 class="wp-heading-inline"><?php esc_html_e( 'DocSpace Users', 'onlyoffice-docspace-plugin' ); ?></h1>
 				<p>
 					<?php esc_html_e( 'To add new users to ONLYOFFICE DocSpace and to start working in plugin, please press', 'onlyoffice-docspace-plugin' ); ?>
@@ -294,6 +300,7 @@ class OODSP_Settings {
 				<p class="submit">
 					<?php submit_button( __( 'Export Now', 'onlyoffice-docspace-plugin' ), 'secondary', 'users', false, array( 'onclick' => 'location.href = location.href + "&users=true";' ) ); ?>
 				</p>
+				<?php } ?>
 			</div>
 			<?php
 		} else {
