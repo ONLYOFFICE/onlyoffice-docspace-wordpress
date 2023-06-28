@@ -106,6 +106,7 @@ class OODSP_Plugin {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/settings/class-oodsp-settings.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-oodsp-docspace.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-oodsp-ajax.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-oodsp-hook.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/managers/class-oodsp-request-manager.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/managers/class-oodsp-security-manager.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/users/class-oodsp-users-list-table.php';
@@ -164,6 +165,9 @@ class OODSP_Plugin {
 		$plugin_ajax = new OODSP_Ajax();
 		$this->loader->add_action( 'wp_ajax_oodsp_credentials', $plugin_ajax, 'oodsp_credentials' );
 		$this->loader->add_action( 'wp_ajax_nopriv_oodsp_credentials', $plugin_ajax, 'no_priv_oodsp_credentials' );
+
+		$plugin_hook = new OODSP_Hook();
+		$this->loader->add_action( 'post_updated', $plugin_hook, 'rooms_share' );
 	}
 
 	/**

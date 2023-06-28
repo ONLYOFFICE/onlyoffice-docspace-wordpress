@@ -59,6 +59,9 @@ function update_settings() {
 			} elseif ( $res_create_public_user['error'] ) {
 				add_settings_error( 'general', 'settings_updated', __( 'Public DocSpace user was not created. View content will not be available on public pages.', 'onlyoffice-docspace-plugin' ), 'warning' );
 			} else {
+				$value['docspace_public_user_id'] = $res_create_public_user['data']['id'];
+				update_option( 'onlyoffice_docspace_settings', $value );
+
 				add_settings_error( 'general', 'settings_updated', __( 'Public DocSpace user successfully created.', 'onlyoffice-docspace-plugin' ), 'success' );
 			}
 

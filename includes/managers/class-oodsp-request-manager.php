@@ -36,12 +36,15 @@
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
 class OODSP_Request_Manager {
-	const UNAUTHORIZED        = 1;
-	const USER_NOT_FOUND      = 2;
-	const FORBIDDEN           = 3;
-	const ERROR_USER_INVITE   = 4;
-	const ERROR_GET_USERS     = 5;
-	const ERROR_SET_USER_PASS = 6;
+	const UNAUTHORIZED          = 1;
+	const USER_NOT_FOUND        = 2;
+	const FORBIDDEN             = 3;
+	const ERROR_USER_INVITE     = 4;
+	const ERROR_GET_USERS       = 5;
+	const ERROR_SET_USER_PASS   = 6;
+	const ERROR_GET_FILE_INFO   = 7;
+	const ERROR_GET_FOLDER_INFO = 8;
+	const ERROR_SHARE_ROOM      = 9;
 
 	/**
 	 * OODSP_Settings
@@ -357,4 +360,126 @@ class OODSP_Request_Manager {
 		return $result;
 	}
 
+	/**
+	 * Request file information to DocSpace.
+	 *
+	 * @param string $file_id File ID.
+	 */
+	public function request_file_information( $file_id ) {
+		$result = array(
+			'error' => null,
+			'data'  => null,
+		);
+
+		$res_auth = $this->auth_docspace();
+
+		if ( $res_auth['error'] ) {
+			return $res_auth;
+		}
+
+		$responce = wp_remote_post(
+			$this->plugin_settings->get_onlyoffice_docspace_setting( OODSP_Settings::DOCSPACE_URL ) . 'api/2.0/files/file/' . $file_id,
+			array(
+				'headers' => array( 'Content-Type' => 'application/json; charset=utf-8' ),
+				'cookies' => array( 'asc_auth_key' => $res_auth['data'] ),
+				'method'  => 'GET',
+			)
+		);
+
+		if ( is_wp_error( $responce ) || 200 !== wp_remote_retrieve_response_code( $responce ) ) {
+			$result['error'] = self::ERROR_GET_FILE_INFO;
+			return $result;
+		}
+
+		$body           = json_decode( wp_remote_retrieve_body( $responce ), true );
+		$result['data'] = $body['response'];
+
+		return $result;
+	}
+
+	/**
+	 * Request folder information to DocSpace.
+	 *
+	 * @param string $folder_id Folder ID.
+	 */
+	public function request_folder_information( $folder_id ) {
+		$result = array(
+			'error' => null,
+			'data'  => null,
+		);
+
+		$res_auth = $this->auth_docspace();
+
+		if ( $res_auth['error'] ) {
+			return $res_auth;
+		}
+
+		$responce = wp_remote_post(
+			$this->plugin_settings->get_onlyoffice_docspace_setting( OODSP_Settings::DOCSPACE_URL ) . 'api/2.0/files/' . $folder_id,
+			array(
+				'headers' => array( 'Content-Type' => 'application/json; charset=utf-8' ),
+				'cookies' => array( 'asc_auth_key' => $res_auth['data'] ),
+				'method'  => 'GET',
+			)
+		);
+
+		if ( is_wp_error( $responce ) || 200 !== wp_remote_retrieve_response_code( $responce ) ) {
+			$result['error'] = self::ERROR_GET_FOLDER_INFO;
+			return $result;
+		}
+
+		$body           = json_decode( wp_remote_retrieve_body( $responce ), true );
+		$result['data'] = $body['response'];
+
+		return $result;
+	}
+
+	/**
+	 * Request room share public user to DocSpace.
+	 *
+	 * @param string $room_id Room ID.
+	 */
+	public function request_room_share_public_user( $room_id ) {
+		$result = array(
+			'error' => null,
+			'data'  => null,
+		);
+
+		$res_auth = $this->auth_docspace();
+
+		if ( $res_auth['error'] ) {
+			return $res_auth;
+		}
+
+		$responce = wp_remote_post(
+			$this->plugin_settings->get_onlyoffice_docspace_setting( OODSP_Settings::DOCSPACE_URL ) . 'api/2.0/files/rooms/' . $room_id . '/share',
+			array(
+				'headers' => array( 'Content-Type' => 'application/json; charset=utf-8' ),
+				'cookies' => array( 'asc_auth_key' => $res_auth['data'] ),
+				'body'    => wp_json_encode(
+					array(
+						'invitations' => array(
+							array(
+								'access' => 2,
+								'id'     => $this->plugin_settings->get_onlyoffice_docspace_setting( 'docspace_public_user_id' ),
+							),
+						),
+						'message'     => 'Invitation message',
+						'notify'      => true,
+					)
+				),
+				'method'  => 'PUT',
+			)
+		);
+
+		if ( is_wp_error( $responce ) || 200 !== wp_remote_retrieve_response_code( $responce ) ) {
+			$result['error'] = self::ERROR_SHARE_ROOM;
+			return $result;
+		}
+
+		$body           = json_decode( wp_remote_retrieve_body( $responce ), true );
+		$result['data'] = $body['response'];
+
+		return $result;
+	}
 }
