@@ -111,11 +111,12 @@ class OODSP_Users_List_Table extends WP_List_Table {
 		$paged = $this->get_pagenum();
 
 		$args = array(
-			'number' => $users_per_page,
-			'offset' => ( $paged - 1 ) * $users_per_page,
-			'role'   => $role,
-			'search' => $s,
-			'fields' => 'all_with_meta',
+			'number'     => $users_per_page,
+			'offset'     => ( $paged - 1 ) * $users_per_page,
+			'role'       => $role,
+			'capability' => 'upload_files',
+			'search'     => $s,
+			'fields'     => 'all_with_meta',
 		);
 
 		if ( '' !== $args['search'] ) {
@@ -218,6 +219,10 @@ class OODSP_Users_List_Table extends WP_List_Table {
 
 		foreach ( $wp_roles->get_names() as $this_role => $name ) {
 			if ( $count_users && ! isset( $avail_roles[ $this_role ] ) ) {
+				continue;
+			}
+
+			if ( ! isset( get_role( $this_role )->capabilities['upload_files'] ) ) {
 				continue;
 			}
 
