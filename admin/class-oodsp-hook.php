@@ -70,74 +70,77 @@ class OODSP_Hook {
 		$files_id = array();
 
 		$post = get_post( $post_id );
-		preg_match_all( '/' . get_shortcode_regex( array( 'onlyoffice-docspace' ) ) . '/s', $post->post_content, $matches );
-		$shortcode_expressions = $matches[3];
 
-		if ( ! empty( $shortcode_expressions ) ) {
-			foreach ( $shortcode_expressions as $shortcode_expression ) {
-				$atts = shortcode_parse_atts( $shortcode_expression );
+		if ($post->post_status === 'public') {
+			preg_match_all( '/' . get_shortcode_regex( array( 'onlyoffice-docspace' ) ) . '/s', $post->post_content, $matches );
+			$shortcode_expressions = $matches[3];
 
-				if ( array_key_exists( 'roomid', $atts ) && ! empty( $atts['roomid'] ) ) {
-					$rooms_id[] = intval( $atts['roomid'] );
-				}
+			if ( ! empty( $shortcode_expressions ) ) {
+				foreach ( $shortcode_expressions as $shortcode_expression ) {
+					$atts = shortcode_parse_atts( $shortcode_expression );
 
-				if ( array_key_exists( 'fileid', $atts ) && ! empty( $atts['fileid'] ) ) {
-					$files_id[] = intval( $atts['fileid'] );
+					if ( array_key_exists( 'roomid', $atts ) && ! empty( $atts['roomid'] ) ) {
+						$rooms_id[] = intval( $atts['roomid'] );
+					}
+
+					if ( array_key_exists( 'fileid', $atts ) && ! empty( $atts['fileid'] ) ) {
+						$files_id[] = intval( $atts['fileid'] );
+					}
 				}
 			}
-		}
 
-		$files_id = array_unique( $files_id );
+			$files_id = array_unique( $files_id );
 
-		foreach ( $files_id as $file_id ) {
-			$res_file_information = $this->request_manager->request_file_information( $file_id );
+			foreach ( $files_id as $file_id ) {
+				$res_file_information = $this->request_manager->request_file_information( $file_id );
 
-			if ( ! $res_file_information['error'] ) {
-				$folder_id = $res_file_information['data']['folderId'];
+				if ( ! $res_file_information['error'] ) {
+					$folder_id = $res_file_information['data']['folderId'];
 
-				$res_folder_information = $this->request_manager->request_folder_information( $folder_id );
+					$res_folder_information = $this->request_manager->request_folder_information( $folder_id );
 
-				if ( ! $res_folder_information['error'] ) {
-					$room_id    = $res_folder_information['data']['pathParts'][1];
-					$rooms_id[] = $room_id;
+					if ( ! $res_folder_information['error'] ) {
+						$room_id    = $res_folder_information['data']['pathParts'][1];
+						$rooms_id[] = $room_id;
+					} else {
+						// phpcs:disable WordPress.PHP.DevelopmentFunctions
+						error_log(
+							sprintf(
+								'Error in rooms_share() request_folder_information() (folderId: %1$s, status: %2$s)',
+								$folder_id,
+								$res_folder_information['error']
+							)
+						);
+						// phpcs:enable
+					}
 				} else {
 					// phpcs:disable WordPress.PHP.DevelopmentFunctions
 					error_log(
 						sprintf(
-							'Error in rooms_share() request_folder_information() (folderId: %1$s, status: %2$s)',
-							$folder_id,
-							$res_folder_information['error']
+							'Error in rooms_share() request_file_information() (fileId: %1$s, status: %2$s)',
+							$file_id,
+							$res_file_information['error']
 						)
 					);
 					// phpcs:enable
 				}
-			} else {
-				// phpcs:disable WordPress.PHP.DevelopmentFunctions
-				error_log(
-					sprintf(
-						'Error in rooms_share() request_file_information() (fileId: %1$s, status: %2$s)',
-						$file_id,
-						$res_file_information['error']
-					)
-				);
-				// phpcs:enable
 			}
-		}
 
-		$rooms_id = array_unique( $rooms_id );
+			$rooms_id = array_unique( $rooms_id );
 
-		foreach ( $rooms_id as $room_id ) {
-			$res_room_share_public_user = $this->request_manager->request_room_share_public_user( $room_id );
-			if ( $res_room_share_public_user['error'] ) {
-				// phpcs:disable WordPress.PHP.DevelopmentFunctions
-				error_log(
-					sprintf(
-						'Error in rooms_share() request_room_share_public_user() (roomId: %1$s, status: %2$s)',
-						$room_id,
-						$res_room_share_public_user['error']
-					)
-				);
-				// phpcs:enable
+			foreach ( $rooms_id as $room_id ) {
+				$res_room_share_public_user = $this->request_manager->request_room_share_public_user( $room_id );
+				if ( $res_room_share_public_user['error'] ) {
+					// phpcs:disable WordPress.PHP.DevelopmentFunctions
+					error_log(
+						sprintf(
+							'Error in rooms_share() request_room_share_public_user() (roomId: %1$s, status: %2$s)',
+							$room_id,
+							$res_room_share_public_user['error']
+						)
+					);
+					// phpcs:enable
+				}
 			}
 		}
 	}
