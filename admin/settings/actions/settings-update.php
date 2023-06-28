@@ -55,6 +55,13 @@ function update_settings() {
 			if ( OODSP_Request_Manager::ERROR_USER_INVITE === $res_create_public_user['error'] ) {
 				add_settings_error( 'general', 'settings_updated', __( 'Public DocSpace user was not created! View content will not be available on public pages.', 'onlyoffice-docspace-plugin' ), 'warning' );
 			} elseif ( OODSP_Request_Manager::ERROR_SET_USER_PASS === $res_create_public_user['error'] ) {
+				$res_docspace_public_user = $oodsp_request_manager->request_docspace_user( $docspace_url, OODSP_Public_DocSpace::OODSP_PUBLIC_USER_LOGIN, $res_auth['data'] );
+
+				if ( ! $res_docspace_public_user['error'] ) {
+					$value['docspace_public_user_id'] = $res_docspace_public_user['data']['id'];
+					update_option( 'onlyoffice_docspace_settings', $value );
+				}
+
 				add_settings_error( 'general', 'settings_updated', __( 'Public DocSpace user already created, but failed to update authorization.', 'onlyoffice-docspace-plugin' ), 'warning' );
 			} elseif ( $res_create_public_user['error'] ) {
 				add_settings_error( 'general', 'settings_updated', __( 'Public DocSpace user was not created. View content will not be available on public pages.', 'onlyoffice-docspace-plugin' ), 'warning' );
