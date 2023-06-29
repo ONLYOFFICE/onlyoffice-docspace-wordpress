@@ -188,6 +188,10 @@ msgstr ""
 msgid "Portal unavailable! Please contact the administrator!"
 msgstr ""
 
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Go to the settings to configure ONLYOFFICE DocSpace connector."
+msgstr ""
+
 msgid "WordPress requests access to your ONLYOFFICE DocSpace"
 msgstr ""
 

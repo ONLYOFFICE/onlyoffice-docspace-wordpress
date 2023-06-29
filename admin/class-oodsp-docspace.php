@@ -82,6 +82,12 @@ class OODSP_DocSpace {
 			true
 		);
 
+		$error_message = __( 'Portal unavailable! Please contact the administrator!', 'onlyoffice-docspace-plugin' );
+
+		if( current_user_can( 'manage_options' ) ) {
+			$error_message = __( 'Go to the settings to configure ONLYOFFICE DocSpace connector.', 'onlyoffice-docspace-plugin' );
+		}
+
 		wp_localize_script(
 			'docspace-component-api',
 			'DocSpaceComponent',
@@ -93,6 +99,9 @@ class OODSP_DocSpace {
 				'images'      => array(
 					'onlyoffice'  => plugins_url( 'public/images/onlyoffice.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
 					'unavailable' => plugins_url( 'public/images/unavailable.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
+				),
+				'messages'	  => array(
+					'error' => $error_message
 				),
 			)
 		);
@@ -160,23 +169,15 @@ class OODSP_DocSpace {
 		</div>
 		<script>
 			document.addEventListener('DOMContentLoaded', function () {
-				DocSpaceComponent.initScript().then(function() {
-					DocSpaceComponent.initLoginDocSpace(
-						"oodsp-manager-frame",
-						null,
-						function() {
-							DocSpace.SDK.initManager({
-								frameId: "oodsp-manager-frame",
-								showMenu: true
-							});
-						},
-						function() {
-							DocSpaceComponent.renderError("oodsp-manager-frame", { message: "<?php esc_html_e( 'Portal unavailable! Please contact the administrator!', 'onlyoffice-docspace-plugin' ); ?>"})
-						}
-					);
-				}).catch(function() {
-					DocSpaceComponent.renderError("oodsp-manager-frame", { message: "<?php esc_html_e( 'Portal unavailable! Please contact the administrator!', 'onlyoffice-docspace-plugin' ); ?>"})
-				});
+				DocSpaceComponent.renderDocSpace(
+					"oodsp-manager-frame",
+					function() {
+						DocSpace.SDK.initManager({
+							frameId: "oodsp-manager-frame",
+							showMenu: true
+						});
+					}
+				);
 			});
 		</script>
 		<?php

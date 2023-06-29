@@ -26,7 +26,7 @@
             .substring(1);
     }
 
-    window.DocSpaceComponent.renderError = function (id, error) {
+    window.DocSpaceComponent.renderError = function (id, error = { message: DocSpaceComponent.messages.error }) {
         const target = document.getElementById(id);
 
         let errorDiv = document.createElement('div');
@@ -167,6 +167,21 @@
             }
         });
     };
+
+    window.DocSpaceComponent.renderDocSpace = function (frameId, onSuccess) {
+        DocSpaceComponent.initScript().then(function() {
+            DocSpaceComponent.initLoginDocSpace(
+                frameId,
+                null,
+                onSuccess,
+                function() {
+                    DocSpaceComponent.renderError(frameId);
+                }
+            );
+        }).catch(function() {
+            DocSpaceComponent.renderError(frameId);
+        });
+    }
 
     window.DocSpaceComponent.getAbsoluteUrl = function (url) {
         docSpaceUrl = DocSpaceComponent.url.endsWith("/") ? DocSpaceComponent.url.slice(0, -1) : DocSpaceComponent.url;

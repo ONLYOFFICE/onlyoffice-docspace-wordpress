@@ -26,7 +26,7 @@
 								DocSpace.SDK.initFrame( config );
 							},
 							function() {
-								DocSpaceComponent.renderError( config.frameId, { message: "Portal unavailable! Please contact the administrator!" } );
+								DocSpaceComponent.renderError( config.frameId );
 							}
 						);
 					}
@@ -34,7 +34,7 @@
 			).catch(
 				function() {
 					for ( var config of oodspConfigs ) {
-						DocSpaceComponent.renderError( config.frameId, { message: "Portal unavailable! Please contact the administrator!" } );
+						DocSpaceComponent.renderError( config.frameId );
 					}
 				}
 			);

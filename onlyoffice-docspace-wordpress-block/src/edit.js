@@ -44,22 +44,14 @@ const Edit = ({ attributes, setAttributes }) => {
     const [showDefaultIcon, setShowDefaultIcon] = useState( false );
 
     const script = () => {
-        DocSpaceComponent.initScript().then(function() {
-            if (isOpen) {
-                DocSpaceComponent.initLoginDocSpace(
-                    "oodsp-selector-frame",
-                    null,
-                    function() {
-                        DocSpace.SDK.initFrame(modalConfig);
-                    },
-                    function() {
-                        DocSpaceComponent.renderError("oodsp-selector-frame", { message: __("Portal unavailable! Please contact the administrator!", "onlyoffice-docspace-plugin") })
-                    }
-                );
-            }
-        }).catch(function() {
-            DocSpaceComponent.renderError("oodsp-selector-frame", { message: __("Portal unavailable! Please contact the administrator!", "onlyoffice-docspace-plugin") })
-        });
+        if (isOpen) {
+            DocSpaceComponent.renderDocSpace(
+                "oodsp-selector-frame",
+                function() {
+                    DocSpace.SDK.initFrame(modalConfig);
+                }
+            );
+        }
     };
 
     useEffect(script, [isOpen]);
