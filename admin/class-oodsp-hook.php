@@ -71,7 +71,7 @@ class OODSP_Hook {
 
 		$post = get_post( $post_id );
 
-		if ($post->post_status === 'publish') {
+		if ( 'publish' === $post->post_status ) {
 			preg_match_all( '/' . get_shortcode_regex( array( 'onlyoffice-docspace' ) ) . '/s', $post->post_content, $matches );
 			$shortcode_expressions = $matches[3];
 

@@ -37,7 +37,7 @@
 class OODSP_Public_DocSpace {
 	const OODSP_PUBLIC_USER_LOGIN     = 'wpviewer@onlyoffice.com';
 	const OODSP_PUBLIC_USER_PASS      = '8c6b8b3e59010d7c925a47039f749d86fbdc9b37257cd262f2dae7c84a106505';
-	const OODSP_PUBLIC_USER_FIRSTNAME = 'WordPress'; 
+	const OODSP_PUBLIC_USER_FIRSTNAME = 'WordPress';
 	const OODSP_PUBLIC_USER_LASTNAME  = 'Viewer';
 
 	/**
@@ -111,24 +111,24 @@ class OODSP_Public_DocSpace {
 			'frameId' => 'onlyoffice-docpace-block-' . $instance,
 			'width'   => '100%',
 			'height'  => '500px',
-			'mode'    => 'manager'
+			'mode'    => 'manager',
 		);
 
 		$atts = shortcode_atts( $defaults_atts, $attr, 'onlyoffice-docspace' );
 
 		if ( array_key_exists( 'roomId', $attr ) ) {
-			$atts['id'] = $attr['roomId'];
+			$atts['id']   = $attr['roomId'];
 			$atts['mode'] = 'manager';
-		} else if ( array_key_exists( 'fileId', $attr ) ) {
-			$atts['id'] = $attr['fileId'];
+		} elseif ( array_key_exists( 'fileId', $attr ) ) {
+			$atts['id']   = $attr['fileId'];
 			$atts['mode'] = 'editor';
 		}
 
-		if (empty($atts['width'])) {
+		if ( empty( $atts['width'] ) ) {
 			$atts['width'] = $defaults_atts['width'];
 		}
 
-		if (empty($atts['height'])) {
+		if ( empty( $atts['height'] ) ) {
 			$atts['height'] = $defaults_atts['height'];
 		}
 
@@ -152,7 +152,7 @@ class OODSP_Public_DocSpace {
 
 		$error_message = __( 'Portal unavailable! Please contact the administrator!', 'onlyoffice-docspace-plugin' );
 
-		if( current_user_can( 'manage_options' ) &&  ! $is_public ) {
+		if ( current_user_can( 'manage_options' ) && ! $is_public ) {
 			$error_message = __( 'Go to the settings to configure ONLYOFFICE DocSpace connector.', 'onlyoffice-docspace-plugin' );
 		}
 
@@ -169,7 +169,7 @@ class OODSP_Public_DocSpace {
 					'unavailable' => plugins_url( 'public/images/unavailable.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
 				),
 				'messages'	  => array(
-					'error' => $error_message
+					'error' => $error_message,
 				),
 			)
 		);

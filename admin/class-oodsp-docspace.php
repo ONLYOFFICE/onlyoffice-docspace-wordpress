@@ -84,7 +84,7 @@ class OODSP_DocSpace {
 
 		$error_message = __( 'Portal unavailable! Please contact the administrator!', 'onlyoffice-docspace-plugin' );
 
-		if( current_user_can( 'manage_options' ) ) {
+		if ( current_user_can( 'manage_options' ) ) {
 			$error_message = __( 'Go to the settings to configure ONLYOFFICE DocSpace connector.', 'onlyoffice-docspace-plugin' );
 		}
 
@@ -100,8 +100,8 @@ class OODSP_DocSpace {
 					'onlyoffice'  => plugins_url( 'public/images/onlyoffice.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
 					'unavailable' => plugins_url( 'public/images/unavailable.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
 				),
-				'messages'	  => array(
-					'error' => $error_message
+				'messages'    => array(
+					'error' => $error_message,
 				),
 			)
 		);

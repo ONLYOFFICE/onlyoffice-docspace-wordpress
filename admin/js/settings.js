@@ -193,9 +193,9 @@
 		}
 	);
 
-	var searchParams = new URLSearchParams(window.location.search);
+	var searchParams = new URLSearchParams( window.location.search );
 
-	if ( 'true' === searchParams.get('users') ) {
+	if ( 'true' === searchParams.get( 'users' ) ) {
 		DocSpaceComponent.initScript()
 			.then(
 				function(e) { // ToDo: onAppReady, onError.
