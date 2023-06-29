@@ -184,11 +184,9 @@ msgstr ""
 msgid "Pick room or media file from your DocSpace"
 msgstr ""
 
-#: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Portal unavailable! Please contact the administrator!"
 msgstr ""
 
-#: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Go to the settings to configure ONLYOFFICE DocSpace connector."
 msgstr ""
 

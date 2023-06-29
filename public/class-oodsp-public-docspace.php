@@ -168,7 +168,6 @@ class OODSP_Public_DocSpace {
 					'onlyoffice'  => plugins_url( 'public/images/onlyoffice.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
 					'unavailable' => plugins_url( 'public/images/unavailable.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
 				),
-				,
 				'messages'	  => array(
 					'error' => $error_message
 				),
