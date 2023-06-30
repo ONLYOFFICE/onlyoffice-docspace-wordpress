@@ -49,10 +49,19 @@ class OODSP_Public_DocSpace {
 	private $plugin_settings;
 
 	/**
+	 * OODSP_DocSpace
+	 *
+	 * @access   private
+	 * @var      OODSP_DocSpace    $plugin_docspace
+	 */
+	private $plugin_docspace;
+
+	/**
 	 * Initialize the class and set its properties.
 	 */
 	public function __construct() {
 		$this->plugin_settings = new OODSP_Settings();
+		$this->plugin_docspace = new OODSP_DocSpace();
 	}
 
 	/**
@@ -173,6 +182,7 @@ class OODSP_Public_DocSpace {
 				'url'         => $this->plugin_settings->get_onlyoffice_docspace_setting( OODSP_Settings::DOCSPACE_URL ),
 				'currentUser' => $current_user,
 				'isPublic'    => $is_public,
+				'locale'      => $this->plugin_docspace->get_locale_for_docspace(),
 				'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
 				'images'      => array(
 					'onlyoffice'  => plugins_url( 'public/images/onlyoffice.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),

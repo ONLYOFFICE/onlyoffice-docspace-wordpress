@@ -23,6 +23,7 @@
 							config.width || null,
 							config.height || null,
 							function() {
+								config.locale = DocSpaceComponent.locale;
 								DocSpace.SDK.initFrame( config );
 							},
 							function() {

@@ -39,6 +39,15 @@
  */
 class OODSP_DocSpace {
 	/**
+	 * LOCALES for DocSpace
+	 *
+	 */
+	const LOCALES = array( "az", "bg", "cs", "de", "el-GR", "en-GB", "en-US", "es", "fi", "fr",
+		"hy-AM", "it", "ja-JP", "ko-KR", "lo-LA", "lv", "nl", "pl", "pt", "pt-BR", "ro", "ru",
+		"sk", "sl", "tr", "uk-UA", "vi", "zh-CN"
+	);
+
+	/**
 	 * OODSP_Settings
 	 *
 	 * @access   private
@@ -94,6 +103,7 @@ class OODSP_DocSpace {
 			array(
 				'url'         => $this->plugin_settings->get_onlyoffice_docspace_setting( OODSP_Settings::DOCSPACE_URL ),
 				'currentUser' => wp_get_current_user()->user_email,
+				'locale'      => $this->get_locale_for_docspace(),
 				'isPublic'    => false,
 				'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
 				'images'      => array(
@@ -174,7 +184,8 @@ class OODSP_DocSpace {
 					function() {
 						DocSpace.SDK.initManager({
 							frameId: "oodsp-manager-frame",
-							showMenu: true
+							showMenu: true,
+							locale: DocSpaceComponent.locale
 						});
 					}
 				);
@@ -248,5 +259,25 @@ class OODSP_DocSpace {
 			</div>
 		</script>
 		<?php
+	}
+
+	/**
+	 *  DocSpace login template.
+	 */
+	public function get_locale_for_docspace() {
+		$locale = str_replace( '_', '-', get_user_locale() );
+
+		if ( in_array( $locale, self::LOCALES )) {
+			return $locale;
+		} else {
+			$locale = explode( '-', $locale )[0];
+			foreach ( self::LOCALES as $value ) {
+				if ( str_starts_with( $value, $locale) ) {
+					return $value;
+				}
+			}
+		}
+
+		return 'en-US';
 	}
 }
