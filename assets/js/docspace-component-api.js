@@ -142,7 +142,6 @@
             height: height,
             events: {
                 onAppReady: async function() {
-                    console.log("onAppReady: initPublicDocSpace");
                     const userInfo = await DocSpace.SDK.frames[frameId].getUserInfo();
 
                     if (userInfo && userInfo.email === DocSpaceComponent.currentUser) {
@@ -150,7 +149,7 @@
                     } else {
                         const hash = DocSpaceComponent.oodspCredentials();
 
-                        DocSpace.SDK.frames[frameId].login(DocSpaceComponent.currentUser, hash +1)
+                        DocSpace.SDK.frames[frameId].login(DocSpaceComponent.currentUser, hash)
                             .then(function(response) {
                                 if(response.status && response.status !== 200) {
                                     DocSpace.SDK.frames[frameId].destroyFrame();
