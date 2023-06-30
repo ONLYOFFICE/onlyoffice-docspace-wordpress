@@ -95,31 +95,27 @@
 									frameId: "oodsp-system-frame",
 									events: {
 										"onAppReady": async function() {
-											if ( ! window.DocSpaceComponent.onAppReady ) { // ToDo: Delete after fixes.
-												window.DocSpaceComponent.onAppReady = true;
+											const hashSettings = await DocSpace.SDK.frames['oodsp-system-frame'].getHashSettings();
+											const hash         = await DocSpace.SDK.frames['oodsp-system-frame'].createHash( pass.trim(), hashSettings );
+											settingsForm.append(
+												$( '<input />' )
+													.attr( 'id', 'hash' )
+													.attr( 'name', 'docspace_pass' )
+													.attr( 'hidden', 'true' )
+													.attr( 'value', hash )
+											);
 
-												const hashSettings = await DocSpace.SDK.frames['oodsp-system-frame'].getHashSettings();
-												const hash         = await DocSpace.SDK.frames['oodsp-system-frame'].createHash( pass.trim(), hashSettings );
-												settingsForm.append(
-													$( '<input />' )
-														.attr( 'id', 'hash' )
-														.attr( 'name', 'docspace_pass' )
-														.attr( 'hidden', 'true' )
-														.attr( 'value', hash )
-												);
+											const hashCurrentUser = await DocSpace.SDK.frames['oodsp-system-frame'].createHash( generatePass(), hashSettings );
+											settingsForm.append(
+												$( '<input />' )
+													.attr( 'id', 'hash-current-user' )
+													.attr( 'name', 'hash_current_user' )
+													.attr( 'hidden', 'true' )
+													.attr( 'value', hashCurrentUser )
+											);
 
-												const hashCurrentUser = await DocSpace.SDK.frames['oodsp-system-frame'].createHash( generatePass(), hashSettings );
-												settingsForm.append(
-													$( '<input />' )
-														.attr( 'id', 'hash-current-user' )
-														.attr( 'name', 'hash_current_user' )
-														.attr( 'hidden', 'true' )
-														.attr( 'value', hashCurrentUser )
-												);
-
-												$( '#user_pass' ).val( '' )
-												settingsForm.submit();
-											}
+											$( '#user_pass' ).val( '' )
+											settingsForm.submit();
 										},
 										'onAppError': function() {
 											alert( 'onAppError' );
@@ -198,7 +194,7 @@
 	if ( 'true' === searchParams.get( 'users' ) ) {
 		DocSpaceComponent.initScript()
 			.then(
-				function(e) { // ToDo: onAppReady, onError.
+				function(e) {
 					DocSpace.SDK.initSystem(
 						{
 							frameId: 'oodsp-system-frame'

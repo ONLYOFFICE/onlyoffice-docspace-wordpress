@@ -26,7 +26,6 @@ window.wp = window.wp || {};
 
 		$( '#oodsp-login-form' ).submit(
 			function( event ) {
-				window.DocSpaceComponent.onAppReady = false; // ToDo: remove.
 				event.preventDefault();
 				$( '#login_error' ).html();
 
