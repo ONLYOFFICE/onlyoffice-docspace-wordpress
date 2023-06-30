@@ -45,6 +45,7 @@
                 <span><b>ONLYOFFICE</b> DocSpace</span>
             </div>
             <img class="unavailable-icon" src="${DocSpaceComponent.images.unavailable}" />
+            <div class="unavailable-header-message">${error.header || ""}</div>
             <div class="unavailable-message">${error.message}</div>
         `;
 
@@ -149,12 +150,20 @@
                     } else {
                         const hash = DocSpaceComponent.oodspCredentials();
 
-                        DocSpace.SDK.frames[frameId].login(DocSpaceComponent.currentUser, hash)
+                        DocSpace.SDK.frames[frameId].login(DocSpaceComponent.currentUser, hash +1)
                             .then(function(response) {
-                                //ToDO: check response, need fix response
-                                // onError: function () {
-                                    // DocSpaceComponent.renderLoginWindow();
-                                // }
+                                if(response.status && response.status !== 200) {
+                                    DocSpace.SDK.frames[frameId].destroyFrame();
+
+                                    DocSpaceComponent.renderError(
+                                        frameId, 
+                                        {
+                                            header: DocSpaceComponent.messages.unauthorized_header,
+                                            message: DocSpaceComponent.messages.unauthorized_message
+                                        }
+                                    );
+                                    return;
+                                }
 
                                 onSuccess();
                             }

@@ -172,6 +172,21 @@ msgstr "Портал недоступен! Пожалуйста, свяжите�
 msgid "Go to the settings to configure ONLYOFFICE DocSpace connector."
 msgstr "Перейдите в настройки, чтобы настроить коннектор ONLYOFFICE DocSpace."
 
+msgid "Authorization unsuccessful"
+msgstr "Авторизация не удалась"
+
+msgid "Please contact the administrator."
+msgstr "Пожалуйста, свяжитесь с администратором."
+
+msgid "Reset WordPress Viewer to continue"
+msgstr "Сбросьте WordPress Viewer, чтобы продолжить"
+
+msgid "You may experience issues with access to your content because WordPress Viewer data has been lost. Please proceed to the DocSpace plugin settings and click the Save button. WordPress Viewer will be added again to DocSpace."
+msgstr "У вас могут возникнуть проблемы с доступом к контенту из-за потери данных WordPress Viewer. Перейдите к настройкам плагина DocSpace и нажмите кнопку Сохранить. WordPress Viewer снова будет добавлен в DocSpace."
+
+msgid "Please proceed to the DocSpace plugin via the left side menu and enter your password to restore access."
+msgstr "Пожалуйста, перейдите к плагину DocSpace через меню слева и введите свой пароль, чтобы восстановить доступ."
+
 msgid "WordPress requests access to your ONLYOFFICE DocSpace"
 msgstr "WordPress запрашивает доступ к вашему ONLYOFFICE DocSpace"
 

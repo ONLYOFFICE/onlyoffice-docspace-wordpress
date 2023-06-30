@@ -156,6 +156,16 @@ class OODSP_Public_DocSpace {
 			$error_message = __( 'Go to the settings to configure ONLYOFFICE DocSpace connector.', 'onlyoffice-docspace-plugin' );
 		}
 
+		$unauthorized_header = __( 'Authorization unsuccessful', 'onlyoffice-docspace-plugin' );
+		$unauthorized_message = __( 'Please contact the administrator.', 'onlyoffice-docspace-plugin' );
+
+		if ( current_user_can( 'manage_options' ) && $is_public ) {
+			$unauthorized_header = __( 'Reset WordPress Viewer to continue', 'onlyoffice-docspace-plugin' );
+			$unauthorized_message = __( 'You may experience issues with access to your content because WordPress Viewer data has been lost. Please proceed to the DocSpace plugin settings and click the Save button. WordPress Viewer will be added again to DocSpace.', 'onlyoffice-docspace-plugin' );
+		} elseif ( ! $is_public ) {
+			$unauthorized_message = __( 'Please proceed to the DocSpace plugin via the left side menu and enter your password to restore access.', 'onlyoffice-docspace-plugin' );
+		}
+
 		wp_localize_script(
 			'docspace-component-api',
 			'DocSpaceComponent',
@@ -169,7 +179,9 @@ class OODSP_Public_DocSpace {
 					'unavailable' => plugins_url( 'public/images/unavailable.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
 				),
 				'messages'	  => array(
-					'error' => $error_message,
+					'error'                => $error_message,
+					'unauthorized_header'  => $unauthorized_header,
+					'unauthorized_message' => $unauthorized_message,
 				),
 			)
 		);
