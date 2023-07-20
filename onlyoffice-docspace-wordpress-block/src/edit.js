@@ -92,6 +92,7 @@ const Edit = ({ attributes, setAttributes }) => {
             width: "400px",
             height: "500px",
             mode: mode,
+            selectorType: "roomsOnly",
             locale: DocSpaceComponent.locale,
             events: {
                 onSelectCallback: onSelectCallback,
