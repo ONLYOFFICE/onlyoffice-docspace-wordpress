@@ -185,6 +185,8 @@ class OODSP_DocSpace {
 						DocSpace.SDK.initManager({
 							frameId: "oodsp-manager-frame",
 							showMenu: true,
+							showFilter: true,
+							showHeader: true,
 							locale: DocSpaceComponent.locale
 						});
 					}
