@@ -8,7 +8,7 @@
 	document.addEventListener(
 		'DOMContentLoaded',
 		function() {
-			var frames       = document.getElementsByClassName( "onlyoffice-docpace-block" );
+			var frames       = document.getElementsByClassName( "onlyoffice-docspace-block" );
 			var oodspConfigs = [];
 
 			for ( var frame of frames ) {
