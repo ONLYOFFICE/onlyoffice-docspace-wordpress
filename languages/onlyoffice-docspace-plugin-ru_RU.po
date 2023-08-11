@@ -90,6 +90,27 @@ msgstr "Ошибка получения данных пользователя. �
 msgid "The specified user is not a DocSpace administrator!"
 msgstr "Указанный пользователь не является администратором DocSpace!"
 
+msgid "Public DocSpace user was not created! View content will not be available on public pages."
+msgstr "Публичный пользователь DocSpace не создан! Просмотр контента будет недоступен на общедоступных страницах."
+
+msgid "Public DocSpace user already created, but failed to update authorization."
+msgstr "Публичный пользователь DocSpace уже создан, но ему не удалось обновить авторизацию."
+
+msgid "Public DocSpace user was not created. View content will not be available on public pages."
+msgstr "Публичный пользователь DocSpace не создан. Просмотр контента будет недоступен на общедоступных страницах."
+
+msgid "Public DocSpace user successfully created."
+msgstr "Публичный пользователь DocSpace успешно создан."
+
+msgid "User %s already exists in DocSpace!"
+msgstr "Пользователь %s уже существует в DocSpace!"
+
+msgid "User %s successfully created in DocSpace with role Room Admin."
+msgstr "Пользователь %s успешно создан в DocSpace с ролью Администратора Комнаты."
+
+msgid "Error create user %s in DocSpace!"
+msgstr "Ошибка при создании пользователя %s в DocSpace!"
+
 msgid "Error getting users from ONLYOFFICE DocSpace"
 msgstr "Ошибка получения пользователей ONLYOFFICE DocSpace"
 

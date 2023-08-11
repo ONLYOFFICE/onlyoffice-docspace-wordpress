@@ -118,7 +118,7 @@ function update_settings() {
 					'settings_updated',
 					sprintf(
 						/* translators: %s: User email address. */
-						__( 'User %s already exits in DocSpace!', 'onlyoffice-docspace-plugin' ),
+						__( 'User %s already exists in DocSpace!', 'onlyoffice-docspace-plugin' ),
 						$user->user_email
 					),
 					'warning'

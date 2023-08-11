@@ -96,10 +96,13 @@ msgstr ""
 msgid "Public DocSpace user already created, but failed to update authorization."
 msgstr ""
 
+msgid "Public DocSpace user was not created. View content will not be available on public pages."
+msgstr ""
+
 msgid "Public DocSpace user successfully created."
 msgstr ""
 
-msgid "User %s already exits in DocSpace!"
+msgid "User %s already exists in DocSpace!"
 msgstr ""
 
 msgid "User %s successfully created in DocSpace with role Room Admin."
