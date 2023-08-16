@@ -116,9 +116,6 @@
 
 											$( '#user_pass' ).val( '' )
 											settingsForm.submit();
-										},
-										'onAppError': function() {
-											alert( 'onAppError' );
 										}
 									}
 								}
