@@ -68,7 +68,7 @@ msgstr ""
 msgid "Room admin"
 msgstr ""
 
-msgid "Invite to Docspace"
+msgid "Invite to DocSpace"
 msgstr ""
 
 msgid "Back to main settings"

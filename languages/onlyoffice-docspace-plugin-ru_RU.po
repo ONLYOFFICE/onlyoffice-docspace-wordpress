@@ -68,8 +68,8 @@ msgstr "Пользователь"
 msgid "Room admin"
 msgstr "Администратор комнаты"
 
-msgid "Invite to Docspace"
-msgstr "Пригласить в Docspace"
+msgid "Invite to DocSpace"
+msgstr "Пригласить в DocSpace"
 
 msgid "Back to main settings"
 msgstr "Вернуться к основным настройкам"
@@ -115,7 +115,7 @@ msgid "Error getting users from ONLYOFFICE DocSpace"
 msgstr "Ошибка получения пользователей ONLYOFFICE DocSpace"
 
 msgid "Invite with error for %1$s/%2$s users"
-msgstr "Приглашение закончилось с ошибкой %1$s/%2$s пользователей"
+msgstr "Приглашение закончилось с ошибкой для %1$s/%2$s пользователей"
 
 msgid "Invite skipped for %1$s/%2$s users"
 msgstr "Пропущено приглашение для %1$s/%2$s пользователей"
