@@ -15,6 +15,8 @@
                 return resolve();
             })
             scriptTag.addEventListener('error', () => {
+                scriptTag.remove();
+                scriptTag = null;
                 return reject();
             })
         });
