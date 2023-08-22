@@ -97,7 +97,7 @@ function invite_users() {
 			'users_invited',
 			sprintf(
 				/* translators: %1$s: count error; %2$s: count users */
-				__( 'Invite with error for %1$s/%2$s users', 'onlyoffice-docspace-plugin' ),
+				__( 'Invitation failed for %1$s/%2$s user(s)', 'onlyoffice-docspace-plugin' ),
 				$count_error,
 				count( $users )
 			),
@@ -110,7 +110,7 @@ function invite_users() {
 			'users_invited',
 			sprintf(
 				/* translators: %1$s: count skiped; %2$s: count users */
-				__( 'Invite skipped for %1$s/%2$s users', 'onlyoffice-docspace-plugin' ),
+				__( 'Invitation skipped for %1$s/%2$s user(s)', 'onlyoffice-docspace-plugin' ),
 				$count_skipped,
 				count( $users )
 			),
@@ -123,7 +123,7 @@ function invite_users() {
 			'users_invited',
 			sprintf(
 				/* translators: %1$s: count invited; %2$s: count users */
-				__( 'Invite sucessed for %1$s/%2$s users', 'onlyoffice-docspace-plugin' ),
+				__( 'Invitation successfully sent to %1$s/%2$s user(s)', 'onlyoffice-docspace-plugin' ),
 				$count_invited,
 				count( $users )
 			),

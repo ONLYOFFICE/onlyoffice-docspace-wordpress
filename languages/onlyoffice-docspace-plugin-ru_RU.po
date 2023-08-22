@@ -114,14 +114,14 @@ msgstr "Ошибка при создании пользователя %s в DocS
 msgid "Error getting users from ONLYOFFICE DocSpace"
 msgstr "Ошибка получения пользователей ONLYOFFICE DocSpace"
 
-msgid "Invite with error for %1$s/%2$s users"
-msgstr "Приглашение закончилось с ошибкой для %1$s/%2$s пользователей"
+msgid "Invitation failed for %1$s/%2$s user(s)"
+msgstr "Приглашение закончилось с ошибкой для %1$s/%2$s пользователя(ей)"
 
-msgid "Invite skipped for %1$s/%2$s users"
-msgstr "Пропущено приглашение для %1$s/%2$s пользователей"
+msgid "Invitation skipped for %1$s/%2$s user(s)"
+msgstr "Приглашение пропущено для %1$s/%2$s пользователя(ей)"
 
-msgid "Invite sucessed for %1$s/%2$s users"
-msgstr "Успешно приглашено %1$s/%2$s пользователей"
+msgid "Invitation successfully sent to %1$s/%2$s user(s)"
+msgstr "Приглашение успешно отправлено %1$s/%2$s пользователю(ям)"
 
 msgid "Problem with the account synchronization between WordPress and ONLYOFFICE DocSpace"
 msgstr "Проблема с синхронизацией аккаунтов между WordPress и ONLYOFFICE DocSpace"
