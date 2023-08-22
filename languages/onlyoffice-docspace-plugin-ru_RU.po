@@ -193,8 +193,8 @@ msgstr "Портал недоступен! Пожалуйста, свяжите�
 msgid "Go to the settings to configure ONLYOFFICE DocSpace connector."
 msgstr "Перейдите в настройки, чтобы настроить коннектор ONLYOFFICE DocSpace."
 
-msgid "Authorization unsuccessful"
-msgstr "Авторизация не удалась"
+msgid "Authorization unsuccessful!"
+msgstr "Авторизация не удалась!"
 
 msgid "Please contact the administrator."
 msgstr "Пожалуйста, свяжитесь с администратором."

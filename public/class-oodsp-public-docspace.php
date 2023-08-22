@@ -165,7 +165,7 @@ class OODSP_Public_DocSpace {
 			$error_message = __( 'Go to the settings to configure ONLYOFFICE DocSpace connector.', 'onlyoffice-docspace-plugin' );
 		}
 
-		$unauthorized_header = __( 'Authorization unsuccessful', 'onlyoffice-docspace-plugin' );
+		$unauthorized_header = __( 'Authorization unsuccessful!', 'onlyoffice-docspace-plugin' );
 		$unauthorized_message = __( 'Please contact the administrator.', 'onlyoffice-docspace-plugin' );
 
 		if ( current_user_can( 'manage_options' ) && $is_public ) {

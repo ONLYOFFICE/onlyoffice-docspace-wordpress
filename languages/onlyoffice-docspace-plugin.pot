@@ -193,7 +193,7 @@ msgstr ""
 msgid "Go to the settings to configure ONLYOFFICE DocSpace connector."
 msgstr ""
 
-msgid "Authorization unsuccessful"
+msgid "Authorization unsuccessful!"
 msgstr ""
 
 msgid "Please contact the administrator."
