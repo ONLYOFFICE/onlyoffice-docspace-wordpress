@@ -121,6 +121,7 @@ class OODSP_Public_DocSpace {
 			'width'   => '100%',
 			'height'  => '500px',
 			'mode'    => 'manager',
+			'editorGoBack' => 'false'
 		);
 
 		$atts = shortcode_atts( $defaults_atts, $attr, 'onlyoffice-docspace' );
