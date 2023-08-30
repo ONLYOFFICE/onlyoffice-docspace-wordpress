@@ -150,6 +150,42 @@ class OODSP_Users_List_Table extends WP_List_Table {
 		if ( ! $res_docspace_users['error'] ) {
 			$this->docspace_users           = $res_docspace_users['data'];
 			$this->is_connected_to_docspace = true;
+
+			foreach ( $this->items as $userid => $user_object ) {
+				$this->items[$userid]->docspace_status = -2;
+				$this->items[$userid]->docspace_role   = '';
+
+				for ( $t = 0; $t < count( $this->docspace_users ); $t++ ) {
+					if ( $this->docspace_users[$t][ 'email' ] ===  $user_object->user_email ) {
+						$this->items[$userid]->docspace_status = $this->docspace_users[$t][ 'activationStatus' ];
+						$this->items[$userid]->docspace_role   = $this->get_docspace_user_role_label( $this->docspace_users[$t] );
+
+						if ( 0 === $this->items[$userid]->docspace_status || 1 === $this->items[$userid]->docspace_status ) {
+							$oodsp_security_manager = new OODSP_Security_Manager();
+							$user_pass = $oodsp_security_manager->get_oodsp_user_pass( $user_object->ID );
+
+							if ( empty( $user_pass ) ) {
+								$this->items[$userid]->docspace_status = -1;
+							}
+						}
+					}
+				}
+			}
+
+			if ( ! empty( $orderby )  && 'in_docspace' === $orderby) {
+				usort($this->items, function($a, $b) use($order) {
+					if ($a->docspace_status === $b->docspace_status) {
+						return 0;
+					}
+					if ( empty( $order ) || 'asc' === $order ) {
+						return ($a->docspace_status > $b->docspace_status) ? -1 : 1;
+					} else {
+						return ($a->docspace_status < $b->docspace_status) ? -1 : 1;
+					}
+				});
+			}
+
+			$this->items;
 		} else {
 			$this->items = array();
 
@@ -364,17 +400,6 @@ class OODSP_Users_List_Table extends WP_List_Table {
 			}
 		}
 
-		$docspace_user_status     = -1;
-		$docspace_user_role_label = '';
-		$count_docspace_users     = count( $this->docspace_users );
-
-		for ( $i = 0; $i < $count_docspace_users; ++$i ) {
-			if ( $this->docspace_users[ $i ]['email'] === $email ) {
-				$docspace_user_status     = $this->docspace_users[ $i ]['activationStatus'];
-				$docspace_user_role_label = $this->get_docspace_user_role_label( $this->docspace_users[ $i ] );
-			}
-		}
-
 		// Check if the user for this row is editable.
 		if ( current_user_can( 'list_users' ) ) {
 			// Role classes.
@@ -451,24 +476,18 @@ class OODSP_Users_List_Table extends WP_List_Table {
 						$row .= esc_html( $roles_list );
 						break;
 					case 'in_docspace':
-						$oodsp_security_manager = new OODSP_Security_Manager();
-
-						$user_pass = $oodsp_security_manager->get_oodsp_user_pass( $user_object->ID );
-
-						if ( 0 === $docspace_user_status || 1 === $docspace_user_status ) {
-							if ( ! empty( $user_pass ) ) {
-								$row .= "<img src='" . esc_url( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/images/done.svg' ) . "'/>";
-							} else {
+						if ( 0 === $user_object->docspace_status || 1 === $user_object->docspace_status ) {
+							$row .= "<img src='" . esc_url( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/images/done.svg' ) . "'/>";
+						} elseif ( -1 === $user_object->docspace_status ){
 								$row .= '<div class="tooltip" style="cursor: pointer">';
 								$row .= '<div class="tooltip-text">' . $this->get_label_for_unauthorized() . '</div>';
 								$row .= "<img  src='" . esc_url( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/images/not_authorization.svg' ) . "'/>";
 								$row .= '</div>';
-							}
 						}
 
 						break;
 					case 'type_user_in_docspace':
-						$row .= esc_html( $docspace_user_role_label );
+						$row .= esc_html( $user_object->docspace_role );
 						break;
 					default:
 						/**
