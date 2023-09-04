@@ -208,7 +208,7 @@ const Edit = ({ attributes, setAttributes }) => {
                 </div>
             }
             { isOpen && (
-                <Modal onRequestClose={ closeModal } title={ modalConfig.title } style={{ minHeight: "576px" }}>
+                <Modal onRequestClose={ closeModal } title={ modalConfig.title } style={{ minHeight: "572px" }}>
                     <div id="oodsp-selector-frame"></div>
                 </Modal>
             ) }
