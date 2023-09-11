@@ -108,7 +108,7 @@ msgstr ""
 msgid "User %s successfully created in DocSpace with role Room Admin."
 msgstr ""
 
-msgid "Error create user %s in DocSpace!"
+msgid "Error create user %s in DocSpace! The limit of paid DocSpace users may have been reached."
 msgstr ""
 
 msgid "Error getting users from ONLYOFFICE DocSpace"
@@ -117,7 +117,7 @@ msgstr ""
 msgid "Invitation failed for %1$s/%2$s user(s)"
 msgstr ""
 
-msgid "Invitation skipped for %1$s/%2$s user(s)"
+msgid "Invitation skipped for %1$s/%2$s user(s). User(s) with the indicated email(s) may already exist in DocSpace."
 msgstr ""
 
 msgid "Invitation successfully sent to %1$s/%2$s user(s)"

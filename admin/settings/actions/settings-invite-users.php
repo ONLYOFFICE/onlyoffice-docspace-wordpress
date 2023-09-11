@@ -129,7 +129,7 @@ function invite_users() {
 			'users_invited',
 			sprintf(
 				/* translators: %1$s: count skiped; %2$s: count users */
-				__( 'Invitation skipped for %1$s/%2$s user(s)', 'onlyoffice-docspace-plugin' ),
+				__( 'Invitation skipped for %1$s/%2$s user(s). User(s) with the indicated email(s) may already exist in DocSpace.', 'onlyoffice-docspace-plugin' ),
 				$count_skipped,
 				count( $users )
 			),

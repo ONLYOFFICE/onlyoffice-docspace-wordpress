@@ -111,7 +111,7 @@ function update_settings() {
 						'settings_updated',
 						sprintf(
 							/* translators: %s: User email address. */
-							__( 'Error create user %s in DocSpace!', 'onlyoffice-docspace-plugin' ),
+							__( 'Error create user %s in DocSpace! The limit of paid DocSpace users may have been reached.', 'onlyoffice-docspace-plugin' ),
 							$user->user_email
 						),
 						'error'

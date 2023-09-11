@@ -108,8 +108,8 @@ msgstr "Пользователь %s уже существует в DocSpace!"
 msgid "User %s successfully created in DocSpace with role Room Admin."
 msgstr "Пользователь %s успешно создан в DocSpace с ролью Администратора Комнаты."
 
-msgid "Error create user %s in DocSpace!"
-msgstr "Ошибка при создании пользователя %s в DocSpace!"
+msgid "Error create user %s in DocSpace! The limit of paid DocSpace users may have been reached."
+msgstr "Ошибка при создании пользователя %s в DocSpace! Возможно, достигнут лимит платных пользователей DocSpace."
 
 msgid "Error getting users from ONLYOFFICE DocSpace"
 msgstr "Ошибка получения пользователей ONLYOFFICE DocSpace"
@@ -117,8 +117,8 @@ msgstr "Ошибка получения пользователей ONLYOFFICE Do
 msgid "Invitation failed for %1$s/%2$s user(s)"
 msgstr "Приглашение закончилось с ошибкой для %1$s/%2$s пользователя(ей)"
 
-msgid "Invitation skipped for %1$s/%2$s user(s)"
-msgstr "Приглашение пропущено для %1$s/%2$s пользователя(ей)"
+msgid "Invitation skipped for %1$s/%2$s user(s). User(s) with the indicated email(s) may already exist in DocSpace."
+msgstr "Приглашение пропущено для %1$s/%2$s пользователя(ей). Пользователь(и) с указанным адресом электронной почты могут уже существовать в DocSpace."
 
 msgid "Invitation successfully sent to %1$s/%2$s user(s)"
 msgstr "Приглашение успешно отправлено %1$s/%2$s пользователю(ям)"
