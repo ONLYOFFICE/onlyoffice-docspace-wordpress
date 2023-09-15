@@ -118,7 +118,7 @@ msgid "Invitation failed for %1$s/%2$s user(s)"
 msgstr "Falha no convite para %1$s/%2$s usuário(s)"
 
 msgid "Invitation skipped for %1$s/%2$s user(s). User(s) with the indicated email(s) may already exist in DocSpace."
-msgstr "Convite ignorado para %1$s/%2$s usuário(s). O(s) usuário(s) com o(s) e-mail(s) indicado(s) já podem existir no DocSpace."
+msgstr "Convite ignorado para %1$s/%2$s usuário(s). Usuário(s) com o(s) e-mail(s) indicado(s) podem já existir no DocSpace."
 
 msgid "Invitation successfully sent to %1$s/%2$s user(s)"
 msgstr "Convite enviado com sucesso para %1$s/%2$s usuário(s)"
