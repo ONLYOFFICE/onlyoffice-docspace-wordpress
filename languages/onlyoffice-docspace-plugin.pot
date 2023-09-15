@@ -214,6 +214,9 @@ msgstr ""
 msgid "Your account <b>%s</b> will be synced with your DocSpace. Please enter your DocSpace password in the field below:"
 msgstr ""
 
+msgid "Login"
+msgstr ""
+
 #: admin/js/login.js
 msgid "<strong>Error:</strong> User authentication failed."
 msgstr ""
@@ -221,3 +224,4 @@ msgstr ""
 #: admin/js/login.js
 msgid "<strong>Error:</strong> The password field is empty."
 msgstr ""
+
