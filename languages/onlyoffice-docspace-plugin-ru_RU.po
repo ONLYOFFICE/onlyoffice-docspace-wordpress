@@ -33,7 +33,7 @@ msgid "Save"
 msgstr "Сохранить"
 
 msgid "The current user will be added to DocSpace with the <b>Room admin</b> role. <b>WordPress Viewer</b> user will be added to DocSpace with View Only access."
-msgstr "Текущий пользователь будет добавлен в DocSpace с ролью <b>Администратор комнаты</b>. Пользователь <b>WordPress Viewer</b> будет добавлен в DocSpace с доступом только для просмотра.</b>."
+msgstr "Текущий пользователь будет добавлен в DocSpace с ролью <b>Администратор комнаты</b>. Пользователь <b>WordPress Viewer</b> будет добавлен в DocSpace с доступом только для просмотра."
 
 msgid "DocSpace Users"
 msgstr "Пользователи DocSpace"
