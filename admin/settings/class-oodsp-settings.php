@@ -344,13 +344,13 @@ class OODSP_Settings {
 					?>
 				</p>
 				<?php
-				global $usersearch;
-				if ( strlen( $usersearch ) ) {
+				global $s;
+				if ( strlen( $s ?? '' ) ) {
 					echo '<span class="subtitle">';
-					sprintf(
+					echo sprintf(
 						/* translators: %s: Search query. */
 						__( 'Search results for: %s' ),
-						'<strong>' . esc_html( $usersearch ) . '</strong>'
+						'<strong>' . esc_html( $s ) . '</strong>'
 					);
 					echo '</span>';
 				}
