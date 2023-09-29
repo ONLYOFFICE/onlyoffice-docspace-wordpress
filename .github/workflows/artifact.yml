@@ -1,0 +1,37 @@
+name: Artifact
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened, reopened]
+    branches: [master]
+
+jobs:
+  artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Build Artifact
+        run: |
+          composer install --no-dev
+          cd ${{ github.workspace }}/onlyoffice-docspace-wordpress-block
+          npm install
+          npm run build
+          rm -rf node_modules
+          cd ${{ github.workspace }}
+          mkdir -p ./deploy/onlyoffice-docspace
+          rsync -av --exclude='deploy' ./ ./deploy/onlyoffice-docspace
+          cd ./deploy/onlyoffice-docspace
+          rm -rf ./.github/
+          rm -rf ./.git/
+          rm ./.gitignore
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: onlyoffice-docspace
+          path: deploy
