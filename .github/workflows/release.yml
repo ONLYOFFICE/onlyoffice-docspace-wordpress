@@ -34,18 +34,18 @@ jobs:
           npm run build
           rm -rf node_modules
           cd ${{ github.workspace }}
-          mkdir -p ./onlyoffice-docspace
-          rsync -av --exclude='onlyoffice-docspace' ./ ./onlyoffice-docspace
-          cd ./onlyoffice-docspace
+          mkdir -p ./onlyoffice-docspace-wordpress
+          rsync -av --exclude='onlyoffice-docspace-wordpress' ./ ./onlyoffice-docspace-wordpress
+          cd ./onlyoffice-docspace-wordpress
           rm -rf .github/
           rm -rf .git/
           rm .gitignore
       - name: Build Artifact
-        run: zip -r onlyoffice-docspace.zip onlyoffice-docspace/
+        run: zip -r onlyoffice-docspace-wordpress.zip onlyoffice-docspace-wordpress/
       - name: Create Release
         uses: ncipollo/release-action@v1
         id: create_release
         with:
           bodyFile: RELEASE.md
-          artifacts: "onlyoffice-docspace.zip"
+          artifacts: "onlyoffice-docspace-wordpress.zip"
           tag: v${{ steps.info.outputs.version }}
