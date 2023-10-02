@@ -44,7 +44,7 @@ function invite_users() {
 
 	if ( is_array( $_REQUEST['users'] ) ) {
 		$users = array_map(
-			function( string $user ) {
+			function ( string $user ) {
 				$user = explode( '$$', $user, 2 );
 				return array(
 					'id'   => $user[0],
@@ -72,7 +72,7 @@ function invite_users() {
 	}
 
 	$docspace_users = array_map(
-		function( $docspace_user ) {
+		function ( $docspace_user ) {
 			return $docspace_user['email'];
 		},
 		$res_docspace_users['data']
@@ -89,7 +89,7 @@ function invite_users() {
 		$user = get_user_to_edit( $user_id );
 
 		if ( in_array( $user->user_email, $docspace_users, true ) ) {
-			$count_skipped++;
+			++$count_skipped;
 		} else {
 			$res_invite_user = $oodsp_request_manager->request_invite_user(
 				$user->user_email,
@@ -100,13 +100,13 @@ function invite_users() {
 			);
 
 			if ( $res_invite_user['error'] ) {
-				$count_error++;
+				++$count_error;
 			} else {
 				$oodsp_security_manager = new OODSP_Security_Manager();
 
 				$oodsp_security_manager->set_oodsp_user_pass( $user_id, $user_hash );
 
-				$count_invited++;
+				++$count_invited;
 			}
 		}
 	}

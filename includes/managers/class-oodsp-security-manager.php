@@ -91,5 +91,4 @@ class OODSP_Security_Manager {
 
 		return null;
 	}
-
 }

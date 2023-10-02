@@ -114,14 +114,14 @@ class OODSP_Public_DocSpace {
 	 */
 	public function wp_onlyoffice_docspace_shortcode( $attr ) {
 		static $instance = 0;
-		$instance++;
+		++$instance;
 
 		$defaults_atts = array(
-			'frameId' => 'onlyoffice-docspace-block-' . $instance,
-			'width'   => '100%',
-			'height'  => '500px',
-			'mode'    => 'manager',
-			'editorGoBack' => false
+			'frameId'      => 'onlyoffice-docspace-block-' . $instance,
+			'width'        => '100%',
+			'height'       => '500px',
+			'mode'         => 'manager',
+			'editorGoBack' => false,
 		);
 
 		$atts = shortcode_atts( $defaults_atts, $attr, 'onlyoffice-docspace' );
@@ -166,11 +166,11 @@ class OODSP_Public_DocSpace {
 			$error_message = __( 'Go to the settings to configure ONLYOFFICE DocSpace connector.', 'onlyoffice-docspace-plugin' );
 		}
 
-		$unauthorized_header = __( 'Authorization unsuccessful!', 'onlyoffice-docspace-plugin' );
+		$unauthorized_header  = __( 'Authorization unsuccessful!', 'onlyoffice-docspace-plugin' );
 		$unauthorized_message = __( 'Please contact the administrator.', 'onlyoffice-docspace-plugin' );
 
 		if ( current_user_can( 'manage_options' ) && $is_public ) {
-			$unauthorized_header = __( 'Reset WordPress Viewer to continue', 'onlyoffice-docspace-plugin' );
+			$unauthorized_header  = __( 'Reset WordPress Viewer to continue', 'onlyoffice-docspace-plugin' );
 			$unauthorized_message = __( 'You may experience issues with access to your content because WordPress Viewer data has been lost. Please proceed to the DocSpace plugin settings and click the Save button. WordPress Viewer will be added again to DocSpace.', 'onlyoffice-docspace-plugin' );
 		} elseif ( ! $is_public ) {
 			$unauthorized_message = __( 'Please proceed to the DocSpace plugin via the left side menu and enter your password to restore access.', 'onlyoffice-docspace-plugin' );
@@ -189,7 +189,7 @@ class OODSP_Public_DocSpace {
 					'onlyoffice'  => plugins_url( 'public/images/onlyoffice.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
 					'unavailable' => plugins_url( 'public/images/unavailable.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
 				),
-				'messages'	  => array(
+				'messages'    => array(
 					'error'                => $error_message,
 					'unauthorized_header'  => $unauthorized_header,
 					'unauthorized_message' => $unauthorized_message,
@@ -218,5 +218,4 @@ class OODSP_Public_DocSpace {
 
 		return apply_filters( 'wp_onlyoffice_docspace_shortcode', $output, $atts );
 	}
-
 }

@@ -103,16 +103,16 @@ class OODSP_Plugin {
 	 * @access   private
 	 */
 	private function load_dependencies() {
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/settings/class-oodsp-settings.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-oodsp-docspace.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-oodsp-ajax.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-oodsp-hook.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/managers/class-oodsp-request-manager.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/managers/class-oodsp-security-manager.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/users/class-oodsp-users-list-table.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-i18n.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oodsp-loader.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-oodsp-public-docspace.php';
+		require_once plugin_dir_path( __DIR__ ) . 'admin/settings/class-oodsp-settings.php';
+		require_once plugin_dir_path( __DIR__ ) . 'admin/class-oodsp-docspace.php';
+		require_once plugin_dir_path( __DIR__ ) . 'admin/class-oodsp-ajax.php';
+		require_once plugin_dir_path( __DIR__ ) . 'admin/class-oodsp-hook.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/managers/class-oodsp-request-manager.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/managers/class-oodsp-security-manager.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/users/class-oodsp-users-list-table.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-oodsp-i18n.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-oodsp-loader.php';
+		require_once plugin_dir_path( __DIR__ ) . 'public/class-oodsp-public-docspace.php';
 
 		$this->loader = new OODSP_Loader();
 	}
@@ -152,7 +152,7 @@ class OODSP_Plugin {
 
 		add_filter(
 			'set-screen-option',
-			function( $status, $option, $value ) {
+			function ( $status, $option, $value ) {
 				return ( 'docspace_page_onlyoffice_docspace_settings_per_page' === $option ) ? (int) $value : $status;
 			},
 			10,

@@ -40,11 +40,36 @@
 class OODSP_DocSpace {
 	/**
 	 * LOCALES for DocSpace
-	 *
 	 */
-	const LOCALES = array( "az", "bg", "cs", "de", "el-GR", "en-GB", "en-US", "es", "fi", "fr",
-		"hy-AM", "it", "ja-JP", "ko-KR", "lo-LA", "lv", "nl", "pl", "pt", "pt-BR", "ro", "ru",
-		"sk", "sl", "tr", "uk-UA", "vi", "zh-CN"
+	const LOCALES = array(
+		'az',
+		'bg',
+		'cs',
+		'de',
+		'el-GR',
+		'en-GB',
+		'en-US',
+		'es',
+		'fi',
+		'fr',
+		'hy-AM',
+		'it',
+		'ja-JP',
+		'ko-KR',
+		'lo-LA',
+		'lv',
+		'nl',
+		'pl',
+		'pt',
+		'pt-BR',
+		'ro',
+		'ru',
+		'sk',
+		'sl',
+		'tr',
+		'uk-UA',
+		'vi',
+		'zh-CN',
 	);
 
 	/**
@@ -269,12 +294,12 @@ class OODSP_DocSpace {
 	public function get_locale_for_docspace() {
 		$locale = str_replace( '_', '-', get_user_locale() );
 
-		if ( in_array( $locale, self::LOCALES )) {
+		if ( in_array( $locale, self::LOCALES, true ) ) {
 			return $locale;
 		} else {
 			$locale = explode( '-', $locale )[0];
 			foreach ( self::LOCALES as $value ) {
-				if ( str_starts_with( $value, $locale) ) {
+				if ( str_starts_with( $value, $locale ) ) {
 					return $value;
 				}
 			}

@@ -6,7 +6,7 @@
 
 window.wp = window.wp || {};
 
-( function( $, wp ) {
+( function ( $, wp ) {
 	wp.oodsp = wp.oodsp || {};
 
 	var __ = wp.i18n.__;
@@ -25,7 +25,7 @@ window.wp = window.wp || {};
 		);
 
 		$( '#oodsp-login-form' ).submit(
-			function( event ) {
+			function ( event ) {
 				event.preventDefault();
 				$( '#login_error' ).html();
 

@@ -98,5 +98,4 @@ class OODSP_Ajax {
 	public function no_priv_oodsp_credentials() {
 		wp_die( esc_attr( $this->public_docspace::OODSP_PUBLIC_USER_PASS ) );
 	}
-
 }

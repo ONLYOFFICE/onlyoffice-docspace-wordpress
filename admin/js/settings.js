@@ -4,7 +4,7 @@
  * @package Onlyoffice_Docspace_Wordpress
  */
 
-(function( $ ) {
+(function ( $ ) {
 	const validateSettings = function () {
 		const controls = [
 			$( '#docspace_url' ),
@@ -45,19 +45,19 @@
 		return $notice;
 	};
 
-	const clearNotices = function() {
+	const clearNotices = function () {
 		$( '.notice', $( '#wpbody-content' ) ).remove();
 	};
 
-	const showLoader = function() {
+	const showLoader = function () {
 		$( '#onlyoffice-docspace-settings-loader' ).show();
 	};
 
-	const hideLoader = function() {
+	const hideLoader = function () {
 		$( '#onlyoffice-docspace-settings-loader' ).hide();
 	};
 
-	const generatePass = function() {
+	const generatePass = function () {
 		var chars          = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
 		var passwordLength = 24;
 		var password       = "";
@@ -89,12 +89,12 @@
 				const pass = $( '#user_pass' ).val().trim();
 				DocSpaceComponent.initScript( $( '#docspace_url' ).val().trim() )
 					.then(
-						async function() {
+						async function () {
 							DocSpace.SDK.initSystem(
 								{
 									frameId: "oodsp-system-frame",
 									events: {
-										"onAppReady": async function() {
+										"onAppReady": async function () {
 											const hashSettings = await DocSpace.SDK.frames['oodsp-system-frame'].getHashSettings();
 											const hash         = await DocSpace.SDK.frames['oodsp-system-frame'].createHash( pass.trim(), hashSettings );
 											settingsForm.append(
@@ -122,7 +122,7 @@
 							);
 						}
 					).catch(
-						function() {
+						function () {
 							hideLoader();
 							addNotice( wp.i18n.__( 'ONLYOFFICE DocSpace cannot be reached.', 'onlyoffice-docspace-plugin' ), 'error' );
 						}
@@ -166,7 +166,7 @@
 	$( '#wpbody-content' ).on(
 		'click',
 		'.notice-dismiss',
-		function( e ) {
+		function ( e ) {
 			e.preventDefault();
 			var $el = $( this ).parent();
 			$el.removeAttr( 'role' );
@@ -191,7 +191,7 @@
 	if ( 'true' === searchParams.get( 'users' ) ) {
 		DocSpaceComponent.initScript()
 			.then(
-				function(e) {
+				function (e) {
 					DocSpace.SDK.initSystem(
 						{
 							frameId: 'oodsp-system-frame'

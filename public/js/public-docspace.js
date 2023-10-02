@@ -7,7 +7,7 @@
 (function () {
 	document.addEventListener(
 		'DOMContentLoaded',
-		function() {
+		function () {
 			var frames       = document.getElementsByClassName( "onlyoffice-docspace-block" );
 			var oodspConfigs = [];
 
@@ -16,24 +16,24 @@
 			}
 
 			DocSpaceComponent.initScript().then(
-				function() {
+				function () {
 					for ( var config of oodspConfigs ) {
 						DocSpaceComponent.initPublicDocSpace(
 							config.frameId,
 							config.width || null,
 							config.height || null,
-							function() {
+							function () {
 								config.locale = DocSpaceComponent.locale;
 								DocSpace.SDK.initFrame( config );
 							},
-							function() {
+							function () {
 								DocSpaceComponent.renderError( config.frameId );
 							}
 						);
 					}
 				}
 			).catch(
-				function() {
+				function () {
 					for ( var config of oodspConfigs ) {
 						DocSpaceComponent.renderError( config.frameId );
 					}

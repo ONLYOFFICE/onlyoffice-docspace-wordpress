@@ -31,8 +31,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-require_once plugin_dir_path( dirname( __FILE__ ) ) . 'settings/actions/settings-update.php';
-require_once plugin_dir_path( dirname( __FILE__ ) ) . 'settings/actions/settings-invite-users.php';
+require_once plugin_dir_path( __DIR__ ) . 'settings/actions/settings-update.php';
+require_once plugin_dir_path( __DIR__ ) . 'settings/actions/settings-invite-users.php';
 
 /**
  * Plugin settings for ONLYOFFICE DocSpace Plugin.
@@ -165,15 +165,15 @@ class OODSP_Settings {
 	 * Return ONLYOFFICE DocSpace Setting
 	 *
 	 * @param string $key Setting key.
-	 * @param string $default Default value.
+	 * @param string $def Default value.
 	 */
-	public function get_onlyoffice_docspace_setting( $key, $default = '' ) {
+	public function get_onlyoffice_docspace_setting( $key, $def = '' ) {
 		$options = get_option( 'onlyoffice_docspace_settings' );
 		if ( ! empty( $options ) && array_key_exists( $key, $options ) ) {
 			return $options[ $key ];
 		}
 
-		return $default;
+		return $def;
 	}
 
 	/**
@@ -347,9 +347,11 @@ class OODSP_Settings {
 				global $s;
 				if ( strlen( $s ?? '' ) ) {
 					echo '<span class="subtitle">';
-					echo sprintf(
-						/* translators: %s: Search query. */
-						__( 'Search results for: %s' ),
+					printf(
+						wp_kses(
+							/* translators: %s: Search query. */
+							__( 'Search results for: %s' ),
+						),
 						'<strong>' . esc_html( $s ) . '</strong>'
 					);
 					echo '</span>';
