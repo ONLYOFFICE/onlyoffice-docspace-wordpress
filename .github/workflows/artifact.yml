@@ -18,7 +18,6 @@ jobs:
           node-version: 16
       - name: Build Artifact
         run: |
-          composer install --no-dev
           cd ${{ github.workspace }}/onlyoffice-docspace-wordpress-block
           npm install
           npm run build
