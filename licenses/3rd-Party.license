@@ -1,0 +1,25 @@
+ONLYOFFICE DocSpace WordPress plugin uses code from the following 3rd party projects.
+
+WordPress/block-editor - This module allows you to create and use standalone block editors. (https://github.com/WordPress/gutenberg/blob/trunk/LICENSE.md)
+License:        GPL-2.0-or-later
+License File:   wordpress-block-editor.license
+
+WordPress/components - This package includes a library of generic WordPress components to be used for creating common UI elements shared between screens and features of the WordPress dashboard. (https://github.com/WordPress/gutenberg/blob/trunk/LICENSE.md)
+License:        GPL-2.0-or-later
+License File:   wordpress-components.license
+
+WordPress/blocks - "Block" is the abstract term used to describe units of markup that, composed together, form the content or layout of a webpage. (https://github.com/WordPress/gutenberg/blob/trunk/LICENSE.md)
+License:        GPL-2.0-or-later
+License File:   wordpress-blocks.license
+
+WordPress/element - Element is, quite simply, an abstraction layer atop React. (https://github.com/WordPress/gutenberg/blob/trunk/LICENSE.md)
+License:        GPL-2.0-or-later
+License File:   wordpress-element.license
+
+WordPress/i18n  - WordPress internationalization (i18n) library. (https://github.com/WordPress/gutenberg/blob/trunk/LICENSE.md)
+License:        GPL-2.0-or-later
+License File:   wordpress-i18n.license
+
+WordPress/scripts - This is a collection of reusable scripts tailored for WordPress development. (https://github.com/WordPress/gutenberg/blob/trunk/LICENSE.md)
+License:        GPL-2.0-or-later
+License File:   wordpress-scripts.license

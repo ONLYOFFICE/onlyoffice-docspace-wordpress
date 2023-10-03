@@ -1,0 +1,64 @@
+#onlyoffice-docspace-settings .form-field input {
+	width: 25em;
+}
+
+.wp-pwd-input {
+	display: inline-block;
+}
+
+#onlyoffice-docspace-settings .form-table .form-required.form-invalid .wp-pwd-input:after {
+	content: "\f534";
+	font: normal 20px/1 dashicons;
+	color: #d63638;
+	margin-left: -25px;
+	vertical-align: middle;
+}
+
+#onlyoffice-docspace-settings .form-table .form-required.form-pwd.form-invalid td:after {
+	display: none !important;
+}
+
+#onlyoffice-docspace-settings .wp-pwd {
+	margin: 0;
+}
+
+.tooltip-text {
+	display: none;
+	position: absolute;
+	z-index: 1;
+	width: 300px;
+	background: #ffffff;
+	border-radius: 10px;
+	padding: 10px 15px 10px 15px;
+	margin-left: 25px;
+}
+
+.tooltip:hover .tooltip-text {
+	display: block;
+}
+
+.go-back-in-header {
+	display: inline-block;
+	margin: 0px;
+	position: absolute;
+	margin-left: 10px;
+}
+
+.go-back-in-header p {
+	margin: 0px;
+}
+
+.subtitle {
+	display: block;
+}
+
+.oodsp-settings-notice {
+	max-width: 542px;
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-left-color: #72aee6 !important;
+	border-left-width: 4px;
+	box-shadow: 0 1px 1px rgba(0,0,0,.04);
+	padding: 1px 12px;
+	margin: 5px 0 15px;
+}

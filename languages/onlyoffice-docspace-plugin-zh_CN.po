@@ -1,0 +1,227 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.3.2\n"
+
+msgid "ONLYOFFICE DocSpace Settings"
+msgstr "ONLYOFFICE 协作空间设置"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Settings"
+msgstr "设置"
+
+msgid "DocSpace Service Address"
+msgstr "协作空间服务地址"
+
+msgid "Login"
+msgstr "登录"
+
+msgid "Password"
+msgstr "密码"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "The current user will be added to DocSpace with the <b>Room admin</b> role. <b>WordPress Viewer</b> user will be added to DocSpace with View Only access."
+msgstr "当前用户将以<b>房间管理员</b>角色添加至协作空间中。<b>WordPress 查看者</b>用户在被添加至协作空间时将拥有“仅查看”访问权限。"
+
+msgid "DocSpace Users"
+msgstr "协作空间用户"
+
+msgid "To add new users to ONLYOFFICE DocSpace and to start working in plugin, please press"
+msgstr "如需在 ONLYOFFICE 协作空间中添加新用户并使用插件，请点击"
+
+msgid "Export Now"
+msgstr "立即导出"
+
+msgid "To add new users to ONLYOFFICE DocSpace select multiple users and press <b>Invite to DocSpace</b>. All new users will be added with <b>User</b> role, if you want to change the role go to Accounts. Role <b>Room admin</b> is paid!"
+msgstr "如需在 ONLYOFFICE 协作空间中添加新用户，请选择多名用户并点击<b>邀请加入协作空间</b>。所有新用户都将以<b>普通用户</b>角色添加。如果您想更改角色，请前往“账户（Accounts）”。已提供<b>房间管理员</b>角色！"
+
+msgid "DocSpace User Status"
+msgstr "协作空间用户状态"
+
+msgid "DocSpace User Type"
+msgstr "协作空间用户类型"
+
+msgid "Owner"
+msgstr "所有者"
+
+msgid "DocSpace admin"
+msgstr "协作空间管理员"
+
+msgid "Power user"
+msgstr "高级用户"
+
+msgid "User"
+msgstr "普通用户"
+
+msgid "Room admin"
+msgstr "房间管理员"
+
+msgid "Invite to DocSpace"
+msgstr "邀请加入协作空间"
+
+msgid "Back to main settings"
+msgstr "返回主设置"
+
+#: admin/js/settings.js
+msgid "ONLYOFFICE DocSpace cannot be reached."
+msgstr "无法访问 ONLYOFFICE 协作空间。"
+
+msgid "Settings saved"
+msgstr "设置已保存"
+
+msgid "Invalid credentials. Please try again!"
+msgstr "无效凭据。请重试！"
+
+msgid "Error getting data user. Please try again!"
+msgstr "获取用户数据时出错。请重试！"
+
+msgid "The specified user is not a DocSpace administrator!"
+msgstr "指定的用户不是协作空间管理员！"
+
+msgid "Public DocSpace user was not created! View content will not be available on public pages."
+msgstr "公开协作空间用户已创建！公开页面上查看内容不可用。"
+
+msgid "Public DocSpace user already created, but failed to update authorization."
+msgstr "公开协作空间用户已创建但未更新授权。"
+
+msgid "Public DocSpace user was not created. View content will not be available on public pages."
+msgstr "公开协作空间用户已创建。公开页面上查看内容不可用。"
+
+msgid "Public DocSpace user successfully created."
+msgstr "公开协作空间用户已成功创建。"
+
+msgid "User %s already exists in DocSpace!"
+msgstr "用户 %s 已存在于协作空间中！"
+
+msgid "User %s successfully created in DocSpace with role Room Admin."
+msgstr "用户 %s 已在协作空间成功创建，角色为房间管理员。"
+
+msgid "Error create user %s in DocSpace! The limit of paid DocSpace users may have been reached."
+msgstr "在协作空间中创建用户 %s 时失败！协作空间的付费用户数可能已达到上限。"
+
+msgid "Error getting users from ONLYOFFICE DocSpace"
+msgstr "从 ONLYOFFICE 协作空间中获取用户时失败"
+
+msgid "Invitation failed for %1$s/%2$s user(s)"
+msgstr "%1$s/%2$s 名用户邀请失败"
+
+msgid "Invitation skipped for %1$s/%2$s user(s). User(s) with the indicated email(s) may already exist in DocSpace."
+msgstr "%1$s/%2$s 名用户邀请跳过。 拥有该邮件的用户可能已存在于协作空间中。"
+
+msgid "Invitation successfully sent to %1$s/%2$s user(s)"
+msgstr "邀请已成功发送给 %1$s/%2$s 名用户"
+
+msgid "Problem with the account synchronization between WordPress and ONLYOFFICE DocSpace"
+msgstr "WordPress 与 ONLYOFFICE 协作空间账户同步存在问题"
+
+msgid "Possible cause:"
+msgstr "可能原因："
+
+msgid "DocSpace account was not created via the DocSpace plugin for WordPress"
+msgstr "协作空间账户未通过 WordPress 协作空间插件创建"
+
+msgid "Seamless login is unavailable. Users will need to login into DocSpace to have access to the plugin."
+msgstr "无缝登录功能不可用。用户需要登录协作空间才能访问插件。"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Width"
+msgstr "宽度"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Height"
+msgstr "高度"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Left menu"
+msgstr "左侧菜单"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Navigation and Title"
+msgstr "导航和标题"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Action button"
+msgstr "操作按钮"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Search, Filter and Sort"
+msgstr "搜索、筛选和排序"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Header"
+msgstr "页首"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Replace"
+msgstr "替换"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Select room"
+msgstr "选择房间"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Select file"
+msgstr "选择文件"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Room"
+msgstr "房间"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "File"
+msgstr "文件"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Pick room or media file from your DocSpace"
+msgstr "在协作空间中选择房间或媒体文件"
+
+msgid "Portal unavailable! Please contact the administrator!"
+msgstr "门户不可用！请联系管理员！"
+
+msgid "Go to the settings to configure ONLYOFFICE DocSpace connector."
+msgstr "前往设置以配置 ONLYOFFICE 协作空间连接器。"
+
+msgid "Authorization unsuccessful!"
+msgstr "授权不成功！"
+
+msgid "Please contact the administrator."
+msgstr "请联系管理员。"
+
+msgid "Reset WordPress Viewer to continue"
+msgstr "重置 WordPress 查看者以继续"
+
+msgid "You may experience issues with access to your content because WordPress Viewer data has been lost. Please proceed to the DocSpace plugin settings and click the Save button. WordPress Viewer will be added again to DocSpace."
+msgstr "由于 WordPress 查看者数据丢失，您可能会遇到内容访问权限问题。请前往协作空间插件设置并点击保存按钮。WordPress 查看者将被再次添加至协作空间。"
+
+msgid "Please proceed to the DocSpace plugin via the left side menu and enter your password to restore access."
+msgstr "请通过左侧菜单前往协作空间插件并输入您的密码以恢复访问权限。"
+
+msgid "WordPress requests access to your ONLYOFFICE DocSpace"
+msgstr "WordPress 请求访问您的 ONLYOFFICE 协作空间"
+
+msgid "Your account <b>%s</b> will be synced with your DocSpace. Please enter your DocSpace password in the field below:"
+msgstr "您的账户 <b>%s</b> 将与协作空间进行同步。请在下方的字段中输入协作空间密码："
+
+msgid "Login"
+msgstr "登录"
+
+#: admin/js/login.js
+msgid "<strong>Error:</strong> User authentication failed."
+msgstr "<strong>错误：</strong>用户身份认证失败。"
+
+#: admin/js/login.js
+msgid "<strong>Error:</strong> The password field is empty."
+msgstr "<strong>错误：</strong>密码字段为空。"
+

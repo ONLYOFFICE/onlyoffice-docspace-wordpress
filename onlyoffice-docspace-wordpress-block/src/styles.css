@@ -1,0 +1,9 @@
+.components-modal__content {
+    padding: 0 !important;
+}
+
+.docspace-icon {
+    border-radius: 12px;
+    height: 64px;
+    width: 64px;
+}

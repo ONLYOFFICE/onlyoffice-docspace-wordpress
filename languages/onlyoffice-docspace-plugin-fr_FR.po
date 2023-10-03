@@ -1,0 +1,227 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.3.2\n"
+
+msgid "ONLYOFFICE DocSpace Settings"
+msgstr "Paramètres d'ONLYOFFICE DocSpace"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Settings"
+msgstr "Paramètres"
+
+msgid "DocSpace Service Address"
+msgstr "Adresse du service DocSpace"
+
+msgid "Login"
+msgstr "Nom d'utilisateur"
+
+msgid "Password"
+msgstr "Mot de passe"
+
+msgid "Save"
+msgstr "Enregistrer"
+
+msgid "The current user will be added to DocSpace with the <b>Room admin</b> role. <b>WordPress Viewer</b> user will be added to DocSpace with View Only access."
+msgstr "L'utilisateur actuel sera ajouté à DocSpace avec le rôle <b>Administrateur de salle</b>. L'utilisateur de <b>WordPress Viewer</b> sera ajouté à DocSpace avec un accès en lecture seule."
+
+msgid "DocSpace Users"
+msgstr "Utilisateurs de DocSpace"
+
+msgid "To add new users to ONLYOFFICE DocSpace and to start working in plugin, please press"
+msgstr "Pour ajouter de nouveaux utilisateurs à ONLYOFFICE DocSpace et commencer à travailler dans le plugin, veuillez cliquer sur"
+
+msgid "Export Now"
+msgstr "Exporter maintenant"
+
+msgid "To add new users to ONLYOFFICE DocSpace select multiple users and press <b>Invite to DocSpace</b>. All new users will be added with <b>User</b> role, if you want to change the role go to Accounts. Role <b>Room admin</b> is paid!"
+msgstr "Pour ajouter de nouveaux utilisateurs à ONLYOFFICE DocSpace, sélectionnez plusieurs utilisateurs et cliquez sur </b>Inviter à DocSpace</b>. Tous les nouveaux utilisateurs seront ajoutés avec le rôle <b>Utilisateur<b>, si vous voulez changer le rôle, allez dans Comptes. Le rôle <b>Administrateur de salle</b> est payant !"
+
+msgid "DocSpace User Status"
+msgstr "Statut de l'utilisateur de DocSpace"
+
+msgid "DocSpace User Type"
+msgstr "Type d'utilisateur DocSpace"
+
+msgid "Owner"
+msgstr "Propriétaire"
+
+msgid "DocSpace admin"
+msgstr "Administrateur de DocSpace"
+
+msgid "Power user"
+msgstr "Utilisateur avancé"
+
+msgid "User"
+msgstr "Utilisateur"
+
+msgid "Room admin"
+msgstr "Administrateur de salle"
+
+msgid "Invite to DocSpace"
+msgstr "Inviter à DocSpace"
+
+msgid "Back to main settings"
+msgstr "Retour aux paramètres principaux"
+
+#: admin/js/settings.js
+msgid "ONLYOFFICE DocSpace cannot be reached."
+msgstr "Il est impossible de joindre ONLYOFFICE DocSpace."
+
+msgid "Settings saved"
+msgstr "Paramètres enregistrés"
+
+msgid "Invalid credentials. Please try again!"
+msgstr "Informations d'identification non valides. Veuillez réessayer !"
+
+msgid "Error getting data user. Please try again!"
+msgstr "Erreur dans l'obtention des données de l'utilisateur. Veuillez réessayer !"
+
+msgid "The specified user is not a DocSpace administrator!"
+msgstr "L'utilisateur spécifié n'est pas un administrateur DocSpace !"
+
+msgid "Public DocSpace user was not created! View content will not be available on public pages."
+msgstr "L'utilisateur public de DocSpace n'a pas été créé. La visualisation du contenu ne sera pas disponible sur les pages publiques."
+
+msgid "Public DocSpace user already created, but failed to update authorization."
+msgstr "L'utilisateur public de DocSpace a déjà été créé, mais la mise à jour de l'autorisation a échoué."
+
+msgid "Public DocSpace user was not created. View content will not be available on public pages."
+msgstr "L'utilisateur public de DocSpace n'a pas été créé. La visualisation du contenu ne sera pas disponible sur les pages publiques."
+
+msgid "Public DocSpace user successfully created."
+msgstr "Utilisateur DocSpace public créé avec succès."
+
+msgid "User %s already exists in DocSpace!"
+msgstr "L'utilisateur %s existe déjà dans DocSpace !"
+
+msgid "User %s successfully created in DocSpace with role Room Admin."
+msgstr "L'utilisateur %s a été créé avec succès dans DocSpace avec le rôle Administrateur de salle."
+
+msgid "Error create user %s in DocSpace! The limit of paid DocSpace users may have been reached."
+msgstr "Erreur de création de l'utilisateur %s dans DocSpace ! La limite du nombre d'utilisateurs payants de DocSpace aurait été atteinte."
+
+msgid "Error getting users from ONLYOFFICE DocSpace"
+msgstr "Erreur lors de la récupération des utilisateurs de ONLYOFFICE DocSpace"
+
+msgid "Invitation failed for %1$s/%2$s user(s)"
+msgstr "L'invitation a échoué pour les utilisateurs %1$s/%2$s"
+
+msgid "Invitation skipped for %1$s/%2$s user(s). User(s) with the indicated email(s) may already exist in DocSpace."
+msgstr "Invitation ignorée pour les utilisateurs %1$s/%2$s. Les utilisateurs ayant les adresses e-mail indiquées peuvent déjà exister dans DocSpace."
+
+msgid "Invitation successfully sent to %1$s/%2$s user(s)"
+msgstr "Invitation envoyée avec succès aux utilisateurs %1$s/%2$s"
+
+msgid "Problem with the account synchronization between WordPress and ONLYOFFICE DocSpace"
+msgstr "Problème avec la synchronisation des comptes entre WordPress et ONLYOFFICE DocSpace"
+
+msgid "Possible cause:"
+msgstr "Raison possible :"
+
+msgid "DocSpace account was not created via the DocSpace plugin for WordPress"
+msgstr "Le compte DocSpace n'a pas été créé via le plugin DocSpace pour WordPress"
+
+msgid "Seamless login is unavailable. Users will need to login into DocSpace to have access to the plugin."
+msgstr "La connexion transparente n'est pas disponible. Les utilisateurs devront se connecter à DocSpace pour accéder au plugin."
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Width"
+msgstr "Largeur"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Height"
+msgstr "Hauteur"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Left menu"
+msgstr "Menu gauche"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Navigation and Title"
+msgstr "Navigation et titre"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Action button"
+msgstr "Bouton Action"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Search, Filter and Sort"
+msgstr "Rechercher, filtrer et trier"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Header"
+msgstr "En-tête"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Replace"
+msgstr "Remplacer"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Select room"
+msgstr "Sélectionner salle"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Select file"
+msgstr "Sélectionner fichier"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Room"
+msgstr "Salle"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "File"
+msgstr "Fichier"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Pick room or media file from your DocSpace"
+msgstr "Choisissez une salle ou un fichier multimédia dans votre DocSpace"
+
+msgid "Portal unavailable! Please contact the administrator!"
+msgstr "Portail indisponible ! Veuillez contacter l'administrateur !"
+
+msgid "Go to the settings to configure ONLYOFFICE DocSpace connector."
+msgstr "Allez dans les paramètres pour configurer le connecteur ONLYOFFICE DocSpace."
+
+msgid "Authorization unsuccessful!"
+msgstr "L'autorisation a échoué !"
+
+msgid "Please contact the administrator."
+msgstr "Veuillez contacter l'administrateur."
+
+msgid "Reset WordPress Viewer to continue"
+msgstr "Réinitialisez le visualiseur WordPress pour continuer"
+
+msgid "You may experience issues with access to your content because WordPress Viewer data has been lost. Please proceed to the DocSpace plugin settings and click the Save button. WordPress Viewer will be added again to DocSpace."
+msgstr "Il est possible que vous rencontriez des problèmes d'accès à votre contenu parce que les données de WordPress Viewer ont été perdues. Veuillez vous rendre dans les réglages du plugin DocSpace et cliquer sur le bouton Enregistrer. WordPress Viewer sera à nouveau ajouté à DocSpace."
+
+msgid "Please proceed to the DocSpace plugin via the left side menu and enter your password to restore access."
+msgstr "Veuillez accéder au plugin DocSpace via le menu de gauche et saisir votre mot de passe pour rétablir l'accès."
+
+msgid "WordPress requests access to your ONLYOFFICE DocSpace"
+msgstr "WordPress demande l'accès à votre ONLYOFFICE DocSpace"
+
+msgid "Your account <b>%s</b> will be synced with your DocSpace. Please enter your DocSpace password in the field below:"
+msgstr "Votre compte <b>%s</b> sera synchronisé avec votre DocSpace. Veuillez saisir votre mot de passe DocSpace dans le champ ci-dessous :"
+
+msgid "Login"
+msgstr "Connexion"
+
+#: admin/js/login.js
+msgid "<strong>Error:</strong> User authentication failed."
+msgstr "<strong>Erreur :</strong> L'authentification de l'utilisateur a échoué."
+
+#: admin/js/login.js
+msgid "<strong>Error:</strong> The password field is empty."
+msgstr "<strong>Erreur :</strong> Le champ du mot de passe est vide."
+
