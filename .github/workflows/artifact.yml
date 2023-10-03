@@ -23,14 +23,14 @@ jobs:
           npm run build
           rm -rf node_modules
           cd ${{ github.workspace }}
-          mkdir -p ./deploy/onlyoffice-docspace-wordpress
-          rsync -av --exclude='deploy' ./ ./deploy/onlyoffice-docspace-wordpress
-          cd ./deploy/onlyoffice-docspace-wordpress
+          mkdir -p ./deploy/onlyoffice-docspace
+          rsync -av --exclude='deploy' ./ ./deploy/onlyoffice-docspace
+          cd ./deploy/onlyoffice-docspace
           rm -rf ./.github/
           rm -rf ./.git/
           rm ./.gitignore
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: onlyoffice-docspace-wordpress
+          name: onlyoffice-docspace
           path: deploy
