@@ -4,7 +4,7 @@
  *
  * @package           Onlyoffice_Docspace_Plugin
  *
- * Plugin Name:       ONLYOFFICE DocSpace WordPress plugin
+ * Plugin Name:       ONLYOFFICE DocSpace
  * Plugin URI:        https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress
  * Description:       Add ONLYOFFICE DocSpace on page
  * Version:           1.0.0
