@@ -8,54 +8,70 @@ Requires PHP: 8.0
 License: GPLv2
 License URI: https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress/blob/master/LICENSE
 
-ONLYOFFICE plugin allows users to edit and view office documents from WordPress using ONLYOFFICE Docs.
+ONLYOFFICE DocSpace plugin allows users to access ONLYOFFICE DocSpace from WordPress and add DocSpace rooms and files to the WordPress pages.
 
 == Description ==
 
-ONLYOFFICE integration plugin allows WordPress administrators to open documents, spreadsheets, and presentations for collaborative editing using ONLYOFFICE Docs (online document editors). In published posts, the editors are visible to all WordPress site visitors (both authorized and unauthorized) in the Embedded mode only.
+With ONLYOFFICE DocSpace plugin, you are able to use ONLYOFFICE DocSpace right within WordPress to create rooms, edit and collaborate on office docs, as well as you can add DocSpace rooms and files stored within these rooms to the WordPress pages when creating posts. 
 
-**Editing files uploaded to Wordpress**
+**Exporting users to DocSpace**
 
-All uploaded files from the Media section will appear on the ONLYOFFICE -> Files page. The editor opens in the same tab by clicking on the file name. Users with administrator rights are able to co-edit documents. All the changes are saved in the same file.
+To export users from your WordPress to ONLYOFFICE DocSpace, click the Export Now button on the plugin settings page. A page with the user list will open — it includes WordPress users with the upload_files permissions.
 
-**Creating a post**
+To add a user or several users to DocSpace, check them in the list, select Invite to DocSpace from the drop-down list and click the Apply button.
 
-When creating a post, you can add the ONLYOFFICE element (block) and then upload a new file or select one from the Media Library. The added file will be displayed as the ONLYOFFICE logo with the file name in the currently edited post. After the post is published (when you press the Publish or Update button), your WordPress site visitors will have access to this file for viewing in the Embedded mode.
+In the DocSpace User Status column of this list, you can track whether a WordPress user has been added to DocSpace or not:
+
+- Green checkmark: a WordPress user with the specified email has been added to DocSpace. Synchronization was successful.
+- Empty value: there is no WordPress user with the specified email in DocSpace. You can invite them.
+- Hourglass: there is a user in DocSpace with the specified email, but there was a synchronization issue. When logging into the DocSpace plugin for the first time, the user will need to provide a DocSpace login and password to complete synchronization.
+
+**Working with ONLYOFFICE DocSpace within WordPress**
+
+After setting up the integration plugin, DocSpace will appear for users with the upload_files permission. Such users are able to access ONLYOFFICE DocSpace where it's possible to create Collaboration and Custom rooms, invite users, and collaborate on documents within the rooms.
+
+**Adding a DocSpace room or file to the WordPress page**
+
+When creating a post, you can add the ONLYOFFICE DocSpace element (block) – room or file.
+
+To add a room, click the Select room button, select the desired room and press Select. In the block settings, you can specify the desired width and height to be displayed on the page.
+
+To add a file, click the Select file button, select the desired file from the room and press Save.
+
+Access rights to rooms and files on the published pages are determined depending on the publicity status of the WordPress page:
+
+- Public: the DocSpace room/file is available for viewing to all WordPress users. These users access content under a public user account (WordPress Viewer).
+- Private: the DocSpace room/file is available in accordance with the existing DocSpace access rights. Collaborative document editing is possible if users have the required rights.
 
 == Frequently Asked Questions ==
 
-= What should I know before using the plugin? =
-
-You need to have [ONLYOFFICE Document Server](https://github.com/ONLYOFFICE/DocumentServer) installed. You can install free Community version or scalable Enterprise Edition.
-
 = How to configure the plugin? =
 
-Go to WordPress administrative dashboard -> ONLYOFFICE -> Settings. Specify the URL of the installed ONLYOFFICE Document Server and the Secret key.
+Go to WordPress administrative dashboard -> ONLYOFFICE DocSpace -> Settings. Specify the DocSpace Service Address, Admin Login and Password. When you click on the Save button, a user with the Room admin role will be created in ONLYOFFICE DocSpace, with the same data as the current WordPress user. A public user (WordPress Viewer) will be also added to DocSpace with the View Only access.
 
-Please note: Starting from version 7.2 of ONLYOFFICE Docs, JWT is enabled by default and the secret key is generated automatically to restrict the access to ONLYOFFICE Docs and for security reasons and data integrity. Specify your own secret key in the WordPress administrative configuration. In the ONLYOFFICE Docs [config file](https://api.onlyoffice.com/editors/signature/), specify the same secret key and enable the validation.
+= What is ONLYOFFICE DocSpace? =
 
-= What collaborative features do the editors provide? =
-
-You can co-author documents using real-time or paragraph-locking co-eding modes, Track Changes, comments, and built-in chat.
+ONLYOFFICE DocSpace is a room-based collaborative environment. With ONLYOFFICE DocSpace, teams can create rooms with a clear structure entirely according to their needs and project goals and define from the start the required roles and rights that will apply to all the files stored within these rooms. DocSpace comes with the integrated online viewers and editors allowing you to work with files of multiple formats, including text docs, digital forms, sheets, presentations, PDFs.
 
 == Screenshots ==
 
-1. ONLYOFFICE plugin configuration settings within the WordPress administrative dashboard.
-2. ONLYOFFICE -> Files page within the WordPress administrative dashboard.
-3. ONLYOFFICE document editor opened from the WordPress admin dashboard.
-4. Adding ONLYOFFICE block when creating a post.
-5. Uploading a new file or selecting one from the Media Library to the ONLYOFFICE block.
-6. Added file displayed as the ONLYOFFICE logo with the file name in the currently edited post.
-7. ONLYOFFICE file available for viewing in the Embedded mode to the WordPress site visitors.
+1. ONLYOFFICE DocSpace configuration settings within the WordPress administrative dashboard.
+2. ONLYOFFICE DocSpace launched within WordPress.
+3. Creating a collaboration room in ONLYOFFICE DocSpace.
+4. Creating a custom room in ONLYOFFICE DocSpace.
+5. Inviting users to the ONLYOFFICE DocSpace room.
+6. Adding ONLYOFFICE DocSpace block to the WordPress site.
+7. Adjusting settings of the added ONLYOFFICE DocSpace room block.
+8. ONLYOFFICE DocSpace room file added to the WordPress site. 
 
 == Changelog ==
 
 = 1.0 =
 * connection settings page
 * user synchronization
-* opening docspace in wordpress
+* opening DocSpace in WordPress
 * inserting a file when creating a page
-* inserting a room when creatinf a page
+* inserting a room when creating a page
 
 == Upgrade Notice ==
 
