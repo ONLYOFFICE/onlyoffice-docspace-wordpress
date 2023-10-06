@@ -55,14 +55,11 @@ ONLYOFFICE DocSpace is a room-based collaborative environment. With ONLYOFFICE D
 
 == Screenshots ==
 
-1. ONLYOFFICE DocSpace configuration settings within the WordPress administrative dashboard.
-2. ONLYOFFICE DocSpace launched within WordPress.
-3. Creating a collaboration room in ONLYOFFICE DocSpace.
-4. Creating a custom room in ONLYOFFICE DocSpace.
-5. Inviting users to the ONLYOFFICE DocSpace room.
-6. Adding ONLYOFFICE DocSpace block to the WordPress site.
-7. Adjusting settings of the added ONLYOFFICE DocSpace room block.
-8. ONLYOFFICE DocSpace room file added to the WordPress site. 
+1. Adjust ONLYOFFICE DocSpace configuration settings within the WordPress administrative dashboard
+2. Create collaboration and custom rooms in ONLYOFFICE DocSpace
+3. Add ONLYOFFICE DocSpace rooms to the WordPress site
+4. Add ONLYOFFICE DocSpace files to the WordPress site
+5. Access ONLYOFFICE DocSpace within WordPress
 
 == Changelog ==
 
