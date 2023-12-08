@@ -103,13 +103,13 @@ msgid "Public DocSpace user successfully created."
 msgstr "Öffentlicher DocSpace-Benutzer erfolgreich erstellt."
 
 msgid "User %s already exists in DocSpace!"
-msgstr "Es gibt bereits Benutzer in DocSpace!"
+msgstr "Benutzer %s existiert bereits in DocSpace!"
 
 msgid "User %s successfully created in DocSpace with role Room Admin."
-msgstr "Benutzer erfolgreich in DocSpace mit der Rolle Raumadministrator erstellt."
+msgstr "Benutzer %s wurde erfolgreich in DocSpace mit der Rolle Raumadministrator erstellt."
 
 msgid "Error create user %s in DocSpace! The limit of paid DocSpace users may have been reached."
-msgstr "Fehler beim Erstellen von Benutzer %n in DocSpace! Das Limit der bezahlten DocSpace-Benutzer wurde möglicherweise erreicht."
+msgstr "Fehler beim Erstellen von Benutzer %s in DocSpace! Das Limit der bezahlten DocSpace-Benutzer wurde möglicherweise erreicht."
 
 msgid "Error getting users from ONLYOFFICE DocSpace"
 msgstr "Fehler beim Abrufen von Benutzern aus ONLYOFFICE DocSpace"
