@@ -61,6 +61,6 @@ class OODSP_Deactivator {
 		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.SchemaChange
 		$wpdb->query( $wpdb->prepare( "DROP TABLE IF EXISTS $oodsp_users_table" ) ); // db call ok; no-cache ok.
 
-		delete_option( 'onlyoffice_docspace_settings' );
+		delete_option( 'oodsp_settings' );
 	}
 }

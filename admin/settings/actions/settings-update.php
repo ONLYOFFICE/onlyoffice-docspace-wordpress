@@ -69,7 +69,7 @@ function oodsp_update_settings() {
 				OODSP_Settings::DOCSPACE_TOKEN => $res_auth['data'],
 			);
 
-			update_option( 'onlyoffice_docspace_settings', $value );
+			update_option( 'oodsp_settings', $value );
 
 			add_settings_error( 'general', 'settings_updated', __( 'Settings saved', 'onlyoffice-docspace-plugin' ), 'success' );
 
@@ -82,7 +82,7 @@ function oodsp_update_settings() {
 
 				if ( ! $res_docspace_public_user['error'] ) {
 					$value['docspace_public_user_id'] = $res_docspace_public_user['data']['id'];
-					update_option( 'onlyoffice_docspace_settings', $value );
+					update_option( 'oodsp_settings', $value );
 				}
 
 				add_settings_error( 'general', 'settings_updated', __( 'Public DocSpace user already created, but failed to update authorization.', 'onlyoffice-docspace-plugin' ), 'warning' );
@@ -90,7 +90,7 @@ function oodsp_update_settings() {
 				add_settings_error( 'general', 'settings_updated', __( 'Public DocSpace user was not created. View content will not be available on public pages.', 'onlyoffice-docspace-plugin' ), 'warning' );
 			} else {
 				$value['docspace_public_user_id'] = $res_create_public_user['data']['id'];
-				update_option( 'onlyoffice_docspace_settings', $value );
+				update_option( 'oodsp_settings', $value );
 
 				add_settings_error( 'general', 'settings_updated', __( 'Public DocSpace user successfully created.', 'onlyoffice-docspace-plugin' ), 'success' );
 			}

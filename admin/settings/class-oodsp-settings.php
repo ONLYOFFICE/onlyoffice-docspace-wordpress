@@ -172,7 +172,7 @@ class OODSP_Settings {
 	 * @param string $def Default value.
 	 */
 	public function get_onlyoffice_docspace_setting( $key, $def = '' ) {
-		$options = get_option( 'onlyoffice_docspace_settings' );
+		$options = get_option( 'oodsp_settings' );
 		if ( ! empty( $options ) && array_key_exists( $key, $options ) ) {
 			return $options[ $key ];
 		}
