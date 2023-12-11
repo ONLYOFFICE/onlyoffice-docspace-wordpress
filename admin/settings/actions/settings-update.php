@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Update settings.
  */
-function update_settings() {
+function oodsp_update_settings() {
 	if ( isset( $_POST[ OODSP_Settings::DOCSPACE_URL ] )
 			&& isset( $_POST[ OODSP_Settings::DOCSPACE_LOGIN ] )
 			&& isset( $_POST[ OODSP_Settings::DOCSPACE_PASS ] )
@@ -40,10 +40,10 @@ function update_settings() {
 			) {
 		check_admin_referer( 'onlyoffice_docspace_settings-options' );
 
-		$docspace_url      = prepare_value( sanitize_text_field( wp_unslash( $_POST[ OODSP_Settings::DOCSPACE_URL ] ) ) );
-		$docspace_login    = prepare_value( sanitize_text_field( wp_unslash( $_POST[ OODSP_Settings::DOCSPACE_LOGIN ] ) ) );
-		$docspace_pass     = prepare_value( sanitize_text_field( wp_unslash( $_POST[ OODSP_Settings::DOCSPACE_PASS ] ) ) );
-		$hash_current_user = prepare_value( sanitize_text_field( wp_unslash( $_POST['hash_current_user'] ) ) );
+		$docspace_url      = oodsp_prepare_value( sanitize_text_field( wp_unslash( $_POST[ OODSP_Settings::DOCSPACE_URL ] ) ) );
+		$docspace_login    = oodsp_prepare_value( sanitize_text_field( wp_unslash( $_POST[ OODSP_Settings::DOCSPACE_LOGIN ] ) ) );
+		$docspace_pass     = oodsp_prepare_value( sanitize_text_field( wp_unslash( $_POST[ OODSP_Settings::DOCSPACE_PASS ] ) ) );
+		$hash_current_user = oodsp_prepare_value( sanitize_text_field( wp_unslash( $_POST['hash_current_user'] ) ) );
 
 		$docspace_url = '/' === substr( $docspace_url, -1 ) ? $docspace_url : $docspace_url . '/';
 
@@ -163,7 +163,7 @@ function update_settings() {
  *
  * @param mixed $value     The value.
  */
-function prepare_value( $value ) {
+function oodsp_prepare_value( $value ) {
 	if ( ! is_array( $value ) ) {
 		$value = trim( $value );
 	}

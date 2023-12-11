@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Innite users.
  */
-function invite_users() {
+function oodsp_invite_users() {
 	if ( isset( $_REQUEST['wp_http_referer'] ) ) {
 		$redirect = remove_query_arg( array( 'wp_http_referer', 'updated', 'delete_count' ), sanitize_text_field( wp_unslash( $_REQUEST['wp_http_referer'] ) ) );
 	} else {
@@ -68,8 +68,8 @@ function invite_users() {
 	$res_docspace_users    = $oodsp_request_manager->request_docspace_users();
 
 	if ( $res_docspace_users['error'] ) {
-		add_oodsp_users_message( 'users_invited', __( 'Error getting users from ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ), 'error' );
-		set_transient( 'oodsp_users_messages', get_oodsp_users_messages(), 30 );
+		oodsp_add_users_message( 'users_invited', __( 'Error getting users from ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ), 'error' );
+		set_transient( 'oodsp_users_messages', oodsp_get_users_messages(), 30 );
 
 		wp_safe_redirect( admin_url( 'admin.php?page=onlyoffice-docspace-settings&users=true&invited=true' ) );
 		exit;
@@ -116,7 +116,7 @@ function invite_users() {
 	}
 
 	if ( 0 !== $count_error ) {
-		add_oodsp_users_message(
+		oodsp_add_users_message(
 			'users_invited',
 			sprintf(
 				/* translators: %1$s: count error; %2$s: count users */
@@ -129,7 +129,7 @@ function invite_users() {
 	}
 
 	if ( 0 !== $count_skipped ) {
-		add_oodsp_users_message(
+		oodsp_add_users_message(
 			'users_invited',
 			sprintf(
 				/* translators: %1$s: count skiped; %2$s: count users */
@@ -142,7 +142,7 @@ function invite_users() {
 	}
 
 	if ( 0 !== $count_invited ) {
-		add_oodsp_users_message(
+		oodsp_add_users_message(
 			'users_invited',
 			sprintf(
 				/* translators: %1$s: count invited; %2$s: count users */
@@ -154,7 +154,7 @@ function invite_users() {
 		);
 	}
 
-	set_transient( 'oodsp_users_messages', get_oodsp_users_messages(), 30 );
+	set_transient( 'oodsp_users_messages', oodsp_get_users_messages(), 30 );
 
 	wp_safe_redirect( admin_url( 'admin.php?page=onlyoffice-docspace-settings&users=true&invited=true' ) );
 	exit;
@@ -167,7 +167,7 @@ function invite_users() {
  * @param string $message The message.
  * @param string $type The type.
  */
-function add_oodsp_users_message( $code, $message, $type = 'error' ) {
+function oodsp_add_users_message( $code, $message, $type = 'error' ) {
 	global $wp_oodsp_users_messages;
 
 	$wp_oodsp_users_messages[] = array(
@@ -180,7 +180,7 @@ function add_oodsp_users_message( $code, $message, $type = 'error' ) {
 /**
  * Return oodsp users messages.
  */
-function get_oodsp_users_messages() {
+function oodsp_get_users_messages() {
 	global $wp_oodsp_users_messages;
 
 	if ( isset( $_GET['users'] ) && wp_unslash( $_GET['users'] ) && get_transient( 'oodsp_users_messages' ) ) { // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -199,7 +199,7 @@ function get_oodsp_users_messages() {
  * Return oodsp users messages.
  */
 function oodsp_users_messages() {
-	$oodsp_users_messages = get_oodsp_users_messages();
+	$oodsp_users_messages = oodsp_get_users_messages();
 
 	if ( empty( $oodsp_users_messages ) ) {
 		return;

@@ -97,10 +97,10 @@ class OODSP_Settings {
 
 		switch ( $this->current_action() ) {
 			case 'update':
-				update_settings();
+				oodsp_update_settings();
 				break;
 			case 'invite':
-				invite_users();
+				oodsp_invite_users();
 				break;
 		}
 

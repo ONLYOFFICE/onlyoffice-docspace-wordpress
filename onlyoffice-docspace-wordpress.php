@@ -53,7 +53,7 @@ define( 'OODSP_PLUGIN_FILE', __FILE__ );
 /**
  * The code that runs during plugin activation.
  */
-function activate_onlyoffice_docspace_plugin() {
+function oodsp_activate_plugin() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-oodsp-activator.php';
 	OODSP_Activator::activate();
 }
@@ -61,7 +61,7 @@ function activate_onlyoffice_docspace_plugin() {
 /**
  * The code that runs during plugin deactivation.
  */
-function deactivate_onlyoffice_docspace_plugin() {
+function oodsp_deactivate_plugin() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-oodsp-deactivator.php';
 	OODSP_Deactivator::deactivate();
 }
@@ -69,14 +69,14 @@ function deactivate_onlyoffice_docspace_plugin() {
 /**
  * The code that runs during plugin unistall.
  */
-function unistall_onlyoffice_docspace_plugin() {
+function oodsp_unistall_plugin() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-oodsp-deactivator.php';
 	OODSP_Deactivator::uninstall();
 }
 
-register_activation_hook( __FILE__, 'activate_onlyoffice_docspace_plugin' );
-register_deactivation_hook( __FILE__, 'deactivate_onlyoffice_docspace_plugin' );
-register_uninstall_hook( __FILE__, 'unistall_onlyoffice_docspace_plugin' );
+register_activation_hook( __FILE__, 'oodsp_activate_plugin' );
+register_deactivation_hook( __FILE__, 'oodsp_deactivate_plugin' );
+register_uninstall_hook( __FILE__, 'oodsp_unistall_plugin' );
 
 require plugin_dir_path( __FILE__ ) . 'includes/class-oodsp-plugin.php';
 
@@ -90,8 +90,8 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-oodsp-plugin.php';
  *
  * @since    1.0.0
  */
-function run_onlyoffice_docspace_plugin() {
+function oodsp_run_plugin() {
 	$plugin = new OODSP_Plugin();
 	$plugin->run();
 }
-run_onlyoffice_docspace_plugin();
+oodsp_run_plugin();
