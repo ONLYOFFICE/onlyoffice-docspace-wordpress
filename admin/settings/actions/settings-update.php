@@ -96,11 +96,13 @@ function update_settings() {
 			$res_docspace_user = $oodsp_request_manager->request_docspace_user( $docspace_url, $user->user_email, $res_auth['data'] );
 
 			if ( $res_docspace_user['error'] ) {
+				[$email, $first_name, $last_name] = $oodsp_request_manager->get_user_data( $user );
+
 				$res_invite_user = $oodsp_request_manager->request_invite_user(
-					$user->user_email,
+					$email,
 					$hash_current_user,
-					$user->first_name,
-					$user->last_name,
+					$first_name,
+					$last_name,
 					1, // Room Admin.
 					$res_auth['data']
 				);
