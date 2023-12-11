@@ -486,4 +486,31 @@ class OODSP_Request_Manager {
 
 		return $result;
 	}
+
+	/**
+	 * Return array: email, first name, last name.
+	 *
+	 * @param WP_User $user User Entity.
+	 */
+	public function get_user_data( $user ) {
+		$email      = $user->user_email;
+		$first_name = preg_replace( '/[^\p{L}\p{M} \-]/u', '-', $user->first_name );
+		$last_name  = preg_replace( '/[^\p{L}\p{M} \-]/u', '-', $user->last_name );
+
+		if ( $first_name && ! $last_name ) {
+			$last_name = $first_name;
+		}
+
+		if ( ! $first_name && $last_name ) {
+			$first_name = $last_name;
+		}
+
+		if ( ! $first_name && ! $last_name ) {
+			$user_name  = substr( $email, strrpos( $email, '@' ) + 1 );
+			$first_name = preg_replace( '/[^\p{L}\p{M} \-]/u', '-', $user_name );
+			$last_name  = $first_name;
+		}
+
+		return array( $email, $first_name, $last_name );
+	}
 }

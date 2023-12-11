@@ -95,11 +95,13 @@ function oodsp_invite_users() {
 		if ( in_array( $user->user_email, $docspace_users, true ) ) {
 			++$count_skipped;
 		} else {
+			[$email, $first_name, $last_name] = $oodsp_request_manager->get_user_data( $user );
+
 			$res_invite_user = $oodsp_request_manager->request_invite_user(
-				$user->user_email,
+				$email,
 				$user_hash,
-				$user->first_name,
-				$user->last_name,
+				$first_name,
+				$last_name,
 				2
 			);
 
