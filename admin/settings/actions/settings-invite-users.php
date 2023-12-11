@@ -55,7 +55,7 @@ function oodsp_invite_users() {
 					'hash' => $user[1],
 				);
 			},
-			(array) wp_unslash( $_REQUEST['users'] ) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			(array) array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['users'] ) )
 		);
 	}
 
@@ -185,7 +185,7 @@ function oodsp_add_users_message( $code, $message, $type = 'error' ) {
 function oodsp_get_users_messages() {
 	global $wp_oodsp_users_messages;
 
-	if ( isset( $_GET['users'] ) && wp_unslash( $_GET['users'] ) && get_transient( 'oodsp_users_messages' ) ) { // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+	if ( get_transient( 'oodsp_users_messages' ) ) {
 		$wp_oodsp_users_messages = array_merge( (array) $wp_oodsp_users_messages, get_transient( 'oodsp_users_messages' ) );
 		delete_transient( 'oodsp_users_messages' );
 	}
