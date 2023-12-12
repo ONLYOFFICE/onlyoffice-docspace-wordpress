@@ -27,6 +27,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Public ONLYOFFICE Docspace.
  *
@@ -76,7 +80,7 @@ class OODSP_Public_DocSpace {
 	 */
 	public function onlyoffice_custom_block() {
 		register_block_type(
-			plugin_dir_path( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ) . 'onlyoffice-docspace-wordpress-block',
+			plugin_dir_path( OODSP_PLUGIN_FILE ) . 'onlyoffice-docspace-wordpress-block',
 			array(
 				'description'     => __( 'Add ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ),
 				'render_callback' => array( $this, 'docspace_block_render_callback' ),
@@ -87,7 +91,7 @@ class OODSP_Public_DocSpace {
 			wp_set_script_translations(
 				'onlyoffice-docspace-wordpress-onlyoffice-docspace-editor-script',
 				'onlyoffice-docspace-plugin',
-				plugin_dir_path( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ) . 'languages/'
+				plugin_dir_path( OODSP_PLUGIN_FILE ) . 'languages/'
 			);
 		}
 	}
@@ -154,9 +158,9 @@ class OODSP_Public_DocSpace {
 
 		wp_enqueue_script(
 			'docspace-component-api',
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'assets-onlyoffice-docspace/js/docspace-component-api.js',
+			OODSP_PLUGIN_URL . 'assets-onlyoffice-docspace/js/docspace-component-api.js',
 			array(),
-			ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION,
+			OODSP_VERSION,
 			true
 		);
 
@@ -186,8 +190,8 @@ class OODSP_Public_DocSpace {
 				'locale'      => $this->plugin_docspace->get_locale_for_docspace(),
 				'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
 				'images'      => array(
-					'onlyoffice'  => plugins_url( 'public/images/onlyoffice.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
-					'unavailable' => plugins_url( 'public/images/unavailable.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
+					'onlyoffice'  => plugins_url( 'public/images/onlyoffice.svg', OODSP_PLUGIN_FILE ),
+					'unavailable' => plugins_url( 'public/images/unavailable.svg', OODSP_PLUGIN_FILE ),
 				),
 				'messages'    => array(
 					'error'                => $error_message,
@@ -199,16 +203,16 @@ class OODSP_Public_DocSpace {
 
 		wp_enqueue_style(
 			'docspace-components-api',
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'assets-onlyoffice-docspace/css/docspace-component-api.css',
+			OODSP_PLUGIN_URL . 'assets-onlyoffice-docspace/css/docspace-component-api.css',
 			array(),
-			ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION
+			OODSP_VERSION
 		);
 
 		wp_enqueue_script(
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-public-docspace',
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'public/js/public-docspace.js',
+			OODSP_PLUGIN_NAME . '-public-docspace',
+			OODSP_PLUGIN_URL . 'public/js/public-docspace.js',
 			array( 'jquery' ),
-			ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION,
+			OODSP_VERSION,
 			true
 		);
 

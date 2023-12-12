@@ -28,6 +28,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Request manager
  *
@@ -131,9 +135,9 @@ class OODSP_Request_Manager {
 			return $result;
 		}
 
-		$options                                   = get_option( 'onlyoffice_docspace_settings' );
+		$options                                   = get_option( 'oodsp_settings' );
 		$options[ OODSP_Settings::DOCSPACE_TOKEN ] = $res_authentication['data'];
-		update_option( 'onlyoffice_docspace_settings', $options );
+		update_option( 'oodsp_settings', $options );
 
 		$result['data'] = $res_authentication['data']; // Return new current token.
 		return $result;

@@ -31,6 +31,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * The core plugin class.
  *
@@ -84,8 +88,8 @@ class OODSP_Plugin {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		$this->version     = ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION;
-		$this->plugin_name = ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME;
+		$this->version     = OODSP_VERSION;
+		$this->plugin_name = OODSP_PLUGIN_NAME;
 
 		$this->load_dependencies();
 		$this->set_locale();

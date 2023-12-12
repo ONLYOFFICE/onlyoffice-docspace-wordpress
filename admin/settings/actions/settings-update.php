@@ -25,10 +25,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Update settings.
  */
-function update_settings() {
+function oodsp_update_settings() {
 	if ( isset( $_POST[ OODSP_Settings::DOCSPACE_URL ] )
 			&& isset( $_POST[ OODSP_Settings::DOCSPACE_LOGIN ] )
 			&& isset( $_POST[ OODSP_Settings::DOCSPACE_PASS ] )
@@ -36,10 +40,10 @@ function update_settings() {
 			) {
 		check_admin_referer( 'onlyoffice_docspace_settings-options' );
 
-		$docspace_url      = prepare_value( sanitize_text_field( wp_unslash( $_POST[ OODSP_Settings::DOCSPACE_URL ] ) ) );
-		$docspace_login    = prepare_value( sanitize_text_field( wp_unslash( $_POST[ OODSP_Settings::DOCSPACE_LOGIN ] ) ) );
-		$docspace_pass     = prepare_value( sanitize_text_field( wp_unslash( $_POST[ OODSP_Settings::DOCSPACE_PASS ] ) ) );
-		$hash_current_user = prepare_value( sanitize_text_field( wp_unslash( $_POST['hash_current_user'] ) ) );
+		$docspace_url      = oodsp_prepare_value( sanitize_text_field( wp_unslash( $_POST[ OODSP_Settings::DOCSPACE_URL ] ) ) );
+		$docspace_login    = oodsp_prepare_value( sanitize_text_field( wp_unslash( $_POST[ OODSP_Settings::DOCSPACE_LOGIN ] ) ) );
+		$docspace_pass     = oodsp_prepare_value( sanitize_text_field( wp_unslash( $_POST[ OODSP_Settings::DOCSPACE_PASS ] ) ) );
+		$hash_current_user = oodsp_prepare_value( sanitize_text_field( wp_unslash( $_POST['hash_current_user'] ) ) );
 
 		$docspace_url = '/' === substr( $docspace_url, -1 ) ? $docspace_url : $docspace_url . '/';
 
@@ -65,7 +69,7 @@ function update_settings() {
 				OODSP_Settings::DOCSPACE_TOKEN => $res_auth['data'],
 			);
 
-			update_option( 'onlyoffice_docspace_settings', $value );
+			update_option( 'oodsp_settings', $value );
 
 			add_settings_error( 'general', 'settings_updated', __( 'Settings saved', 'onlyoffice-docspace-plugin' ), 'success' );
 
@@ -78,7 +82,7 @@ function update_settings() {
 
 				if ( ! $res_docspace_public_user['error'] ) {
 					$value['docspace_public_user_id'] = $res_docspace_public_user['data']['id'];
-					update_option( 'onlyoffice_docspace_settings', $value );
+					update_option( 'oodsp_settings', $value );
 				}
 
 				add_settings_error( 'general', 'settings_updated', __( 'Public DocSpace user already created, but failed to update authorization.', 'onlyoffice-docspace-plugin' ), 'warning' );
@@ -86,7 +90,7 @@ function update_settings() {
 				add_settings_error( 'general', 'settings_updated', __( 'Public DocSpace user was not created. View content will not be available on public pages.', 'onlyoffice-docspace-plugin' ), 'warning' );
 			} else {
 				$value['docspace_public_user_id'] = $res_create_public_user['data']['id'];
-				update_option( 'onlyoffice_docspace_settings', $value );
+				update_option( 'oodsp_settings', $value );
 
 				add_settings_error( 'general', 'settings_updated', __( 'Public DocSpace user successfully created.', 'onlyoffice-docspace-plugin' ), 'success' );
 			}
@@ -161,7 +165,7 @@ function update_settings() {
  *
  * @param mixed $value     The value.
  */
-function prepare_value( $value ) {
+function oodsp_prepare_value( $value ) {
 	if ( ! is_array( $value ) ) {
 		$value = trim( $value );
 	}
