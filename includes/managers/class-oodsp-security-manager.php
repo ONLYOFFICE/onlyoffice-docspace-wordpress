@@ -55,6 +55,7 @@ class OODSP_Security_Manager {
 		$old_user_pass = $this->get_oodsp_user_pass( $user_id );
 
 		if ( $old_user_pass ) {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery
 			$result = $wpdb->update(
 				$oodsp_users_table,
 				array(
@@ -62,16 +63,17 @@ class OODSP_Security_Manager {
 					'user_pass' => $password,
 				),
 				array( 'user_id' => $user_id )
-			); // db call ok; no-cache ok.
+			);
 
 		} else {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery
 			$result = $wpdb->insert(
 				$oodsp_users_table,
 				array(
 					'user_id'   => $user_id,
 					'user_pass' => $password,
 				)
-			); // db call ok; no-cache ok.
+			);
 		}
 
 		return $result;
@@ -86,6 +88,7 @@ class OODSP_Security_Manager {
 		global $wpdb;
 		$oodsp_users_table = $wpdb->prefix . self::DOCSPACE_USERS_TABLE;
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		$result = $wpdb->get_row( $wpdb->prepare( 'SELECT user_pass FROM %s WHERE user_id = %s LIMIT 1', $oodsp_users_table, $user_id ) );
 
 		if ( ! empty( $result ) ) {
