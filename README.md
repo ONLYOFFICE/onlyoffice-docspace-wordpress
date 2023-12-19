@@ -48,6 +48,32 @@ Please note the following specifics for DocSpace rooms published on WordPress pa
 - Navigation is possible within the added room only;
 - If users have the Room admin or Power user role, they can create new files.
 
+## How the plugin is using the ONLYOFFICE DocSpace service
+
+The plugin allows working with office files via [ONLYOFFICE DocSpace](https://www.onlyoffice.com/docspace.aspx) and makes the following requests to the service on the backend:
+
+- getting a list of DocSpace users
+- creating a user in DocSpace using WordPress user data
+- getting a DocSpace user by email
+- setting a password for a DocSpace user
+- getting authorization cookies of a DocSpace user 
+- getting a DocSpace file
+- getting a DocSpace folder
+- inviting a user to a DocSpace room
+
+On the frontend, the following DocSpace elements are inserted:
+
+- file selection control
+- room selection control
+- file display control
+- room display control
+- system frame for checking authorization 
+
+*Useful resources:* 
+
+- [ONLYOFFICE DocSpace Terms of use](https://onlyo.co/41Y69Rf)
+- [Privacy Policy](https://www.onlyoffice.com/Privacy.aspx)
+
 ## Project info
 
 Official website: [www.onlyoffice.com](https://www.onlyoffice.com/)
