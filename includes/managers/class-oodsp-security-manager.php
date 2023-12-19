@@ -89,7 +89,7 @@ class OODSP_Security_Manager {
 		$oodsp_users_table = $wpdb->prefix . self::DOCSPACE_USERS_TABLE;
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery
-		$result = $wpdb->get_row( $wpdb->prepare( 'SELECT user_pass FROM %s WHERE user_id = %s LIMIT 1', $oodsp_users_table, $user_id ) );
+		$result = $wpdb->get_row( $wpdb->prepare( 'SELECT user_pass FROM %i WHERE user_id = %s LIMIT 1', $oodsp_users_table, $user_id ) );
 
 		if ( ! empty( $result ) ) {
 			return $result->user_pass;

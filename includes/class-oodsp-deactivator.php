@@ -59,7 +59,7 @@ class OODSP_Deactivator {
 		$oodsp_users_table = $wpdb->prefix . OODSP_Security_Manager::DOCSPACE_USERS_TABLE;
 
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.DirectDatabaseQuery
-		$wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %s', $oodsp_users_table ) );
+		$wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %i', $oodsp_users_table ) );
 
 		delete_option( 'oodsp_settings' );
 	}
