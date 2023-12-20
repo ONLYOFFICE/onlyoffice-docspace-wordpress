@@ -28,6 +28,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 
 if ( ! class_exists( 'WP_List_Table' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
@@ -481,12 +485,12 @@ class OODSP_Users_List_Table extends WP_List_Table {
 						$row .= esc_html( $roles_list );
 						break;
 					case 'in_docspace':
-						if ( 0 === $user_object->docspace_status || 1 === $user_object->docspace_status ) {
-							$row .= "<img src='" . esc_url( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/images/done.svg' ) . "'/>";
+						if ( 0 === $user_object->docspace_status || 1 === $user_object->docspace_status || 2 === $user_object->docspace_status ) {
+							$row .= "<img src='" . esc_url( OODSP_PLUGIN_URL . 'admin/images/done.svg' ) . "'/>";
 						} elseif ( -1 === $user_object->docspace_status ) {
 								$row .= '<div class="tooltip" style="cursor: pointer">';
 								$row .= '<div class="tooltip-text">' . $this->get_label_for_unauthorized() . '</div>';
-								$row .= "<img  src='" . esc_url( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/images/not_authorization.svg' ) . "'/>";
+								$row .= "<img  src='" . esc_url( OODSP_PLUGIN_URL . 'admin/images/not_authorization.svg' ) . "'/>";
 								$row .= '</div>';
 						}
 

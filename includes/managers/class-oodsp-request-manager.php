@@ -28,6 +28,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Request manager
  *
@@ -131,9 +135,9 @@ class OODSP_Request_Manager {
 			return $result;
 		}
 
-		$options                                   = get_option( 'onlyoffice_docspace_settings' );
+		$options                                   = get_option( 'oodsp_settings' );
 		$options[ OODSP_Settings::DOCSPACE_TOKEN ] = $res_authentication['data'];
-		update_option( 'onlyoffice_docspace_settings', $options );
+		update_option( 'oodsp_settings', $options );
 
 		$result['data'] = $res_authentication['data']; // Return new current token.
 		return $result;
@@ -481,5 +485,32 @@ class OODSP_Request_Manager {
 		$result['data'] = $body['response'];
 
 		return $result;
+	}
+
+	/**
+	 * Return array: email, first name, last name.
+	 *
+	 * @param WP_User $user User Entity.
+	 */
+	public function get_user_data( $user ) {
+		$email      = $user->user_email;
+		$first_name = preg_replace( '/[^\p{L}\p{M} \-]/u', '-', $user->first_name );
+		$last_name  = preg_replace( '/[^\p{L}\p{M} \-]/u', '-', $user->last_name );
+
+		if ( $first_name && ! $last_name ) {
+			$last_name = $first_name;
+		}
+
+		if ( ! $first_name && $last_name ) {
+			$first_name = $last_name;
+		}
+
+		if ( ! $first_name && ! $last_name ) {
+			$user_name  = substr( $email, strrpos( $email, '@' ) + 1 );
+			$first_name = preg_replace( '/[^\p{L}\p{M} \-]/u', '-', $user_name );
+			$last_name  = $first_name;
+		}
+
+		return array( $email, $first_name, $last_name );
 	}
 }

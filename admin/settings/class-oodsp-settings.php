@@ -31,6 +31,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 require_once plugin_dir_path( __DIR__ ) . 'settings/actions/settings-update.php';
 require_once plugin_dir_path( __DIR__ ) . 'settings/actions/settings-invite-users.php';
 
@@ -93,10 +97,10 @@ class OODSP_Settings {
 
 		switch ( $this->current_action() ) {
 			case 'update':
-				update_settings();
+				oodsp_update_settings();
 				break;
 			case 'invite':
-				invite_users();
+				oodsp_invite_users();
 				break;
 		}
 
@@ -168,7 +172,7 @@ class OODSP_Settings {
 	 * @param string $def Default value.
 	 */
 	public function get_onlyoffice_docspace_setting( $key, $def = '' ) {
-		$options = get_option( 'onlyoffice_docspace_settings' );
+		$options = get_option( 'oodsp_settings' );
 		if ( ! empty( $options ) && array_key_exists( $key, $options ) ) {
 			return $options[ $key ];
 		}
@@ -222,35 +226,35 @@ class OODSP_Settings {
 		}
 
 		wp_enqueue_script(
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-settings',
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/js/settings.js',
+			OODSP_PLUGIN_NAME . '-settings',
+			OODSP_PLUGIN_URL . 'admin/js/settings.js',
 			array( 'jquery' ),
-			ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION,
+			OODSP_VERSION,
 			true
 		);
 
 		if ( function_exists( 'wp_set_script_translations' ) ) {
 			wp_set_script_translations(
-				ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-settings',
+				OODSP_PLUGIN_NAME . '-settings',
 				'onlyoffice-docspace-plugin',
-				plugin_dir_path( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ) . 'languages/'
+				plugin_dir_path( OODSP_PLUGIN_FILE ) . 'languages/'
 			);
 		}
 
 		wp_enqueue_script( 'user-profile' );
 
 		wp_enqueue_style(
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-settings',
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/css/settings.css',
+			OODSP_PLUGIN_NAME . '-settings',
+			OODSP_PLUGIN_URL . 'admin/css/settings.css',
 			array(),
-			ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION
+			OODSP_VERSION
 		);
 
 		wp_enqueue_style(
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-loader',
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/css/loader.css',
+			OODSP_PLUGIN_NAME . '-loader',
+			OODSP_PLUGIN_URL . 'admin/css/loader.css',
 			array(),
-			ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION
+			OODSP_VERSION
 		);
 
 		global $users;

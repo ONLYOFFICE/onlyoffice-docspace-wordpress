@@ -28,6 +28,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Page ONLYOFFICE DocSpace.
  *
@@ -93,26 +97,26 @@ class OODSP_DocSpace {
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_script(
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-login',
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/js/login.js',
+			OODSP_PLUGIN_NAME . '-login',
+			OODSP_PLUGIN_URL . 'admin/js/login.js',
 			array( 'jquery' ),
-			ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION,
+			OODSP_VERSION,
 			true
 		);
 
 		if ( function_exists( 'wp_set_script_translations' ) ) {
 			wp_set_script_translations(
-				ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-login',
+				OODSP_PLUGIN_NAME . '-login',
 				'onlyoffice-docspace-plugin',
-				plugin_dir_path( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ) . 'languages/'
+				plugin_dir_path( OODSP_PLUGIN_FILE ) . 'languages/'
 			);
 		}
 
 		wp_enqueue_script(
 			'docspace-component-api',
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'assets-onlyoffice-docspace/js/docspace-component-api.js',
+			OODSP_PLUGIN_URL . 'assets-onlyoffice-docspace/js/docspace-component-api.js',
 			array(),
-			ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION,
+			OODSP_VERSION,
 			true
 		);
 
@@ -132,8 +136,8 @@ class OODSP_DocSpace {
 				'isPublic'    => false,
 				'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
 				'images'      => array(
-					'onlyoffice'  => plugins_url( 'public/images/onlyoffice.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
-					'unavailable' => plugins_url( 'public/images/unavailable.svg', ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_FILE ),
+					'onlyoffice'  => plugins_url( 'public/images/onlyoffice.svg', OODSP_PLUGIN_FILE ),
+					'unavailable' => plugins_url( 'public/images/unavailable.svg', OODSP_PLUGIN_FILE ),
 				),
 				'messages'    => array(
 					'error' => $error_message,
@@ -150,16 +154,16 @@ class OODSP_DocSpace {
 	public function enqueue_styles() {
 		wp_enqueue_style(
 			'docspace-components-api',
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'assets-onlyoffice-docspace/css/docspace-component-api.css',
+			OODSP_PLUGIN_URL . 'assets-onlyoffice-docspace/css/docspace-component-api.css',
 			array(),
-			ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION
+			OODSP_VERSION
 		);
 
 		wp_enqueue_style(
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_NAME . '-login',
-			ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/css/login.css',
+			OODSP_PLUGIN_NAME . '-login',
+			OODSP_PLUGIN_URL . 'admin/css/login.css',
 			array(),
-			ONLYOFFICE_DOCSPACE_WORDPRESS_VERSION
+			OODSP_VERSION
 		);
 
 		wp_enqueue_style( 'login' );
@@ -169,7 +173,7 @@ class OODSP_DocSpace {
 	 * Init menu.
 	 */
 	public function init_menu() {
-		$logo_svg = file_get_contents( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL . 'admin/images/logo.svg' );
+		$logo_svg = file_get_contents( OODSP_PLUGIN_URL . 'admin/images/logo.svg' );
 
 		add_menu_page(
 			'DocSpace',
@@ -247,8 +251,8 @@ class OODSP_DocSpace {
 					</h1>
 					<h1>
 						<a></a>
-						<a id="union" style="background-image: url('<?php echo esc_attr( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL ) . 'admin/images/union.svg'; ?>');"></a>
-						<a id="logo-onlyoffice" style="background-image: url('<?php echo esc_attr( ONLYOFFICE_DOCSPACE_WORDPRESS_PLUGIN_URL ) . 'admin/images/onlyoffice.svg'; ?>');"></a>
+						<a id="union" style="background-image: url('<?php echo esc_attr( OODSP_PLUGIN_URL ) . 'admin/images/union.svg'; ?>');"></a>
+						<a id="logo-onlyoffice" style="background-image: url('<?php echo esc_attr( OODSP_PLUGIN_URL ) . 'admin/images/onlyoffice.svg'; ?>');"></a>
 					</h1>
 
 					<p style="padding-bottom: 25px;">

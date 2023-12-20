@@ -28,6 +28,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Fired during plugin deactivation.
  *
@@ -54,9 +58,9 @@ class OODSP_Deactivator {
 
 		$oodsp_users_table = $wpdb->prefix . OODSP_Security_Manager::DOCSPACE_USERS_TABLE;
 
-		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.SchemaChange
-		$wpdb->query( $wpdb->prepare( "DROP TABLE IF EXISTS $oodsp_users_table" ) ); // db call ok; no-cache ok.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.DirectDatabaseQuery
+		$wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %i', $oodsp_users_table ) );
 
-		delete_option( 'onlyoffice_docspace_settings' );
+		delete_option( 'oodsp_settings' );
 	}
 }
