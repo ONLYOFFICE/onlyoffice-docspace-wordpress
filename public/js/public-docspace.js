@@ -18,18 +18,27 @@
 			DocSpaceComponent.initScript().then(
 				function () {
 					for ( var config of oodspConfigs ) {
-						DocSpaceComponent.initPublicDocSpace(
+						if (DocSpaceComponent.isPublic) {
 							config.frameId,
 							config.width || null,
 							config.height || null,
-							function () {
-								config.locale = DocSpaceComponent.locale;
-								DocSpace.SDK.initFrame( config );
-							},
-							function () {
-								DocSpaceComponent.renderError( config.frameId );
-							}
-						);
+							config.locale = DocSpaceComponent.locale;
+							DocSpace.SDK.initFrame( config );
+						} else {
+							DocSpaceComponent.initLoginDocSpace(
+								config.frameId,
+								null,
+								function () {
+									config.width || null,
+									config.height || null,
+									config.locale = DocSpaceComponent.locale;
+									DocSpace.SDK.initFrame( config );
+								},
+								function() {
+									DocSpaceComponent.renderError(frameId);
+								}
+							);
+						}
 					}
 				}
 			).catch(

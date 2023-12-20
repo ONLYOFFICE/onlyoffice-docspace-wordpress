@@ -120,6 +120,17 @@ class OODSP_Public_DocSpace {
 		static $instance = 0;
 		++$instance;
 
+		$post = get_post();
+
+		if ( 'private' === $post->post_status ) {
+			$is_public    = false;
+			$current_user = wp_get_current_user()->user_email;
+		} else {
+			$is_public    = true;
+			$current_user = self::OODSP_PUBLIC_USER_LOGIN;
+		}
+
+
 		$defaults_atts = array(
 			'frameId'      => 'onlyoffice-docspace-block-' . $instance,
 			'width'        => '100%',
@@ -146,18 +157,8 @@ class OODSP_Public_DocSpace {
 			$atts['height'] = $defaults_atts['height'];
 		}
 
-		if ( array_key_exists( 'requestToken', $attr ) ) {
-			$atts['requestToken']   = $attr['requestToken'];
-		}
-
-		$post = get_post();
-
-		if ( 'private' === $post->post_status ) {
-			$is_public    = false;
-			$current_user = wp_get_current_user()->user_email;
-		} else {
-			$is_public    = true;
-			$current_user = self::OODSP_PUBLIC_USER_LOGIN;
+		if ( array_key_exists( 'requestToken', $attr ) && $is_public) {
+			$atts['requestToken'] = $attr['requestToken'];
 		}
 
 		wp_enqueue_script(
