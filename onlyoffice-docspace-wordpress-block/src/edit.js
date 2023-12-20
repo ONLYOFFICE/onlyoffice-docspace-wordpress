@@ -58,14 +58,24 @@ const Edit = ({ attributes, setAttributes }) => {
 
     const onSelectRoomCallback = (event) => {
         Object.keys(attributes).forEach(key => delete attributes[key]);
-        setAttributes({roomId: event[0].id, name: event[0].label, icon: event[0].icon});
+        setAttributes({
+            roomId: event[0].id,
+            name: event[0].label,
+            icon: event[0].icon,
+            requestToken: event[0].requestToken,
+        });
         DocSpace.SDK.frames["oodsp-selector-frame"].destroyFrame();
         setOpen(false);
     }
 
     const onSelectFileCallback = (event) => {
         Object.keys(attributes).forEach(key => delete attributes[key]);
-        setAttributes({fileId: event.id, name: event.title, icon: event.icon});
+        setAttributes({
+            fileId: event.id,
+            name: event.title,
+            icon: event.icon,
+            requestToken: event.requestToken,
+        });
         DocSpace.SDK.frames["oodsp-selector-frame"].destroyFrame();
         setOpen(false);
     }

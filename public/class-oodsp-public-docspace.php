@@ -146,6 +146,10 @@ class OODSP_Public_DocSpace {
 			$atts['height'] = $defaults_atts['height'];
 		}
 
+		if ( array_key_exists( 'requestToken', $attr ) ) {
+			$atts['requestToken']   = $attr['requestToken'];
+		}
+
 		$post = get_post();
 
 		if ( 'private' === $post->post_status ) {
