@@ -39,6 +39,7 @@ jobs:
           rm -rf .github/
           rm -rf .git/
           rm .gitignore
+          rm composer.json
       - name: Build Artifact
         run: zip -r onlyoffice-docspace.zip onlyoffice-docspace/
       - name: Generate Changelog
