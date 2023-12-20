@@ -59,10 +59,6 @@
         var xhr = new XMLHttpRequest();
         var postData = "action=oodsp_credentials";
         
-        if (DocSpaceComponent.isPublic) {
-            postData += "&is_public=true";
-        }
-        
         if (hash) {
             postData += "&hash=" + hash;
         }
@@ -124,48 +120,6 @@
                                 if (password) {
                                     DocSpaceComponent.oodspCredentials(hash);
                                 }
-                                onSuccess();
-                            }
-                        );
-                    } 
-                },
-                onAppError: async function() {
-                    onError();
-                }
-            }
-        });
-    };
-
-    window.DocSpaceComponent.initPublicDocSpace = function (frameId, width, height, onSuccess, onError) {
-        DocSpace.SDK.initFrame({
-            frameId: frameId,
-            mode: "system",
-            width: width,
-            height: height,
-            events: {
-                onAppReady: async function() {
-                    const userInfo = await DocSpace.SDK.frames[frameId].getUserInfo();
-
-                    if (userInfo && userInfo.email === DocSpaceComponent.currentUser) {
-                        onSuccess();
-                    } else {
-                        const hash = DocSpaceComponent.oodspCredentials();
-
-                        DocSpace.SDK.frames[frameId].login(DocSpaceComponent.currentUser, hash)
-                            .then(function(response) {
-                                if(response.status && response.status !== 200) {
-                                    DocSpace.SDK.frames[frameId].destroyFrame();
-
-                                    DocSpaceComponent.renderError(
-                                        frameId, 
-                                        {
-                                            header: DocSpaceComponent.messages.unauthorized_header,
-                                            message: DocSpaceComponent.messages.unauthorized_message
-                                        }
-                                    );
-                                    return;
-                                }
-
                                 onSuccess();
                             }
                         );

@@ -39,10 +39,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
 class OODSP_Public_DocSpace {
-	const OODSP_PUBLIC_USER_LOGIN     = 'wpviewer@onlyoffice.com';
-	const OODSP_PUBLIC_USER_PASS      = '8c6b8b3e59010d7c925a47039f749d86fbdc9b37257cd262f2dae7c84a106505';
-	const OODSP_PUBLIC_USER_FIRSTNAME = 'WordPress';
-	const OODSP_PUBLIC_USER_LASTNAME  = 'Viewer';
 
 	/**
 	 * OODSP_Settings
@@ -120,14 +116,13 @@ class OODSP_Public_DocSpace {
 		static $instance = 0;
 		++$instance;
 
+		$current_user = wp_get_current_user()->user_email;
 		$post = get_post();
 
 		if ( 'private' === $post->post_status ) {
 			$is_public    = false;
-			$current_user = wp_get_current_user()->user_email;
 		} else {
 			$is_public    = true;
-			$current_user = self::OODSP_PUBLIC_USER_LOGIN;
 		}
 
 
@@ -175,16 +170,6 @@ class OODSP_Public_DocSpace {
 			$error_message = __( 'Go to the settings to configure ONLYOFFICE DocSpace connector.', 'onlyoffice-docspace-plugin' );
 		}
 
-		$unauthorized_header  = __( 'Authorization unsuccessful!', 'onlyoffice-docspace-plugin' );
-		$unauthorized_message = __( 'Please contact the administrator.', 'onlyoffice-docspace-plugin' );
-
-		if ( current_user_can( 'manage_options' ) && $is_public ) {
-			$unauthorized_header  = __( 'Reset WordPress Viewer to continue', 'onlyoffice-docspace-plugin' );
-			$unauthorized_message = __( 'You may experience issues with access to your content because WordPress Viewer data has been lost. Please proceed to the DocSpace plugin settings and click the Save button. WordPress Viewer will be added again to DocSpace.', 'onlyoffice-docspace-plugin' );
-		} elseif ( ! $is_public ) {
-			$unauthorized_message = __( 'Please proceed to the DocSpace plugin via the left side menu and enter your password to restore access.', 'onlyoffice-docspace-plugin' );
-		}
-
 		wp_localize_script(
 			'docspace-component-api',
 			'DocSpaceComponent',
@@ -200,8 +185,6 @@ class OODSP_Public_DocSpace {
 				),
 				'messages'    => array(
 					'error'                => $error_message,
-					'unauthorized_header'  => $unauthorized_header,
-					'unauthorized_message' => $unauthorized_message,
 				),
 			)
 		);

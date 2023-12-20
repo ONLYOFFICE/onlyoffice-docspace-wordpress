@@ -32,8 +32,8 @@ msgstr "Contraseña"
 msgid "Save"
 msgstr "Guardar"
 
-msgid "The current user will be added to DocSpace with the <b>Room admin</b> role. <b>WordPress Viewer</b> user will be added to DocSpace with View Only access."
-msgstr "El usuario actual se añadirá a DocSpace con el rol <b>Administrador de sala</b>. El usuario <b>Visualizador de WordPress</b> se añadirá a DocSpace con acceso de Solo visualización."
+msgid "The current user will be added to DocSpace with the <b>Room admin</b> role."
+msgstr "El usuario actual se añadirá a DocSpace con el rol <b>Administrador de sala</b>."
 
 msgid "DocSpace Users"
 msgstr "Usuarios de DocSpace"
@@ -89,18 +89,6 @@ msgstr "Error al obtener los datos del usuario. Por favor, inténtelo de nuevo."
 
 msgid "The specified user is not a DocSpace administrator!"
 msgstr "¡El usuario especificado no es administrador de DocSpace!"
-
-msgid "Public DocSpace user was not created! View content will not be available on public pages."
-msgstr "No se ha creado el usuario público de DocSpace. Ver contenido no estará disponible en las páginas públicas."
-
-msgid "Public DocSpace user already created, but failed to update authorization."
-msgstr "El usuario público de DocSpace ya se ha creado, pero no se ha podido actualizar la autorización."
-
-msgid "Public DocSpace user was not created. View content will not be available on public pages."
-msgstr "No se ha creado el usuario público de DocSpace. Ver contenido no estará disponible en las páginas públicas."
-
-msgid "Public DocSpace user successfully created."
-msgstr "El usuario público de DocSpace se ha creado correctamente."
 
 msgid "User %s already exists in DocSpace!"
 msgstr "¡El usuario %s ya existe en DocSpace!"
@@ -192,21 +180,6 @@ msgstr "¡El portal no está disponible! Por favor, póngase en contacto con el 
 
 msgid "Go to the settings to configure ONLYOFFICE DocSpace connector."
 msgstr "Vaya a los ajustes para configurar el conector de ONLYOFFICE DocSpace."
-
-msgid "Authorization unsuccessful!"
-msgstr "¡Autorización fallida!"
-
-msgid "Please contact the administrator."
-msgstr "Por favor, póngase en contacto con el administrador."
-
-msgid "Reset WordPress Viewer to continue"
-msgstr "Reinicie el visualizador de WordPress para continuar"
-
-msgid "You may experience issues with access to your content because WordPress Viewer data has been lost. Please proceed to the DocSpace plugin settings and click the Save button. WordPress Viewer will be added again to DocSpace."
-msgstr "Es posible que experimente problemas de acceso a su contenido debido a que se han perdido los datos del visualizador de WordPress. Vaya a los ajustes del plugin de DocSpace y haga clic en el botón Guardar. El visualizador de WordPress se añadirá de nuevo a DocSpace."
-
-msgid "Please proceed to the DocSpace plugin via the left side menu and enter your password to restore access."
-msgstr "Por favor, diríjase al plugin de DocSpace a través del menú de la izquierda e introduzca su contraseña para restaurar el acceso."
 
 msgid "WordPress requests access to your ONLYOFFICE DocSpace"
 msgstr "WordPress solicita acceso a su ONLYOFFICE DocSpace"
