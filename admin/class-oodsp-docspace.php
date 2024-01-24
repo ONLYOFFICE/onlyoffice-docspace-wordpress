@@ -32,6 +32,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+if ( ! function_exists( 'WP_Filesystem' ) ) {
+	include ABSPATH . '/wp-admin/includes/file.php';
+	WP_Filesystem();
+}
+
 /**
  * Page ONLYOFFICE DocSpace.
  *
@@ -173,7 +178,9 @@ class OODSP_DocSpace {
 	 * Init menu.
 	 */
 	public function init_menu() {
-		$logo_svg = file_get_contents( OODSP_PLUGIN_URL . 'admin/images/logo.svg' );
+		global $wp_filesystem;
+
+		$logo_svg = $wp_filesystem->get_contents( OODSP_PLUGIN_URL . 'admin/images/logo.svg' );
 
 		add_menu_page(
 			'DocSpace',
@@ -181,7 +188,7 @@ class OODSP_DocSpace {
 			'upload_files',
 			'onlyoffice-docspace',
 			array( $this, 'docspace_page' ),
-			'data:image/svg+xml;base64,' . base64_encode( $logo_svg )
+			'data:image/svg+xml;base64,' . base64_encode( $logo_svg ) // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 		);
 
 		$hook = add_submenu_page(
