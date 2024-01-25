@@ -154,6 +154,7 @@ class OODSP_Public_DocSpace {
 
 		if ( array_key_exists( 'requestToken', $attr ) && $is_public) {
 			$atts['requestToken'] = $attr['requestToken'];
+			$atts['rootPath'] = '/rooms/share';
 		}
 
 		wp_enqueue_script(
