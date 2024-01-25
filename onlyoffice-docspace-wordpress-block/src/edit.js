@@ -62,7 +62,7 @@ const Edit = ({ attributes, setAttributes }) => {
             roomId: event[0].id,
             name: event[0].label,
             icon: event[0].icon,
-            requestToken: event[0].requestToken,
+            requestToken: event[0].requestTokens[0].requestToken,
         });
         DocSpace.SDK.frames["oodsp-selector-frame"].destroyFrame();
         setOpen(false);
