@@ -225,3 +225,6 @@ msgstr ""
 msgid "<strong>Error:</strong> The password field is empty."
 msgstr ""
 
+#: admin/js/settings.js
+msgid "The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %sthe Developer Tools section%s."
+msgstr ""
