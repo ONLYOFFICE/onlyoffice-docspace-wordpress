@@ -7,6 +7,7 @@
             if (window.DocSpace || scriptTag) return resolve();
             docSpaceUrl += docSpaceUrl.endsWith("/") ? "" : "/"
             scriptTag = document.createElement("script");
+            scriptTag.id = "docspace-script-tag";
             scriptTag.src = docSpaceUrl + "static/scripts/api.js";
             scriptTag.async = true;
             document.body.appendChild(scriptTag);

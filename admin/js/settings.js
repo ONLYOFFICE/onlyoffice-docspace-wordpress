@@ -76,6 +76,8 @@
 		'submit',
 		function () {
 			const hash = $( '#hash' );
+			$( '#docspace-script-tag' ).remove();
+			window.DocSpace = null;
 
 			if ( ! hash.length ) {
 				clearNotices();
@@ -87,7 +89,7 @@
 				}
 				const docspaceUrl = $( '#docspace_url' ).val().trim();
 				const pass        = $( '#user_pass' ).val().trim();
-				DocSpaceComponent.initScript( $( '#docspace_url' ).val().trim() )
+				DocSpaceComponent.initScript( docspaceUrl )
 					.then(
 						async function () {
 							DocSpace.SDK.initSystem(
