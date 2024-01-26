@@ -1,7 +1,7 @@
 # Change Log
 
-## 
-## Change
+## 1.0.1
+## Changed
 - minor code corrections, compliance with WordPress requirements
 - fix invite users to DocSpace without first name or last name
 - fix "DocSpace User Status", when the user has not confirmed the email

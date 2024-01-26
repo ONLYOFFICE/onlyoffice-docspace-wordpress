@@ -3,7 +3,7 @@ Contributors: onlyoffice
 Tags: onlyoffice, integration, docspace
 Requires at least: 6.2
 Tested up to: 6.3.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 Requires PHP: 8.0
 License: GPLv2
 License URI: https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress/blob/master/LICENSE
@@ -42,6 +42,32 @@ Access rights to rooms and files on the published pages are determined depending
 
 - Public: the DocSpace room/file is available for viewing to all WordPress users. These users access content under a public user account (WordPress Viewer).
 - Private: the DocSpace room/file is available in accordance with the existing DocSpace access rights. Collaborative document editing is possible if users have the required rights.
+
+== How the plugin is using the ONLYOFFICE DocSpace service ==
+
+The plugin allows working with office files via [ONLYOFFICE DocSpace](https://www.onlyoffice.com/docspace.aspx) and makes the following requests to the service on the backend:
+
+- getting a list of DocSpace users
+- creating a user in DocSpace using WordPress user data
+- getting a DocSpace user by email
+- setting a password for a DocSpace user
+- getting authorization cookies of a DocSpace user 
+- getting a DocSpace file
+- getting a DocSpace folder
+- inviting a user to a DocSpace room
+
+On the frontend, the following DocSpace elements are inserted:
+
+- file selection control
+- room selection control
+- file display control
+- room display control
+- system frame for checking authorization 
+
+*Useful resources:* 
+
+- [ONLYOFFICE DocSpace Terms of use](https://onlyo.co/41Y69Rf)
+- [Privacy Policy](https://www.onlyoffice.com/Privacy.aspx)
 
 == Frequently Asked Questions ==
 

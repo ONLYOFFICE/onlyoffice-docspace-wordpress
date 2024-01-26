@@ -198,3 +198,6 @@ msgstr "<strong>Errore:</strong> L'autenticazione dell'utente non è riuscita."
 msgid "<strong>Error:</strong> The password field is empty."
 msgstr "<strong>Errore:</strong> Il campo della password è vuoto."
 
+#: admin/js/settings.js
+msgid "The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %sthe Developer Tools section%s."
+msgstr "The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %sthe Developer Tools section%s."

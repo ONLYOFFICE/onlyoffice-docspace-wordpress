@@ -198,3 +198,7 @@ msgstr "<strong>Ошибка:</strong> Не удалось выполнить а
 msgid "<strong>Error:</strong> The password field is empty."
 msgstr "<strong>Ошибка</strong>: Вы не ввели пароль."
 
+#: admin/js/settings.js
+msgid "The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %sthe Developer Tools section%s."
+msgstr "Текущий домен не указан в настройках политики безопасности контента (CSP). Пожалуйста, добавьте его через раздел %sИнструменты разработчика%s."
+

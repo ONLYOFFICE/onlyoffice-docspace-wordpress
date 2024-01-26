@@ -32,7 +32,7 @@
 			.attr( 'role', 'alert' )
 			.attr( 'tabindex', '-1' )
 			.addClass( 'is-dismissible notice notice-' + type )
-			.append( $( '<p></p>' ).text( message ) )
+			.append( $( '<p></p>' ).html( message ) )
 			.append(
 				$( '<button></button>' )
 					.attr( 'type', 'button' )
@@ -76,6 +76,8 @@
 		'submit',
 		function () {
 			const hash = $( '#hash' );
+			$( '#docspace-script-tag' ).remove();
+			window.DocSpace = null;
 
 			if ( ! hash.length ) {
 				clearNotices();
@@ -85,9 +87,9 @@
 					hideLoader();
 					return false;
 				}
-
-				const pass = $( '#user_pass' ).val().trim();
-				DocSpaceComponent.initScript( $( '#docspace_url' ).val().trim() )
+				const docspaceUrl = $( '#docspace_url' ).val().trim();
+				const pass        = $( '#user_pass' ).val().trim();
+				DocSpaceComponent.initScript( docspaceUrl )
 					.then(
 						async function () {
 							DocSpace.SDK.initSystem(
@@ -116,6 +118,22 @@
 
 											$( '#user_pass' ).val( '' )
 											settingsForm.submit();
+										},
+										"onAppError": function (e) {
+											hideLoader();
+
+											if ( e === "The current domain is not set in the Content Security Policy (CSP) settings." ) {
+												addNotice(
+													wp.i18n.sprintf(
+														wp.i18n.__( 'The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %sthe Developer Tools section%s.', 'onlyoffice-docspace-plugin' ),
+														'<a href="' + stripTrailingSlash( docspaceUrl ) + '/portal-settings/developer-tools/javascript-sdk" target="_blank">',
+														"</a>"
+													),
+													'error'
+												);
+											} else {
+												addNotice( e, 'error' );
+											}
 										}
 									}
 								}
@@ -200,4 +218,10 @@
 				}
 			);
 	}
+
+	const stripTrailingSlash = ( str ) => {
+		return str.endsWith( '/' )
+			? str.slice( 0, -1 )
+			: str;
+	};
 }( jQuery ) );
