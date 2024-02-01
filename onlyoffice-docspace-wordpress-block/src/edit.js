@@ -161,9 +161,9 @@ const Edit = ({ attributes, setAttributes }) => {
 
     const blockProps = useBlockProps({ style: blockStyle });
     return (
-        <div {...blockProps}>
+        <>
             {attributes.roomId || attributes.fileId ?
-                <div>
+                <div {...blockProps}>
                     <InspectorControls key="setting">
                         <PanelBody title={ __("Settings", "onlyoffice-docspace-plugin") }>
                             {       
@@ -175,13 +175,19 @@ const Edit = ({ attributes, setAttributes }) => {
                             <HeightControl label={ __("Height", "onlyoffice-docspace-plugin") } value={attributes.height} onChange={ ( value ) => setAttributes({ height: value }) }/>
                         </PanelBody>
                     </InspectorControls>
-                    <p style={{display: 'flex'}}>
-                    {attributes.icon && !showDefaultIcon ? 
-                        <img class='docspace-icon' src={ DocSpaceComponent.getAbsoluteUrl(attributes.icon) }  onerror={() => setShowDefaultIcon( true ) } />
-                        :
-                        <div>{onlyofficeIcon}</div>
-                    }
-                    <p style={{marginLeft: '25px'}}> {attributes.name || ""}</p>
+
+                    <div className={ "wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor"}>
+                        <div>
+                            {
+                                attributes.icon && !showDefaultIcon ? 
+                                    <img class='docspace-icon' src={ DocSpaceComponent.getAbsoluteUrl(attributes.icon) }  onerror={() => setShowDefaultIcon( true ) } />
+                                    :
+                                    <div>{onlyofficeIcon}</div>
+                            }
+                            <p>{attributes.name || ""}</p>
+                        </div>
+                    </div>
+
                     <BlockControls>
                         <ToolbarGroup>
                             <Dropdown
@@ -224,7 +230,6 @@ const Edit = ({ attributes, setAttributes }) => {
                             />
                         </ToolbarGroup>
                     </BlockControls>
-                </p>
                 </div>
             :
                 <div>
@@ -257,7 +262,7 @@ const Edit = ({ attributes, setAttributes }) => {
                     <div id="oodsp-selector-frame"></div>
                 </Modal>
             ) }
-        </div>
+        </>
     );
 };
 
