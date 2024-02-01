@@ -30,5 +30,8 @@
 		"requestToken":{
 			"type": "string"
 		}
+	},
+	"supports": {
+		"align": true
 	}
 }

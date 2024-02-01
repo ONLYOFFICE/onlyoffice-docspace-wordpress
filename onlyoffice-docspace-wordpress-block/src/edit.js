@@ -38,7 +38,6 @@ import { blockStyle, onlyofficeIcon } from "./index";
 import { __ } from '@wordpress/i18n';
 
 const Edit = ({ attributes, setAttributes }) => {
-    const blockProps = useBlockProps({ style: blockStyle });
     const [isOpen, setOpen] = useState( false );
     const [modalConfig, setModalConfig] = useState( {} );
     const [showDefaultIcon, setShowDefaultIcon] = useState( false );
@@ -144,13 +143,35 @@ const Edit = ({ attributes, setAttributes }) => {
         }
     }
 
+    if (attributes.hasOwnProperty('width') && attributes.width.length > 0) {
+        blockStyle.width = attributes.width;
+    }
+
+    if (attributes.hasOwnProperty('height') && attributes.height.length > 0) {
+        blockStyle.height = attributes.height;
+    }
+
+    let showWidthControl = true;
+
+    if (attributes.align === "full") {
+        delete blockStyle.width;
+        showWidthControl = false;
+    }
+
+
+    const blockProps = useBlockProps({ style: blockStyle });
     return (
         <div {...blockProps}>
             {attributes.roomId || attributes.fileId ?
                 <div>
                     <InspectorControls key="setting">
                         <PanelBody title={ __("Settings", "onlyoffice-docspace-plugin") }>
-                            <HeightControl label={ __("Width", "onlyoffice-docspace-plugin") } value={attributes.width} onChange={ ( value ) => setAttributes({ width: value }) }/>
+                            {       
+                                showWidthControl ?
+                                    <HeightControl label={ __("Width", "onlyoffice-docspace-plugin") } value={attributes.width} onChange={ ( value ) => setAttributes({ width: value }) }/>
+                                    :
+                                    ''
+                            }
                             <HeightControl label={ __("Height", "onlyoffice-docspace-plugin") } value={attributes.height} onChange={ ( value ) => setAttributes({ height: value }) }/>
                         </PanelBody>
                     </InspectorControls>

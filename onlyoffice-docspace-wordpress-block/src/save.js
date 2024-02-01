@@ -39,6 +39,10 @@ const Save = ({ attributes }) => {
         parameters += 'height=' + attributes.height + ' ';
     }
 
+    if ( attributes.hasOwnProperty('align') && attributes.align.length > 0 ) {
+        parameters += 'align=' + attributes.align + ' ';
+    }
+
     if ( attributes.hasOwnProperty('requestToken') && attributes.requestToken.length > 0 ) {
         parameters += 'requestToken=' + attributes.requestToken + ' ';
     }

@@ -130,6 +130,7 @@ class OODSP_Public_DocSpace {
 			'frameId'      => 'onlyoffice-docspace-block-' . $instance,
 			'width'        => '100%',
 			'height'       => '500px',
+			'align'        => '',
 			'mode'         => 'manager',
 			'editorGoBack' => false,
 		);
@@ -205,8 +206,12 @@ class OODSP_Public_DocSpace {
 			true
 		);
 
-		$output  = '<div>';
-		$output .= "<div class='onlyoffice-docspace-block' data-config='" . wp_json_encode( $atts ) . "' id='onlyoffice-docspace-block-" . $instance . "' style='overflow: overlay; width:" . $atts['width'] . '; height:' . $atts['height'] . "'></div>";
+		$align = ! empty( $atts['align'] ) ? 'align' . $atts['align'] : '';
+		$size  = ! empty( $atts['width'] ) && ! ( 'full' === $atts['align'] ) ? 'width: ' . $atts['width'] . ';' : '';
+		$size .= ! empty( $atts['height'] ) ? 'height: ' . $atts['height'] . ';' : '';
+
+		$output  = '<div class="wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace ' . $align . ' size-full" style="' . $size . '">';
+		$output .= "<div class='onlyoffice-docspace-block' data-config='" . wp_json_encode( $atts ) . "' id='onlyoffice-docspace-block-" . $instance . "'></div>";
 		$output .= '</div>';
 
 		return apply_filters( 'wp_onlyoffice_docspace_shortcode', $output, $atts );

@@ -20,8 +20,8 @@
 					for ( var config of oodspConfigs ) {
 						if (DocSpaceComponent.isPublic) {
 							config.frameId,
-							config.width || null,
-							config.height || null,
+							"100%",
+							"100%",
 							config.locale = DocSpaceComponent.locale;
 							DocSpace.SDK.initFrame( config );
 						} else {
@@ -29,8 +29,8 @@
 								config.frameId,
 								null,
 								function () {
-									config.width || null,
-									config.height || null,
+									"100%",
+									"100%",
 									config.locale = DocSpaceComponent.locale;
 									DocSpace.SDK.initFrame( config );
 								},
