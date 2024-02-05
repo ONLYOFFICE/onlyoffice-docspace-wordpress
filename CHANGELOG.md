@@ -1,5 +1,13 @@
 # Change Log
 
+
+##
+## Added
+- support for public rooms
+
+## Changed
+- delete public user "Wordpress Viewer"
+
 ## 1.0.1
 ## Changed
 - minor code corrections, compliance with WordPress requirements
