@@ -58,24 +58,44 @@ const Edit = ({ attributes, setAttributes }) => {
 
     const onSelectRoomCallback = (event) => {
         Object.keys(attributes).forEach(key => delete attributes[key]);
+
+        const requestTokens = event[0].requestTokens;
+        const requestToken = requestTokens ? requestTokens[0].requestToken : null;
+
         setAttributes({
             roomId: event[0].id,
             name: event[0].label,
-            icon: event[0].icon,
-            requestToken: event[0].requestTokens[0].requestToken,
+            icon: event[0].icon
         });
+
+        if (requestToken) {
+            setAttributes({
+                requestToken: requestToken
+            });
+        }
+
         DocSpace.SDK.frames["oodsp-selector-frame"].destroyFrame();
         setOpen(false);
     }
 
     const onSelectFileCallback = (event) => {
         Object.keys(attributes).forEach(key => delete attributes[key]);
+
+        const requestTokens = event.requestTokens;
+        const requestToken = requestTokens ? requestTokens[0].requestToken : null;
+
         setAttributes({
             fileId: event.id,
             name: event.title,
-            icon: event.icon,
-            requestToken: event.requestToken,
+            icon: event.icon
         });
+
+        if (requestToken) {
+            setAttributes({
+                requestToken: requestToken
+            });
+        }
+
         DocSpace.SDK.frames["oodsp-selector-frame"].destroyFrame();
         setOpen(false);
     }
