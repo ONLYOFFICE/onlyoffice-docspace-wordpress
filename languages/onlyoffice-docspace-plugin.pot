@@ -201,3 +201,15 @@ msgstr ""
 #: admin/js/settings.js
 msgid "The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %sthe Developer Tools section%s."
 msgstr ""
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Theme"
+msgstr ""
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Light"
+msgstr ""
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Dark"
+msgstr ""

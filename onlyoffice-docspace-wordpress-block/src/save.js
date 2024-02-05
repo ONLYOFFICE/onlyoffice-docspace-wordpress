@@ -43,6 +43,10 @@ const Save = ({ attributes }) => {
         parameters += 'align=' + attributes.align + ' ';
     }
 
+    if ( attributes.hasOwnProperty('theme') && attributes.theme.length > 0 ) {
+        parameters += 'theme=' + attributes.theme + ' ';
+    }
+
     if ( attributes.hasOwnProperty('requestToken') && attributes.requestToken.length > 0 ) {
         parameters += 'requestToken=' + attributes.requestToken + ' ';
     }

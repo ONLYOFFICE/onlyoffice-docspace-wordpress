@@ -31,7 +31,8 @@ import {
     NavigableMenu,
     ToolbarButton,
     ToolbarGroup,
-    Dropdown
+    Dropdown,
+    SelectControl
 } from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
 import { blockStyle, onlyofficeIcon } from "./index";
@@ -41,6 +42,17 @@ const Edit = ({ attributes, setAttributes }) => {
     const [isOpen, setOpen] = useState( false );
     const [modalConfig, setModalConfig] = useState( {} );
     const [showDefaultIcon, setShowDefaultIcon] = useState( false );
+
+    const themes = [
+        {
+            label: __("Light", "onlyoffice-docspace-plugin"),
+            value: "Base"
+        },
+        {
+            label: __("Dark", "onlyoffice-docspace-plugin"),
+            value: "Dark"
+        }
+    ];
 
     const script = () => {
         if (isOpen) {
@@ -173,6 +185,12 @@ const Edit = ({ attributes, setAttributes }) => {
                                     ''
                             }
                             <HeightControl label={ __("Height", "onlyoffice-docspace-plugin") } value={attributes.height} onChange={ ( value ) => setAttributes({ height: value }) }/>
+                            <SelectControl
+                                label={__("Theme", "onlyoffice-docspace-plugin")}
+                                value={attributes.theme}
+                                options={themes}
+                                onChange={(value) => {setAttributes({ theme: value })}}
+                            />
                         </PanelBody>
                     </InspectorControls>
 

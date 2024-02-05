@@ -133,6 +133,7 @@ class OODSP_Public_DocSpace {
 			'align'        => '',
 			'mode'         => 'manager',
 			'editorGoBack' => false,
+			'theme'        => 'Base',
 		);
 
 		$atts = shortcode_atts( $defaults_atts, $attr, 'onlyoffice-docspace' );
@@ -151,6 +152,10 @@ class OODSP_Public_DocSpace {
 
 		if ( empty( $atts['height'] ) ) {
 			$atts['height'] = $defaults_atts['height'];
+		}
+
+		if ( empty( $atts['theme'] ) ) {
+			$atts['theme'] = $defaults_atts['theme'];
 		}
 
 		if ( array_key_exists( 'requestToken', $attr ) && $is_public) {

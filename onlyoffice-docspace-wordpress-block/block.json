@@ -29,6 +29,9 @@
 		},
 		"requestToken":{
 			"type": "string"
+		},
+		"theme": {
+			"type": "string"
 		}
 	},
 	"supports": {
