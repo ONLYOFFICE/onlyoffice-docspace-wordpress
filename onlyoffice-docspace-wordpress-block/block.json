@@ -26,6 +26,9 @@
 		},
 		"height":{
 			"type": "string"
+		},
+		"requestToken":{
+			"type": "string"
 		}
 	}
 }

@@ -32,8 +32,8 @@ msgstr "密码"
 msgid "Save"
 msgstr "保存"
 
-msgid "The current user will be added to DocSpace with the <b>Room admin</b> role. <b>WordPress Viewer</b> user will be added to DocSpace with View Only access."
-msgstr "当前用户将以<b>房间管理员</b>角色添加至协作空间中。<b>WordPress 查看者</b>用户在被添加至协作空间时将拥有“仅查看”访问权限。"
+msgid "The current user will be added to DocSpace with the <b>Room admin</b> role."
+msgstr "当前用户将以<b>房间管理员</b>角色添加至协作空间中。"
 
 msgid "DocSpace Users"
 msgstr "协作空间用户"
@@ -89,18 +89,6 @@ msgstr "获取用户数据时出错。请重试！"
 
 msgid "The specified user is not a DocSpace administrator!"
 msgstr "指定的用户不是协作空间管理员！"
-
-msgid "Public DocSpace user was not created! View content will not be available on public pages."
-msgstr "公开协作空间用户已创建！公开页面上查看内容不可用。"
-
-msgid "Public DocSpace user already created, but failed to update authorization."
-msgstr "公开协作空间用户已创建但未更新授权。"
-
-msgid "Public DocSpace user was not created. View content will not be available on public pages."
-msgstr "公开协作空间用户已创建。公开页面上查看内容不可用。"
-
-msgid "Public DocSpace user successfully created."
-msgstr "公开协作空间用户已成功创建。"
 
 msgid "User %s already exists in DocSpace!"
 msgstr "用户 %s 已存在于协作空间中！"
@@ -192,21 +180,6 @@ msgstr "门户不可用！请联系管理员！"
 
 msgid "Go to the settings to configure ONLYOFFICE DocSpace connector."
 msgstr "前往设置以配置 ONLYOFFICE 协作空间连接器。"
-
-msgid "Authorization unsuccessful!"
-msgstr "授权不成功！"
-
-msgid "Please contact the administrator."
-msgstr "请联系管理员。"
-
-msgid "Reset WordPress Viewer to continue"
-msgstr "重置 WordPress 查看者以继续"
-
-msgid "You may experience issues with access to your content because WordPress Viewer data has been lost. Please proceed to the DocSpace plugin settings and click the Save button. WordPress Viewer will be added again to DocSpace."
-msgstr "由于 WordPress 查看者数据丢失，您可能会遇到内容访问权限问题。请前往协作空间插件设置并点击保存按钮。WordPress 查看者将被再次添加至协作空间。"
-
-msgid "Please proceed to the DocSpace plugin via the left side menu and enter your password to restore access."
-msgstr "请通过左侧菜单前往协作空间插件并输入您的密码以恢复访问权限。"
 
 msgid "WordPress requests access to your ONLYOFFICE DocSpace"
 msgstr "WordPress 请求访问您的 ONLYOFFICE 协作空间"

@@ -39,6 +39,10 @@ const Save = ({ attributes }) => {
         parameters += 'height=' + attributes.height + ' ';
     }
 
+    if ( attributes.hasOwnProperty('requestToken') && attributes.requestToken.length > 0 ) {
+        parameters += 'requestToken=' + attributes.requestToken + ' ';
+    }
+
     return <RawHTML>{ `[onlyoffice-docspace ${ parameters } /]` }</RawHTML>;
 };
 export default Save;
