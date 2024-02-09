@@ -1,9 +1,61 @@
+.wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor {
+    align-items: center;
+    color: white;
+    display: flex;
+    font-size: 20px;
+    height: inherit;
+    justify-content: center;
+    margin: 0;
+    max-width: inherit;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: middle;
+    width: inherit;
+}
+
 .components-modal__content {
     padding: 0 !important;
 }
 
-.docspace-icon {
-    border-radius: 12px;
-    height: 64px;
-    width: 64px;
+.wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor p {
+    margin: 0;
+    text-align: left;
+}
+
+.wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor .entity-icon {
+    border-radius: 22px;
+    width: 128px;
+    height: 128px;
+}
+
+.wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor .entity-info {
+    padding-left:20px;
+}
+
+.wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor .entity-info-label {
+    font-weight: 600;
+    min-width: max-content;
+}
+
+.wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor .entity-info-label svg {
+    width: 18px !important;
+    height: 18px !important;
+}
+
+.wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor img {
+    border-radius: 22px;
+    width: 100%;
+    height: 100%;
+}
+.wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor svg {
+    width: 100%;
+    height: 100%;
+}
+
+.wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor.room {
+    background: #FFA74F;
+}
+
+.wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor.file {
+    background: #489BEF;
 }

@@ -202,3 +202,14 @@ msgstr "<strong>Ошибка</strong>: Вы не ввели пароль."
 msgid "The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %sthe Developer Tools section%s."
 msgstr "Текущий домен не указан в настройках политики безопасности контента (CSP). Пожалуйста, добавьте его через раздел %sИнструменты разработчика%s."
 
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Theme"
+msgstr "Тема"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Light"
+msgstr "Светлая"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Dark"
+msgstr "Темная"

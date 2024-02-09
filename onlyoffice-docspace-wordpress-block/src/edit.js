@@ -31,17 +31,29 @@ import {
     NavigableMenu,
     ToolbarButton,
     ToolbarGroup,
-    Dropdown
+    Dropdown,
+    SelectControl
 } from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
 import { blockStyle, onlyofficeIcon } from "./index";
 import { __ } from '@wordpress/i18n';
+import { getIconByType, publicIcon } from "./icons";
 
 const Edit = ({ attributes, setAttributes }) => {
-    const blockProps = useBlockProps({ style: blockStyle });
     const [isOpen, setOpen] = useState( false );
     const [modalConfig, setModalConfig] = useState( {} );
     const [showDefaultIcon, setShowDefaultIcon] = useState( false );
+
+    const themes = [
+        {
+            label: __("Light", "onlyoffice-docspace-plugin"),
+            value: "Base"
+        },
+        {
+            label: __("Dark", "onlyoffice-docspace-plugin"),
+            value: "Dark"
+        }
+    ];
 
     const script = () => {
         if (isOpen) {
@@ -144,23 +156,71 @@ const Edit = ({ attributes, setAttributes }) => {
         }
     }
 
+    if (attributes.hasOwnProperty('width') && attributes.width.length > 0) {
+        blockStyle.width = attributes.width;
+    }
+
+    if (attributes.hasOwnProperty('height') && attributes.height.length > 0) {
+        blockStyle.height = attributes.height;
+    }
+
+    let showWidthControl = true;
+
+    if (attributes.align === "full") {
+        delete blockStyle.width;
+        showWidthControl = false;
+    }
+
+    let showPlaceholder = ! attributes.roomId && ! attributes.fileId;
+    let entityType = ! showPlaceholder && attributes.roomId ? "room" : "file";
+    let entityLabel = ! showPlaceholder && attributes.roomId ? __("Room", "onlyoffice-docspace-plugin") : __("File", "onlyoffice-docspace-plugin");
+    let entityIcon = getIconByType(entityType);
+    let entytiIsPublic = attributes.hasOwnProperty('requestToken') && attributes.requestToken.length > 0 ? publicIcon : "";
+
+    const blockProps = showPlaceholder ?  useBlockProps( { style: null } ) : useBlockProps( { style: blockStyle } );
     return (
         <div {...blockProps}>
-            {attributes.roomId || attributes.fileId ?
-                <div>
+            {! showPlaceholder ?
+                <>
                     <InspectorControls key="setting">
                         <PanelBody title={ __("Settings", "onlyoffice-docspace-plugin") }>
-                            <HeightControl label={ __("Width", "onlyoffice-docspace-plugin") } value={attributes.width} onChange={ ( value ) => setAttributes({ width: value }) }/>
+                            {       
+                                showWidthControl ?
+                                    <HeightControl label={ __("Width", "onlyoffice-docspace-plugin") } value={attributes.width} onChange={ ( value ) => setAttributes({ width: value }) }/>
+                                    :
+                                    ''
+                            }
                             <HeightControl label={ __("Height", "onlyoffice-docspace-plugin") } value={attributes.height} onChange={ ( value ) => setAttributes({ height: value }) }/>
+                            <SelectControl
+                                label={__("Theme", "onlyoffice-docspace-plugin")}
+                                value={attributes.theme}
+                                options={themes}
+                                onChange={(value) => {setAttributes({ theme: value })}}
+                            />
                         </PanelBody>
                     </InspectorControls>
-                    <p style={{display: 'flex'}}>
-                    {attributes.icon && !showDefaultIcon ? 
-                        <img class='docspace-icon' src={ DocSpaceComponent.getAbsoluteUrl(attributes.icon) }  onerror={() => setShowDefaultIcon( true ) } />
-                        :
-                        <div>{onlyofficeIcon}</div>
-                    }
-                    <p style={{marginLeft: '25px'}}> {attributes.name || ""}</p>
+
+                    <div className={ `wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor ${entityType}`}>
+                        <tbody>
+                            <tr>
+                                <td valign="middle">
+                                    <div class="entity-icon">
+                                        {
+                                            attributes.icon && !showDefaultIcon ? 
+                                                <img src={ DocSpaceComponent.getAbsoluteUrl(attributes.icon) }  onerror={() => setShowDefaultIcon( true ) } />
+                                                :
+                                                <>{entityIcon}</>
+                                        }
+                                    </div>
+                                </td>
+                                <td class="entity-info">
+                                    <p class="entity-info-label">Docspace {entityLabel} {entytiIsPublic}</p>
+                                    <p><span style={{fontWeight: 500}}>{__("Name")}:</span> {attributes.name || ""}</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </div>
+
                     <BlockControls>
                         <ToolbarGroup>
                             <Dropdown
@@ -203,10 +263,9 @@ const Edit = ({ attributes, setAttributes }) => {
                             />
                         </ToolbarGroup>
                     </BlockControls>
-                </p>
-                </div>
+                </>
             :
-                <div>
+                <>
                     <Placeholder
                         icon={onlyofficeIcon} 
                         label="ONLYOFFICE DocSpace"
@@ -229,7 +288,7 @@ const Edit = ({ attributes, setAttributes }) => {
                             { __("Select file", "onlyoffice-docspace-plugin") }
                         </Button>
                     </Placeholder>
-                </div>
+                </>
             }
             { isOpen && (
                 <Modal onRequestClose={ closeModal } title={ modalConfig.title } style={{ minHeight: "572px" }}>

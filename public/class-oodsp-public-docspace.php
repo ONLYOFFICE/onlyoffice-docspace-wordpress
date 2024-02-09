@@ -130,8 +130,10 @@ class OODSP_Public_DocSpace {
 			'frameId'      => 'onlyoffice-docspace-block-' . $instance,
 			'width'        => '100%',
 			'height'       => '500px',
+			'align'        => '',
 			'mode'         => 'manager',
 			'editorGoBack' => false,
+			'theme'        => 'Base',
 		);
 
 		$atts = shortcode_atts( $defaults_atts, $attr, 'onlyoffice-docspace' );
@@ -150,6 +152,10 @@ class OODSP_Public_DocSpace {
 
 		if ( empty( $atts['height'] ) ) {
 			$atts['height'] = $defaults_atts['height'];
+		}
+
+		if ( empty( $atts['theme'] ) ) {
+			$atts['theme'] = $defaults_atts['theme'];
 		}
 
 		if ( array_key_exists( 'requestToken', $attr ) && $is_public) {
@@ -205,8 +211,12 @@ class OODSP_Public_DocSpace {
 			true
 		);
 
-		$output  = '<div>';
-		$output .= "<div class='onlyoffice-docspace-block' data-config='" . wp_json_encode( $atts ) . "' id='onlyoffice-docspace-block-" . $instance . "' style='overflow: overlay; width:" . $atts['width'] . '; height:' . $atts['height'] . "'></div>";
+		$align = ! empty( $atts['align'] ) ? 'align' . $atts['align'] : '';
+		$size  = ! empty( $atts['width'] ) && ! ( 'full' === $atts['align'] ) ? 'width: ' . $atts['width'] . ';' : '';
+		$size .= ! empty( $atts['height'] ) ? 'height: ' . $atts['height'] . ';' : '';
+
+		$output  = '<div class="wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace ' . $align . ' size-full" style="' . $size . '">';
+		$output .= "<div class='onlyoffice-docspace-block' data-config='" . wp_json_encode( $atts ) . "' id='onlyoffice-docspace-block-" . $instance . "'></div>";
 		$output .= '</div>';
 
 		return apply_filters( 'wp_onlyoffice_docspace_shortcode', $output, $atts );
