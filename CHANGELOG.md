@@ -4,6 +4,8 @@
 ##
 ## Added
 - support for public rooms
+- settings for onlyoffice-docspace-wordpress-block (theme, align)
+- improoved view onlyoffice-docspace-wordpress-block in editor
 
 ## Changed
 - delete public user "Wordpress Viewer"
