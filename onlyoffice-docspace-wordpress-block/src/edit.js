@@ -37,6 +37,7 @@ import {
 import { useState, useEffect } from '@wordpress/element';
 import { blockStyle, onlyofficeIcon } from "./index";
 import { __ } from '@wordpress/i18n';
+import { getIconByType, publicIcon } from "./icons";
 
 const Edit = ({ attributes, setAttributes }) => {
     const [isOpen, setOpen] = useState( false );
@@ -170,12 +171,17 @@ const Edit = ({ attributes, setAttributes }) => {
         showWidthControl = false;
     }
 
+    let showPlaceholder = ! attributes.roomId && ! attributes.fileId;
+    let entityType = ! showPlaceholder && attributes.roomId ? "room" : "file";
+    let entityLabel = ! showPlaceholder && attributes.roomId ? __("Room", "onlyoffice-docspace-plugin") : __("File", "onlyoffice-docspace-plugin");
+    let entityIcon = getIconByType(entityType);
+    let entytiIsPublic = attributes.hasOwnProperty('requestToken') && attributes.requestToken.length > 0 ? publicIcon : "";
 
-    const blockProps = useBlockProps({ style: blockStyle });
+    const blockProps = showPlaceholder ?  useBlockProps( { style: null } ) : useBlockProps( { style: blockStyle } );
     return (
-        <>
-            {attributes.roomId || attributes.fileId ?
-                <div {...blockProps}>
+        <div {...blockProps}>
+            {! showPlaceholder ?
+                <>
                     <InspectorControls key="setting">
                         <PanelBody title={ __("Settings", "onlyoffice-docspace-plugin") }>
                             {       
@@ -194,16 +200,25 @@ const Edit = ({ attributes, setAttributes }) => {
                         </PanelBody>
                     </InspectorControls>
 
-                    <div className={ "wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor"}>
-                        <div>
-                            {
-                                attributes.icon && !showDefaultIcon ? 
-                                    <img class='docspace-icon' src={ DocSpaceComponent.getAbsoluteUrl(attributes.icon) }  onerror={() => setShowDefaultIcon( true ) } />
-                                    :
-                                    <div>{onlyofficeIcon}</div>
-                            }
-                            <p>{attributes.name || ""}</p>
-                        </div>
+                    <div className={ `wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor ${entityType}`}>
+                        <tbody>
+                            <tr>
+                                <td valign="middle">
+                                    <div class="entity-icon">
+                                        {
+                                            attributes.icon && !showDefaultIcon ? 
+                                                <img src={ DocSpaceComponent.getAbsoluteUrl(attributes.icon) }  onerror={() => setShowDefaultIcon( true ) } />
+                                                :
+                                                <>{entityIcon}</>
+                                        }
+                                    </div>
+                                </td>
+                                <td class="entity-info">
+                                    <p class="entity-info-label">Docspace {entityLabel} {entytiIsPublic}</p>
+                                    <p><span style={{fontWeight: 500}}>{__("Name")}:</span> {attributes.name || ""}</p>
+                                </td>
+                            </tr>
+                        </tbody>
                     </div>
 
                     <BlockControls>
@@ -248,9 +263,9 @@ const Edit = ({ attributes, setAttributes }) => {
                             />
                         </ToolbarGroup>
                     </BlockControls>
-                </div>
+                </>
             :
-                <div>
+                <>
                     <Placeholder
                         icon={onlyofficeIcon} 
                         label="ONLYOFFICE DocSpace"
@@ -273,14 +288,14 @@ const Edit = ({ attributes, setAttributes }) => {
                             { __("Select file", "onlyoffice-docspace-plugin") }
                         </Button>
                     </Placeholder>
-                </div>
+                </>
             }
             { isOpen && (
                 <Modal onRequestClose={ closeModal } title={ modalConfig.title } style={{ minHeight: "572px" }}>
                     <div id="oodsp-selector-frame"></div>
                 </Modal>
             ) }
-        </>
+        </div>
     );
 };
 
