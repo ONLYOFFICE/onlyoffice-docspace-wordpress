@@ -166,7 +166,11 @@ class OODSP_Users_List_Table extends WP_List_Table {
 						$this->items[ $userid ]->docspace_status = $this->docspace_users[ $t ]['activationStatus'];
 						$this->items[ $userid ]->docspace_role   = $this->get_docspace_user_role_label( $this->docspace_users[ $t ] );
 
-						if ( 0 === $this->items[ $userid ]->docspace_status || 1 === $this->items[ $userid ]->docspace_status ) {
+						if (
+							0 === $this->items[ $userid ]->docspace_status
+							|| 1 === $this->items[ $userid ]->docspace_status
+							|| 2 === $this->items[ $userid ]->docspace_status
+							) {
 							$oodsp_security_manager = new OODSP_Security_Manager();
 							$user_pass              = $oodsp_security_manager->get_oodsp_user_pass( $user_object->ID );
 
