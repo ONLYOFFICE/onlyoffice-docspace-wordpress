@@ -82,19 +82,19 @@ class OODSP_DocSpace {
 	);
 
 	/**
-	 * OODSP_Settings
+	 * OODSP_Utils
 	 *
 	 * @access   private
-	 * @var      OODSP_Settings    $plugin_settings
+	 * @var      OODSP_Utils    $oodsp_utils
 	 */
-	private $plugin_settings;
+	private $oodsp_utils;
 
 
 	/**
 	 * Initialize the class and set its properties.
 	 */
 	public function __construct() {
-		$this->plugin_settings = new OODSP_Settings();
+		$this->oodsp_utils = new OODSP_Utils();
 	}
 
 	/**
@@ -103,8 +103,8 @@ class OODSP_DocSpace {
 	public function enqueue_scripts() {
 		wp_enqueue_script(
 			OODSP_PLUGIN_NAME . '-login',
-			OODSP_PLUGIN_URL . 'admin/js/login.js',
-			array( 'jquery' ),
+			OODSP_PLUGIN_URL . 'includes/js/oodsp-login.js',
+			array( 'jquery', 'wp-util' ),
 			OODSP_VERSION,
 			true
 		);
@@ -117,56 +117,28 @@ class OODSP_DocSpace {
 			);
 		}
 
+		wp_enqueue_script( 'user-profile' );
+
+		$this->oodsp_utils->enqueue_scripts();
+
 		wp_enqueue_script(
-			'docspace-component-api',
-			OODSP_PLUGIN_URL . 'assets-onlyoffice-docspace/js/docspace-component-api.js',
+			'docspace-integration-sdk',
+			OODSP_PLUGIN_URL . 'assets-onlyoffice-docspace/js/docspace-integration-sdk.js',
 			array(),
 			OODSP_VERSION,
 			true
 		);
-
-		$error_message = __( 'Portal unavailable! Please contact the administrator!', 'onlyoffice-docspace-plugin' );
-
-		if ( current_user_can( 'manage_options' ) ) {
-			$error_message = __( 'Go to the settings to configure ONLYOFFICE DocSpace connector.', 'onlyoffice-docspace-plugin' );
-		}
-
-		wp_localize_script(
-			'docspace-component-api',
-			'DocSpaceComponent',
-			array(
-				'url'         => $this->plugin_settings->get_onlyoffice_docspace_setting( OODSP_Settings::DOCSPACE_URL ),
-				'currentUser' => wp_get_current_user()->user_email,
-				'locale'      => $this->get_locale_for_docspace(),
-				'isPublic'    => false,
-				'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
-				'images'      => array(
-					'onlyoffice'  => plugins_url( 'public/images/onlyoffice.svg', OODSP_PLUGIN_FILE ),
-					'unavailable' => plugins_url( 'public/images/unavailable.svg', OODSP_PLUGIN_FILE ),
-				),
-				'messages'    => array(
-					'error' => $error_message,
-				),
-			)
-		);
-
-		wp_enqueue_script( 'user-profile' );
 	}
 
 	/**
 	 * Register the stylesheets for the DocSpace area.
 	 */
 	public function enqueue_styles() {
-		wp_enqueue_style(
-			'docspace-components-api',
-			OODSP_PLUGIN_URL . 'assets-onlyoffice-docspace/css/docspace-component-api.css',
-			array(),
-			OODSP_VERSION
-		);
+		$this->oodsp_utils->enqueue_styles();
 
 		wp_enqueue_style(
 			OODSP_PLUGIN_NAME . '-login',
-			OODSP_PLUGIN_URL . 'admin/css/login.css',
+			OODSP_PLUGIN_URL . 'includes/css/oodsp-login.css',
 			array(),
 			OODSP_VERSION
 		);
@@ -215,7 +187,7 @@ class OODSP_DocSpace {
 		</div>
 		<script>
 			document.addEventListener('DOMContentLoaded', function () {
-				DocSpaceComponent.renderDocSpace(
+				wp.oodsp.initLoginManager(
 					"oodsp-manager-frame",
 					function() {
 						DocSpace.SDK.initManager({
@@ -223,7 +195,7 @@ class OODSP_DocSpace {
 							showMenu: true,
 							showFilter: true,
 							showHeader: true,
-							locale: DocSpaceComponent.locale
+							locale: _oodsp.locale
 						});
 					}
 				);

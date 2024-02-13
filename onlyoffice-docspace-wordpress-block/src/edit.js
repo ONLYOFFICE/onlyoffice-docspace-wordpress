@@ -57,7 +57,7 @@ const Edit = ({ attributes, setAttributes }) => {
 
     const script = () => {
         if (isOpen) {
-            DocSpaceComponent.renderDocSpace(
+            wp.oodsp.initLoginManager(
                 "oodsp-selector-frame",
                 function() {
                     DocSpace.SDK.initFrame(modalConfig);
@@ -137,7 +137,7 @@ const Edit = ({ attributes, setAttributes }) => {
             height: "500px",
             mode: mode,
             selectorType: "roomsOnly",
-            locale: DocSpaceComponent.locale,
+            locale: _oodsp.locale,
             events: {
                 onSelectCallback: onSelectCallback,
                 onCloseCallback: onCloseCallback,
@@ -207,7 +207,7 @@ const Edit = ({ attributes, setAttributes }) => {
                                     <div class="entity-icon">
                                         {
                                             attributes.icon && !showDefaultIcon ? 
-                                                <img src={ DocSpaceComponent.getAbsoluteUrl(attributes.icon) }  onerror={() => setShowDefaultIcon( true ) } />
+                                                <img src={ wp.oodsp.getAbsoluteUrl(attributes.icon) }  onerror={() => setShowDefaultIcon( true ) } />
                                                 :
                                                 <>{entityIcon}</>
                                         }
