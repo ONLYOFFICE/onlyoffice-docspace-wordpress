@@ -193,7 +193,7 @@ class OODSP_DocSpace {
 					<h1 id="header">
 						<?php esc_html_e( 'WordPress requests access to your ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ); ?>
 						<br>
-						<span>{{{data.domain}}}</span>
+						<div title="{{{data.domain}}}">{{{data.domain}}}</div>
 					</h1>
 					<h1>
 						<a></a>

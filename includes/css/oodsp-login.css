@@ -33,7 +33,9 @@
 	padding: 0 0 25px 0;
 }
 
-.oodsp-login h1#header span {
+.oodsp-login h1#header div {
 	color: #2271B1;
-	overflow: auto;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	cursor: pointer;
 }
