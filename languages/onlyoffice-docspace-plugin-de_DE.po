@@ -181,6 +181,21 @@ msgstr "Das Portal ist nicht verfügbar! Bitte kontaktieren Sie den Administrato
 msgid "Go to the settings to configure ONLYOFFICE DocSpace connector."
 msgstr "Gehen Sie zu den Einstellungen, um ONLYOFFICE DocSpace Plugin zu konfigurieren."
 
+msgid "Authorization unsuccessful!"
+msgstr "Autorisierung fehlgeschlagen!"
+
+msgid "Please contact the administrator."
+msgstr "Bitte wenden Sie sich an den Administrator."
+
+msgid "Please proceed to the DocSpace plugin via the left side menu and enter your password to restore access."
+msgstr "Bitte gehen Sie über das Menü auf der linken Seite zum DocSpace-Plugin und geben Sie Ihr Passwort ein, um den Zugang wiederherzustellen."
+
+msgid "Access denied!"
+msgstr "Access denied!"
+
+msgid "Please log in to the site!"
+msgstr "Please log in to the site!"
+
 msgid "WordPress requests access to your ONLYOFFICE DocSpace"
 msgstr "WordPress fordert Zugang zu Ihrem ONLYOFFICE DocSpace an"
 
@@ -190,11 +205,11 @@ msgstr "Ihr Konto <b>%s</b> wird mit Ihrem DocSpace synchronisiert. Bitte geben 
 msgid "Login"
 msgstr "Anmeldung"
 
-#: admin/js/login.js
+#: includes/js/oodsp-login.js
 msgid "<strong>Error:</strong> User authentication failed."
 msgstr "<strong>Fehler:</strong> Benutzerauthentifizierung fehlgeschlagen."
 
-#: admin/js/login.js
+#: includes/js/oodsp-login.js
 msgid "<strong>Error:</strong> The password field is empty."
 msgstr "<strong>Fehler:</strong> Das Passwortfeld ist leer."
 

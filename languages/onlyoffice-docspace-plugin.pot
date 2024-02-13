@@ -181,6 +181,21 @@ msgstr ""
 msgid "Go to the settings to configure ONLYOFFICE DocSpace connector."
 msgstr ""
 
+msgid "Authorization unsuccessful!"
+msgstr ""
+
+msgid "Please contact the administrator."
+msgstr ""
+
+msgid "Please proceed to the DocSpace plugin via the left side menu and enter your password to restore access."
+msgstr ""
+
+msgid "Access denied!"
+msgstr ""
+
+msgid "Please log in to the site!"
+msgstr ""
+
 msgid "WordPress requests access to your ONLYOFFICE DocSpace"
 msgstr ""
 
@@ -190,11 +205,11 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: admin/js/login.js
+#: includes/js/oodsp-login.js
 msgid "<strong>Error:</strong> User authentication failed."
 msgstr ""
 
-#: admin/js/login.js
+#: includes/js/oodsp-login.js
 msgid "<strong>Error:</strong> The password field is empty."
 msgstr ""
 
