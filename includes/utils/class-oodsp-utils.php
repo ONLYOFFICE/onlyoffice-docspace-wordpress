@@ -139,6 +139,7 @@ class OODSP_Utils {
 		);
 
 		add_action( 'wp_footer', array( $this, 'oodsp_error_template' ), 30 );
+		add_action( 'admin_footer', array( $this, 'oodsp_error_template' ), 30 );
 	}
 
 	/**
