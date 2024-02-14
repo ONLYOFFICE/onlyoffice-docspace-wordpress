@@ -149,7 +149,7 @@ class OODSP_DocSpace {
 		?>
 		<div class="wrap"> 
 			<div class="ds-frame" style="height: calc(100vh - 65px - 32px);">
-				<div id="oodsp-manager-frame"></div>
+				<div id="oodsp-manager-frame" style="width: 100%; height:100%;"></div>
 			</div>
 		</div>
 		<script>
