@@ -133,8 +133,8 @@ const Edit = ({ attributes, setAttributes }) => {
         setModalConfig ({
             frameId: "oodsp-selector-frame",
             title: event.target.dataset.title || "",
-            width: "400px",
-            height: "500px",
+            width: "100%",
+            height: "100%",
             mode: mode,
             selectorType: "roomsOnly",
             locale: _oodsp.locale,
@@ -291,8 +291,10 @@ const Edit = ({ attributes, setAttributes }) => {
                 </>
             }
             { isOpen && (
-                <Modal onRequestClose={ closeModal } title={ modalConfig.title } style={{ minHeight: "572px" }}>
-                    <div id="oodsp-selector-frame"></div>
+                <Modal onRequestClose={ closeModal } title={ modalConfig.title } >
+                    <div class="oodsp-selector-frame-modal">
+                        <div id="oodsp-selector-frame"></div>
+                    </div>
                 </Modal>
             ) }
         </div>
