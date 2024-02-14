@@ -207,7 +207,7 @@ const Edit = ({ attributes, setAttributes }) => {
                                     <div class="entity-icon">
                                         {
                                             attributes.icon && !showDefaultIcon ? 
-                                                <img src={ wp.oodsp.getAbsoluteUrl(attributes.icon) }  onerror={() => setShowDefaultIcon( true ) } />
+                                                <img src={ wp.oodsp.getAbsoluteUrl(attributes.icon) } onError={() => { setShowDefaultIcon( true ) }} />
                                                 :
                                                 <>{entityIcon}</>
                                         }
