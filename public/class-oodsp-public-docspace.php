@@ -41,27 +41,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 class OODSP_Public_DocSpace {
 
 	/**
-	 * OODSP_Settings
+	 * OODSP_Utils
 	 *
 	 * @access   private
-	 * @var      OODSP_Settings    $plugin_settings
+	 * @var      OODSP_Utils    $oodsp_utils
 	 */
-	private $plugin_settings;
-
-	/**
-	 * OODSP_DocSpace
-	 *
-	 * @access   private
-	 * @var      OODSP_DocSpace    $plugin_docspace
-	 */
-	private $plugin_docspace;
+	private $oodsp_utils;
 
 	/**
 	 * Initialize the class and set its properties.
 	 */
 	public function __construct() {
-		$this->plugin_settings = new OODSP_Settings();
-		$this->plugin_docspace = new OODSP_DocSpace();
+		$this->oodsp_utils = new OODSP_Utils();
 	}
 
 	/**
@@ -116,16 +107,6 @@ class OODSP_Public_DocSpace {
 		static $instance = 0;
 		++$instance;
 
-		$current_user = wp_get_current_user()->user_email;
-		$post = get_post();
-
-		if ( 'private' === $post->post_status ) {
-			$is_public    = false;
-		} else {
-			$is_public    = true;
-		}
-
-
 		$defaults_atts = array(
 			'frameId'      => 'onlyoffice-docspace-block-' . $instance,
 			'width'        => '100%',
@@ -158,49 +139,20 @@ class OODSP_Public_DocSpace {
 			$atts['theme'] = $defaults_atts['theme'];
 		}
 
-		if ( array_key_exists( 'requestToken', $attr ) && $is_public) {
+		if ( array_key_exists( 'requestToken', $attr ) ) {
 			$atts['requestToken'] = $attr['requestToken'];
-			$atts['rootPath'] = '/rooms/share';
+			$atts['rootPath']     = '/rooms/share';
 		}
 
+		$this->oodsp_utils->enqueue_scripts();
+		$this->oodsp_utils->enqueue_styles();
+
 		wp_enqueue_script(
-			'docspace-component-api',
-			OODSP_PLUGIN_URL . 'assets-onlyoffice-docspace/js/docspace-component-api.js',
+			'docspace-integration-sdk',
+			OODSP_PLUGIN_URL . 'assets-onlyoffice-docspace/js/docspace-integration-sdk.js',
 			array(),
 			OODSP_VERSION,
 			true
-		);
-
-		$error_message = __( 'Portal unavailable! Please contact the administrator!', 'onlyoffice-docspace-plugin' );
-
-		if ( current_user_can( 'manage_options' ) && ! $is_public ) {
-			$error_message = __( 'Go to the settings to configure ONLYOFFICE DocSpace connector.', 'onlyoffice-docspace-plugin' );
-		}
-
-		wp_localize_script(
-			'docspace-component-api',
-			'DocSpaceComponent',
-			array(
-				'url'         => $this->plugin_settings->get_onlyoffice_docspace_setting( OODSP_Settings::DOCSPACE_URL ),
-				'currentUser' => $current_user,
-				'isPublic'    => $is_public,
-				'locale'      => $this->plugin_docspace->get_locale_for_docspace(),
-				'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
-				'images'      => array(
-					'onlyoffice'  => plugins_url( 'public/images/onlyoffice.svg', OODSP_PLUGIN_FILE ),
-					'unavailable' => plugins_url( 'public/images/unavailable.svg', OODSP_PLUGIN_FILE ),
-				),
-				'messages'    => array(
-					'error'                => $error_message,
-				),
-			)
-		);
-
-		wp_enqueue_style(
-			'docspace-components-api',
-			OODSP_PLUGIN_URL . 'assets-onlyoffice-docspace/css/docspace-component-api.css',
-			array(),
-			OODSP_VERSION
 		);
 
 		wp_enqueue_script(
@@ -209,6 +161,13 @@ class OODSP_Public_DocSpace {
 			array( 'jquery' ),
 			OODSP_VERSION,
 			true
+		);
+
+		wp_enqueue_style(
+			OODSP_PLUGIN_NAME . '-public-docspace',
+			OODSP_PLUGIN_URL . 'public/css/public-docspace.css',
+			array(),
+			OODSP_VERSION
 		);
 
 		$align = ! empty( $atts['align'] ) ? 'align' . $atts['align'] : '';

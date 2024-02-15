@@ -181,6 +181,21 @@ msgstr "门户不可用！请联系管理员！"
 msgid "Go to the settings to configure ONLYOFFICE DocSpace connector."
 msgstr "前往设置以配置 ONLYOFFICE 协作空间连接器。"
 
+msgid "Authorization unsuccessful!"
+msgstr "授权不成功！"
+
+msgid "Please contact the administrator."
+msgstr "请联系管理员。"
+
+msgid "Please proceed to the DocSpace plugin via the left side menu and enter your password to restore access."
+msgstr "请通过左侧菜单前往协作空间插件并输入您的密码以恢复访问权限。"
+
+msgid "Access denied!"
+msgstr "Access denied!"
+
+msgid "Please log in to the site!"
+msgstr "Please log in to the site!"
+
 msgid "WordPress requests access to your ONLYOFFICE DocSpace"
 msgstr "WordPress 请求访问您的 ONLYOFFICE 协作空间"
 
@@ -190,11 +205,11 @@ msgstr "您的账户 <b>%s</b> 将与协作空间进行同步。请在下方的�
 msgid "Login"
 msgstr "登录"
 
-#: admin/js/login.js
+#: includes/js/oodsp-login.js
 msgid "<strong>Error:</strong> User authentication failed."
 msgstr "<strong>错误：</strong>用户身份认证失败。"
 
-#: admin/js/login.js
+#: includes/js/oodsp-login.js
 msgid "<strong>Error:</strong> The password field is empty."
 msgstr "<strong>错误：</strong>密码字段为空。"
 

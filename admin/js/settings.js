@@ -89,7 +89,7 @@
 				}
 				const docspaceUrl = $( '#docspace_url' ).val().trim();
 				const pass        = $( '#user_pass' ).val().trim();
-				DocSpaceComponent.initScript( docspaceUrl )
+				DocspaceIntegrationSdk.initScript( 'oodsp-api-js', docspaceUrl )
 					.then(
 						async function () {
 							DocSpace.SDK.initSystem(
@@ -207,7 +207,7 @@
 	var searchParams = new URLSearchParams( window.location.search );
 
 	if ( 'true' === searchParams.get( 'users' ) ) {
-		DocSpaceComponent.initScript()
+		DocspaceIntegrationSdk.initScript( 'oodsp-api-js', _oodsp.docspaceUrl )
 			.then(
 				function (e) {
 					DocSpace.SDK.initSystem(

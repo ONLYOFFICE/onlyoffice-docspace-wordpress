@@ -112,6 +112,7 @@ class OODSP_Plugin {
 		require_once plugin_dir_path( __DIR__ ) . 'admin/class-oodsp-ajax.php';
 		require_once plugin_dir_path( __DIR__ ) . 'includes/managers/class-oodsp-request-manager.php';
 		require_once plugin_dir_path( __DIR__ ) . 'includes/managers/class-oodsp-security-manager.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/utils/class-oodsp-utils.php';
 		require_once plugin_dir_path( __DIR__ ) . 'includes/users/class-oodsp-users-list-table.php';
 		require_once plugin_dir_path( __DIR__ ) . 'includes/class-oodsp-i18n.php';
 		require_once plugin_dir_path( __DIR__ ) . 'includes/class-oodsp-loader.php';

@@ -1,0 +1,13 @@
+.onlyoffice-docspace-block {
+	align-items: center;
+	font-size: 20px;
+	height: inherit;
+	display: flex;
+	margin: 0;
+	max-width: inherit;
+	text-align: center;
+	vertical-align: middle;
+	width: inherit;
+	justify-content: center;
+	flex-direction: column;
+}
