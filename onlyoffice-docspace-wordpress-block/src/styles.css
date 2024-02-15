@@ -19,10 +19,14 @@
     width: 400px;
 }
 
+.components-modal__header ~ div {
+    height: 100%;
+}
+
 .oodsp-selector-frame-modal {
     display: flex;
     vertical-align: middle;
-    height: 500px;
+    height: 500px !important;
     max-height: 100%;
     justify-content: center;
 }
