@@ -139,6 +139,7 @@ class OODSP_Utils {
 		);
 
 		add_action( 'wp_footer', array( $this, 'oodsp_error_template' ), 30 );
+		add_action( 'admin_footer', array( $this, 'oodsp_error_template' ), 30 );
 	}
 
 	/**
@@ -185,7 +186,7 @@ class OODSP_Utils {
 				<div class="onlyoffice-error-body">
 					<div class="onlyoffice-error-table js">
 						<div>
-							<img src="<?php echo esc_url( OODSP_PLUGIN_URL . 'includes/images/onlyoffice.svg' ); ?>" style="width: 100%" />
+							<img src="<?php echo esc_url( OODSP_PLUGIN_URL . 'includes/images/onlyoffice.svg' ); ?>" style="width: 100%; padding: 0 10px;" />
 						</div>
 						<div style="padding: 16px;">
 							<img src="<?php echo esc_url( OODSP_PLUGIN_URL . 'includes/images/unavailable.svg' ); ?>" style="width: 100%"/>

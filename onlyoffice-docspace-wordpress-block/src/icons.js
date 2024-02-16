@@ -44,7 +44,15 @@ const fileIcon = (
   </svg>
 );
 
-export const publicIcon = (
+const publicRoomIcon = (
+  <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M8.5 10.4197V4.58032C8.5 4.22147 8.69229 3.89012 9.00386 3.71208L14.0039 0.854937C14.6705 0.47399 15.5 0.955357 15.5 1.72318V13.2768C15.5 14.0446 14.6705 14.526 14.0039 14.1451L9.00386 11.2879C8.69229 11.1099 8.5 10.7785 8.5 10.4197Z" fill="#333333"/>
+    <rect x="1.5" y="4" width="6" height="7" rx="1" fill="#333333"/>
+    <path d="M4.38184 12L5.60542 14.4472C5.85241 14.9411 6.45308 15.1414 6.94706 14.8944C7.44104 14.6474 7.64126 14.0467 7.39427 13.5527L6.6179 12H4.38184Z" fill="#333333"/>
+  </svg>
+);
+
+const publicFileIcon = (
   <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M8.5 10.4197V4.58032C8.5 4.22147 8.69229 3.89012 9.00386 3.71208L14.0039 0.854937C14.6705 0.47399 15.5 0.955357 15.5 1.72318V13.2768C15.5 14.0446 14.6705 14.526 14.0039 14.1451L9.00386 11.2879C8.69229 11.1099 8.5 10.7785 8.5 10.4197Z" fill="white"/>
     <rect x="1.5" y="4" width="6" height="7" rx="1" fill="white"/>
@@ -58,6 +66,17 @@ export const getIconByType = (type) => {
       return roomIcon;
     case "file":
       return fileIcon;
+    default:
+      return null;
+  }
+};
+
+export const getPublicIconByType = (type) => {
+  switch(type) {
+    case "room":
+      return publicRoomIcon;
+    case "file":
+      return publicFileIcon;
     default:
       return null;
   }

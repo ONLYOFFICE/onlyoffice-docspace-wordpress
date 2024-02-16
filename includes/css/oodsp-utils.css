@@ -25,3 +25,7 @@
 .onlyoffice-error .onlyoffice-error-table .header-message {
 	font-weight: bold;
 }
+
+.onlyoffice-error .onlyoffice-error-table .message {
+	font-size: 20px;
+}

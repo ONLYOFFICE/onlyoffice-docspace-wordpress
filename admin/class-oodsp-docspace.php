@@ -149,7 +149,7 @@ class OODSP_DocSpace {
 		?>
 		<div class="wrap"> 
 			<div class="ds-frame" style="height: calc(100vh - 65px - 32px);">
-				<div id="oodsp-manager-frame"></div>
+				<div id="oodsp-manager-frame" style="width: 100%; height:100%;"></div>
 			</div>
 		</div>
 		<script>
@@ -193,7 +193,7 @@ class OODSP_DocSpace {
 					<h1 id="header">
 						<?php esc_html_e( 'WordPress requests access to your ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ); ?>
 						<br>
-						<span>{{{data.domain}}}</span>
+						<div title="{{{data.domain}}}">{{{data.domain}}}</div>
 					</h1>
 					<h1>
 						<a></a>

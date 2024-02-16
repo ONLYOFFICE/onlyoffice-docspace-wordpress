@@ -37,7 +37,7 @@ import {
 import { useState, useEffect } from '@wordpress/element';
 import { blockStyle, onlyofficeIcon } from "./index";
 import { __ } from '@wordpress/i18n';
-import { getIconByType, publicIcon } from "./icons";
+import { getIconByType, getPublicIconByType } from "./icons";
 
 const Edit = ({ attributes, setAttributes }) => {
     const [isOpen, setOpen] = useState( false );
@@ -133,8 +133,8 @@ const Edit = ({ attributes, setAttributes }) => {
         setModalConfig ({
             frameId: "oodsp-selector-frame",
             title: event.target.dataset.title || "",
-            width: "400px",
-            height: "500px",
+            width: "100%",
+            height: "100%",
             mode: mode,
             selectorType: "roomsOnly",
             locale: _oodsp.locale,
@@ -175,7 +175,7 @@ const Edit = ({ attributes, setAttributes }) => {
     let entityType = ! showPlaceholder && attributes.roomId ? "room" : "file";
     let entityLabel = ! showPlaceholder && attributes.roomId ? __("Room", "onlyoffice-docspace-plugin") : __("File", "onlyoffice-docspace-plugin");
     let entityIcon = getIconByType(entityType);
-    let entytiIsPublic = attributes.hasOwnProperty('requestToken') && attributes.requestToken.length > 0 ? publicIcon : "";
+    let entytiIsPublic = attributes.hasOwnProperty('requestToken') && attributes.requestToken.length > 0 ? getPublicIconByType(entityType) : "";
 
     const blockProps = showPlaceholder ?  useBlockProps( { style: null } ) : useBlockProps( { style: blockStyle } );
     return (
@@ -207,7 +207,7 @@ const Edit = ({ attributes, setAttributes }) => {
                                     <div class="entity-icon">
                                         {
                                             attributes.icon && !showDefaultIcon ? 
-                                                <img src={ wp.oodsp.getAbsoluteUrl(attributes.icon) }  onerror={() => setShowDefaultIcon( true ) } />
+                                                <img src={ wp.oodsp.getAbsoluteUrl(attributes.icon) } onError={() => { setShowDefaultIcon( true ) }} />
                                                 :
                                                 <>{entityIcon}</>
                                         }
@@ -291,8 +291,10 @@ const Edit = ({ attributes, setAttributes }) => {
                 </>
             }
             { isOpen && (
-                <Modal onRequestClose={ closeModal } title={ modalConfig.title } style={{ minHeight: "572px" }}>
-                    <div id="oodsp-selector-frame"></div>
+                <Modal onRequestClose={ closeModal } title={ modalConfig.title } >
+                    <div class="oodsp-selector-frame-modal">
+                        <div id="oodsp-selector-frame"></div>
+                    </div>
                 </Modal>
             ) }
         </div>
