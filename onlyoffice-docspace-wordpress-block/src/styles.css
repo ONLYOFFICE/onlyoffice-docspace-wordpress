@@ -80,11 +80,12 @@
 }
 
 .wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor.room {
-    background: #FFA74F;
+    background: #ECEEF1;
+    color: #333333;
 }
 
 .wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor.file {
-    background: #489BEF;
+    background: linear-gradient(121.94deg, #489BEF 0%, #388BDE 99.94%);
 }
 
 .oodsp-selector-frame-modal .oodsp-login {

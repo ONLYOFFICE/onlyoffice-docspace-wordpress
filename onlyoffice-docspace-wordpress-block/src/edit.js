@@ -37,7 +37,7 @@ import {
 import { useState, useEffect } from '@wordpress/element';
 import { blockStyle, onlyofficeIcon } from "./index";
 import { __ } from '@wordpress/i18n';
-import { getIconByType, publicIcon } from "./icons";
+import { getIconByType, getPublicIconByType } from "./icons";
 
 const Edit = ({ attributes, setAttributes }) => {
     const [isOpen, setOpen] = useState( false );
@@ -175,7 +175,7 @@ const Edit = ({ attributes, setAttributes }) => {
     let entityType = ! showPlaceholder && attributes.roomId ? "room" : "file";
     let entityLabel = ! showPlaceholder && attributes.roomId ? __("Room", "onlyoffice-docspace-plugin") : __("File", "onlyoffice-docspace-plugin");
     let entityIcon = getIconByType(entityType);
-    let entytiIsPublic = attributes.hasOwnProperty('requestToken') && attributes.requestToken.length > 0 ? publicIcon : "";
+    let entytiIsPublic = attributes.hasOwnProperty('requestToken') && attributes.requestToken.length > 0 ? getPublicIconByType(entityType) : "";
 
     const blockProps = showPlaceholder ?  useBlockProps( { style: null } ) : useBlockProps( { style: blockStyle } );
     return (
