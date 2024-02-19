@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.1\n"
 
 msgid "ONLYOFFICE DocSpace Settings"
 msgstr "Impostazioni di ONLYOFFICE DocSpace"
@@ -191,10 +191,10 @@ msgid "Please proceed to the DocSpace plugin via the left side menu and enter yo
 msgstr "Procedi al plugin DocSpace tramite il menu a sinistra e inserisci la password per ripristinare l'accesso."
 
 msgid "Access denied!"
-msgstr ""
+msgstr "Accesso negato!"
 
 msgid "Please log in to the site!"
-msgstr ""
+msgstr "Ti preghiamo di effettuare il login al sito!"
 
 msgid "WordPress requests access to your ONLYOFFICE DocSpace"
 msgstr "WordPress richiede l'accesso al tuo ONLYOFFICE DocSpace"
@@ -228,3 +228,4 @@ msgstr "Light"
 #: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Dark"
 msgstr "Dark"
+
