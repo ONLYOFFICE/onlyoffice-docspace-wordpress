@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.1\n"
 
 msgid "ONLYOFFICE DocSpace Settings"
 msgstr "Configurações do ONLYOFFICE DocSpace"
@@ -191,10 +191,10 @@ msgid "Please proceed to the DocSpace plugin via the left side menu and enter yo
 msgstr "Prossiga para o plugin DocSpace através do menu do lado esquerdo e digite sua senha para restaurar o acesso."
 
 msgid "Access denied!"
-msgstr "Access denied!"
+msgstr "Acesso negado!"
 
 msgid "Please log in to the site!"
-msgstr "Please log in to the site!"
+msgstr "Por favor faça login no site!"
 
 msgid "WordPress requests access to your ONLYOFFICE DocSpace"
 msgstr "WordPress solicita acesso ao seu ONLYOFFICE DocSpace"
@@ -215,16 +215,16 @@ msgstr "<strong>Erro:</strong> O campo de senha está vazio."
 
 #: admin/js/settings.js
 msgid "The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %sthe Developer Tools section%s."
-msgstr "The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %sthe Developer Tools section%s."
+msgstr "El dominio actual no está establecido en la configuración de la Política de seguridad de contenidos (CSP). Por favor, añádalo a través de %sla sección Herramientas de desarrollo%s."
 
 #: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Theme"
-msgstr "Theme"
+msgstr "Tema"
 
 #: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Light"
-msgstr "Light"
+msgstr "Claro"
 
 #: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Dark"
-msgstr "Dark"
+msgstr "Escuro"
