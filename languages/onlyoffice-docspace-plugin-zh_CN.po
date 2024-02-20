@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.1\n"
 
 msgid "ONLYOFFICE DocSpace Settings"
 msgstr "ONLYOFFICE 协作空间设置"
@@ -191,10 +191,10 @@ msgid "Please proceed to the DocSpace plugin via the left side menu and enter yo
 msgstr "请通过左侧菜单前往协作空间插件并输入您的密码以恢复访问权限。"
 
 msgid "Access denied!"
-msgstr "Access denied!"
+msgstr "访问被拒！"
 
 msgid "Please log in to the site!"
-msgstr "Please log in to the site!"
+msgstr "请登录网站！"
 
 msgid "WordPress requests access to your ONLYOFFICE DocSpace"
 msgstr "WordPress 请求访问您的 ONLYOFFICE 协作空间"
@@ -215,16 +215,16 @@ msgstr "<strong>错误：</strong>密码字段为空。"
 
 #: admin/js/settings.js
 msgid "The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %sthe Developer Tools section%s."
-msgstr "The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %sthe Developer Tools section%s."
+msgstr "内容安全策略 (CSP) 设置中未设置当前域。请通过 %sthe Developer Tools section%s 添加当区域。"
 
 #: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Theme"
-msgstr "Theme"
+msgstr "主題"
 
 #: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Light"
-msgstr "Light"
+msgstr "淺色主題"
 
 #: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Dark"
-msgstr "Dark"
+msgstr "深色的"
