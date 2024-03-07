@@ -32,7 +32,7 @@ msgstr "Mot de passe"
 msgid "Save"
 msgstr "Enregistrer"
 
-msgid "The current user will be added to DocSpace with the <b>Room admin</b> role."
+msgid "The current WordPress user will be added to DocSpace with the <b>Room admin</b> role."
 msgstr "L'utilisateur actuel sera ajouté à DocSpace avec le rôle <b>Administrateur de salle</b>."
 
 msgid "DocSpace Users"
