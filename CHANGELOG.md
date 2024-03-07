@@ -1,7 +1,7 @@
 # Change Log
 
 
-##
+## 2.0.0
 ## Added
 - support for public rooms
 - settings for onlyoffice-docspace-wordpress-block (theme, align)
