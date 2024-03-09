@@ -32,8 +32,8 @@ msgstr "Kennwort"
 msgid "Save"
 msgstr "Speichern"
 
-msgid "The current user will be added to DocSpace with the <b>Room admin</b> role."
-msgstr "Der aktuelle Benutzer wird zu DocSpace mit der Rolle <b>Raumadministrator</b> hinzugefügt."
+msgid "The current WordPress user will be added to DocSpace with the <b>Room admin</b> role."
+msgstr "Der aktuelle WordPress-Benutzer wird zu DocSpace mit der Rolle <b>Raumadministrator</b> hinzugefügt."
 
 msgid "DocSpace Users"
 msgstr "DocSpace-Benutzer"
@@ -228,3 +228,4 @@ msgstr "Hell"
 #: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Dark"
 msgstr "Dunkel"
+
