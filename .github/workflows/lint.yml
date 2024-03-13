@@ -2,9 +2,10 @@ name: Lint
 
 on:
   workflow_dispatch:
-  pull_request:
-    types: [opened, reopened]
+  push:
     branches: [master]
+  pull_request:
+    branches: [master, develop]
 
 jobs:
   csscomb:
