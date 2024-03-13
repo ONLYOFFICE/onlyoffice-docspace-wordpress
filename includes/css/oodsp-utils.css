@@ -1,0 +1,31 @@
+.onlyoffice-error {
+	overflow: auto;
+	width: 100%;
+	height: 100%;
+}
+
+.onlyoffice-error .onlyoffice-error-body {
+	width: 100%;
+	height: 100%;
+	display: table;
+	max-width: 600px;
+	min-width: 300px;
+	min-height: 250px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.onlyoffice-error .onlyoffice-error-table {
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+
+.onlyoffice-error .onlyoffice-error-table .header-message {
+	font-weight: bold;
+}
+
+.onlyoffice-error .onlyoffice-error-table .message {
+	font-size: 20px;
+}

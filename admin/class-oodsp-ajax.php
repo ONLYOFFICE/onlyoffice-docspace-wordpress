@@ -11,7 +11,7 @@
 
 /**
  *
- * (c) Copyright Ascensio System SIA 2023
+ * (c) Copyright Ascensio System SIA 2024
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -68,38 +68,26 @@ class OODSP_Ajax {
 	 * DocSpace Credentials.
 	 */
 	public function oodsp_credentials() {
-		$user      = wp_get_current_user();
-		$is_public = isset( $_REQUEST['is_public'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['is_public'] ) ) : ''; // phpcs:ignore
+		$user = wp_get_current_user();
 
-		if ( ! empty( $is_public ) && 'true' === $is_public ) {
-			$pass = $this->public_docspace::OODSP_PUBLIC_USER_PASS;
+		$hash = isset( $_REQUEST['hash'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['hash'] ) ) : ''; // phpcs:ignore
+
+		if ( ! empty( $hash ) ) {
+			$result = $this->security_manager->set_oodsp_user_pass( $user->ID, $hash );
+
+			if ( ! $result ) {
+				return wp_die( '0', 400 );
+			}
+
+			$pass = $hash;
 		} else {
-			$hash = isset( $_REQUEST['hash'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['hash'] ) ) : ''; // phpcs:ignore
+			$pass = $this->security_manager->get_oodsp_user_pass( $user->ID );
 
-			if ( ! empty( $hash ) ) {
-				$result = $this->security_manager->set_oodsp_user_pass( $user->ID, $hash );
-
-				if ( ! $result ) {
-					return wp_die( '0', 400 );
-				}
-
-				$pass = $hash;
-			} else {
-				$pass = $this->security_manager->get_oodsp_user_pass( $user->ID );
-
-				if ( empty( $pass ) ) {
-					return wp_die( '0', 404 );
-				}
+			if ( empty( $pass ) ) {
+				return wp_die( '0', 404 );
 			}
 		}
 
 		wp_die( esc_attr( $pass ) );
-	}
-
-	/**
-	 * DocSpace Credentials public.
-	 */
-	public function no_priv_oodsp_credentials() {
-		wp_die( esc_attr( $this->public_docspace::OODSP_PUBLIC_USER_PASS ) );
 	}
 }

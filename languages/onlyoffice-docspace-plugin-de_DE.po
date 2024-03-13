@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.1\n"
 
 msgid "ONLYOFFICE DocSpace Settings"
 msgstr "Einstellungen von ONLYOFFICE DocSpace"
@@ -32,8 +32,8 @@ msgstr "Kennwort"
 msgid "Save"
 msgstr "Speichern"
 
-msgid "The current user will be added to DocSpace with the <b>Room admin</b> role. <b>WordPress Viewer</b> user will be added to DocSpace with View Only access."
-msgstr "Der aktuelle Benutzer wird zu DocSpace mit der Rolle <b>Raumadministrator</b> hinzugefügt. Der <b>WordPress-Viewer</b>-Benutzer wird zu DocSpace mit Nur-Ansicht-Zugang hinzugefügt."
+msgid "The current WordPress user will be added to DocSpace with the <b>Room admin</b> role."
+msgstr "Der aktuelle WordPress-Benutzer wird zu DocSpace mit der Rolle <b>Raumadministrator</b> hinzugefügt."
 
 msgid "DocSpace Users"
 msgstr "DocSpace-Benutzer"
@@ -89,18 +89,6 @@ msgstr "Fehler beim Abrufen von Benutzerdaten. Bitte versuchen Sie es erneut!"
 
 msgid "The specified user is not a DocSpace administrator!"
 msgstr "Der angegebene Benutzer ist kein DocSpace-Administrator!"
-
-msgid "Public DocSpace user was not created! View content will not be available on public pages."
-msgstr "Öffentlicher DocSpace-Benutzer wurde nicht erstellt! Inhalte werden auf öffentlichen Seiten nicht verfügbar sein."
-
-msgid "Public DocSpace user already created, but failed to update authorization."
-msgstr "Öffentlicher DocSpace-Benutzer wurde bereits erstellt, aber die Berechtigung konnte nicht aktualisiert werden."
-
-msgid "Public DocSpace user was not created. View content will not be available on public pages."
-msgstr "Öffentlicher DocSpace-Benutzer wurde nicht erstellt. Inhalte werden auf öffentlichen Seiten nicht verfügbar sein."
-
-msgid "Public DocSpace user successfully created."
-msgstr "Öffentlicher DocSpace-Benutzer erfolgreich erstellt."
 
 msgid "User %s already exists in DocSpace!"
 msgstr "Benutzer %s existiert bereits in DocSpace!"
@@ -199,14 +187,14 @@ msgstr "Autorisierung fehlgeschlagen!"
 msgid "Please contact the administrator."
 msgstr "Bitte wenden Sie sich an den Administrator."
 
-msgid "Reset WordPress Viewer to continue"
-msgstr "Setzen Sie den WordPress Viewer zurück, um fortzufahren"
-
-msgid "You may experience issues with access to your content because WordPress Viewer data has been lost. Please proceed to the DocSpace plugin settings and click the Save button. WordPress Viewer will be added again to DocSpace."
-msgstr "Es kann zu Problemen beim Zugriff auf Ihre Inhalte kommen, da die WordPress Viewer-Daten verloren gegangen sind. Bitte gehen Sie zu den DocSpace-Plugin-Einstellungen und klicken Sie auf die Schaltfläche Speichern. WordPress Viewer wird wieder zu DocSpace hinzugefügt."
-
 msgid "Please proceed to the DocSpace plugin via the left side menu and enter your password to restore access."
 msgstr "Bitte gehen Sie über das Menü auf der linken Seite zum DocSpace-Plugin und geben Sie Ihr Passwort ein, um den Zugang wiederherzustellen."
+
+msgid "Access denied!"
+msgstr "Zugriff verweigert!"
+
+msgid "Please log in to the site!"
+msgstr "Bitte loggen Sie sich auf der Seite ein!"
 
 msgid "WordPress requests access to your ONLYOFFICE DocSpace"
 msgstr "WordPress fordert Zugang zu Ihrem ONLYOFFICE DocSpace an"
@@ -217,11 +205,27 @@ msgstr "Ihr Konto <b>%s</b> wird mit Ihrem DocSpace synchronisiert. Bitte geben 
 msgid "Login"
 msgstr "Anmeldung"
 
-#: admin/js/login.js
+#: includes/js/oodsp-login.js
 msgid "<strong>Error:</strong> User authentication failed."
 msgstr "<strong>Fehler:</strong> Benutzerauthentifizierung fehlgeschlagen."
 
-#: admin/js/login.js
+#: includes/js/oodsp-login.js
 msgid "<strong>Error:</strong> The password field is empty."
 msgstr "<strong>Fehler:</strong> Das Passwortfeld ist leer."
+
+#: admin/js/settings.js
+msgid "The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %sthe Developer Tools section%s."
+msgstr "Die aktuelle Domäne ist nicht in den Einstellungen der Content Security Policy (CSP) festgelegt. Bitte fügen Sie sie über den Abschnitt %sEntwickler-Tools%s hinzu."
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Theme"
+msgstr "Thema"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Light"
+msgstr "Hell"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Dark"
+msgstr "Dunkel"
 

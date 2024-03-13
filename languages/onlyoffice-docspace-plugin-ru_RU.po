@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.1\n"
 
 msgid "ONLYOFFICE DocSpace Settings"
 msgstr "Настройки ONLYOFFICE DocSpace"
@@ -32,8 +32,8 @@ msgstr "Пароль"
 msgid "Save"
 msgstr "Сохранить"
 
-msgid "The current user will be added to DocSpace with the <b>Room admin</b> role. <b>WordPress Viewer</b> user will be added to DocSpace with View Only access."
-msgstr "Текущий пользователь будет добавлен в DocSpace с ролью <b>Администратор комнаты</b>. Пользователь <b>WordPress Viewer</b> будет добавлен в DocSpace с доступом только для просмотра."
+msgid "The current WordPress user will be added to DocSpace with the <b>Room admin</b> role."
+msgstr "Текущий пользователь WordPress будет добавлен в DocSpace с ролью <b>Администратор комнаты</b>."
 
 msgid "DocSpace Users"
 msgstr "Пользователи DocSpace"
@@ -89,18 +89,6 @@ msgstr "Ошибка получения данных пользователя. �
 
 msgid "The specified user is not a DocSpace administrator!"
 msgstr "Указанный пользователь не является администратором DocSpace!"
-
-msgid "Public DocSpace user was not created! View content will not be available on public pages."
-msgstr "Публичный пользователь DocSpace не создан! Просмотр контента будет недоступен на общедоступных страницах."
-
-msgid "Public DocSpace user already created, but failed to update authorization."
-msgstr "Публичный пользователь DocSpace уже создан, но ему не удалось обновить авторизацию."
-
-msgid "Public DocSpace user was not created. View content will not be available on public pages."
-msgstr "Публичный пользователь DocSpace не создан. Просмотр контента будет недоступен на общедоступных страницах."
-
-msgid "Public DocSpace user successfully created."
-msgstr "Публичный пользователь DocSpace успешно создан."
 
 msgid "User %s already exists in DocSpace!"
 msgstr "Пользователь %s уже существует в DocSpace!"
@@ -199,14 +187,14 @@ msgstr "Авторизация не удалась!"
 msgid "Please contact the administrator."
 msgstr "Пожалуйста, свяжитесь с администратором."
 
-msgid "Reset WordPress Viewer to continue"
-msgstr "Сбросьте WordPress Viewer, чтобы продолжить"
-
-msgid "You may experience issues with access to your content because WordPress Viewer data has been lost. Please proceed to the DocSpace plugin settings and click the Save button. WordPress Viewer will be added again to DocSpace."
-msgstr "У вас могут возникнуть проблемы с доступом к контенту из-за потери данных WordPress Viewer. Перейдите к настройкам плагина DocSpace и нажмите кнопку Сохранить. WordPress Viewer снова будет добавлен в DocSpace."
-
 msgid "Please proceed to the DocSpace plugin via the left side menu and enter your password to restore access."
 msgstr "Пожалуйста, перейдите к плагину DocSpace через меню слева и введите свой пароль, чтобы восстановить доступ."
+
+msgid "Access denied!"
+msgstr "Доступ запрещен!"
+
+msgid "Please log in to the site!"
+msgstr "Пожалуйста, авторизуйтесь на сайте!"
 
 msgid "WordPress requests access to your ONLYOFFICE DocSpace"
 msgstr "WordPress запрашивает доступ к вашему ONLYOFFICE DocSpace"
@@ -217,11 +205,27 @@ msgstr "Ваша учетная запись <b>%s</b> будет синхрон
 msgid "Login"
 msgstr "Авторизоваться"
 
-#: admin/js/login.js
+#: includes/js/oodsp-login.js
 msgid "<strong>Error:</strong> User authentication failed."
 msgstr "<strong>Ошибка:</strong> Не удалось выполнить аутентификацию пользователя."
 
-#: admin/js/login.js
+#: includes/js/oodsp-login.js
 msgid "<strong>Error:</strong> The password field is empty."
 msgstr "<strong>Ошибка</strong>: Вы не ввели пароль."
+
+#: admin/js/settings.js
+msgid "The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %sthe Developer Tools section%s."
+msgstr "Текущий домен не указан в настройках политики безопасности контента (CSP). Пожалуйста, добавьте его через раздел %sИнструменты разработчика%s."
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Theme"
+msgstr "Тема"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Light"
+msgstr "Светлая"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Dark"
+msgstr "Темная"
 

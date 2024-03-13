@@ -1,5 +1,5 @@
 /*
- * (c) Copyright Ascensio System SIA 2023
+ * (c) Copyright Ascensio System SIA 2024
  * 
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -24,7 +24,10 @@ import json from '../block.json';
 import edit from './edit';
 import save from './save';
 
-export const blockStyle = { };
+export const blockStyle = {
+    height: '500px',
+    background: '#a2ccef'
+ };
 
 export const onlyofficeIcon = (
     <svg

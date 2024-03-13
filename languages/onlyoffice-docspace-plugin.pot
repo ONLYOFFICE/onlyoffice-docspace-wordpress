@@ -32,7 +32,7 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-msgid "The current user will be added to DocSpace with the <b>Room admin</b> role. <b>WordPress Viewer</b> user will be added to DocSpace with View Only access."
+msgid "The current WordPress user will be added to DocSpace with the <b>Room admin</b> role."
 msgstr ""
 
 msgid "DocSpace Users"
@@ -88,18 +88,6 @@ msgid "Error getting data user. Please try again!"
 msgstr ""
 
 msgid "The specified user is not a DocSpace administrator!"
-msgstr ""
-
-msgid "Public DocSpace user was not created! View content will not be available on public pages."
-msgstr ""
-
-msgid "Public DocSpace user already created, but failed to update authorization."
-msgstr ""
-
-msgid "Public DocSpace user was not created. View content will not be available on public pages."
-msgstr ""
-
-msgid "Public DocSpace user successfully created."
 msgstr ""
 
 msgid "User %s already exists in DocSpace!"
@@ -199,13 +187,13 @@ msgstr ""
 msgid "Please contact the administrator."
 msgstr ""
 
-msgid "Reset WordPress Viewer to continue"
-msgstr ""
-
-msgid "You may experience issues with access to your content because WordPress Viewer data has been lost. Please proceed to the DocSpace plugin settings and click the Save button. WordPress Viewer will be added again to DocSpace."
-msgstr ""
-
 msgid "Please proceed to the DocSpace plugin via the left side menu and enter your password to restore access."
+msgstr ""
+
+msgid "Access denied!"
+msgstr ""
+
+msgid "Please log in to the site!"
 msgstr ""
 
 msgid "WordPress requests access to your ONLYOFFICE DocSpace"
@@ -217,11 +205,26 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: admin/js/login.js
+#: includes/js/oodsp-login.js
 msgid "<strong>Error:</strong> User authentication failed."
 msgstr ""
 
-#: admin/js/login.js
+#: includes/js/oodsp-login.js
 msgid "<strong>Error:</strong> The password field is empty."
 msgstr ""
 
+#: admin/js/settings.js
+msgid "The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %sthe Developer Tools section%s."
+msgstr ""
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Theme"
+msgstr ""
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Light"
+msgstr ""
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Dark"
+msgstr ""

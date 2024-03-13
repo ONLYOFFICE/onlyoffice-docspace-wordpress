@@ -9,5 +9,4 @@ node_modules
 /.idea
 /vendor
 /wpcs
-/composer.lock
 /onlyoffice-docspace-wordpress-block/build

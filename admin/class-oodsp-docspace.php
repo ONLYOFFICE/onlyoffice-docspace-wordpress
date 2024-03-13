@@ -11,7 +11,7 @@
 
 /**
  *
- * (c) Copyright Ascensio System SIA 2023
+ * (c) Copyright Ascensio System SIA 2024
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -32,6 +32,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+if ( ! function_exists( 'WP_Filesystem' ) ) {
+	include ABSPATH . '/wp-admin/includes/file.php';
+	WP_Filesystem();
+}
+
 /**
  * Page ONLYOFFICE DocSpace.
  *
@@ -42,54 +47,21 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
 class OODSP_DocSpace {
-	/**
-	 * LOCALES for DocSpace
-	 */
-	const LOCALES = array(
-		'az',
-		'bg',
-		'cs',
-		'de',
-		'el-GR',
-		'en-GB',
-		'en-US',
-		'es',
-		'fi',
-		'fr',
-		'hy-AM',
-		'it',
-		'ja-JP',
-		'ko-KR',
-		'lo-LA',
-		'lv',
-		'nl',
-		'pl',
-		'pt',
-		'pt-BR',
-		'ro',
-		'ru',
-		'sk',
-		'sl',
-		'tr',
-		'uk-UA',
-		'vi',
-		'zh-CN',
-	);
 
 	/**
-	 * OODSP_Settings
+	 * OODSP_Utils
 	 *
 	 * @access   private
-	 * @var      OODSP_Settings    $plugin_settings
+	 * @var      OODSP_Utils    $oodsp_utils
 	 */
-	private $plugin_settings;
+	private $oodsp_utils;
 
 
 	/**
 	 * Initialize the class and set its properties.
 	 */
 	public function __construct() {
-		$this->plugin_settings = new OODSP_Settings();
+		$this->oodsp_utils = new OODSP_Utils();
 	}
 
 	/**
@@ -98,8 +70,8 @@ class OODSP_DocSpace {
 	public function enqueue_scripts() {
 		wp_enqueue_script(
 			OODSP_PLUGIN_NAME . '-login',
-			OODSP_PLUGIN_URL . 'admin/js/login.js',
-			array( 'jquery' ),
+			OODSP_PLUGIN_URL . 'includes/js/oodsp-login.js',
+			array( 'jquery', 'wp-util' ),
 			OODSP_VERSION,
 			true
 		);
@@ -112,56 +84,28 @@ class OODSP_DocSpace {
 			);
 		}
 
+		wp_enqueue_script( 'user-profile' );
+
+		$this->oodsp_utils->enqueue_scripts();
+
 		wp_enqueue_script(
-			'docspace-component-api',
-			OODSP_PLUGIN_URL . 'assets-onlyoffice-docspace/js/docspace-component-api.js',
+			'docspace-integration-sdk',
+			OODSP_PLUGIN_URL . 'assets-onlyoffice-docspace/js/docspace-integration-sdk.js',
 			array(),
 			OODSP_VERSION,
 			true
 		);
-
-		$error_message = __( 'Portal unavailable! Please contact the administrator!', 'onlyoffice-docspace-plugin' );
-
-		if ( current_user_can( 'manage_options' ) ) {
-			$error_message = __( 'Go to the settings to configure ONLYOFFICE DocSpace connector.', 'onlyoffice-docspace-plugin' );
-		}
-
-		wp_localize_script(
-			'docspace-component-api',
-			'DocSpaceComponent',
-			array(
-				'url'         => $this->plugin_settings->get_onlyoffice_docspace_setting( OODSP_Settings::DOCSPACE_URL ),
-				'currentUser' => wp_get_current_user()->user_email,
-				'locale'      => $this->get_locale_for_docspace(),
-				'isPublic'    => false,
-				'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
-				'images'      => array(
-					'onlyoffice'  => plugins_url( 'public/images/onlyoffice.svg', OODSP_PLUGIN_FILE ),
-					'unavailable' => plugins_url( 'public/images/unavailable.svg', OODSP_PLUGIN_FILE ),
-				),
-				'messages'    => array(
-					'error' => $error_message,
-				),
-			)
-		);
-
-		wp_enqueue_script( 'user-profile' );
 	}
 
 	/**
 	 * Register the stylesheets for the DocSpace area.
 	 */
 	public function enqueue_styles() {
-		wp_enqueue_style(
-			'docspace-components-api',
-			OODSP_PLUGIN_URL . 'assets-onlyoffice-docspace/css/docspace-component-api.css',
-			array(),
-			OODSP_VERSION
-		);
+		$this->oodsp_utils->enqueue_styles();
 
 		wp_enqueue_style(
 			OODSP_PLUGIN_NAME . '-login',
-			OODSP_PLUGIN_URL . 'admin/css/login.css',
+			OODSP_PLUGIN_URL . 'includes/css/oodsp-login.css',
 			array(),
 			OODSP_VERSION
 		);
@@ -173,7 +117,9 @@ class OODSP_DocSpace {
 	 * Init menu.
 	 */
 	public function init_menu() {
-		$logo_svg = file_get_contents( OODSP_PLUGIN_URL . 'admin/images/logo.svg' );
+		global $wp_filesystem;
+
+		$logo_svg = $wp_filesystem->get_contents( OODSP_PLUGIN_URL . 'admin/images/logo.svg' );
 
 		add_menu_page(
 			'DocSpace',
@@ -181,7 +127,7 @@ class OODSP_DocSpace {
 			'upload_files',
 			'onlyoffice-docspace',
 			array( $this, 'docspace_page' ),
-			'data:image/svg+xml;base64,' . base64_encode( $logo_svg )
+			'data:image/svg+xml;base64,' . base64_encode( $logo_svg ) // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 		);
 
 		$hook = add_submenu_page(
@@ -203,12 +149,12 @@ class OODSP_DocSpace {
 		?>
 		<div class="wrap"> 
 			<div class="ds-frame" style="height: calc(100vh - 65px - 32px);">
-				<div id="oodsp-manager-frame"></div>
+				<div id="oodsp-manager-frame" style="width: 100%; height:100%;"></div>
 			</div>
 		</div>
 		<script>
 			document.addEventListener('DOMContentLoaded', function () {
-				DocSpaceComponent.renderDocSpace(
+				wp.oodsp.initLoginManager(
 					"oodsp-manager-frame",
 					function() {
 						DocSpace.SDK.initManager({
@@ -216,7 +162,7 @@ class OODSP_DocSpace {
 							showMenu: true,
 							showFilter: true,
 							showHeader: true,
-							locale: DocSpaceComponent.locale
+							locale: _oodsp.locale
 						});
 					}
 				);
@@ -247,7 +193,7 @@ class OODSP_DocSpace {
 					<h1 id="header">
 						<?php esc_html_e( 'WordPress requests access to your ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ); ?>
 						<br>
-						<span>{{{data.domain}}}</span>
+						<div title="{{{data.domain}}}">{{{data.domain}}}</div>
 					</h1>
 					<h1>
 						<a></a>
@@ -290,25 +236,5 @@ class OODSP_DocSpace {
 			</div>
 		</script>
 		<?php
-	}
-
-	/**
-	 *  DocSpace login template.
-	 */
-	public function get_locale_for_docspace() {
-		$locale = str_replace( '_', '-', get_user_locale() );
-
-		if ( in_array( $locale, self::LOCALES, true ) ) {
-			return $locale;
-		} else {
-			$locale = explode( '-', $locale )[0];
-			foreach ( self::LOCALES as $value ) {
-				if ( str_starts_with( $value, $locale ) ) {
-					return $value;
-				}
-			}
-		}
-
-		return 'en-US';
 	}
 }

@@ -17,9 +17,6 @@ jobs:
         run: |
           echo "::set-output name=version::$(grep -Eo '[0-9]+(\.[0-9]+)+' CHANGELOG.md)"
         id: info
-      - name: Generate Changelog
-        run: |
-          awk '/## [0-9]/{p++} p; /## [0-9]/{if (p > 1) exit}' CHANGELOG.md | awk 'NR>2 {print last} {last=$0}' > RELEASE.md
       - name: Install Node
         uses: actions/setup-node@v3
         with:
@@ -28,7 +25,6 @@ jobs:
         run: sudo apt-get install zip
       - name: Build Plugin
         run: |
-          composer install --no-dev
           cd ${{ github.workspace }}/onlyoffice-docspace-wordpress-block
           npm install
           npm run build
@@ -43,8 +39,13 @@ jobs:
           rm -rf .github/
           rm -rf .git/
           rm .gitignore
+          rm composer.json
+          rm composer.lock
       - name: Build Artifact
         run: zip -r onlyoffice-docspace.zip onlyoffice-docspace/
+      - name: Generate Changelog
+        run: |
+          awk '/## [0-9]/{p++} p; /## [0-9]/{if (p > 1) exit}' CHANGELOG.md | awk 'NR>2 {print last} {last=$0}' > RELEASE.md
       - name: Create Release
         uses: ncipollo/release-action@v1
         id: create_release

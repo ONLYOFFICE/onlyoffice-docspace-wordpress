@@ -4,7 +4,7 @@
  * @package Onlyoffice_Docspace_Wordpress
  */
 
-(function () {
+(function ($) {
 	document.addEventListener(
 		'DOMContentLoaded',
 		function () {
@@ -15,19 +15,65 @@
 				oodspConfigs.push( JSON.parse( frame.dataset.config ) );
 			}
 
-			DocSpaceComponent.initScript().then(
+			const oodspErrorTemplate = wp.template( 'oodsp-error' );
+
+			DocspaceIntegrationSdk.initScript( "oodsp-api-js", _oodsp.docspaceUrl ).then(
 				function () {
 					for ( var config of oodspConfigs ) {
-						DocSpaceComponent.initPublicDocSpace(
+						config.width  = "100%";
+						config.height = "100%";
+						config.locale = _oodsp.locale;
+
+						if (_oodsp.isAnonymous) {
+							if ( ! config.hasOwnProperty( 'requestToken' ) || config.requestToken.length <= 0 ) {
+								$( "#" + config.frameId ).html(
+									oodspErrorTemplate(
+										{
+											header: _oodsp.messages.unauthorizedHeader,
+											message: _oodsp.messages.unauthorizedMessage
+										}
+									)
+								);
+								continue;
+							}
+
+							DocspaceIntegrationSdk.logout(
+								config.frameId,
+								function () {
+									DocSpace.SDK.initFrame( config );
+								}
+							);
+							continue;
+						}
+
+						DocspaceIntegrationSdk.loginByPasswordHash(
 							config.frameId,
-							config.width || null,
-							config.height || null,
+							_oodsp.currentUser,
 							function () {
-								config.locale = DocSpaceComponent.locale;
+								return wp.oodsp.getPasswordHash()
+							},
+							function () {
 								DocSpace.SDK.initFrame( config );
 							},
 							function () {
-								DocSpaceComponent.renderError( config.frameId );
+								if ( ! config.hasOwnProperty( 'requestToken' ) || config.requestToken.length <= 0 ) {
+									$( "#" + config.frameId ).html(
+										oodspErrorTemplate(
+											{
+												header: _oodsp.messages.unauthorizedHeader,
+												message: _oodsp.messages.unauthorizedMessage
+											}
+										)
+									);
+									return;
+								}
+
+								DocspaceIntegrationSdk.logout(
+									config.frameId,
+									function () {
+										DocSpace.SDK.initFrame( config );
+									}
+								);
 							}
 						);
 					}
@@ -35,10 +81,17 @@
 			).catch(
 				function () {
 					for ( var config of oodspConfigs ) {
-						DocSpaceComponent.renderError( config.frameId );
+						$( "#" + config.frameId ).html(
+							oodspErrorTemplate(
+								{
+									message: _oodsp.messages.docspaceUnavailable
+								}
+							)
+						);
 					}
 				}
 			);
 		}
 	);
-})();
+
+})( jQuery );

@@ -7,7 +7,7 @@
  * Plugin Name:       ONLYOFFICE DocSpace
  * Plugin URI:        https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress
  * Description:       Add ONLYOFFICE DocSpace on page
- * Version:           1.0.1
+ * Version:           2.0.0
  * Requires at least: 5.7
  * Requires PHP:      7.4
  * Author:            Ascensio System SIA
@@ -20,7 +20,7 @@
 
 /**
  *
- * (c) Copyright Ascensio System SIA 2023
+ * (c) Copyright Ascensio System SIA 2024
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Currently plugin version.
  */
 define( 'OODSP_PLUGIN_NAME', 'onlyoffice-docspace-wordpress' );
-define( 'OODSP_VERSION', '1.0.1' );
+define( 'OODSP_VERSION', '2.0.0' );
 define( 'OODSP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'OODSP_PLUGIN_FILE', __FILE__ );
 

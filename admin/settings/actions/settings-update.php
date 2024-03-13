@@ -8,7 +8,7 @@
 
 /**
  *
- * (c) Copyright Ascensio System SIA 2023
+ * (c) Copyright Ascensio System SIA 2024
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -72,28 +72,6 @@ function oodsp_update_settings() {
 			update_option( 'oodsp_settings', $value );
 
 			add_settings_error( 'general', 'settings_updated', __( 'Settings saved', 'onlyoffice-docspace-plugin' ), 'success' );
-
-			$res_create_public_user = $oodsp_request_manager->request_create_public_user( $docspace_url, $res_auth['data'] );
-
-			if ( OODSP_Request_Manager::ERROR_USER_INVITE === $res_create_public_user['error'] ) {
-				add_settings_error( 'general', 'settings_updated', __( 'Public DocSpace user was not created! View content will not be available on public pages.', 'onlyoffice-docspace-plugin' ), 'warning' );
-			} elseif ( OODSP_Request_Manager::ERROR_SET_USER_PASS === $res_create_public_user['error'] ) {
-				$res_docspace_public_user = $oodsp_request_manager->request_docspace_user( $docspace_url, OODSP_Public_DocSpace::OODSP_PUBLIC_USER_LOGIN, $res_auth['data'] );
-
-				if ( ! $res_docspace_public_user['error'] ) {
-					$value['docspace_public_user_id'] = $res_docspace_public_user['data']['id'];
-					update_option( 'oodsp_settings', $value );
-				}
-
-				add_settings_error( 'general', 'settings_updated', __( 'Public DocSpace user already created, but failed to update authorization.', 'onlyoffice-docspace-plugin' ), 'warning' );
-			} elseif ( $res_create_public_user['error'] ) {
-				add_settings_error( 'general', 'settings_updated', __( 'Public DocSpace user was not created. View content will not be available on public pages.', 'onlyoffice-docspace-plugin' ), 'warning' );
-			} else {
-				$value['docspace_public_user_id'] = $res_create_public_user['data']['id'];
-				update_option( 'oodsp_settings', $value );
-
-				add_settings_error( 'general', 'settings_updated', __( 'Public DocSpace user successfully created.', 'onlyoffice-docspace-plugin' ), 'success' );
-			}
 
 			$user = wp_get_current_user(); // Try create current user in DocSpace.
 

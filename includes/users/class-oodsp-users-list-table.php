@@ -11,7 +11,7 @@
 
 /**
  *
- * (c) Copyright Ascensio System SIA 2023
+ * (c) Copyright Ascensio System SIA 2024
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -115,12 +115,11 @@ class OODSP_Users_List_Table extends WP_List_Table {
 		$paged = $this->get_pagenum();
 
 		$args = array(
-			'number'     => $users_per_page,
-			'offset'     => ( $paged - 1 ) * $users_per_page,
-			'role'       => $role,
-			'capability' => 'upload_files',
-			'search'     => $s,
-			'fields'     => 'all_with_meta',
+			'number' => $users_per_page,
+			'offset' => ( $paged - 1 ) * $users_per_page,
+			'role'   => $role,
+			'search' => $s,
+			'fields' => 'all_with_meta',
 		);
 
 		if ( '' !== $args['search'] ) {
@@ -166,7 +165,11 @@ class OODSP_Users_List_Table extends WP_List_Table {
 						$this->items[ $userid ]->docspace_status = $this->docspace_users[ $t ]['activationStatus'];
 						$this->items[ $userid ]->docspace_role   = $this->get_docspace_user_role_label( $this->docspace_users[ $t ] );
 
-						if ( 0 === $this->items[ $userid ]->docspace_status || 1 === $this->items[ $userid ]->docspace_status ) {
+						if (
+							0 === $this->items[ $userid ]->docspace_status
+							|| 1 === $this->items[ $userid ]->docspace_status
+							|| 2 === $this->items[ $userid ]->docspace_status
+							) {
 							$oodsp_security_manager = new OODSP_Security_Manager();
 							$user_pass              = $oodsp_security_manager->get_oodsp_user_pass( $user_object->ID );
 
@@ -264,10 +267,6 @@ class OODSP_Users_List_Table extends WP_List_Table {
 
 		foreach ( $wp_roles->get_names() as $this_role => $name ) {
 			if ( $count_users && ! isset( $avail_roles[ $this_role ] ) ) {
-				continue;
-			}
-
-			if ( ! isset( get_role( $this_role )->capabilities['upload_files'] ) ) {
 				continue;
 			}
 

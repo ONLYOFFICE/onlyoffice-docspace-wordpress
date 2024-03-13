@@ -10,7 +10,7 @@
 
 /**
  *
- * (c) Copyright Ascensio System SIA 2023
+ * (c) Copyright Ascensio System SIA 2024
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -39,33 +39,20 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
 class OODSP_Public_DocSpace {
-	const OODSP_PUBLIC_USER_LOGIN     = 'wpviewer@onlyoffice.com';
-	const OODSP_PUBLIC_USER_PASS      = '8c6b8b3e59010d7c925a47039f749d86fbdc9b37257cd262f2dae7c84a106505';
-	const OODSP_PUBLIC_USER_FIRSTNAME = 'WordPress';
-	const OODSP_PUBLIC_USER_LASTNAME  = 'Viewer';
 
 	/**
-	 * OODSP_Settings
+	 * OODSP_Utils
 	 *
 	 * @access   private
-	 * @var      OODSP_Settings    $plugin_settings
+	 * @var      OODSP_Utils    $oodsp_utils
 	 */
-	private $plugin_settings;
-
-	/**
-	 * OODSP_DocSpace
-	 *
-	 * @access   private
-	 * @var      OODSP_DocSpace    $plugin_docspace
-	 */
-	private $plugin_docspace;
+	private $oodsp_utils;
 
 	/**
 	 * Initialize the class and set its properties.
 	 */
 	public function __construct() {
-		$this->plugin_settings = new OODSP_Settings();
-		$this->plugin_docspace = new OODSP_DocSpace();
+		$this->oodsp_utils = new OODSP_Utils();
 	}
 
 	/**
@@ -124,8 +111,10 @@ class OODSP_Public_DocSpace {
 			'frameId'      => 'onlyoffice-docspace-block-' . $instance,
 			'width'        => '100%',
 			'height'       => '500px',
+			'align'        => '',
 			'mode'         => 'manager',
 			'editorGoBack' => false,
+			'theme'        => 'Base',
 		);
 
 		$atts = shortcode_atts( $defaults_atts, $attr, 'onlyoffice-docspace' );
@@ -146,66 +135,24 @@ class OODSP_Public_DocSpace {
 			$atts['height'] = $defaults_atts['height'];
 		}
 
-		$post = get_post();
-
-		if ( 'private' === $post->post_status ) {
-			$is_public    = false;
-			$current_user = wp_get_current_user()->user_email;
-		} else {
-			$is_public    = true;
-			$current_user = self::OODSP_PUBLIC_USER_LOGIN;
+		if ( empty( $atts['theme'] ) ) {
+			$atts['theme'] = $defaults_atts['theme'];
 		}
 
+		if ( array_key_exists( 'requestToken', $attr ) ) {
+			$atts['requestToken'] = $attr['requestToken'];
+			$atts['rootPath']     = '/rooms/share';
+		}
+
+		$this->oodsp_utils->enqueue_scripts();
+		$this->oodsp_utils->enqueue_styles();
+
 		wp_enqueue_script(
-			'docspace-component-api',
-			OODSP_PLUGIN_URL . 'assets-onlyoffice-docspace/js/docspace-component-api.js',
+			'docspace-integration-sdk',
+			OODSP_PLUGIN_URL . 'assets-onlyoffice-docspace/js/docspace-integration-sdk.js',
 			array(),
 			OODSP_VERSION,
 			true
-		);
-
-		$error_message = __( 'Portal unavailable! Please contact the administrator!', 'onlyoffice-docspace-plugin' );
-
-		if ( current_user_can( 'manage_options' ) && ! $is_public ) {
-			$error_message = __( 'Go to the settings to configure ONLYOFFICE DocSpace connector.', 'onlyoffice-docspace-plugin' );
-		}
-
-		$unauthorized_header  = __( 'Authorization unsuccessful!', 'onlyoffice-docspace-plugin' );
-		$unauthorized_message = __( 'Please contact the administrator.', 'onlyoffice-docspace-plugin' );
-
-		if ( current_user_can( 'manage_options' ) && $is_public ) {
-			$unauthorized_header  = __( 'Reset WordPress Viewer to continue', 'onlyoffice-docspace-plugin' );
-			$unauthorized_message = __( 'You may experience issues with access to your content because WordPress Viewer data has been lost. Please proceed to the DocSpace plugin settings and click the Save button. WordPress Viewer will be added again to DocSpace.', 'onlyoffice-docspace-plugin' );
-		} elseif ( ! $is_public ) {
-			$unauthorized_message = __( 'Please proceed to the DocSpace plugin via the left side menu and enter your password to restore access.', 'onlyoffice-docspace-plugin' );
-		}
-
-		wp_localize_script(
-			'docspace-component-api',
-			'DocSpaceComponent',
-			array(
-				'url'         => $this->plugin_settings->get_onlyoffice_docspace_setting( OODSP_Settings::DOCSPACE_URL ),
-				'currentUser' => $current_user,
-				'isPublic'    => $is_public,
-				'locale'      => $this->plugin_docspace->get_locale_for_docspace(),
-				'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
-				'images'      => array(
-					'onlyoffice'  => plugins_url( 'public/images/onlyoffice.svg', OODSP_PLUGIN_FILE ),
-					'unavailable' => plugins_url( 'public/images/unavailable.svg', OODSP_PLUGIN_FILE ),
-				),
-				'messages'    => array(
-					'error'                => $error_message,
-					'unauthorized_header'  => $unauthorized_header,
-					'unauthorized_message' => $unauthorized_message,
-				),
-			)
-		);
-
-		wp_enqueue_style(
-			'docspace-components-api',
-			OODSP_PLUGIN_URL . 'assets-onlyoffice-docspace/css/docspace-component-api.css',
-			array(),
-			OODSP_VERSION
 		);
 
 		wp_enqueue_script(
@@ -216,8 +163,19 @@ class OODSP_Public_DocSpace {
 			true
 		);
 
-		$output  = '<div>';
-		$output .= "<div class='onlyoffice-docspace-block' data-config='" . wp_json_encode( $atts ) . "' id='onlyoffice-docspace-block-" . $instance . "' style='overflow: overlay; width:" . $atts['width'] . '; height:' . $atts['height'] . "'></div>";
+		wp_enqueue_style(
+			OODSP_PLUGIN_NAME . '-public-docspace',
+			OODSP_PLUGIN_URL . 'public/css/public-docspace.css',
+			array(),
+			OODSP_VERSION
+		);
+
+		$align = ! empty( $atts['align'] ) ? 'align' . $atts['align'] : '';
+		$size  = ! empty( $atts['width'] ) && ! ( 'full' === $atts['align'] ) ? 'width: ' . $atts['width'] . ';' : '';
+		$size .= ! empty( $atts['height'] ) ? 'height: ' . $atts['height'] . ';' : '';
+
+		$output  = '<div class="wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace ' . $align . ' size-full" style="' . $size . '">';
+		$output .= "<div class='onlyoffice-docspace-block' data-config='" . wp_json_encode( $atts ) . "' id='onlyoffice-docspace-block-" . $instance . "'></div>";
 		$output .= '</div>';
 
 		return apply_filters( 'wp_onlyoffice_docspace_shortcode', $output, $atts );

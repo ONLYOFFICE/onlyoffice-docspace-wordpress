@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.1\n"
 
 msgid "ONLYOFFICE DocSpace Settings"
 msgstr "Impostazioni di ONLYOFFICE DocSpace"
@@ -32,8 +32,8 @@ msgstr "Password"
 msgid "Save"
 msgstr "Salva"
 
-msgid "The current user will be added to DocSpace with the <b>Room admin</b> role. <b>WordPress Viewer</b> user will be added to DocSpace with View Only access."
-msgstr "L'utente corrente verrà aggiunto a DocSpace nel ruolo di <b>Amministratore della stanza</b>. L'utente <b>WordPress Viewer</b> verrà aggiunto a DocSpace con accesso di sola visualizzazione."
+msgid "The current WordPress user will be added to DocSpace with the <b>Room admin</b> role."
+msgstr "L'utente corrente di WordPress verrà aggiunto a DocSpace nel ruolo di <b>Amministratore della stanza</b>."
 
 msgid "DocSpace Users"
 msgstr "Utenti di DocSpace"
@@ -89,18 +89,6 @@ msgstr "Errore durante il recupero dei dati utente. Ti preghiamo di riprovare!"
 
 msgid "The specified user is not a DocSpace administrator!"
 msgstr "L'utente specificato non è un amministratore di DocSpace!"
-
-msgid "Public DocSpace user was not created! View content will not be available on public pages."
-msgstr "L'utente DocSpace pubblico non è stato creato! La visualizzazione del contenuto non sarà disponibile sulle pagine pubbliche."
-
-msgid "Public DocSpace user already created, but failed to update authorization."
-msgstr "Utente DocSpace pubblico è già stato creato, ma non è riuscito ad aggiornare l'autorizzazione."
-
-msgid "Public DocSpace user was not created. View content will not be available on public pages."
-msgstr "L'utente DocSpace pubblico non è stato creato. La visualizzazione del contenuto non sarà disponibile sulle pagine pubbliche."
-
-msgid "Public DocSpace user successfully created."
-msgstr "Utente DocSpace pubblico creato correttamente."
 
 msgid "User %s already exists in DocSpace!"
 msgstr "L'utente %s già esiste in DocSpace!"
@@ -199,14 +187,14 @@ msgstr "Autorizzazione non riuscita!"
 msgid "Please contact the administrator."
 msgstr "Ti pregiamo di contattare l'amministratore."
 
-msgid "Reset WordPress Viewer to continue"
-msgstr "Reimposta il Visualizzatore WordPress per continuare"
-
-msgid "You may experience issues with access to your content because WordPress Viewer data has been lost. Please proceed to the DocSpace plugin settings and click the Save button. WordPress Viewer will be added again to DocSpace."
-msgstr "Potresti riscontrare problemi con l'accesso ai tuoi contenuti perché i dati del Visualizzatore WordPress sono andati persi. Procedi alle impostazioni del plugin DocSpace e fai clic sul pulsante Salva. Il Visualizzatore WordPress verrà aggiunto nuovamente a DocSpace."
-
 msgid "Please proceed to the DocSpace plugin via the left side menu and enter your password to restore access."
 msgstr "Procedi al plugin DocSpace tramite il menu a sinistra e inserisci la password per ripristinare l'accesso."
+
+msgid "Access denied!"
+msgstr "Accesso negato!"
+
+msgid "Please log in to the site!"
+msgstr "Ti preghiamo di effettuare il login al sito!"
 
 msgid "WordPress requests access to your ONLYOFFICE DocSpace"
 msgstr "WordPress richiede l'accesso al tuo ONLYOFFICE DocSpace"
@@ -217,11 +205,27 @@ msgstr "Il tuo account <b>%s</b> verrà sincronizzato con il tuo DocSpace. Inser
 msgid "Login"
 msgstr "Accesso"
 
-#: admin/js/login.js
+#: includes/js/oodsp-login.js
 msgid "<strong>Error:</strong> User authentication failed."
 msgstr "<strong>Errore:</strong> L'autenticazione dell'utente non è riuscita."
 
-#: admin/js/login.js
+#: includes/js/oodsp-login.js
 msgid "<strong>Error:</strong> The password field is empty."
 msgstr "<strong>Errore:</strong> Il campo della password è vuoto."
+
+#: admin/js/settings.js
+msgid "The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %sthe Developer Tools section%s."
+msgstr "Il dominio corrente non è impostato nelle impostazioni della Content Security Policy (CSP). Aggiungilo tramite %sla sezione Strumenti per sviluppatori%s."
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Theme"
+msgstr "Tema"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Light"
+msgstr "Chiaro"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Dark"
+msgstr "Scuro"
 

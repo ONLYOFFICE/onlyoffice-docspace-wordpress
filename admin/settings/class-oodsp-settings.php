@@ -14,7 +14,7 @@
 
 /**
  *
- * (c) Copyright Ascensio System SIA 2023
+ * (c) Copyright Ascensio System SIA 2024
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -275,7 +275,7 @@ class OODSP_Settings {
 						<p>
 						<?php
 						echo wp_kses(
-							__( 'The current user will be added to DocSpace with the <b>Room admin</b> role. <b>WordPress Viewer</b> user will be added to DocSpace with View Only access.', 'onlyoffice-docspace-plugin' ),
+							__( 'The current WordPress user will be added to DocSpace with the <b>Room admin</b> role.', 'onlyoffice-docspace-plugin' ),
 							array(
 								'b' => array(
 									'class' => array(),

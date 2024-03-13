@@ -1,5 +1,15 @@
 # Change Log
 
+
+## 2.0.0
+## Added
+- support for public rooms
+- improved block settings (theme, align)
+- improved view of the inserted blocks
+
+## Changed
+- delete public user "Wordpress Viewer"
+
 ## 1.0.1
 ## Changed
 - minor code corrections, compliance with WordPress requirements
