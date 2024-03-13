@@ -4,8 +4,8 @@
 ## 2.0.0
 ## Added
 - support for public rooms
-- settings for onlyoffice-docspace-wordpress-block (theme, align)
-- improoved view onlyoffice-docspace-wordpress-block in editor
+- improved block settings (theme, align)
+- improved view of the inserted blocks
 
 ## Changed
 - delete public user "Wordpress Viewer"
