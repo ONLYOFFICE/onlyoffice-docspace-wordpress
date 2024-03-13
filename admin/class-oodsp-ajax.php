@@ -68,7 +68,7 @@ class OODSP_Ajax {
 	 * DocSpace Credentials.
 	 */
 	public function oodsp_credentials() {
-		$user      = wp_get_current_user();
+		$user = wp_get_current_user();
 
 		$hash = isset( $_REQUEST['hash'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['hash'] ) ) : ''; // phpcs:ignore
 
