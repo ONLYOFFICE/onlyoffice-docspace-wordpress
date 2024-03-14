@@ -10,3 +10,5 @@ node_modules
 /vendor
 /wpcs
 /onlyoffice-docspace-wordpress-block/build
+/languages/*.json
+/languages/*.mo
