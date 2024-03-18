@@ -16,8 +16,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          coverage: none
+          tools: composer, cs2pr
       - name: Build Artifact
         run: |
+          composer install
+          composer translations
+          rm -rf /vendor
           cd ${{ github.workspace }}/onlyoffice-docspace-wordpress-block
           npm install
           npm run build
