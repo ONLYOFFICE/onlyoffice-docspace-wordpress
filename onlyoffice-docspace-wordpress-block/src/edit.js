@@ -55,6 +55,17 @@ const Edit = ({ attributes, setAttributes }) => {
         }
     ];
 
+    const editorTypes = [
+        {
+            label: __("Embedded", "onlyoffice-docspace-plugin"),
+            value: "embedded"
+        },
+        {
+            label: __("Editor", "onlyoffice-docspace-plugin"),
+            value: "desktop"
+        }
+    ];
+
     const script = () => {
         if (isOpen) {
             wp.oodsp.initLoginManager(
@@ -198,6 +209,17 @@ const Edit = ({ attributes, setAttributes }) => {
                                 options={themes}
                                 onChange={(value) => {setAttributes({ theme: value })}}
                             />
+                            { 
+                                attributes.fileId ?
+                                    <SelectControl
+                                        label={__("View", "onlyoffice-docspace-plugin")}
+                                        value={attributes.editorType}
+                                        options={editorTypes}
+                                        onChange={(value) => {setAttributes({ editorType: value })}}
+                                    />
+                                    :
+                                    ''
+                            }
                         </PanelBody>
                     </InspectorControls>
 

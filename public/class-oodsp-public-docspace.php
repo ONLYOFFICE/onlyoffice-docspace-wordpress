@@ -115,6 +115,7 @@ class OODSP_Public_DocSpace {
 			'mode'         => 'manager',
 			'editorGoBack' => false,
 			'theme'        => 'Base',
+			'editorType'   => 'embedded',
 		);
 
 		$atts = shortcode_atts( $defaults_atts, $attr, 'onlyoffice-docspace' );
@@ -144,6 +145,10 @@ class OODSP_Public_DocSpace {
 
 		if ( empty( $atts['theme'] ) ) {
 			$atts['theme'] = $defaults_atts['theme'];
+		}
+
+		if ( empty( $atts['editorType'] ) ) {
+			$atts['editorType'] = $defaults_atts['editorType'];
 		}
 
 		if ( array_key_exists( 'requestToken', $attr ) ) {
