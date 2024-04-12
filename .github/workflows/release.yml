@@ -33,7 +33,7 @@ jobs:
         run: |
           composer install
           composer translations
-          rm -rf /vendor
+          rm -rf vendor
           cd ${{ github.workspace }}/onlyoffice-docspace-wordpress-block
           npm install
           npm run build
