@@ -123,8 +123,13 @@ class OODSP_Public_DocSpace {
 			$atts['id']   = $attr['roomId'];
 			$atts['mode'] = 'manager';
 		} elseif ( array_key_exists( 'fileId', $attr ) ) {
-			$atts['id']   = $attr['fileId'];
-			$atts['mode'] = 'editor';
+			$atts['id']                  = $attr['fileId'];
+			$atts['mode']                = 'editor';
+			$atts['editorCustomization'] = array(
+				'anonymous' => array(
+					'request' => false,
+				),
+			);
 		}
 
 		if ( empty( $atts['width'] ) ) {
