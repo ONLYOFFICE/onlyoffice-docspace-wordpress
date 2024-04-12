@@ -137,6 +137,7 @@ const Edit = ({ attributes, setAttributes }) => {
             height: "100%",
             mode: mode,
             selectorType: "roomsOnly",
+            theme: "Base",
             locale: _oodsp.locale,
             events: {
                 onSelectCallback: onSelectCallback,
