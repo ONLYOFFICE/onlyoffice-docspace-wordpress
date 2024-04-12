@@ -126,9 +126,10 @@ class OODSP_Public_DocSpace {
 			$atts['id']                  = $attr['fileId'];
 			$atts['mode']                = 'editor';
 			$atts['editorCustomization'] = array(
-				'anonymous' => array(
+				'anonymous'       => array(
 					'request' => false,
 				),
+				'integrationMode' => 'embed',
 			);
 		}
 
