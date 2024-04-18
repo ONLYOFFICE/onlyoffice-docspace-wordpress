@@ -47,6 +47,10 @@ const Save = ({ attributes }) => {
         parameters += 'theme=' + attributes.theme + ' ';
     }
 
+    if ( attributes.hasOwnProperty('editorType') && attributes.editorType.length > 0 ) {
+        parameters += 'editorType=' + attributes.editorType + ' ';
+    }
+
     if ( attributes.hasOwnProperty('requestToken') && attributes.requestToken.length > 0 ) {
         parameters += 'requestToken=' + attributes.requestToken + ' ';
     }

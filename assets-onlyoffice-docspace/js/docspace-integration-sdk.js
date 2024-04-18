@@ -18,7 +18,7 @@
  */
 
 (function () {
-    const DOCSPACE_API_URL = "static/scripts/api.js";
+    const DOCSPACE_API_URL = "static/scripts/sdk/1.0.0/api.js";
 
     const initScript = async (id, url) => {
         return new Promise((resolve, reject) => {

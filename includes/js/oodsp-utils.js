@@ -56,17 +56,19 @@ window.wp = window.wp || {};
 					}
 				)
 			}
-		).catch(function() {
-			const oodspErrorTemplate = wp.template( 'oodsp-error' );
+		).catch(
+			function () {
+				const oodspErrorTemplate = wp.template( 'oodsp-error' );
 
-			$( "#" + frameId ).html(
-				oodspErrorTemplate(
-					{
-						message: _oodsp.messages.docspaceUnavailable
-					}
-				)
-			);
-		});
+				$( "#" + frameId ).html(
+					oodspErrorTemplate(
+						{
+							message: _oodsp.messages.docspaceUnavailable
+						}
+					)
+				);
+			}
+		);
 	}
 
 	wp.oodsp.initLoginWindow = function ( frameId, error = false, onSuccessLogin ) {
