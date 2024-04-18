@@ -229,3 +229,14 @@ msgstr "Claro"
 msgid "Dark"
 msgstr "Escuro"
 
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "View"
+msgstr "Ver"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Embedded"
+msgstr "Incorporado"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Editor"
+msgstr "Editor"
