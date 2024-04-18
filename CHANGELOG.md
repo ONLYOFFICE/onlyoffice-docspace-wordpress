@@ -1,6 +1,10 @@
 # Change Log
 
 
+##
+## Added 
+- ability to add multiple rooms/files to a page
+
 ## 2.0.0
 ## Added
 - support for public rooms
