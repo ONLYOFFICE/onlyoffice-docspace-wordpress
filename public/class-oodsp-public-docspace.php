@@ -120,11 +120,18 @@ class OODSP_Public_DocSpace {
 		$atts = shortcode_atts( $defaults_atts, $attr, 'onlyoffice-docspace' );
 
 		if ( array_key_exists( 'roomId', $attr ) ) {
-			$atts['id']   = $attr['roomId'];
-			$atts['mode'] = 'manager';
+			$atts['id']               = $attr['roomId'];
+			$atts['mode']             = 'manager';
+			$atts['viewTableColumns'] = 'Name,Size,Type';
 		} elseif ( array_key_exists( 'fileId', $attr ) ) {
-			$atts['id']   = $attr['fileId'];
-			$atts['mode'] = 'editor';
+			$atts['id']                  = $attr['fileId'];
+			$atts['mode']                = 'editor';
+			$atts['editorCustomization'] = array(
+				'anonymous'       => array(
+					'request' => false,
+				),
+				'integrationMode' => 'embed',
+			);
 		}
 
 		if ( empty( $atts['width'] ) ) {

@@ -356,7 +356,7 @@ class OODSP_Request_Manager {
 		}
 
 		if ( ! $first_name && ! $last_name ) {
-			$user_name  = substr( $email, strrpos( $email, '@' ) + 1 );
+			$user_name  = substr( $email, 0, strrpos( $email, '@' ) );
 			$first_name = preg_replace( '/[^\p{L}\p{M} \-]/u', '-', $user_name );
 			$last_name  = $first_name;
 		}

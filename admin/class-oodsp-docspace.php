@@ -162,7 +162,9 @@ class OODSP_DocSpace {
 							showMenu: true,
 							showFilter: true,
 							showHeader: true,
-							locale: _oodsp.locale
+							locale: _oodsp.locale,
+							showSignOut: false,
+							theme: "Base"
 						});
 					}
 				);
