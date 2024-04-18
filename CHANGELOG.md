@@ -4,6 +4,7 @@
 ##
 ## Added 
 - ability to add multiple rooms/files to a page
+- block settings (view mode 'editor/embedded')
 
 ##
 ## Changed
