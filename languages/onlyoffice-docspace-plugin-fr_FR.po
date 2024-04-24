@@ -240,4 +240,3 @@ msgstr "Incorporé"
 #: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Editor"
 msgstr "Éditeur"
-

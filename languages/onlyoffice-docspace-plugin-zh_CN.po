@@ -240,4 +240,3 @@ msgstr "嵌入式"
 #: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Editor"
 msgstr "编辑器"
-
