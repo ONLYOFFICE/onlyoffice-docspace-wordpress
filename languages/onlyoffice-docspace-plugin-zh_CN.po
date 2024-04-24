@@ -229,3 +229,14 @@ msgstr "淺色主題"
 msgid "Dark"
 msgstr "深色的"
 
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "View"
+msgstr "视图"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Embedded"
+msgstr "嵌入式"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js
+msgid "Editor"
+msgstr "编辑器"
