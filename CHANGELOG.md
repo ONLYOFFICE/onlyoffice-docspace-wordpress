@@ -1,12 +1,11 @@
 # Change Log
 
 
-##
+## 2.1.0
 ## Added 
 - ability to add multiple rooms/files to a page
 - block settings (view mode 'editor/embedded')
 
-##
 ## Changed
 - hide sign out button on page docspace
 - hide request name for anonymous
