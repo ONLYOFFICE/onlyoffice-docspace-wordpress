@@ -17,6 +17,7 @@
 */
 
 import { RawHTML } from '@wordpress/element';
+import block from '../block.json';
 
 const Save = ({ attributes }) => {
     if ( !attributes.roomId && !attributes.fileId ) {
@@ -25,36 +26,17 @@ const Save = ({ attributes }) => {
 
     let parameters = '';
 
-    if ( attributes.hasOwnProperty('roomId')) {
-        parameters += 'roomId=' + attributes.roomId + ' ';
-    } else if (attributes.hasOwnProperty('fileId')) {
-        parameters += 'fileId=' + attributes.fileId + ' ';
-    }
-
-    if ( attributes.hasOwnProperty('width') && attributes.width.length > 0 ) {
-        parameters += 'width=' + attributes.width + ' ';
-    }
-
-    if ( attributes.hasOwnProperty('height') && attributes.height.length > 0 ) {
-        parameters += 'height=' + attributes.height + ' ';
-    }
-
-    if ( attributes.hasOwnProperty('align') && attributes.align.length > 0 ) {
-        parameters += 'align=' + attributes.align + ' ';
-    }
-
-    if ( attributes.hasOwnProperty('theme') && attributes.theme.length > 0 ) {
-        parameters += 'theme=' + attributes.theme + ' ';
-    }
-
-    if ( attributes.hasOwnProperty('editorType') && attributes.editorType.length > 0 ) {
-        parameters += 'editorType=' + attributes.editorType + ' ';
-    }
-
-    if ( attributes.hasOwnProperty('requestToken') && attributes.requestToken.length > 0 ) {
-        parameters += 'requestToken=' + attributes.requestToken + ' ';
+    for( var key in Object.keys( block.attributes ) ) {
+        if ( ! _isEmpty(attributes[key]) ) {
+            parameters += key + '=' + attributes[key] + ' ';
+        }
     }
 
     return <RawHTML>{ `[onlyoffice-docspace ${ parameters } /]` }</RawHTML>;
 };
+
+const _isEmpty = ( value ) => {
+    return ( value == null ||  ( typeof value === "string" && value.trim().length === 0 ) );
+}
+
 export default Save;
