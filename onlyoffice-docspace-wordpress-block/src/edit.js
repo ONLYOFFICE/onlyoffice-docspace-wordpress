@@ -245,7 +245,7 @@ const Edit = ({ attributes, setAttributes }) => {
                                     </div>
                                 </td>
                                 <td class="entity-info">
-                                    <p class="entity-info-label">Docspace {entityLabel} {entytiIsPublic}</p>
+                                    <p class="entity-info-label">DocSpace {entityLabel} {entytiIsPublic}</p>
                                     <p><span style={{fontWeight: 500}}>{__("Name")}:</span> {attributes.name || ""}</p>
                                 </td>
                             </tr>
