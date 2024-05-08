@@ -80,7 +80,11 @@ const Edit = ({ attributes, setAttributes }) => {
     useEffect(script, [isOpen]);
 
     const onSelectRoomCallback = (event) => {
-        Object.keys(attributes).forEach(key => delete attributes[key]);
+        Object.keys(attributes).forEach((key) => {
+            if (["roomId", "fileId", "name", "icon", "requestToken", "editorType"].includes(key)) {    
+                delete attributes[key];
+            }
+        });
 
         const requestTokens = event[0].requestTokens;
         const requestToken = requestTokens ? requestTokens[0].requestToken : null;
@@ -102,7 +106,11 @@ const Edit = ({ attributes, setAttributes }) => {
     }
 
     const onSelectFileCallback = (event) => {
-        Object.keys(attributes).forEach(key => delete attributes[key]);
+        Object.keys(attributes).forEach((key) => {
+            if (["roomId", "fileId", "name", "icon", "requestToken"].includes(key)) {    
+                delete attributes[key];
+            }
+        });
 
         const requestTokens = event.requestTokens;
         const requestToken = requestTokens ? requestTokens[0].requestToken : null;
