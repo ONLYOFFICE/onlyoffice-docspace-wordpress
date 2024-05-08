@@ -99,3 +99,11 @@
     padding-top: 0;
     margin-top: 0;
 }
+
+.wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace.alignright{
+    width: 100%;
+}
+
+.wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace.alignleft {
+    width: 100%;
+}
