@@ -88,15 +88,28 @@ ONLYOFFICE DocSpace is a room-based collaborative environment. With ONLYOFFICE D
 5. Access ONLYOFFICE DocSpace within WordPress
 
 == Changelog ==
+= 2.1.0 =
+* ability to add multiple rooms/files to a page
+* block settings (view mode 'editor/embedded')
+* hide sign out button on page docspace
+* hide request name for anonymous
+* structure of tables with files (Name,Size,Type)
+* base theme in admin panel for docspace
 
-= 1.0 =
+= 2.0.0 =
+* support for public rooms
+* improved block settings (theme, align)
+* improved view of the inserted blocks
+* delete public user "Wordpress Viewer"
+
+= 1.0.1 =
+* minor code corrections, compliance with WordPress requirements
+* fix invite users to DocSpace without first name or last name
+* fix "DocSpace User Status", when the user has not confirmed the email
+
+= 1.0.0 =
 * connection settings page
 * user synchronization
 * opening DocSpace in WordPress
 * inserting a file when creating a page
 * inserting a room when creating a page
-
-== Upgrade Notice ==
-
-= 1.0 =
-This is the first version of the plugin.
