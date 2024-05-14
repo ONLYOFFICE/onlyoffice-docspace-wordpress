@@ -11,13 +11,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          coverage: none
+          tools: composer, cs2pr
       - name: Build Artifact
         run: |
+          composer install
+          composer translations
+          rm -rf vendor
           cd ${{ github.workspace }}/onlyoffice-docspace-wordpress-block
           npm install
           npm run build
@@ -33,7 +42,7 @@ jobs:
           rm -rf ./.git/
           rm ./.gitignore
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: onlyoffice-docspace
           path: deploy

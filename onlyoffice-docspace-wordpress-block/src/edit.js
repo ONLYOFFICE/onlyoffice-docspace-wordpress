@@ -55,6 +55,17 @@ const Edit = ({ attributes, setAttributes }) => {
         }
     ];
 
+    const editorTypes = [
+        {
+            label: __("Embedded", "onlyoffice-docspace-plugin"),
+            value: "embedded"
+        },
+        {
+            label: __("Editor", "onlyoffice-docspace-plugin"),
+            value: "desktop"
+        }
+    ];
+
     const script = () => {
         if (isOpen) {
             wp.oodsp.initLoginManager(
@@ -69,7 +80,11 @@ const Edit = ({ attributes, setAttributes }) => {
     useEffect(script, [isOpen]);
 
     const onSelectRoomCallback = (event) => {
-        Object.keys(attributes).forEach(key => delete attributes[key]);
+        Object.keys(attributes).forEach((key) => {
+            if (["roomId", "fileId", "name", "icon", "requestToken", "editorType"].includes(key)) {    
+                delete attributes[key];
+            }
+        });
 
         const requestTokens = event[0].requestTokens;
         const requestToken = requestTokens ? requestTokens[0].requestToken : null;
@@ -91,7 +106,11 @@ const Edit = ({ attributes, setAttributes }) => {
     }
 
     const onSelectFileCallback = (event) => {
-        Object.keys(attributes).forEach(key => delete attributes[key]);
+        Object.keys(attributes).forEach((key) => {
+            if (["roomId", "fileId", "name", "icon", "requestToken"].includes(key)) {    
+                delete attributes[key];
+            }
+        });
 
         const requestTokens = event.requestTokens;
         const requestToken = requestTokens ? requestTokens[0].requestToken : null;
@@ -137,6 +156,7 @@ const Edit = ({ attributes, setAttributes }) => {
             height: "100%",
             mode: mode,
             selectorType: "roomsOnly",
+            theme: "Base",
             locale: _oodsp.locale,
             events: {
                 onSelectCallback: onSelectCallback,
@@ -197,6 +217,17 @@ const Edit = ({ attributes, setAttributes }) => {
                                 options={themes}
                                 onChange={(value) => {setAttributes({ theme: value })}}
                             />
+                            { 
+                                attributes.fileId ?
+                                    <SelectControl
+                                        label={__("View", "onlyoffice-docspace-plugin")}
+                                        value={attributes.editorType}
+                                        options={editorTypes}
+                                        onChange={(value) => {setAttributes({ editorType: value })}}
+                                    />
+                                    :
+                                    ''
+                            }
                         </PanelBody>
                     </InspectorControls>
 
@@ -214,7 +245,7 @@ const Edit = ({ attributes, setAttributes }) => {
                                     </div>
                                 </td>
                                 <td class="entity-info">
-                                    <p class="entity-info-label">Docspace {entityLabel} {entytiIsPublic}</p>
+                                    <p class="entity-info-label">DocSpace {entityLabel} {entytiIsPublic}</p>
                                     <p><span style={{fontWeight: 500}}>{__("Name")}:</span> {attributes.name || ""}</p>
                                 </td>
                             </tr>

@@ -119,7 +119,7 @@ class OODSP_DocSpace {
 	public function init_menu() {
 		global $wp_filesystem;
 
-		$logo_svg = $wp_filesystem->get_contents( OODSP_PLUGIN_URL . 'admin/images/logo.svg' );
+		$logo_svg = $wp_filesystem->get_contents( plugin_dir_path( OODSP_PLUGIN_FILE ) . 'admin/images/logo.svg' );
 
 		add_menu_page(
 			'DocSpace',
@@ -162,7 +162,9 @@ class OODSP_DocSpace {
 							showMenu: true,
 							showFilter: true,
 							showHeader: true,
-							locale: _oodsp.locale
+							locale: _oodsp.locale,
+							showSignOut: false,
+							theme: "Base"
 						});
 					}
 				);

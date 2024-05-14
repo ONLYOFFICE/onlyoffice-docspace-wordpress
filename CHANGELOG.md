@@ -1,6 +1,17 @@
 # Change Log
 
 
+## 2.1.0
+## Added 
+- ability to add multiple rooms/files to a page
+- block settings (view mode 'editor/embedded')
+
+## Changed
+- hide sign out button on page docspace
+- hide request name for anonymous
+- structure of tables with files (Name,Size,Type)
+- base theme in admin panel for docspace
+
 ## 2.0.0
 ## Added
 - support for public rooms

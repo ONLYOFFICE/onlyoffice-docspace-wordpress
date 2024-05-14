@@ -115,16 +115,24 @@ class OODSP_Public_DocSpace {
 			'mode'         => 'manager',
 			'editorGoBack' => false,
 			'theme'        => 'Base',
+			'editorType'   => 'embedded',
 		);
 
 		$atts = shortcode_atts( $defaults_atts, $attr, 'onlyoffice-docspace' );
 
 		if ( array_key_exists( 'roomId', $attr ) ) {
-			$atts['id']   = $attr['roomId'];
-			$atts['mode'] = 'manager';
+			$atts['id']               = $attr['roomId'];
+			$atts['mode']             = 'manager';
+			$atts['viewTableColumns'] = 'Name,Size,Type';
 		} elseif ( array_key_exists( 'fileId', $attr ) ) {
-			$atts['id']   = $attr['fileId'];
-			$atts['mode'] = 'editor';
+			$atts['id']                  = $attr['fileId'];
+			$atts['mode']                = 'editor';
+			$atts['editorCustomization'] = array(
+				'anonymous'       => array(
+					'request' => false,
+				),
+				'integrationMode' => 'embed',
+			);
 		}
 
 		if ( empty( $atts['width'] ) ) {
@@ -137,6 +145,10 @@ class OODSP_Public_DocSpace {
 
 		if ( empty( $atts['theme'] ) ) {
 			$atts['theme'] = $defaults_atts['theme'];
+		}
+
+		if ( empty( $atts['editorType'] ) ) {
+			$atts['editorType'] = $defaults_atts['editorType'];
 		}
 
 		if ( array_key_exists( 'requestToken', $attr ) ) {
