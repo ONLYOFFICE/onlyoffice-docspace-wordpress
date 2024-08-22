@@ -1,5 +1,8 @@
 # Change Log
 
+##
+## Changed
+- use username in user export data if first_name and last_name is empty
 
 ## 2.1.0
 ## Added 
