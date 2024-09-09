@@ -12,13 +12,15 @@
 	"homepage": "",
 	"repository": "",
 	"main": "build/index.js",
+	"dependencies": {
+		"@wordpress/block-editor": "^14.2.0",
+		"@wordpress/blocks": "^13.7.0",
+		"@wordpress/components": "^28.7.0",
+		"@wordpress/element": "^6.7.0",
+		"@wordpress/i18n": "^5.7.0"
+	},
 	"devDependencies": {
-		"@wordpress/block-editor": "^12.21.0",
-		"@wordpress/components": "^27.1.0",
-		"@wordpress/blocks": "^12.30.0",
-		"@wordpress/element": "^5.30.0",
-		"@wordpress/i18n": "^4.53.0",
-		"@wordpress/scripts": "^27.4.0"
+		"@wordpress/scripts": "^26.12.0"
 	},
 	"scripts": {
 		"build": "wp-scripts build",
