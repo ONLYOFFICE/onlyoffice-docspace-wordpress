@@ -1,6 +1,10 @@
 # Change Log
 
 
+##
+## Changed 
+- DocSpace JS SDK version 1.0.1 
+
 ## 2.1.0
 ## Added 
 - ability to add multiple rooms/files to a page
