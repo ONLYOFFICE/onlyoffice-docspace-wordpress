@@ -3,7 +3,7 @@ Contributors: onlyoffice
 Tags: onlyoffice, integration, docspace
 Requires at least: 6.2
 Tested up to: 6.3.1
-Stable tag: 2.1.0
+Stable tag: 2.1.1
 Requires PHP: 8.0
 License: GPLv2
 License URI: https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress/blob/master/LICENSE

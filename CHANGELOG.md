@@ -1,7 +1,7 @@
 # Change Log
 
 
-##
+## 2.1.1
 ## Changed 
 - DocSpace JS SDK version 1.0.1
 - use username in user export data if first_name and last_name is empty 
