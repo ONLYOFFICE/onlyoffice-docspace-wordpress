@@ -184,7 +184,7 @@ class OODSP_Users_List_Table extends WP_List_Table {
 			if ( ! empty( $orderby ) && 'in_docspace' === $orderby ) {
 				usort(
 					$this->items,
-					function ( $a, $b ) use( $order ) {
+					function ( $a, $b ) use ( $order ) {
 						if ( $a->docspace_status === $b->docspace_status ) {
 							return 0;
 						}
