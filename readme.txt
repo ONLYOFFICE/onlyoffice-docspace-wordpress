@@ -88,6 +88,10 @@ ONLYOFFICE DocSpace is a room-based collaborative environment. With ONLYOFFICE D
 5. Access ONLYOFFICE DocSpace within WordPress
 
 == Changelog ==
+= 2.1.1 =
+* DocSpace JS SDK version 1.0.1
+* use username in user export data if first_name and last_name is empty 
+
 = 2.1.0 =
 * ability to add multiple rooms/files to a page
 * block settings (view mode 'editor/embedded')
