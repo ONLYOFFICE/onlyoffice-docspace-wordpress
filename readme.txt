@@ -3,7 +3,7 @@ Contributors: onlyoffice
 Tags: onlyoffice, integration, docspace
 Requires at least: 6.2
 Tested up to: 6.3.1
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 Requires PHP: 8.0
 License: GPLv2
 License URI: https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress/blob/master/LICENSE
@@ -88,6 +88,9 @@ ONLYOFFICE DocSpace is a room-based collaborative environment. With ONLYOFFICE D
 5. Access ONLYOFFICE DocSpace within WordPress
 
 == Changelog ==
+= 2.1.2 =
+* fixed xss vulnerabilities in onlyoffice-docspace page component
+
 = 2.1.1 =
 * DocSpace JS SDK version 1.0.1
 * use username in user export data if first_name and last_name is empty 
