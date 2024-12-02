@@ -28,5 +28,10 @@
 		"lint:js": "wp-scripts lint-js",
 		"packages-update": "wp-scripts packages-update",
 		"start": "wp-scripts start"
+	},
+	"overrides": {
+		"cookie": "0.7.0",
+		"cross-spawn": "6.0.6",
+		"ws": "8.17.1"
 	}
 }
