@@ -1,6 +1,6 @@
 {
 	"name": "onlyoffice-wordpress-docspace-component",
-	"version": "2.1.1",
+	"version": "2.1.2",
 	"private": true,
 	"description": "",
 	"author": "Ascensio System SIA",
@@ -28,5 +28,10 @@
 		"lint:js": "wp-scripts lint-js",
 		"packages-update": "wp-scripts packages-update",
 		"start": "wp-scripts start"
+	},
+	"overrides": {
+		"cookie": "0.7.0",
+		"cross-spawn": "6.0.6",
+		"ws": "8.17.1"
 	}
 }
