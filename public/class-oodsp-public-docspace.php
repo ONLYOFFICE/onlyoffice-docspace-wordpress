@@ -182,11 +182,11 @@ class OODSP_Public_DocSpace {
 			OODSP_VERSION
 		);
 
-		$align = ! empty( $atts['align'] ) ? 'align' . $atts['align'] : '';
-		$size  = ! empty( $atts['width'] ) && ! ( 'full' === $atts['align'] ) ? 'width: ' . $atts['width'] . ';' : '';
-		$size .= ! empty( $atts['height'] ) ? 'height: ' . $atts['height'] . ';' : '';
+		$align = ! empty( $atts['align'] ) ? 'align' . sanitize_text_field( $atts['align'] ) : '';
+		$size  = ! empty( $atts['width'] ) && ! ( 'full' === $atts['align'] ) ? 'width: ' . sanitize_text_field( $atts['width'] ) . ';' : '';
+		$size .= ! empty( $atts['height'] ) ? 'height: ' . sanitize_text_field( $atts['height'] ) . ';' : '';
 
-		$output  = '<div class="wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace ' . $align . ' size-full" style="' . $size . '">';
+		$output  = '<div class="wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace ' . esc_attr( $align ) . ' size-full" style="' . esc_attr( $size ) . '">';
 		$output .= "<div class='onlyoffice-docspace-block' data-config='" . wp_json_encode( $atts ) . "' id='onlyoffice-docspace-block-" . $instance . "'></div>";
 		$output .= '</div>';
 

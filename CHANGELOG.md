@@ -1,5 +1,8 @@
 # Change Log
 
+##
+## Changed
+- fixed xss vulnerabilities in onlyoffice-docspace page component
 
 ## 2.1.1
 ## Changed 
