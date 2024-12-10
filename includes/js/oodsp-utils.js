@@ -63,7 +63,9 @@ window.wp = window.wp || {};
 				$( "#" + frameId ).html(
 					oodspErrorTemplate(
 						{
-							message: _oodsp.messages.docspaceUnavailable
+							header: _oodsp.messages.docspaceUnavailableHeader,
+							message: _oodsp.messages.docspaceUnavailableMessage,
+							image: _oodsp.images.docspaceUnavailableImage
 						}
 					)
 				);

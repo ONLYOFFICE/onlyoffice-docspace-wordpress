@@ -175,8 +175,14 @@ msgstr "文件"
 msgid "Pick room or media file from your DocSpace"
 msgstr "在协作空间中选择房间或媒体文件"
 
-msgid "Portal unavailable! Please contact the administrator!"
-msgstr "门户不可用！请联系管理员！"
+msgid "Not available"
+msgstr ""
+
+msgid "Something went wrong"
+msgstr ""
+
+msgid "Portal unavailable"
+msgstr "门户不可用"
 
 msgid "Go to the settings to configure ONLYOFFICE DocSpace connector."
 msgstr "前往设置以配置 ONLYOFFICE 协作空间连接器。"
