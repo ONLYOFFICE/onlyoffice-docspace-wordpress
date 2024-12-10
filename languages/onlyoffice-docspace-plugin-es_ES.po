@@ -59,8 +59,8 @@ msgstr "Propietario"
 msgid "DocSpace admin"
 msgstr "Administrador de DocSpace"
 
-msgid "Power user"
-msgstr "Usuario avanzado"
+msgid "Guest"
+msgstr ""
 
 msgid "User"
 msgstr "Usuario"

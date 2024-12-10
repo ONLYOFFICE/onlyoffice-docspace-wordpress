@@ -592,9 +592,9 @@ class OODSP_Users_List_Table extends WP_List_Table {
 		} elseif ( $docspace_user['isAdmin'] ) {
 			return __( 'DocSpace admin', 'onlyoffice-docspace-plugin' );
 		} elseif ( $docspace_user['isCollaborator'] ) {
-			return __( 'Power user', 'onlyoffice-docspace-plugin' );
-		} elseif ( $docspace_user['isVisitor'] ) {
 			return __( 'User', 'onlyoffice-docspace-plugin' );
+		} elseif ( $docspace_user['isVisitor'] ) {
+			return __( 'Guest', 'onlyoffice-docspace-plugin' );
 		} else {
 			return __( 'Room admin', 'onlyoffice-docspace-plugin' );
 		}
