@@ -98,7 +98,7 @@ class OODSP_Utils {
 		$message_docspace_unavailable_header  = __( 'Something went wrong', 'onlyoffice-docspace-plugin' );
 		$message_docspace_unavailable_message = __( 'Portal unavailable', 'onlyoffice-docspace-plugin' );
 		$image_docspace_unavailable           = esc_url( OODSP_PLUGIN_URL . 'includes/images/error-stub-unavailable.svg' );
-		$image_unauthorized                   = esc_url( OODSP_PLUGIN_URL . 'includes/images/unavailable.svg' );
+		$image_unauthorized                   = esc_url( OODSP_PLUGIN_URL . 'includes/images/error-stub-unauthorized.svg' );
 
 		if ( is_user_logged_in() ) {
 			if ( current_user_can( 'manage_options' ) ) {
@@ -142,9 +142,9 @@ class OODSP_Utils {
 					'unauthorizedMessage'        => $message_unauthorized_message,
 				),
 				'images'      => array(
-					'docspaceUnavailableImage' =>  $image_docspace_unavailable,
-					'unauthorizedImage'        =>  $image_unauthorized
-				)
+					'docspaceUnavailableImage' => $image_docspace_unavailable,
+					'unauthorizedImage'        => $image_unauthorized,
+				),
 			)
 		);
 
