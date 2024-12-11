@@ -1,6 +1,10 @@
 # Change Log
 
 ##
+## Added
+- creating shared group WordPress Users after connecting DocSpace
+- inviting created through the plugin users to shared group WordPress Users
+
 ## Changed
 - export users from wordpress to docspace with role User (rename User to Guest, PowerUser to User)
 - error stubs (unavailable, unauthorized)
