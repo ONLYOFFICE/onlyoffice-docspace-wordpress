@@ -47,7 +47,8 @@ function oodsp_update_settings() {
 
 		$docspace_url = '/' === substr( $docspace_url, -1 ) ? $docspace_url : $docspace_url . '/';
 
-		$oodsp_request_manager = new OODSP_Request_Manager();
+		$oodsp_request_manager         = new OODSP_Request_Manager();
+		$oodsp_docspace_action_manager = new OODSP_Docspace_Action_Manager();
 
 		$res_auth = $oodsp_request_manager->auth_docspace( $docspace_url, $docspace_login, $docspace_pass );
 
@@ -62,14 +63,13 @@ function oodsp_update_settings() {
 		}
 
 		if ( ! get_settings_errors() ) {
-			$value = array(
-				OODSP_Settings::DOCSPACE_URL   => $docspace_url,
-				OODSP_Settings::DOCSPACE_LOGIN => $docspace_login,
-				OODSP_Settings::DOCSPACE_PASS  => $docspace_pass,
-				OODSP_Settings::DOCSPACE_TOKEN => $res_auth['data']['token'],
-			);
+			$options                                   = get_option( 'oodsp_settings' );
+			$options[ OODSP_Settings::DOCSPACE_URL ]   = $docspace_url;
+			$options[ OODSP_Settings::DOCSPACE_LOGIN ] = $docspace_login;
+			$options[ OODSP_Settings::DOCSPACE_PASS ]  = $docspace_pass;
+			$options[ OODSP_Settings::DOCSPACE_TOKEN ] = $res_auth['data']['token'];
 
-			update_option( 'oodsp_settings', $value );
+			update_option( 'oodsp_settings', $options );
 
 			add_settings_error( 'general', 'settings_updated', __( 'Settings saved', 'onlyoffice-docspace-plugin' ), 'success' );
 
@@ -101,6 +101,8 @@ function oodsp_update_settings() {
 						'error'
 					);
 				} else {
+					$docspace_user_uuid = $res_invite_user['data']['id'];
+
 					$oodsp_security_manager = new OODSP_Security_Manager();
 					$oodsp_security_manager->set_oodsp_user_pass( $user->ID, $hash_current_user );
 
@@ -116,6 +118,8 @@ function oodsp_update_settings() {
 					);
 				}
 			} else {
+				$docspace_user_uuid = $res_docspace_user['data']['id'];
+
 				add_settings_error(
 					'general',
 					'settings_updated',
@@ -126,6 +130,10 @@ function oodsp_update_settings() {
 					),
 					'warning'
 				);
+			}
+
+			if ( isset( $docspace_user_uuid ) ) {
+				$oodsp_docspace_action_manager->invite_users_to_shared_group( array( $docspace_user_uuid ) );
 			}
 		}
 

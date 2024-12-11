@@ -86,6 +86,8 @@ function oodsp_invite_users() {
 	$count_skipped = 0;
 	$count_error   = 0;
 
+	$success_invited_users = array();
+
 	foreach ( $users as $user ) {
 		$user_id   = $user['id'];
 		$user_hash = $user['hash'];
@@ -113,9 +115,13 @@ function oodsp_invite_users() {
 				$oodsp_security_manager->set_oodsp_user_pass( $user_id, $user_hash );
 
 				++$count_invited;
+				array_push( $success_invited_users, $res_invite_user['data']['id'] );
 			}
 		}
 	}
+
+	$oodsp_docspace_action_manager = new OODSP_Docspace_Action_Manager();
+	$oodsp_docspace_action_manager->invite_users_to_shared_group( $success_invited_users );
 
 	if ( 0 !== $count_error ) {
 		oodsp_add_users_message(
