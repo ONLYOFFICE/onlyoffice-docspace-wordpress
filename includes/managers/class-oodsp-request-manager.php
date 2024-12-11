@@ -40,15 +40,18 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
 class OODSP_Request_Manager {
-	const UNAUTHORIZED          = 1;
-	const USER_NOT_FOUND        = 2;
-	const FORBIDDEN             = 3;
-	const ERROR_USER_INVITE     = 4;
-	const ERROR_GET_USERS       = 5;
-	const ERROR_SET_USER_PASS   = 6;
-	const ERROR_GET_FILE_INFO   = 7;
-	const ERROR_GET_FOLDER_INFO = 8;
-	const ERROR_SHARE_ROOM      = 9;
+	const UNAUTHORIZED                 = 1;
+	const USER_NOT_FOUND               = 2;
+	const FORBIDDEN                    = 3;
+	const ERROR_USER_INVITE            = 4;
+	const ERROR_GET_USERS              = 5;
+	const ERROR_SET_USER_PASS          = 6;
+	const ERROR_GET_FILE_INFO          = 7;
+	const ERROR_GET_FOLDER_INFO        = 8;
+	const ERROR_SHARE_ROOM             = 9;
+	const ERROR_CREATE_SHARED_GROUP    = 10;
+	const ERROR_UPDATE_SHARED_GROUP    = 11;
+	const ERROR_SHARED_GROUP_NOT_FOUND = 12;
 
 	/**
 	 * OODSP_Settings
@@ -336,6 +339,114 @@ class OODSP_Request_Manager {
 		$body = json_decode( wp_remote_retrieve_body( $responce ), true );
 
 		$result['data'] = $body['response']['token'];
+		return $result;
+	}
+
+	/**
+	 * Request create group in DocSpace.
+	 *
+	 * @param string $group_name The group name.
+	 * @param array  $members List of group member IDs.
+	 */
+	public function request_create_group( $group_name, $members ) {
+		$result = array(
+			'error' => null,
+			'data'  => null,
+		);
+
+		$res_auth = $this->auth_docspace();
+
+		if ( $res_auth['error'] ) {
+			return $res_auth;
+		}
+
+		$responce = wp_remote_post(
+			$this->plugin_settings->get_onlyoffice_docspace_setting( OODSP_Settings::DOCSPACE_URL ) . 'api/2.0/group',
+			array(
+				'headers' => array( 'Content-Type' => 'application/json; charset=utf-8' ),
+				'cookies' => array( 'asc_auth_key' => $res_auth['data']['token'] ),
+				'body'    => wp_json_encode(
+					array(
+						'groupName'    => $group_name,
+						'groupManager' => $res_auth['data']['uuid'],
+						'members'      => $members,
+					)
+				),
+				'method'  => 'POST',
+			)
+		);
+
+		if ( is_wp_error( $responce ) || 200 !== wp_remote_retrieve_response_code( $responce ) ) {
+			$result['error'] = self::ERROR_CREATE_SHARED_GROUP;
+			return $result;
+		}
+
+		$body           = json_decode( wp_remote_retrieve_body( $responce ), true );
+		$result['data'] = $body['response'];
+
+		return $result;
+	}
+
+	/**
+	 * Request update group in DocSpace.
+	 *
+	 * @param string $group_id          The group ID.
+	 * @param string $group_name        The group name.
+	 * @param array  $members_to_add    List of group member IDs to add.
+	 * @param array  $members_to_remove List of group member IDs to remove.
+	 */
+	public function request_update_group( $group_id, $group_name, $members_to_add, $members_to_remove ) {
+		$result = array(
+			'error' => null,
+			'data'  => null,
+		);
+
+		$res_auth = $this->auth_docspace();
+
+		if ( $res_auth['error'] ) {
+			return $res_auth;
+		}
+
+		$body = array();
+		if ( isset( $group_name ) ) {
+			$body['groupName'] = $group_name;
+		}
+
+		if ( isset( $group_manager ) ) {
+			$body['groupManager'] = $res_auth['data']['uuid'];
+		}
+
+		if ( isset( $members_to_add ) ) {
+			$body['membersToAdd'] = $members_to_add;
+		}
+
+		if ( isset( $members_to_add ) ) {
+			$body['membersToRemove'] = $members_to_remove;
+		}
+
+		$responce = wp_remote_post(
+			$this->plugin_settings->get_onlyoffice_docspace_setting( OODSP_Settings::DOCSPACE_URL ) . 'api/2.0/group/' . $group_id,
+			array(
+				'headers' => array( 'Content-Type' => 'application/json; charset=utf-8' ),
+				'cookies' => array( 'asc_auth_key' => $res_auth['data']['token'] ),
+				'body'    => wp_json_encode( $body ),
+				'method'  => 'PUT',
+			)
+		);
+
+		if ( is_wp_error( $responce ) || 200 !== wp_remote_retrieve_response_code( $responce ) ) {
+			if ( 404 === wp_remote_retrieve_response_code( $responce ) ) {
+				$result['error'] = self::ERROR_SHARED_GROUP_NOT_FOUND;
+				return $result;
+			}
+
+			$result['error'] = self::ERROR_UPDATE_SHARED_GROUP;
+			return $result;
+		}
+
+		$body           = json_decode( wp_remote_retrieve_body( $responce ), true );
+		$result['data'] = $body['response'];
+
 		return $result;
 	}
 
