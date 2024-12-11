@@ -59,7 +59,7 @@ msgstr ""
 msgid "DocSpace admin"
 msgstr ""
 
-msgid "Power user"
+msgid "Guest"
 msgstr ""
 
 msgid "User"

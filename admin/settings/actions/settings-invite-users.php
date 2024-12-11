@@ -102,7 +102,7 @@ function oodsp_invite_users() {
 				$user_hash,
 				$first_name,
 				$last_name,
-				2
+				4 // User.
 			);
 
 			if ( $res_invite_user['error'] ) {
