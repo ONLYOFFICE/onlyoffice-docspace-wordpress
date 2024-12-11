@@ -105,7 +105,8 @@ class OODSP_Request_Manager {
 						return $result;
 					}
 
-					$result['data'] = $current_docspace_token; // Return current token.
+					$result['data']['token'] = $current_docspace_token; // Return current token.
+					$result['data']['uuid']  = $res_docspace_user['data']['id'];
 					return $result;
 				}
 			}
@@ -139,7 +140,8 @@ class OODSP_Request_Manager {
 		$options[ OODSP_Settings::DOCSPACE_TOKEN ] = $res_authentication['data'];
 		update_option( 'oodsp_settings', $options );
 
-		$result['data'] = $res_authentication['data']; // Return new current token.
+		$result['data']['token'] = $current_docspace_token; // Return current token.
+		$result['data']['uuid']  = $res_docspace_user['data']['id'];
 		return $result;
 	}
 
@@ -160,7 +162,7 @@ class OODSP_Request_Manager {
 
 		$res_users = wp_remote_get(
 			$this->plugin_settings->get_onlyoffice_docspace_setting( OODSP_Settings::DOCSPACE_URL ) . 'api/2.0/people',
-			array( 'cookies' => array( 'asc_auth_key' => $res_auth['data'] ) )
+			array( 'cookies' => array( 'asc_auth_key' => $res_auth['data']['token'] ) )
 		);
 
 		if ( is_wp_error( $res_users ) && 200 === wp_remote_retrieve_response_code( $res_users ) ) {
@@ -198,7 +200,7 @@ class OODSP_Request_Manager {
 				return $res_auth;
 			}
 
-			$docspace_token = $res_auth['data'];
+			$docspace_token = $res_auth['data']['token'];
 		}
 
 		$responce = wp_remote_post(

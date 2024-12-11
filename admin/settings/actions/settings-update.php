@@ -66,7 +66,7 @@ function oodsp_update_settings() {
 				OODSP_Settings::DOCSPACE_URL   => $docspace_url,
 				OODSP_Settings::DOCSPACE_LOGIN => $docspace_login,
 				OODSP_Settings::DOCSPACE_PASS  => $docspace_pass,
-				OODSP_Settings::DOCSPACE_TOKEN => $res_auth['data'],
+				OODSP_Settings::DOCSPACE_TOKEN => $res_auth['data']['token'],
 			);
 
 			update_option( 'oodsp_settings', $value );
@@ -75,7 +75,7 @@ function oodsp_update_settings() {
 
 			$user = wp_get_current_user(); // Try create current user in DocSpace.
 
-			$res_docspace_user = $oodsp_request_manager->request_docspace_user( $docspace_url, $user->user_email, $res_auth['data'] );
+			$res_docspace_user = $oodsp_request_manager->request_docspace_user( $docspace_url, $user->user_email, $res_auth['data']['token'] );
 
 			if ( $res_docspace_user['error'] ) {
 				[$email, $first_name, $last_name] = $oodsp_request_manager->get_user_data( $user );
@@ -86,7 +86,7 @@ function oodsp_update_settings() {
 					$first_name,
 					$last_name,
 					1, // Room Admin.
-					$res_auth['data']
+					$res_auth['data']['token']
 				);
 
 				if ( $res_invite_user['error'] ) {
