@@ -26,7 +26,7 @@ const Save = ({ attributes }) => {
 
     let parameters = '';
 
-    for( var key in Object.keys( block.attributes ) ) {
+    for( var key of Object.keys( block.attributes ) ) {
         if ( ! _isEmpty(attributes[key]) ) {
             parameters += key + '=' + attributes[key] + ' ';
         }

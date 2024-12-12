@@ -107,27 +107,31 @@ class OODSP_Public_DocSpace {
 		static $instance = 0;
 		++$instance;
 
-		$defaults_atts = array(
+		$width  = '100%';
+		$height = '500px';
+		$align  = '';
+
+		$default_config = array(
 			'frameId'      => 'onlyoffice-docspace-block-' . $instance,
 			'width'        => '100%',
-			'height'       => '500px',
-			'align'        => '',
+			'height'       => '100%',
 			'mode'         => 'manager',
 			'editorGoBack' => false,
 			'theme'        => 'Base',
 			'editorType'   => 'embedded',
 		);
 
-		$atts = shortcode_atts( $defaults_atts, $attr, 'onlyoffice-docspace' );
+		$attr_lower_case = array_change_key_case( $attr, CASE_LOWER );
+		$config          = $this->map_attributes( $default_config, $attr_lower_case );
 
-		if ( array_key_exists( 'roomId', $attr ) ) {
-			$atts['id']               = $attr['roomId'];
-			$atts['mode']             = 'manager';
-			$atts['viewTableColumns'] = 'Name,Size,Type';
-		} elseif ( array_key_exists( 'fileId', $attr ) ) {
-			$atts['id']                  = $attr['fileId'];
-			$atts['mode']                = 'editor';
-			$atts['editorCustomization'] = array(
+		if ( array_key_exists( 'roomid', $attr_lower_case ) ) {
+			$config['id']               = $attr_lower_case['roomid'];
+			$config['mode']             = 'manager';
+			$config['viewTableColumns'] = 'Name,Size,Type';
+		} elseif ( array_key_exists( 'fileid', $attr_lower_case ) ) {
+			$config['id']                  = $attr_lower_case['fileid'];
+			$config['mode']                = 'editor';
+			$config['editorCustomization'] = array(
 				'anonymous'       => array(
 					'request' => false,
 				),
@@ -135,25 +139,9 @@ class OODSP_Public_DocSpace {
 			);
 		}
 
-		if ( empty( $atts['width'] ) ) {
-			$atts['width'] = $defaults_atts['width'];
-		}
-
-		if ( empty( $atts['height'] ) ) {
-			$atts['height'] = $defaults_atts['height'];
-		}
-
-		if ( empty( $atts['theme'] ) ) {
-			$atts['theme'] = $defaults_atts['theme'];
-		}
-
-		if ( empty( $atts['editorType'] ) ) {
-			$atts['editorType'] = $defaults_atts['editorType'];
-		}
-
-		if ( array_key_exists( 'requestToken', $attr ) ) {
-			$atts['requestToken'] = $attr['requestToken'];
-			$atts['rootPath']     = '/rooms/share';
+		if ( array_key_exists( 'requesttoken', $attr_lower_case ) ) {
+			$config['requestToken'] = $attr_lower_case['requesttoken'];
+			$config['rootPath']     = '/rooms/share';
 		}
 
 		$this->oodsp_utils->enqueue_scripts();
@@ -182,14 +170,50 @@ class OODSP_Public_DocSpace {
 			OODSP_VERSION
 		);
 
-		$align = ! empty( $atts['align'] ) ? 'align' . sanitize_text_field( $atts['align'] ) : '';
-		$size  = ! empty( $atts['width'] ) && ! ( 'full' === $atts['align'] ) ? 'width: ' . sanitize_text_field( $atts['width'] ) . ';' : '';
-		$size .= ! empty( $atts['height'] ) ? 'height: ' . sanitize_text_field( $atts['height'] ) . ';' : '';
+		if ( ! empty( $attr_lower_case['width'] ) ) {
+			$width = sanitize_text_field( $attr_lower_case['width'] );
+		}
+
+		if ( ! empty( $attr_lower_case['height'] ) ) {
+			$height = sanitize_text_field( $attr_lower_case['height'] );
+		}
+
+		if ( ! empty( $attr_lower_case['align'] ) ) {
+			$align = sanitize_text_field( $attr_lower_case['align'] );
+		}
+
+		$size  = ! ( 'full' === $align ) ? 'width: ' . $width . ';' : '';
+		$size .= 'height: ' . $height . ';';
+		$align = ! empty( $align ) ? 'align' . $align : '';
 
 		$output  = '<div class="wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace ' . esc_attr( $align ) . ' size-full" style="' . esc_attr( $size ) . '">';
-		$output .= "<div class='onlyoffice-docspace-block' data-config='" . wp_json_encode( $atts ) . "' id='onlyoffice-docspace-block-" . $instance . "'></div>";
+		$output .= "<div class='onlyoffice-docspace-block' data-config='" . wp_json_encode( $config ) . "' id='onlyoffice-docspace-block-" . $instance . "'></div>";
 		$output .= '</div>';
 
-		return apply_filters( 'wp_onlyoffice_docspace_shortcode', $output, $atts );
+		return apply_filters( 'wp_onlyoffice_docspace_shortcode', $output, $attr );
+	}
+
+	/**
+	 * Map attributes.
+	 *
+	 * @param array $default_attributes List of default attributes.
+	 * @param array $attributes List of source attributes.
+	 * @return array Resulting HTML code.
+	 */
+	private function map_attributes( $default_attributes, $attributes ) {
+		$attributes = (array) $attributes;
+		$out        = array();
+
+		foreach ( $default_attributes as $key => $value ) {
+			if ( array_key_exists( $key, $attributes ) && ! empty( $attributes[ $key ] ) ) {
+				$out[ $key ] = $attributes[ $key ];
+			} elseif ( array_key_exists( strtolower( $key ), $attributes ) && ! empty( $attributes[ strtolower( $key ) ] ) ) {
+				$out[ $key ] = $attributes[ strtolower( $key ) ];
+			} else {
+				$out[ $key ] = $value;
+			}
+		}
+
+		return $out;
 	}
 }
