@@ -95,11 +95,16 @@ class OODSP_Utils {
 	public function enqueue_scripts() {
 		$current_user = wp_get_current_user()->user_email;
 
-		$message_docspace_unavailable = __( 'Portal unavailable! Please contact the administrator!', 'onlyoffice-docspace-plugin' );
+		$message_docspace_unavailable_header  = __( 'Something went wrong', 'onlyoffice-docspace-plugin' );
+		$message_docspace_unavailable_message = __( 'Portal unavailable', 'onlyoffice-docspace-plugin' );
+		$image_docspace_unavailable           = esc_url( OODSP_PLUGIN_URL . 'includes/images/error-stub-unavailable.svg' );
+		$image_unauthorized                   = esc_url( OODSP_PLUGIN_URL . 'includes/images/error-stub-unauthorized.svg' );
 
 		if ( is_user_logged_in() ) {
 			if ( current_user_can( 'manage_options' ) ) {
-				$message_docspace_unavailable = __( 'Go to the settings to configure ONLYOFFICE DocSpace connector.', 'onlyoffice-docspace-plugin' );
+				$message_docspace_unavailable_header  = __( 'Not available', 'onlyoffice-docspace-plugin' );
+				$message_docspace_unavailable_message = __( 'Go to the settings to configure ONLYOFFICE DocSpace connector.', 'onlyoffice-docspace-plugin' );
+				$image_docspace_unavailable           = esc_url( OODSP_PLUGIN_URL . 'includes/images/error-stub-unavailable-admin.svg' );
 			}
 
 			$message_unauthorized_header  = __( 'Authorization unsuccessful!', 'onlyoffice-docspace-plugin' );
@@ -131,9 +136,14 @@ class OODSP_Utils {
 				'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
 				'isAnonymous' => ! is_user_logged_in(),
 				'messages'    => array(
-					'docspaceUnavailable' => $message_docspace_unavailable,
-					'unauthorizedHeader'  => $message_unauthorized_header,
-					'unauthorizedMessage' => $message_unauthorized_message,
+					'docspaceUnavailableHeader'  => $message_docspace_unavailable_header,
+					'docspaceUnavailableMessage' => $message_docspace_unavailable_message,
+					'unauthorizedHeader'         => $message_unauthorized_header,
+					'unauthorizedMessage'        => $message_unauthorized_message,
+				),
+				'images'      => array(
+					'docspaceUnavailableImage' => $image_docspace_unavailable,
+					'unauthorizedImage'        => $image_unauthorized,
 				),
 			)
 		);
@@ -183,16 +193,16 @@ class OODSP_Utils {
 		?>
 		<script type="text/html" id="tmpl-oodsp-error">
 			<div class="onlyoffice-error" >
-				<div class="onlyoffice-error-body">
-					<div class="onlyoffice-error-table js">
-						<div>
-							<img src="<?php echo esc_url( OODSP_PLUGIN_URL . 'includes/images/onlyoffice.svg' ); ?>" style="width: 100%; padding: 0 10px;" />
-						</div>
-						<div style="padding: 16px;">
-							<img src="<?php echo esc_url( OODSP_PLUGIN_URL . 'includes/images/unavailable.svg' ); ?>" style="width: 100%"/>
-						</div>
-						<div class="header-message">{{{data.header || ""}}}</div>
-						<div class="message">{{{data.message}}}</div>
+				<div class="main">
+					<div class="header">
+						<img src="<?php echo esc_url( OODSP_PLUGIN_URL . 'includes/images/onlyoffice.svg' ); ?>" />
+					</div>
+					<div class="image">
+						<img src="{{{data.image}}}" />
+					</div>
+					<div class="info">
+						<div class="text-bold">{{{data.header || ""}}}</div>
+						<div class="text-normal">{{{data.message}}}</div>
 					</div>
 				</div>
 			</div>
