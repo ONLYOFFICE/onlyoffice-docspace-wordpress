@@ -2,6 +2,7 @@
 
 ##
 ## Changed
+- export users from wordpress to docspace with role User (rename User to Guest, PowerUser to User)
 - error stubs (unavailable, unauthorized)
 
 ## 2.1.2
