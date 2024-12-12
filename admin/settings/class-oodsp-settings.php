@@ -67,6 +67,11 @@ class OODSP_Settings {
 	const DOCSPACE_TOKEN = 'docspace_token';
 
 	/**
+	 * ID setting docspace_shared_group.
+	 */
+	const DOCSPACE_SHARED_GROUP = 'docspace_shared_group';
+
+	/**
 	 * Init menu.
 	 *
 	 * @return void
