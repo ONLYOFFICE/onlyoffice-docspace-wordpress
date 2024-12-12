@@ -268,32 +268,41 @@ class OODSP_Settings {
 		if ( 'true' !== $users ) {
 			?>
 			<div class="wrap">
-				<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+				<div class="oodsp-settings header">
+					<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+
+					<div><?php esc_html_e( 'Configure ONLYOFFICE DocSpace plugin settings.', 'onlyoffice-docspace-plugin' ); ?></div>
+				</div>
+
 				<?php settings_errors(); ?>
 				<div id="onlyoffice-docspace-settings-notice"></div>
-				<form id='onlyoffice-docspace-settings' action="admin.php?page=onlyoffice-docspace-settings" method="post">
-					<?php
-					settings_fields( 'onlyoffice_docspace_settings' );
-					do_settings_sections( 'onlyoffice_docspace_settings' );
-					?>
-					<div class="oodsp-settings-notice">
-						<p>
+
+				<div class="white-frame">
+					<div class="oodsp-settings label"><?php esc_html_e( 'General settings', 'onlyoffice-docspace-plugin' ); ?></div>
+					<form id='onlyoffice-docspace-settings' action="admin.php?page=onlyoffice-docspace-settings" method="post">
 						<?php
-						echo wp_kses(
-							__( 'The current WordPress user will be added to DocSpace with the <b>Room admin</b> role.', 'onlyoffice-docspace-plugin' ),
-							array(
-								'b' => array(
-									'class' => array(),
-								),
-							)
-						);
+						settings_fields( 'onlyoffice_docspace_settings' );
+						do_settings_sections( 'onlyoffice_docspace_settings' );
 						?>
-						</p>
-					</div>
-					<?php
-					submit_button( __( 'Save', 'onlyoffice-docspace-plugin' ), 'primary', null, true, array( 'id' => 'save-settings' ) );
-					?>
-				</form>
+						<div class="oodsp-settings-notice">
+							<p>
+							<?php
+							echo wp_kses(
+								__( 'The current WordPress user will be added to DocSpace with the <b>Room admin</b> role.', 'onlyoffice-docspace-plugin' ),
+								array(
+									'b' => array(
+										'class' => array(),
+									),
+								)
+							);
+							?>
+							</p>
+						</div>
+						<?php
+						submit_button( __( 'Save', 'onlyoffice-docspace-plugin' ), 'primary', null, false, array( 'id' => 'save-settings' ) );
+						?>
+					</form>
+				</div>
 
 				<?php
 				if ( ! empty( $this->get_onlyoffice_docspace_setting( self::DOCSPACE_URL ) )
@@ -301,14 +310,14 @@ class OODSP_Settings {
 					&& ! empty( $this->get_onlyoffice_docspace_setting( self::DOCSPACE_PASS ) )
 					) {
 					?>
-				<h1 class="wp-heading-inline"><?php esc_html_e( 'DocSpace Users', 'onlyoffice-docspace-plugin' ); ?></h1>
-				<p>
-					<?php esc_html_e( 'To add new users to ONLYOFFICE DocSpace and to start working in plugin, please press', 'onlyoffice-docspace-plugin' ); ?>
-					<b><?php esc_html_e( 'Export Now', 'onlyoffice-docspace-plugin' ); ?></b>
-				</p>
-				<p class="submit">
+				<div class="white-frame">
+					<div class="oodsp-settings label"><?php esc_html_e( 'DocSpace Users', 'onlyoffice-docspace-plugin' ); ?></div>
+					<p>
+						<?php esc_html_e( 'To add new users to ONLYOFFICE DocSpace and to start working in plugin, please press', 'onlyoffice-docspace-plugin' ); ?>
+						<b><?php esc_html_e( 'Export Now', 'onlyoffice-docspace-plugin' ); ?></b>
+					</p>
 					<?php submit_button( __( 'Export Now', 'onlyoffice-docspace-plugin' ), 'secondary', 'users', false, array( 'onclick' => 'location.href = location.href + "&users=true";' ) ); ?>
-				</p>
+				</div>
 				<?php } ?>
 			</div>
 			<?php

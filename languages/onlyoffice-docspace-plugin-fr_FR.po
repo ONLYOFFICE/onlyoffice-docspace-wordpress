@@ -16,6 +16,9 @@ msgstr ""
 msgid "ONLYOFFICE DocSpace Settings"
 msgstr "Paramètres d'ONLYOFFICE DocSpace"
 
+msgid "Configure ONLYOFFICE DocSpace plugin settings."
+msgid ""
+
 #: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Settings"
 msgstr "Paramètres"
