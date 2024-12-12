@@ -26,7 +26,8 @@ import save from './save';
 
 export const blockStyle = {
     height: '500px',
-    background: '#a2ccef'
+    background: '#a2ccef',
+    maxWidth: 'max-content'
  };
 
 export const onlyofficeIcon = (
