@@ -79,7 +79,9 @@
 						$( "#" + config.frameId ).html(
 							oodspErrorTemplate(
 								{
-									message: _oodsp.messages.docspaceUnavailable
+									header: _oodsp.messages.docspaceUnavailableHeader,
+									message: _oodsp.messages.docspaceUnavailableMessage,
+									image: _oodsp.images.docspaceUnavailableImage
 								}
 							)
 						);
@@ -102,7 +104,8 @@
 					oodspErrorTemplate(
 						{
 							header: _oodsp.messages.unauthorizedHeader,
-							message: _oodsp.messages.unauthorizedMessage
+							message: _oodsp.messages.unauthorizedMessage,
+							image: _oodsp.images.unauthorizedImage
 						}
 					)
 				);

@@ -175,8 +175,14 @@ msgstr "Fichier"
 msgid "Pick room or media file from your DocSpace"
 msgstr "Choisissez une salle ou un fichier multimédia dans votre DocSpace"
 
-msgid "Portal unavailable! Please contact the administrator!"
-msgstr "Portail indisponible ! Veuillez contacter l'administrateur !"
+msgid "Not available"
+msgstr ""
+
+msgid "Something went wrong"
+msgstr ""
+
+msgid "Portal unavailable"
+msgstr "Portail indisponible"
 
 msgid "Go to the settings to configure ONLYOFFICE DocSpace connector."
 msgstr "Allez dans les paramètres pour configurer le connecteur ONLYOFFICE DocSpace."
