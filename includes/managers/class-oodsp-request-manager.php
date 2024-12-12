@@ -143,7 +143,7 @@ class OODSP_Request_Manager {
 		$options[ OODSP_Settings::DOCSPACE_TOKEN ] = $res_authentication['data'];
 		update_option( 'oodsp_settings', $options );
 
-		$result['data']['token'] = $current_docspace_token; // Return current token.
+		$result['data']['token'] = $res_authentication['data']['token']; // Return current token.
 		$result['data']['uuid']  = $res_docspace_user['data']['id'];
 		return $result;
 	}
