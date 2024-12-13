@@ -13,14 +13,14 @@
 	"repository": "",
 	"main": "build/index.js",
 	"dependencies": {
-		"@wordpress/block-editor": "^14.2.0",
-		"@wordpress/blocks": "^13.7.0",
-		"@wordpress/components": "^28.7.0",
-		"@wordpress/element": "^6.7.0",
-		"@wordpress/i18n": "^5.7.0"
+		"@wordpress/block-editor": "^14.9.0",
+		"@wordpress/blocks": "^14.3.0",
+		"@wordpress/components": "^29.0.0",
+		"@wordpress/element": "^6.14.0",
+		"@wordpress/i18n": "^5.14.0"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^26.12.0"
+		"@wordpress/scripts": "^30.7.0"
 	},
 	"scripts": {
 		"build": "wp-scripts build",
@@ -28,10 +28,5 @@
 		"lint:js": "wp-scripts lint-js",
 		"packages-update": "wp-scripts packages-update",
 		"start": "wp-scripts start"
-	},
-	"overrides": {
-		"cookie": "0.7.0",
-		"cross-spawn": "6.0.6",
-		"ws": "8.17.1"
 	}
 }
