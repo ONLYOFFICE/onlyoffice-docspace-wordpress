@@ -10,10 +10,10 @@
 	"textdomain": "onlyoffice-docspace-plugin",
 	"attributes": {
 		"fileId": {
-			"type": "number"
+			"type": "string"
 		},
 		"roomId": {
-			"type": "number"
+			"type": "string"
 		},
 		"name": {
 			"type": "string"
