@@ -269,7 +269,7 @@ class OODSP_Settings {
 			?>
 			<div class="wrap">
 				<div class="oodsp-settings header">
-					<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+					<div class="h1"><?php echo esc_html( get_admin_page_title() ); ?></div>
 
 					<div><?php esc_html_e( 'Configure ONLYOFFICE DocSpace plugin settings.', 'onlyoffice-docspace-plugin' ); ?></div>
 				</div>
