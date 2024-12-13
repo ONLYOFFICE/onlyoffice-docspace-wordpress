@@ -90,7 +90,7 @@ const Edit = ({ attributes, setAttributes }) => {
         const requestToken = requestTokens ? requestTokens[0].requestToken : null;
 
         setAttributes({
-            roomId: event[0].id,
+            roomId: new String(event[0].id),
             name: event[0].label,
             icon: event[0].icon
         });
@@ -116,7 +116,7 @@ const Edit = ({ attributes, setAttributes }) => {
         const requestToken = requestTokens ? requestTokens[0].requestToken : null;
 
         setAttributes({
-            fileId: event.id,
+            fileId: new String(event.id),
             name: event.title,
             icon: event.icon
         });
