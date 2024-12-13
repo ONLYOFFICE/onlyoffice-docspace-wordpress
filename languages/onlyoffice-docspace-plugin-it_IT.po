@@ -16,6 +16,21 @@ msgstr ""
 msgid "ONLYOFFICE DocSpace Settings"
 msgstr "Impostazioni di ONLYOFFICE DocSpace"
 
+msgid "Configure ONLYOFFICE DocSpace plugin settings."
+msgstr ""
+
+msgid "Configure ONLYOFFICE DocSpace plugin settings."
+msgstr ""
+
+msgid "Check the CSP settings"
+msgstr ""
+
+msgid "Before connecting the app, please go to the <b>DocSpace Settings - Developer tools - JavaScript SDK</b> and add the following credentials to the allow list:"
+msgstr ""
+
+msgid "WordPress portal addres:"
+msgstr ""
+
 #: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Settings"
 msgstr "Impostazioni"
