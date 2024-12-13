@@ -279,6 +279,24 @@ class OODSP_Settings {
 
 				<div class="white-frame">
 					<div class="oodsp-settings label"><?php esc_html_e( 'General settings', 'onlyoffice-docspace-plugin' ); ?></div>
+					
+					<div class="oodsp-settings-notice">
+						<p><b><?php esc_html_e( 'Check the CSP settings', 'onlyoffice-docspace-plugin' ); ?></b></p>
+						<p>
+							<?php
+							echo wp_kses(
+								__( 'Before connecting the app, please go to the <b>DocSpace Settings - Developer tools - JavaScript SDK</b> and add the following credentials to the allow list:', 'onlyoffice-docspace-plugin' ),
+								array(
+									'b' => array(
+										'class' => array(),
+									),
+								)
+							);
+							?>
+						</p>
+						<p><b><?php esc_html_e( 'WordPress portal addres:', 'onlyoffice-docspace-plugin' ); ?><span> <?php echo esc_html( get_site_url() ); ?></span></b></p>
+					</div>
+					
 					<form id='onlyoffice-docspace-settings' action="admin.php?page=onlyoffice-docspace-settings" method="post">
 						<?php
 						settings_fields( 'onlyoffice_docspace_settings' );
