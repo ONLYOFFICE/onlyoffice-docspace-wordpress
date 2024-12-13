@@ -182,7 +182,7 @@ class OODSP_DocSpace {
 		?>
 		<script type="text/html" id="tmpl-oodsp-login">
 			<div class="oodsp-login login js">
-				<div id="login_error"
+				<div id="login_error" class="notice notice-error"
 				<#
 				if ( ! data.error ) {
 					#> hidden <#
