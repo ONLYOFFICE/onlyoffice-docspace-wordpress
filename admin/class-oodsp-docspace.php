@@ -104,6 +104,13 @@ class OODSP_DocSpace {
 		$this->oodsp_utils->enqueue_styles();
 
 		wp_enqueue_style(
+			OODSP_PLUGIN_NAME . '-docspace',
+			OODSP_PLUGIN_URL . 'admin/css/docspace.css',
+			array(),
+			OODSP_VERSION
+		);
+
+		wp_enqueue_style(
 			OODSP_PLUGIN_NAME . '-login',
 			OODSP_PLUGIN_URL . 'includes/css/oodsp-login.css',
 			array(),
@@ -149,7 +156,7 @@ class OODSP_DocSpace {
 		?>
 		<div class="wrap"> 
 			<div class="ds-frame" style="height: calc(100vh - 65px - 32px);">
-				<div id="oodsp-manager-frame" style="width: 100%; height:100%;"></div>
+				<div id="oodsp-manager-frame"></div>
 			</div>
 		</div>
 		<script>
@@ -181,60 +188,62 @@ class OODSP_DocSpace {
 	public function docspace_login_template() {
 		?>
 		<script type="text/html" id="tmpl-oodsp-login">
-			<div class="oodsp-login login js">
-				<div id="login_error" class="notice notice-error"
-				<#
-				if ( ! data.error ) {
-					#> hidden <#
-				}
-				#>
-				>
-					{{{data.error}}}
-				</div>
-				<form name="loginform" id="oodsp-login-form">
-					<h1 id="header">
-						<?php esc_html_e( 'WordPress requests access to your ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ); ?>
-						<br>
-						<div title="{{{data.domain}}}">{{{data.domain}}}</div>
-					</h1>
-					<h1>
-						<a></a>
-						<a id="union" style="background-image: url('<?php echo esc_attr( OODSP_PLUGIN_URL ) . 'admin/images/union.svg'; ?>');"></a>
-						<a id="logo-onlyoffice" style="background-image: url('<?php echo esc_attr( OODSP_PLUGIN_URL ) . 'admin/images/onlyoffice.svg'; ?>');"></a>
-					</h1>
+			<div class="oodsp-login-container">
+				<div class="oodsp-login login js">
+					<div id="login_error" class="notice notice-error"
+					<#
+					if ( ! data.error ) {
+						#> hidden <#
+					}
+					#>
+					>
+						{{{data.error}}}
+					</div>
+					<form name="loginform" id="oodsp-login-form">
+						<h1 id="header">
+							<?php esc_html_e( 'WordPress requests access to your ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ); ?>
+							<br>
+							<div title="{{{data.domain}}}">{{{data.domain}}}</div>
+						</h1>
+						<h1>
+							<a></a>
+							<a id="union" style="background-image: url('<?php echo esc_attr( OODSP_PLUGIN_URL ) . 'admin/images/union.svg'; ?>');"></a>
+							<a id="logo-onlyoffice" style="background-image: url('<?php echo esc_attr( OODSP_PLUGIN_URL ) . 'admin/images/onlyoffice.svg'; ?>');"></a>
+						</h1>
 
-					<p style="padding-bottom: 25px;">
-						<label for="user_login">
-						<?php
-							printf(
-								wp_kses(
-									/* translators: %s: User email. */
-									__( 'Your account <b>%s</b> will be synced with your DocSpace. Please enter your DocSpace password in the field below:', 'onlyoffice-docspace-plugin' ),
-									array(
-										'b' => array(
-											'class' => array(),
+						<p style="padding-bottom: 25px;">
+							<label for="user_login">
+							<?php
+								printf(
+									wp_kses(
+										/* translators: %s: User email. */
+										__( 'Your account <b>%s</b> will be synced with your DocSpace. Please enter your DocSpace password in the field below:', 'onlyoffice-docspace-plugin' ),
+										array(
+											'b' => array(
+												'class' => array(),
+											),
 										),
 									),
-								),
-								'{{ data.email }}'
-							);
-						?>
-						</label>
-					</p>
+									'{{ data.email }}'
+								);
+							?>
+							</label>
+						</p>
 
-					<div class="user-pass-wrap">
-						<div class="wp-pwd">
-							<input type="password" name="pwd" id="oodsp-password" aria-describedby="login-message" class="input password-input" value="" size="20" autocomplete="current-password" spellcheck="false">
-							<button type="button" class="button button-secondary wp-hide-pw hide-if-no-js" data-toggle="0" aria-label="<?php esc_attr_e( 'Show password' ); ?>">
-								<span class="dashicons dashicons-visibility" aria-hidden="true"></span>
-							</button>
+						<div class="user-pass-wrap">
+							<div class="wp-pwd">
+								<input type="password" name="pwd" id="oodsp-password" aria-describedby="login-message" class="input password-input" value="" size="20" autocomplete="current-password" spellcheck="false">
+								<button type="button" class="button button-secondary wp-hide-pw hide-if-no-js" data-toggle="0" aria-label="<?php esc_attr_e( 'Show password' ); ?>">
+									<span class="dashicons dashicons-visibility" aria-hidden="true"></span>
+								</button>
+							</div>
 						</div>
-					</div>
 
-					<p>
-						<input style="width: 100%;"  type="submit" name="wp-submit" id="oodsp-submit-password" class="button button-primary button-large" value="<?php esc_attr_e( 'Log In' ); ?>">
-					</p>
-				</form>
+						<p>
+							<input style="width: 100%;"  type="submit" name="wp-submit" id="oodsp-submit-password" class="button button-primary button-large" value="<?php esc_attr_e( 'Log In' ); ?>">
+						</p>
+					</form>
+				</div>
 			</div>
 		</script>
 		<?php
