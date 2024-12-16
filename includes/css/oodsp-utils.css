@@ -4,6 +4,7 @@
 	align-items: center;
 	background-color: white;
 	display: flex;
+	flex-direction: column;
 	justify-content: space-around;
 	overflow: auto;
 	width: 100%;
@@ -19,7 +20,9 @@
 	max-width: 640px;
 	max-height: 552px;
 	min-width: 280px;
+	min-height: max-content;
 	align-items: center;
+	padding: 30px 0;
 }
 
 .onlyoffice-error .header {
