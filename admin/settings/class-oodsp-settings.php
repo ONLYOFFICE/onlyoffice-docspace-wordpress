@@ -194,7 +194,7 @@ class OODSP_Settings {
 	 */
 	public function input_cb( $args ) {
 		$id = $args['id'];
-		echo '<input id="' . esc_attr( $id ) . '" name="' . esc_attr( $id ) . '" type="text" value="' . esc_attr( $this->get_onlyoffice_docspace_setting( $id ) ) . '" />';
+		echo '<input id="' . esc_attr( $id ) . '" name="' . esc_attr( $id ) . '" type="text" class="regular-text" value="' . esc_attr( $this->get_onlyoffice_docspace_setting( $id ) ) . '" />';
 	}
 
 	/**
@@ -210,7 +210,7 @@ class OODSP_Settings {
 		<div class="js">
 			<div class="user-pass-wrap">
 				<div class="wp-pwd">
-					<div class="wp-pwd-input">
+					<div class="password-input-wrapper">
 						<input type="password" id="user_pass" name="<?php echo esc_attr( $id ); ?>" class="input password-input" value="" />
 					</div>
 					<button type="button" class="button button-secondary wp-hide-pw hide-if-no-js" data-toggle="0" aria-label="<?php esc_attr_e( 'Show password' ); ?>">

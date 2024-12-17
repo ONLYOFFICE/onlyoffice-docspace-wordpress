@@ -11,6 +11,24 @@
 	width: 25em;
 }
 
+@media screen and (max-width: 782px) {
+	#onlyoffice-docspace-settings .form-field input {
+			width: 100%;
+	}
+
+	#onlyoffice-docspace-settings .wp-pwd [type=password] {
+		padding-right: 2.5rem;
+	}
+
+	#onlyoffice-docspace-settings .wp-pwd button.wp-hide-pw {
+		right: 0;
+	}
+
+	.oodsp-settings-notice {
+		max-width: none !important;
+	}
+}
+
 .wp-pwd-input {
 	display: inline-block;
 }
