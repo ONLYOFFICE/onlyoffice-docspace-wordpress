@@ -297,7 +297,7 @@ class OODSP_Settings {
 						<p><b><?php esc_html_e( 'WordPress portal addres:', 'onlyoffice-docspace-plugin' ); ?><span> <?php echo esc_html( get_site_url() ); ?></span></b></p>
 					</div>
 					
-					<form id='onlyoffice-docspace-settings' action="admin.php?page=onlyoffice-docspace-settings" method="post">
+					<form id='onlyoffice-docspace-settings' action="admin.php?page=onlyoffice-docspace-settings" method="post" autocomplete="off">
 						<?php
 						settings_fields( 'onlyoffice_docspace_settings' );
 						do_settings_sections( 'onlyoffice_docspace_settings' );
