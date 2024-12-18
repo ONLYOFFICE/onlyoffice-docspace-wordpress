@@ -17,19 +17,19 @@ msgid "ONLYOFFICE DocSpace Settings"
 msgstr "Paramètres d'ONLYOFFICE DocSpace"
 
 msgid "Configure ONLYOFFICE DocSpace plugin settings."
-msgstr ""
+msgstr "Configurez les paramètres du plugin ONLYOFFICE DocSpace."
 
 msgid "Configure ONLYOFFICE DocSpace plugin settings."
-msgstr ""
+msgstr "Configurez les paramètres du plugin ONLYOFFICE DocSpace."
 
 msgid "Check the CSP settings"
-msgstr ""
+msgstr "Vérifier les paramètres du CSP"
 
 msgid "Before connecting the app, please go to the <b>DocSpace Settings - Developer tools - JavaScript SDK</b> and add the following credentials to the allow list:"
-msgstr ""
+msgstr "Avant de connecter l'application, veuillez vous rendre dans les <b>Paramètres de DocSpace - Outils du développement - JavaScript SDK</b> et ajouter les informations d'identification suivantes à la liste des autorisations :"
 
 msgid "WordPress portal address:"
-msgstr ""
+msgstr "Adresse du portail WordPress :"
 
 #: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Settings"
@@ -75,7 +75,7 @@ msgid "DocSpace admin"
 msgstr "Administrateur de DocSpace"
 
 msgid "Guest"
-msgstr ""
+msgstr "Invité"
 
 msgid "User"
 msgstr "Utilisateur"
@@ -191,10 +191,10 @@ msgid "Pick room or media file from your DocSpace"
 msgstr "Choisissez une salle ou un fichier multimédia dans votre DocSpace"
 
 msgid "Not available"
-msgstr ""
+msgstr "Non disponible"
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "Quelque chose n'a pas fonctionné"
 
 msgid "Portal unavailable"
 msgstr "Portail indisponible"
@@ -261,3 +261,4 @@ msgstr "Incorporé"
 #: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Editor"
 msgstr "Éditeur"
+
