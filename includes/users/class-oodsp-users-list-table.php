@@ -151,8 +151,13 @@ class OODSP_Users_List_Table extends WP_List_Table {
 		$res_docspace_users    = $oodsp_request_manager->request_docspace_users();
 
 		if ( ! $res_docspace_users['error'] ) {
-			$this->docspace_users           = $res_docspace_users['data'];
 			$this->is_connected_to_docspace = true;
+
+			if ( null === $res_docspace_users['data'] ) {
+				$this->docspace_users = array();
+			} else {
+				$this->docspace_users = $res_docspace_users['data'];
+			}
 
 			foreach ( $this->items as $userid => $user_object ) {
 				$this->items[ $userid ]->docspace_status = -2;
