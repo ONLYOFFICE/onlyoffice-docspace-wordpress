@@ -25,7 +25,7 @@ msgstr ""
 msgid "Before connecting the app, please go to the <b>DocSpace Settings - Developer tools - JavaScript SDK</b> and add the following credentials to the allow list:"
 msgstr ""
 
-msgid "WordPress portal addres:"
+msgid "WordPress portal address:"
 msgstr ""
 
 #: onlyoffice-docspace-wordpress-block/build/index.js

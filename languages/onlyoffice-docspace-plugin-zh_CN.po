@@ -17,19 +17,19 @@ msgid "ONLYOFFICE DocSpace Settings"
 msgstr "ONLYOFFICE 协作空间设置"
 
 msgid "Configure ONLYOFFICE DocSpace plugin settings."
-msgstr ""
+msgstr "配置 ONLYOFFICE 协作空间插件设置。"
 
 msgid "Configure ONLYOFFICE DocSpace plugin settings."
-msgstr ""
+msgstr "配置 ONLYOFFICE 协作空间插件设置。"
 
 msgid "Check the CSP settings"
-msgstr ""
+msgstr "检查 CSP 设置"
 
 msgid "Before connecting the app, please go to the <b>DocSpace Settings - Developer tools - JavaScript SDK</b> and add the following credentials to the allow list:"
-msgstr ""
+msgstr "在连接应用程序之前，请转到 <b>协作空间设置 - 开发人员工具 - JavaScript SDK</b> 并将以下凭据添加到允许列表中："
 
-msgid "WordPress portal addres:"
-msgstr ""
+msgid "WordPress portal address:"
+msgstr "WordPress 门户地址："
 
 #: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Settings"
@@ -75,7 +75,7 @@ msgid "DocSpace admin"
 msgstr "协作空间管理员"
 
 msgid "Guest"
-msgstr ""
+msgstr "访客"
 
 msgid "User"
 msgstr "普通用户"
@@ -191,10 +191,10 @@ msgid "Pick room or media file from your DocSpace"
 msgstr "在协作空间中选择房间或媒体文件"
 
 msgid "Not available"
-msgstr ""
+msgstr "不可用"
 
 msgid "Something went wrong"
-msgstr ""
+msgstr "出现问题"
 
 msgid "Portal unavailable"
 msgstr "门户不可用"
@@ -261,3 +261,4 @@ msgstr "嵌入式"
 #: onlyoffice-docspace-wordpress-block/build/index.js
 msgid "Editor"
 msgstr "编辑器"
+
