@@ -1,4 +1,4 @@
-# WordPress ONLYOFFICE DocSpace integration plugin
+# ONLYOFFICE DocSpace plugin for WordPress
 
 This plugin enables users to access ONLYOFFICE DocSpace, a room-based collaborative environment, from [WordPress](https://wordpress.org/), as well as add DocSpace rooms and files to the WordPress pages.  
 
@@ -27,7 +27,7 @@ In the **DocSpace User Status** column of this list, you can track whether a Wor
 
 ## How to work with ONLYOFFICE DocSpace within WordPress
 
-After setting up the integration plugin, DocSpace will appear for users with the *upload_files* permission. Such users are able to access ONLYOFFICE DocSpace where it's possible to create Collaboration and Custom rooms, invite users, and collaborate on documents within the rooms.
+After setting up the plugin, DocSpace will appear for users with the *upload_files* permission. Such users are able to access ONLYOFFICE DocSpace where it's possible to create Collaboration and Custom rooms, invite users, and collaborate on documents within the rooms.
 
 ## How to add a DocSpace room or file to the WordPress page
 
