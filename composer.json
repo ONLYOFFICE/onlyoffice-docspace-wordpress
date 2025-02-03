@@ -5,7 +5,7 @@
         "wp-coding-standards/wpcs": "^3.0.1"
     },
     "scripts": {
-        "phpcs": "phpcs --standard=Wordpress --runtime-set minimum_wp_version 6.2 --ignore=*/assets-onlyoffice-docspace/*,*/onlyoffice-docspace-wordpress-block/*,*/vendor/* ./",
+        "phpcs": "phpcs --standard=Wordpress --extensions=php --runtime-set minimum_wp_version 6.2 --ignore=*/assets-onlyoffice-docspace/*,*/onlyoffice-docspace-wordpress-block/*,*/vendor/*,*/node_modules/* ./",
         "translations": [
             "wp i18n make-mo languages",
             "wp i18n make-json languages --no-purge"
