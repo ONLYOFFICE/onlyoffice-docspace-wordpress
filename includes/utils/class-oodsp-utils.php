@@ -75,99 +75,9 @@ class OODSP_Utils {
 	);
 
 	/**
-	 * OODSP_Settings
-	 *
-	 * @access   private
-	 * @var      OODSP_Settings    $plugin_settings
-	 */
-	private $plugin_settings;
-
-	/**
-	 * Initialize the class and set its properties.
-	 */
-	public function __construct() {
-		$this->plugin_settings = new OODSP_Settings();
-	}
-
-	/**
-	 * Register the JavaScript for the OODSP Utils.
-	 */
-	public function enqueue_scripts() {
-		$current_user = wp_get_current_user()->user_email;
-
-		$message_docspace_unavailable_header  = __( 'Something went wrong', 'onlyoffice-docspace-plugin' );
-		$message_docspace_unavailable_message = __( 'Portal unavailable', 'onlyoffice-docspace-plugin' );
-		$image_docspace_unavailable           = esc_url( OODSP_PLUGIN_URL . 'includes/images/error-stub-unavailable.svg' );
-		$image_unauthorized                   = esc_url( OODSP_PLUGIN_URL . 'includes/images/error-stub-unauthorized.svg' );
-
-		if ( is_user_logged_in() ) {
-			if ( current_user_can( 'manage_options' ) ) {
-				$message_docspace_unavailable_header  = __( 'Not available', 'onlyoffice-docspace-plugin' );
-				$message_docspace_unavailable_message = __( 'Go to the settings to configure ONLYOFFICE DocSpace connector.', 'onlyoffice-docspace-plugin' );
-				$image_docspace_unavailable           = esc_url( OODSP_PLUGIN_URL . 'includes/images/error-stub-unavailable-admin.svg' );
-			}
-
-			$message_unauthorized_header  = __( 'Authorization unsuccessful!', 'onlyoffice-docspace-plugin' );
-			$message_unauthorized_message = __( 'Please contact the administrator.', 'onlyoffice-docspace-plugin' );
-
-			if ( current_user_can( 'upload_files' ) ) {
-				$message_unauthorized_message = __( 'Please proceed to the DocSpace plugin via the left side menu and enter your password to restore access.', 'onlyoffice-docspace-plugin' );
-			}
-		} else {
-			$message_unauthorized_header  = __( 'Access denied!', 'onlyoffice-docspace-plugin' );
-			$message_unauthorized_message = __( 'Please log in to the site!', 'onlyoffice-docspace-plugin' );
-		}
-
-		wp_enqueue_script(
-			'oodsp-utils',
-			OODSP_PLUGIN_URL . 'includes/js/oodsp-utils.js',
-			array( 'wp-util' ),
-			OODSP_VERSION,
-			true
-		);
-
-		wp_localize_script(
-			'oodsp-utils',
-			'_oodsp',
-			array(
-				'docspaceUrl' => $this->plugin_settings->get_onlyoffice_docspace_setting( OODSP_Settings::DOCSPACE_URL ),
-				'currentUser' => $current_user,
-				'locale'      => $this->get_locale_for_docspace(),
-				'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
-				'isAnonymous' => ! is_user_logged_in(),
-				'messages'    => array(
-					'docspaceUnavailableHeader'  => $message_docspace_unavailable_header,
-					'docspaceUnavailableMessage' => $message_docspace_unavailable_message,
-					'unauthorizedHeader'         => $message_unauthorized_header,
-					'unauthorizedMessage'        => $message_unauthorized_message,
-				),
-				'images'      => array(
-					'docspaceUnavailableImage' => $image_docspace_unavailable,
-					'unauthorizedImage'        => $image_unauthorized,
-				),
-			)
-		);
-
-		add_action( 'wp_footer', array( $this, 'oodsp_error_template' ), 30 );
-		add_action( 'admin_footer', array( $this, 'oodsp_error_template' ), 30 );
-	}
-
-	/**
-	 * Register the stylesheets for the OODSP Utils.
-	 */
-	public function enqueue_styles() {
-		wp_enqueue_style(
-			'oodsp-utils',
-			OODSP_PLUGIN_URL . 'includes/css/oodsp-utils.css',
-			array(),
-			OODSP_VERSION
-		);
-	}
-
-	/**
 	 *  DocSpace login template.
 	 */
-	public function get_locale_for_docspace() {
+	public static function get_locale_for_docspace() {
 		$locale = str_replace( '_', '-', get_user_locale() );
 
 		if ( in_array( $locale, self::LOCALES, true ) ) {
@@ -185,28 +95,36 @@ class OODSP_Utils {
 	}
 
 	/**
-	 *  OODSP error template.
+	 * Get sanitized variable from request.
 	 *
-	 * @return void
+	 * @param string $var_name      The name of the variable to retrieve.
+	 * @param string $filter_type   Optional. The type of filtering to apply. Default 'sanitize_text_field'.
+	 * @param mixed  $default_value Optional. Default value to return if the variable is not set.
+	 *
+	 * @return mixed The filtered value of the requested variable.
 	 */
-	public function oodsp_error_template() {
-		?>
-		<script type="text/html" id="tmpl-oodsp-error">
-			<div class="onlyoffice-error" >
-				<div class="main">
-					<div class="header">
-						<img src="<?php echo esc_url( OODSP_PLUGIN_URL . 'includes/images/onlyoffice.svg' ); ?>" />
-					</div>
-					<div class="image">
-						<img src="{{{data.image}}}" />
-					</div>
-					<div class="info">
-						<div class="text-bold">{{{data.header || ""}}}</div>
-						<div class="text-normal">{{{data.message}}}</div>
-					</div>
-				</div>
-			</div>
-		</script>
-		<?php
+	public static function get_var_from_request(
+		$var_name,
+		$filter_type = 'sanitize_text_field',
+		$default_value = ''
+	) {
+		if ( ! isset( $_REQUEST[ $var_name ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return $default_value;
+		}
+
+		$var_value = wp_unslash( $_REQUEST[ $var_name ] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+
+		switch ( $filter_type ) {
+			case 'sanitize_text_field':
+				return sanitize_text_field( $var_value );
+			case 'sanitize_url':
+				return esc_url_raw( $var_value );
+			case 'sanitize_email':
+				return sanitize_email( $var_value );
+			case 'absint':
+				return absint( $var_value );
+			default:
+				return sanitize_text_field( $var_value );
+		}
 	}
 }
