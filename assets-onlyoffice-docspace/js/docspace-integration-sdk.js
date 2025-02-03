@@ -63,6 +63,28 @@
         });
     };
 
+    const createPasswordHash = function (frameId, password, onSuccess, onAppError) {
+        DocSpace.SDK.initSystem({
+            frameId: frameId,
+            events: {
+                "onAppReady": async function () {
+                    const hashSettings = await DocSpace.SDK.frames[frameId].getHashSettings();
+                    const passwordHash = await DocSpace.SDK.frames[frameId].createHash(
+                    password.trim(),
+                    hashSettings
+                );
+
+                    onSuccess(passwordHash);
+                },
+                "onAppError": async function (event) {
+                    if (onAppError) {
+                        onAppError(event);
+                    }
+                }
+            }
+        });
+    };
+
     const loginByPassword = function (frameId, email, password, onSuccessLogin, onUnSuccessLogin, onAppError) {
         loginByPasswordHash(
             frameId,
@@ -75,42 +97,46 @@
             },
             onSuccessLogin,
             onUnSuccessLogin,
-            onAppError
+            onAppError,
+            true
         )
     };
 
-    const loginByPasswordHash = function (frameId, email, onRequestPasswordHash, onSuccessLogin, onUnSuccessLogin, onAppError) {
+    const loginByPasswordHash = function (frameId, email, onRequestPasswordHash, onSuccessLogin, onUnSuccessLogin, onAppError, reauthorize = false) {
         DocSpace.SDK.initSystem({
             frameId: frameId,
             width: "100%",
             height: "100%",
             events: {
                 onAppReady: async function() {
-                    const userInfo = await DocSpace.SDK.frames[frameId].getUserInfo();
+                    if (!reauthorize) { 
+                        const userInfo = await DocSpace.SDK.frames[frameId].getUserInfo();
 
-                    if (userInfo && userInfo.email === email){
-                        onSuccessLogin();
-                    } else {
-                        const passwordHash = await onRequestPasswordHash(email);
-
-                        if (passwordHash == null || passwordHash.length <= 0) {
-                            DocSpace.SDK.frames[frameId].destroyFrame();
-                            onUnSuccessLogin();
+                        if (userInfo && userInfo.email === email){
+                            onSuccessLogin();
                             return;
                         }
+                    }
 
-                        DocSpace.SDK.frames[frameId].login(email, passwordHash)
-                            .then(function(response) {
-                                if(response.status && response.status !== 200) {
-                                    DocSpace.SDK.frames[frameId].destroyFrame();
-                                    onUnSuccessLogin();
-                                    return;
-                                }
+                    const passwordHash = await onRequestPasswordHash(email);
 
-                                onSuccessLogin(passwordHash);
+                    if (passwordHash == null || passwordHash.length <= 0) {
+                        DocSpace.SDK.frames[frameId].destroyFrame();
+                        onUnSuccessLogin();
+                        return;
+                    }
+
+                    DocSpace.SDK.frames[frameId].login(email, passwordHash)
+                        .then(function(response) {
+                            if(response.status && response.status !== 200) {
+                                DocSpace.SDK.frames[frameId].destroyFrame();
+                                onUnSuccessLogin();
+                                return;
                             }
-                        );
-                    } 
+
+                            onSuccessLogin(email, passwordHash);
+                        }
+                    );
                 },
                 onAppError: async function() {
                     if (onAppError) {
@@ -174,6 +200,7 @@
 
     window.DocspaceIntegrationSdk = window.DocspaceIntegrationSdk || {
         "initScript": initScript,
+        "createPasswordHash": createPasswordHash,
         "loginByPassword": loginByPassword,
         "loginByPasswordHash": loginByPasswordHash,
         "logout": logout
