@@ -75,6 +75,22 @@ class OODSP_Docspace_Client {
 	}
 
 	/**
+	 * Gets the settings from ONLYOFFICE DocSpace.
+	 *
+	 * @return array The settings data.
+	 */
+	public function get_settings() {
+		$response = $this->request(
+			'/api/2.0/settings',
+			array(),
+			'',
+			use_system_user_authorization: false
+		);
+
+		return $response['response'];
+	}
+
+	/**
 	 * Authenticates a user with ONLYOFFICE DocSpace.
 	 *
 	 * @param string $user_name The username for authentication.
@@ -157,6 +173,46 @@ class OODSP_Docspace_Client {
 			'/api/2.0/people/' . $id,
 			array(
 				'method' => 'GET',
+			)
+		);
+
+		return $response['response'];
+	}
+
+	/**
+	 * Creates a new user in ONLYOFFICE DocSpace.
+	 *
+	 * @param string $email The email address of the new user.
+	 * @param string $password_hash The hashed password for the new user.
+	 * @param string $firstname The first name of the new user.
+	 * @param string $lastname The last name of the new user.
+	 * @param string $type The type of user account to create.
+	 *
+	 * @return array The response data from the user creation request.
+	 */
+	public function create_user(
+		$email,
+		$password_hash,
+		$firstname,
+		$lastname,
+		$type
+	) {
+		$response = $this->request(
+			'/api/2.0/people/active',
+			array(
+				'method'  => 'POST',
+				'headers' => array(
+					'Content-Type' => 'application/json; charset=utf-8',
+				),
+				'body'    => wp_json_encode(
+					array(
+						'email'        => $email,
+						'passwordHash' => $password_hash,
+						'firstname'    => $firstname,
+						'lastname'     => $lastname,
+						'type'         => $type,
+					)
+				),
 			)
 		);
 
