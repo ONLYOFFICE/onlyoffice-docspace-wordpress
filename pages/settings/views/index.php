@@ -125,6 +125,11 @@
 		include $this->class_path . '/views/authorization.php';
 	}
 	?>
+	<?php
+	if ( $this->oodsp_settings_manager->exist_system_user() ) {
+		include $this->class_path . '/views/users.php';
+	}
+	?>
 </div>
 
 <div hidden>
