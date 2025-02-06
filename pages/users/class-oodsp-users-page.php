@@ -319,9 +319,10 @@ class OODSP_Users_Page {
 
 		$hash_settings = $settings['passwordHash'];
 
-		$create_count  = 0;
-		$skipped_count = 0;
-		$error_count   = 0;
+		$create_count      = 0;
+		$skipped_count     = 0;
+		$error_count       = 0;
+		$docspace_accounts = array();
 		foreach ( $user_ids as $user_id ) {
 			$user             = get_user( $user_id );
 			$docspace_account = $this->oodsp_user_service->get_docspace_account( $user_id );
@@ -355,8 +356,31 @@ class OODSP_Users_Page {
 					$docspace_account
 				);
 				++$create_count;
+				array_push( $docspace_accounts, $docspace_account );
 			} catch ( OODSP_Docspace_Client_Exception $e ) {
 				++$error_count;
+			}
+		}
+
+		$shared_group = $this->oodsp_settings_manager->get_shared_group();
+		if ( ! empty( $shared_group ) ) {
+			try {
+				$docspace_accounts_ids = array_map(
+					function ( $docspace_account ) {
+						return $docspace_account->get_id();
+					},
+					$docspace_accounts
+				);
+
+				$this->oodsp_docspace_client->update_group(
+					$shared_group,
+					'',
+					'',
+					$docspace_accounts_ids,
+					array()
+				);
+			} catch ( OODSP_Docspace_Client_Exception $e ) {
+				$e->printStackTrace();
 			}
 		}
 
