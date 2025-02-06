@@ -51,6 +51,12 @@ class OODSP_Settings_Manager {
 	const SYSTEM_USER = 'system_user';
 
 	/**
+	 * Shared group setting key.
+	 * Used to store and retrieve the shared group identifier.
+	 */
+	const SHARED_GROUP = 'shared_group';
+
+	/**
 	 * Retrieves the DocSpace URL from settings.
 	 *
 	 * @return string The configured DocSpace URL or empty string if not set.
@@ -72,6 +78,15 @@ class OODSP_Settings_Manager {
 		}
 
 		return OODSP_System_User::from_array( $data );
+	}
+
+	/**
+	 * Retrieves the shared group identifier from settings.
+	 *
+	 * @return string The configured shared group identifier or empty string if not set.
+	 */
+	public function get_shared_group() {
+		return $this->get_setting( self::SHARED_GROUP, '' );
 	}
 
 	/**
@@ -108,11 +123,29 @@ class OODSP_Settings_Manager {
 	}
 
 	/**
+	 * Sets the shared group information in the settings.
+	 *
+	 * @param string $shared_group The shared group identifier to store.
+	 * @return mixed Result of the setting update operation.
+	 */
+	public function set_shared_group( $shared_group ) {
+		return $this->set_setting( self::SHARED_GROUP, $shared_group );
+	}
+
+	/**
 	 * Deletes the system user information from settings.
 	 * This effectively removes the system user credentials.
 	 */
 	public function delete_system_user() {
 		$this->set_setting( self::SYSTEM_USER, null );
+	}
+
+	/**
+	 * Deletes the shared group information from settings.
+	 * This effectively removes the shared group credentials.
+	 */
+	public function delete_shared_group() {
+		$this->set_setting( self::SHARED_GROUP, null );
 	}
 
 	/**
