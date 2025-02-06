@@ -59,22 +59,31 @@ class OODSP_User_Controller {
 	 */
 	private OODSP_Settings_Manager $oodsp_settings_manager;
 
+	/**
+	 * OODSP_Docspace_Action_Manager
+	 *
+	 * @var OODSP_Docspace_Action_Manager $oodsp_docspace_action_manager
+	 */
+	private OODSP_Docspace_Action_Manager $oodsp_docspace_action_manager;
 
 	/**
 	 * Constructor for the OODSP_User_Controller class.
 	 *
-	 * @param OODSP_Docspace_Client  $oodsp_docspace_client  The DocSpace client instance.
-	 * @param OODSP_User_Service     $oodsp_user_service     The user service instance.
-	 * @param OODSP_Settings_Manager $oodsp_settings_manager The settings manager instance.
+	 * @param OODSP_Docspace_Client         $oodsp_docspace_client         The DocSpace client instance.
+	 * @param OODSP_User_Service            $oodsp_user_service            The user service instance.
+	 * @param OODSP_Settings_Manager        $oodsp_settings_manager        The settings manager instance.
+	 * @param OODSP_Docspace_Action_Manager $oodsp_docspace_action_manager The DocSpace action manager instance.
 	 */
 	public function __construct(
 		OODSP_Docspace_Client $oodsp_docspace_client,
 		OODSP_User_Service $oodsp_user_service,
-		OODSP_Settings_Manager $oodsp_settings_manager
+		OODSP_Settings_Manager $oodsp_settings_manager,
+		OODSP_Docspace_Action_Manager $oodsp_docspace_action_manager
 	) {
-		$this->oodsp_docspace_client  = $oodsp_docspace_client;
-		$this->oodsp_user_service     = $oodsp_user_service;
-		$this->oodsp_settings_manager = $oodsp_settings_manager;
+		$this->oodsp_docspace_client         = $oodsp_docspace_client;
+		$this->oodsp_user_service            = $oodsp_user_service;
+		$this->oodsp_settings_manager        = $oodsp_settings_manager;
+		$this->oodsp_docspace_action_manager = $oodsp_docspace_action_manager;
 	}
 
 	/**
@@ -100,7 +109,9 @@ class OODSP_User_Controller {
 			);
 		}
 
-		$user = wp_get_current_user();
+		$user         = wp_get_current_user();
+		$system_user  = $this->oodsp_settings_manager->get_system_user();
+		$shared_group = $this->oodsp_settings_manager->get_shared_group();
 
 		$docspace_account = new OODSP_Docspace_Account(
 			$id,
@@ -112,6 +123,20 @@ class OODSP_User_Controller {
 			$user->ID,
 			$docspace_account
 		);
+
+		if ( ! empty( $system_user ) && ! empty( $shared_group ) ) {
+			try {
+				$this->oodsp_docspace_client->update_group(
+					$shared_group,
+					'',
+					'',
+					array( $docspace_account->get_id() ),
+					array(),
+				);
+			} catch ( OODSP_Docspace_Client_Exception $e ) {
+				$e->printStackTrace();
+			}
+		}
 	}
 
 	/**
@@ -186,6 +211,12 @@ class OODSP_User_Controller {
 		);
 
 		$this->oodsp_settings_manager->set_system_user( $system_user );
+
+		try {
+			$this->oodsp_docspace_action_manager->init_shared_group();
+		} catch ( OODSP_Docspace_Client_Exception $e ) {
+			$e->printStackTrace();
+		}
 	}
 
 	/**
@@ -198,8 +229,24 @@ class OODSP_User_Controller {
 	public function delete_user() {
 		check_ajax_referer( 'oodsp_user_controller' );
 
-		$user        = wp_get_current_user();
-		$system_user = $this->oodsp_settings_manager->get_system_user();
+		$user             = wp_get_current_user();
+		$docspace_account = $this->oodsp_user_service->get_docspace_account( $user->ID );
+		$system_user      = $this->oodsp_settings_manager->get_system_user();
+		$shared_group     = $this->oodsp_settings_manager->get_shared_group();
+
+		if ( ! empty( $system_user ) && ! empty( $docspace_account ) && ! empty( $shared_group ) ) {
+			try {
+				$this->oodsp_docspace_client->update_group(
+					$shared_group,
+					'',
+					'',
+					array(),
+					array( $docspace_account->get_id() )
+				);
+			} catch ( OODSP_Docspace_Client_Exception $e ) {
+				$e->printStackTrace();
+			}
+		}
 
 		if ( ! empty( $system_user ) && $user->ID === $system_user->get_id() ) {
 			try {

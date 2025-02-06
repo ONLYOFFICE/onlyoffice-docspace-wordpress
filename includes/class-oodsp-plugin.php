@@ -82,6 +82,13 @@ class OODSP_Plugin {
 	private OODSP_Settings_Manager $oodsp_settings_manager;
 
 	/**
+	 * OODSP_Docspace_Action_Manager
+	 *
+	 * @var OODSP_Docspace_Action_Manager $oodsp_docspace_action_manager
+	 */
+	private OODSP_Docspace_Action_Manager $oodsp_docspace_action_manager;
+
+	/**
 	 * Define the core functionality of the plugin.
 	 *
 	 * Set the plugin name and the plugin version that can be used throughout the plugin.
@@ -93,10 +100,15 @@ class OODSP_Plugin {
 	public function __construct() {
 		$this->load_dependencies();
 
-		$this->loader                 = new OODSP_Loader();
-		$this->oodsp_settings_manager = new OODSP_Settings_Manager();
-		$this->oodsp_user_service     = new OODSP_User_Service();
-		$this->oodsp_docspace_client  = new OODSP_Docspace_Client( $this->oodsp_settings_manager );
+		$this->loader                        = new OODSP_Loader();
+		$this->oodsp_settings_manager        = new OODSP_Settings_Manager();
+		$this->oodsp_user_service            = new OODSP_User_Service();
+		$this->oodsp_docspace_client         = new OODSP_Docspace_Client( $this->oodsp_settings_manager );
+		$this->oodsp_docspace_action_manager = new OODSP_Docspace_Action_Manager(
+			$this->oodsp_docspace_client,
+			$this->oodsp_user_service,
+			$this->oodsp_settings_manager
+		);
 
 		$this->set_locale();
 		$this->register_resources();
@@ -116,6 +128,7 @@ class OODSP_Plugin {
 		require_once plugin_dir_path( __DIR__ ) . 'controller/class-oodsp-user-controller.php';
 		require_once plugin_dir_path( __DIR__ ) . 'includes/client/class-oodsp-docspace-client.php';
 		require_once plugin_dir_path( __DIR__ ) . 'includes/exception/class-oodsp-docspace-client-exception.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/managers/class-oodsp-docspace-action-manager.php';
 		require_once plugin_dir_path( __DIR__ ) . 'includes/managers/class-oodsp-settings-manager.php';
 		require_once plugin_dir_path( __DIR__ ) . 'includes/model/class-oodsp-docspace-account.php';
 		require_once plugin_dir_path( __DIR__ ) . 'includes/model/class-oodsp-system-user.php';
@@ -202,7 +215,8 @@ class OODSP_Plugin {
 		$oodsp_user_controller = new OODSP_User_Controller(
 			$this->oodsp_docspace_client,
 			$this->oodsp_user_service,
-			$this->oodsp_settings_manager
+			$this->oodsp_settings_manager,
+			$this->oodsp_docspace_action_manager
 		);
 
 		$this->loader->add_action( 'wp_ajax_oodsp_get_user', $oodsp_user_controller, 'get_user' );
