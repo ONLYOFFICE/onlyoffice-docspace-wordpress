@@ -1,4 +1,4 @@
-/* global oodsp, _oodspMain, DocspaceIntegrationSdk */
+/* global oodsp, _oodspMain, DocspaceIntegrationSdk, DocSpace */
 
 ( function () {
 	window.oodsp = window.oodsp || {};
@@ -69,7 +69,11 @@
 					_userName,
 					_password,
 					async function ( userNameValue, passwordHashValue ) {
+						const userInfo =
+							await DocSpace.SDK.frames[ frameId ].getUserInfo();
+
 						await oodsp.client.postUser(
+							userInfo.id,
 							userNameValue,
 							passwordHashValue
 						);

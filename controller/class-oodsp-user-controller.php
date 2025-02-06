@@ -89,10 +89,11 @@ class OODSP_User_Controller {
 	public function set_user() {
 		check_ajax_referer( 'oodsp_user_controller' );
 
+		$id            = trim( OODSP_Utils::get_var_from_request( 'id' ) );
 		$user_name     = trim( OODSP_Utils::get_var_from_request( 'userName' ) );
 		$password_hash = trim( OODSP_Utils::get_var_from_request( 'passwordHash' ) );
 
-		if ( empty( $user_name ) || empty( $password_hash ) ) {
+		if ( empty( $id ) || empty( $user_name ) || empty( $password_hash ) ) {
 			wp_send_json_error(
 				array( 'message' => __( 'The required fields are empty', 'onlyoffice-docspace-wordpress' ) ),
 				400
@@ -102,6 +103,7 @@ class OODSP_User_Controller {
 		$user = wp_get_current_user();
 
 		$docspace_account = new OODSP_Docspace_Account(
+			$id,
 			$user_name,
 			$password_hash
 		);
@@ -168,6 +170,7 @@ class OODSP_User_Controller {
 		$user = wp_get_current_user();
 
 		$docspace_account = new OODSP_Docspace_Account(
+			$docspace_user['id'],
 			$user_name,
 			$password_hash
 		);

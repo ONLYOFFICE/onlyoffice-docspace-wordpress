@@ -1,4 +1,4 @@
-/* global jQuery, oodsp, DocspaceIntegrationSdk, HttpError, _oodspAuthorization */
+/* global jQuery, oodsp, DocspaceIntegrationSdk, HttpError, _oodspAuthorization, DocSpace */
 
 /**
  * Adds authorization functionality to the window.
@@ -84,7 +84,16 @@
 			password,
 			async ( passwordHash ) => {
 				try {
-					await oodsp.client.postUser( userName, passwordHash );
+					const userInfo =
+						await DocSpace.SDK.frames[
+							'oodsp-system-frame'
+						].getUserInfo();
+
+					await oodsp.client.postUser(
+						userInfo.id,
+						userName,
+						passwordHash
+					);
 
 					window.location.reload();
 				} catch ( e ) {

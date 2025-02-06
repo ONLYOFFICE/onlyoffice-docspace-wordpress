@@ -115,7 +115,7 @@ class OODSP_Settings_Page extends OODSP_Base_Page {
 			OODSP_PLUGIN_NAME . $this->menu_slug . '-authorization',
 			'_oodspAuthorization',
 			array(
-				'docspaceUrl' => $this->oodsp_settings_manager->get_docspace_url()
+				'docspaceUrl' => $this->oodsp_settings_manager->get_docspace_url(),
 			)
 		);
 	}

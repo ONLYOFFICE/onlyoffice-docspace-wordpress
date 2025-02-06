@@ -39,6 +39,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class OODSP_Docspace_Account {
 	/**
+	 * The DocSpace account ID.
+	 *
+	 * @var string The unique identifier of the DocSpace account.
+	 */
+	private $id;
+
+	/**
 	 * The DocSpace account username.
 	 *
 	 * @var string The username of the DocSpace account.
@@ -55,12 +62,23 @@ class OODSP_Docspace_Account {
 	/**
 	 * OODSP_Docspace_Account constructor.
 	 *
+	 * @param string $id            The ID of the DocSpace account.
 	 * @param string $user_name     The username of the DocSpace account.
 	 * @param string $password_hash The password hash of the DocSpace account.
 	 */
-	public function __construct( $user_name = '', $password_hash = '' ) {
+	public function __construct( $id, $user_name, $password_hash ) {
+		$this->id            = $id;
 		$this->user_name     = $user_name;
 		$this->password_hash = $password_hash;
+	}
+
+	/**
+	 * Get the ID of the DocSpace account.
+	 *
+	 * @return string
+	 */
+	public function get_id() {
+		return $this->id;
 	}
 
 	/**
@@ -98,7 +116,11 @@ class OODSP_Docspace_Account {
 	 * @return OODSP_Docspace_Account
 	 */
 	public static function from_array( $data ) {
-		$docspace_account = new OODSP_Docspace_Account();
+		$docspace_account = new OODSP_Docspace_Account(
+			'',
+			'',
+			''
+		);
 
 		$reflection = new ReflectionClass( $docspace_account );
 		foreach ( $data as $key => $value ) {

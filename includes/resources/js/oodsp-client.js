@@ -25,13 +25,14 @@ class HttpError extends Error {
 		} );
 	};
 
-	oodsp.client.postUser = async ( userName, passwordHash ) => {
+	oodsp.client.postUser = async ( id, userName, passwordHash ) => {
 		await ajaxRequest( {
 			url: _oodspClient.ajaxUrl,
 			method: 'POST',
 			data: {
 				action: 'oodsp_set_user',
 				_ajax_nonce: _oodspClient.nonce,
+				id,
 				userName,
 				passwordHash,
 			},
