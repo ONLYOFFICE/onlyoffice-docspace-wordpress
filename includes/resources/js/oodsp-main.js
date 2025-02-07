@@ -123,6 +123,12 @@
 						);
 					}
 				);
+			},
+			async function ( email ) {
+				await oodsp.client.resetPassword(
+					_oodspMain.docspaceUrl,
+					email
+				);
 			}
 		);
 	};
