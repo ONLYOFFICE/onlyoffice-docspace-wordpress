@@ -90,7 +90,7 @@ class OODSP_Users_Page {
 		$this->oodsp_settings_manager = $oodsp_settings_manager;
 		$this->oodsp_user_service     = $oodsp_user_service;
 
-		if ( ! $this->oodsp_settings_manager->exist_system_user() ) {
+		if ( empty( $this->oodsp_settings_manager->get_docspace_url() ) ) {
 			return;
 		}
 
@@ -100,10 +100,13 @@ class OODSP_Users_Page {
 		add_filter( 'manage_users_sortable_columns', array( $this, 'make_docspace_account_user_column_sortable' ) );
 		add_action( 'pre_get_users', array( $this, 'sort_users_by_docspace_account' ) );
 		add_filter( 'manage_users_custom_column', array( $this, 'show_docspace_account_column_data' ), 10, 3 );
-		add_filter( 'bulk_actions-users', array( $this, 'add_create_docspace_user_bulk_action' ) );
-		add_filter( 'handle_bulk_actions-users', array( $this, 'handle_create_docspace_user_bulk_action' ), 10, 3 );
-		add_filter( 'removable_query_args', array( $this, 'create_docspace_user_bulk_action_removable_query_args' ) );
-		add_action( 'admin_notices', array( $this, 'create_docspace_user_bulk_action_admin_notice' ) );
+
+		if ( $this->oodsp_settings_manager->exist_system_user() ) {
+			add_filter( 'bulk_actions-users', array( $this, 'add_create_docspace_user_bulk_action' ) );
+			add_filter( 'handle_bulk_actions-users', array( $this, 'handle_create_docspace_user_bulk_action' ), 10, 3 );
+			add_filter( 'removable_query_args', array( $this, 'create_docspace_user_bulk_action_removable_query_args' ) );
+			add_action( 'admin_notices', array( $this, 'create_docspace_user_bulk_action_admin_notice' ) );
+		}
 	}
 
 	/**
