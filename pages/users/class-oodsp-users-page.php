@@ -214,25 +214,42 @@ class OODSP_Users_Page {
 			return;
 		}
 
-		$order = isset( $_GET['order'] ) && 'desc' === $_GET['order'] ? 'ASC' : 'DESC';
+		$order = isset( $_GET['order'] ) && 'desc' === $_GET['order'] ? 'DESC' : 'ASC';
 
-		$query->set(
-			'meta_query',
-			array(
-				'relation' => 'OR',
-				array(
-					'key'     => 'docspace_account',
-					'compare' => 'EXISTS',
-				),
-				array(
-					'key'     => 'docspace_account',
-					'compare' => 'NOT EXISTS',
-				),
-			)
+		$docspace_accounts = $this->oodsp_user_service->get_all_docspace_accounts( true );
+
+		uasort(
+			$docspace_accounts,
+			function ( $a, $b ) use ( $order ) {
+				if ( empty( $a ) && ! empty( $b ) ) {
+					return 'DESC' === $order ? 1 : -1;
+				}
+				if ( ! empty( $a ) && empty( $b ) ) {
+					return 'DESC' === $order ? -1 : 1;
+				}
+				if ( empty( $a ) && empty( $b ) ) {
+					return 0;
+				}
+
+				$user_name_a = $a->get_user_name();
+				$user_name_b = $b->get_user_name();
+
+				[ $user_a ] = explode( '@', $user_name_a );
+				[ $user_b ] = explode( '@', $user_name_b );
+
+				if ( 'DESC' === $order ) {
+					return strcmp( $user_a, $user_b );
+				} else {
+					return strcmp( $user_b, $user_a );
+				}
+			}
 		);
 
-		$query->set( 'orderby', 'meta_value' );
-		$query->set( 'order', $order );
+		$sorted_ids = array_keys( $docspace_accounts );
+
+		$query->set( 'order', 'order' );
+		$query->set( 'orderby', 'include' );
+		$query->set( 'include', $sorted_ids );
 	}
 
 	/**
@@ -252,7 +269,7 @@ class OODSP_Users_Page {
 		if ( 'docspace_account' === $column_name ) {
 			$docspace_account = $this->oodsp_user_service->get_docspace_account( $user_id );
 
-			return $docspace_account ? $docspace_account->get_user_name() : 'N/A';
+			return $docspace_account ? $docspace_account->get_user_name() : '—';
 		}
 
 		return $value;
