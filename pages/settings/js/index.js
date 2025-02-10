@@ -21,13 +21,13 @@
 					);
 					$( '#oodsp-general-settings-form' ).submit();
 
-					$( this ).dialog( 'close' );
+					$( '#oodsp-disconnect-confirm-dialog' ).dialog( 'close' );
 				},
 			},
 			{
 				text: wp.i18n.__( 'Cancel', 'onlyoffice-docspace-plugin' ),
 				click: () => {
-					$( this ).dialog( 'close' );
+					$( '#oodsp-disconnect-confirm-dialog' ).dialog( 'close' );
 				},
 			},
 		],
