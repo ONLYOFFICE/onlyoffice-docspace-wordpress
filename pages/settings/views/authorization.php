@@ -95,7 +95,7 @@ if ( ! empty( $system_user ) && $user->ID === $system_user->get_id() ) {
 				</tr>
 				<?php if ( empty( $docspace_account ) || $is_system_user ) { ?>
 				<tr class="form-field">
-					<td style="padding-left: 0;">
+					<td colspan="2" style="padding-left: 0;">
 						<fieldset>
 							<label for="users_can_register">
 								<input
