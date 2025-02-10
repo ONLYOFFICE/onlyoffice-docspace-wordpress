@@ -75,6 +75,7 @@
 								name="docspace_url"
 								type="text"
 								class="regular-text"
+								placeholder="https://"
 								value="<?php echo esc_attr( $this->oodsp_settings_manager->get_docspace_url() ); ?>"
 								<?php echo ! empty( $this->oodsp_settings_manager->get_docspace_url() ) ? 'disabled' : ''; ?>
 							>
