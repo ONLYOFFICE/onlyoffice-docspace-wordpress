@@ -121,7 +121,10 @@ if ( ! empty( $system_user ) && $user->ID === $system_user->get_id() ) {
 				<?php } ?>
 			</tbody>
 		</table>
-		<p <?php echo ! empty( $docspace_account ) ? 'hidden' : ''; ?> >	
+		<p
+			class="block-buttons"
+			<?php echo ! empty( $docspace_account ) ? 'hidden' : ''; ?>
+		>	
 			<input
 				type="submit"
 				id="oodsp-authorization-login-button"
@@ -129,7 +132,10 @@ if ( ! empty( $system_user ) && $user->ID === $system_user->get_id() ) {
 				value="<?php esc_html_e( 'Login', 'onlyoffice-docspace-plugin' ); ?>"
 			>
 		</p>
-		<p <?php echo empty( $docspace_account ) ? 'hidden' : ''; ?> >	
+		<p
+			class="block-buttons"
+			<?php echo empty( $docspace_account ) ? 'hidden' : ''; ?>
+		>	
 			<input
 				type="submit"
 				id="oodsp-authorization-logout-button"

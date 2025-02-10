@@ -64,3 +64,7 @@
 	margin: 18px 0;
 	min-width: fit-content;
 }
+
+.block-buttons {
+	margin: 0;
+}

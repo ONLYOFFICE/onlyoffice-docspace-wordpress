@@ -92,6 +92,7 @@
 			</table>
 			<p
 				id="oodsp-general-settings-buttons"
+				class="block-buttons"
 				<?php echo ! empty( $this->oodsp_settings_manager->get_docspace_url() ) ? 'hidden' : ''; ?>
 			>
 				<input
@@ -110,6 +111,7 @@
 			</p>
 			<p
 				id="oodsp-general-settings-change-buttons"
+				class="block-buttons"
 				<?php echo empty( $this->oodsp_settings_manager->get_docspace_url() ) ? 'hidden' : ''; ?>
 			>
 				<input
@@ -124,7 +126,7 @@
 					class="button"
 					value="<?php esc_html_e( 'Disconnect', 'onlyoffice-docspace-plugin' ); ?>"
 				>
-			<p>
+			</p>
 		</form>
 	</div>
 
