@@ -94,7 +94,6 @@ class OODSP_Users_Page {
 			return;
 		}
 
-		add_action( 'admin_head', array( $this, 'add_users_help_tab' ) );
 		add_action( 'admin_head', array( $this, 'load_resources' ) );
 		add_filter( 'manage_users_columns', array( $this, 'add_docspace_account_user_column' ) );
 		add_filter( 'manage_users_sortable_columns', array( $this, 'make_docspace_account_user_column_sortable' ) );
@@ -102,6 +101,7 @@ class OODSP_Users_Page {
 		add_filter( 'manage_users_custom_column', array( $this, 'show_docspace_account_column_data' ), 10, 3 );
 
 		if ( $this->oodsp_settings_manager->exist_system_user() ) {
+			add_action( 'admin_head', array( $this, 'add_users_help_tab' ) );
 			add_filter( 'bulk_actions-users', array( $this, 'add_create_docspace_user_bulk_action' ) );
 			add_filter( 'handle_bulk_actions-users', array( $this, 'handle_create_docspace_user_bulk_action' ), 10, 3 );
 			add_filter( 'removable_query_args', array( $this, 'create_docspace_user_bulk_action_removable_query_args' ) );
