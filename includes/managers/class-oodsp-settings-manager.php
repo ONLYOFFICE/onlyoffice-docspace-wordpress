@@ -92,6 +92,8 @@ class OODSP_Settings_Manager {
 	 * @return mixed Result of the setting update operation.
 	 */
 	public function set_docspace_url( $docspace_url ) {
+		$docspace_url = rtrim( $docspace_url, '/' );
+
 		return $this->set_setting( self::DOCSPACE_URL, $docspace_url );
 	}
 
