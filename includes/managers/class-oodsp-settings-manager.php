@@ -133,7 +133,7 @@ class OODSP_Settings_Manager {
 	 * @return mixed The value of the setting or the default value.
 	 */
 	private function get_setting( $key, $def = '' ) {
-		$options = get_option( 'oodsp_settings' );
+		$options = get_option( 'oodsp_settings', array() );
 
 		if ( ! empty( $options ) && array_key_exists( $key, $options ) ) {
 			return $options[ $key ];
@@ -149,7 +149,7 @@ class OODSP_Settings_Manager {
 	 * @param mixed  $value The value to set for the setting.
 	 */
 	private function set_setting( $key, $value ) {
-		$options = get_option( 'oodsp_settings' );
+		$options = get_option( 'oodsp_settings', array() );
 
 		$options[ $key ] = $value;
 
