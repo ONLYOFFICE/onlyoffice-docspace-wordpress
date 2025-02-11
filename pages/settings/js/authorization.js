@@ -176,6 +176,7 @@
 			'The current domain is not set in the Content Security Policy (CSP) settings.'
 		) {
 			oodsp.ui.addNotice(
+				'oodsp-authorization-notice',
 				wp.i18n.sprintf(
 					/* translators: %1$s: opening link tag, %2$s: closing link tag */
 					wp.i18n.__(
@@ -183,19 +184,20 @@
 						'onlyoffice-docspace-plugin'
 					),
 					'<a href="' +
-						// stripTrailingSlash( docspaceUrl ) +
-						'/portal-settings/developer-tools/javascript-sdk" target="_blank">',
+						_oodspAuthorization.developerToolsUrl +
+						'" target="_blank">',
 					'</a>'
 				),
 				'error'
 			);
 		} else {
-			oodsp.ui.addNotice( error, 'error' );
+			oodsp.ui.addNotice( 'oodsp-authorization-notice', error, 'error' );
 		}
 	};
 
 	const onLoadAppError = () => {
 		oodsp.ui.addNotice(
+			'oodsp-authorization-notice',
 			wp.i18n.__(
 				'ONLYOFFICE DocSpace cannot be reached.',
 				'onlyoffice-docspace-plugin'

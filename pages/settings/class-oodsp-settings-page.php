@@ -115,8 +115,11 @@ class OODSP_Settings_Page extends OODSP_Base_Page {
 			OODSP_PLUGIN_NAME . $this->menu_slug . '-authorization',
 			'_oodspAuthorization',
 			array(
-				'existSystemUser' => $this->oodsp_settings_manager->exist_system_user(),
-				'docspaceUrl'     => $this->oodsp_settings_manager->get_docspace_url(),
+				'existSystemUser'   => $this->oodsp_settings_manager->exist_system_user(),
+				'docspaceUrl'       => $this->oodsp_settings_manager->get_docspace_url(),
+				'developerToolsUrl' => $this->get_developer_tools_url(
+					$this->oodsp_settings_manager->get_docspace_url()
+				),
 			)
 		);
 	}
@@ -169,9 +172,6 @@ class OODSP_Settings_Page extends OODSP_Base_Page {
 			);
 
 			if ( empty( $allowed_domains ) ) {
-				$docspace_url        = rtrim( $docspace_url, '/' );
-				$developer_tools_url = sprintf( '%s/portal-settings/developer-tools/javascript-sdk', $docspace_url );
-
 				add_settings_error(
 					'general',
 					'settings_updated',
@@ -186,7 +186,7 @@ class OODSP_Settings_Page extends OODSP_Base_Page {
 								),
 							)
 						),
-						'<a href="' . esc_url( $developer_tools_url ) . '" target="_blank">',
+						'<a href="' . esc_url( $this->get_developer_tools_url( $docspace_url ) ) . '" target="_blank">',
 						'</a>'
 					)
 				);
@@ -229,5 +229,16 @@ class OODSP_Settings_Page extends OODSP_Base_Page {
 			esc_html__( 'ONLYOFFICE DocSpace successfully disconnected', 'onlyoffice-docspace-plugin' ),
 			'success'
 		);
+	}
+
+	/**
+	 * Get the Developer Tools URL.
+	 *
+	 * @param string $docspace_url The DocSpace URL.
+	 * @return string The Developer Tools URL.
+	 */
+	private function get_developer_tools_url( $docspace_url ) {
+		$docspace_url = rtrim( $docspace_url, '/' );
+		return sprintf( '%s/portal-settings/developer-tools/javascript-sdk', $docspace_url );
 	}
 }
