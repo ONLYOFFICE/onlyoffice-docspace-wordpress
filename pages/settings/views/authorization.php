@@ -136,4 +136,12 @@ if ( ! empty( $system_user ) && $user->ID === $system_user->get_id() ) {
 	<div id="oodsp-loader" class="notification-dialog-background" style="display: none">
 		<div class="loader"></div>
 	</div>
+	<div hidden>
+		<div
+			id="oodsp-save-system-user-confirm-dialog"
+			title="<?php esc_html_e( 'Warning', 'onlyoffice-docspace-plugin' ); ?>"
+		>
+			<p><?php esc_html_e( 'Do you agree to connect your DocSpace account? The app will use it to perform actions.', 'onlyoffice-docspace-plugin' ); ?></p>
+		</div>
+	</div>
 </div>

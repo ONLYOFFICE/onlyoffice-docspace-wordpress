@@ -18,11 +18,31 @@
 			return false;
 		}
 
-		oodsp.ui.showLoader();
-
 		const userName = loginInput.val();
 		const password = passwordInput.val();
 		const systemUser = systemUserCheckbox.is( ':checked' );
+
+		if ( systemUser && _oodspAuthorization.existSystemUser ) {
+			showConfirmDialog( userName, password, systemUser );
+		} else {
+			handleAuthorization( userName, password, systemUser );
+		}
+	} );
+
+	$( '#oodsp-authorization-logout-button' ).on( 'click', async ( event ) => {
+		event.preventDefault();
+		oodsp.ui.showLoader();
+		oodsp.ui.clearNotices();
+
+		try {
+			await oodsp.client.deleteUser();
+		} finally {
+			window.location.reload();
+		}
+	} );
+
+	const handleAuthorization = ( userName, password, systemUser ) => {
+		oodsp.ui.showLoader();
 
 		DocspaceIntegrationSdk.initScript(
 			'oodsp-api-js',
@@ -40,19 +60,37 @@
 
 				onLoadAppError();
 			} );
-	} );
+	};
 
-	$( '#oodsp-authorization-logout-button' ).on( 'click', async ( event ) => {
-		event.preventDefault();
-		oodsp.ui.showLoader();
-		oodsp.ui.clearNotices();
-
-		try {
-			await oodsp.client.deleteUser();
-		} finally {
-			window.location.reload();
-		}
-	} );
+	const showConfirmDialog = ( userName, password, systemUser ) => {
+		$( '#oodsp-save-system-user-confirm-dialog' ).dialog( {
+			autoOpen: false,
+			modal: true,
+			buttons: [
+				{
+					text: wp.i18n.__(
+						'Continue',
+						'onlyoffice-docspace-plugin'
+					),
+					click: () => {
+						handleAuthorization( userName, password, systemUser );
+						$( '#oodsp-save-system-user-confirm-dialog' ).dialog(
+							'close'
+						);
+					},
+				},
+				{
+					text: wp.i18n.__( 'Cancel', 'onlyoffice-docspace-plugin' ),
+					click: () => {
+						$( '#oodsp-save-system-user-confirm-dialog' ).dialog(
+							'close'
+						);
+					},
+				},
+			],
+		} );
+		$( '#oodsp-save-system-user-confirm-dialog' ).dialog( 'open' );
+	};
 
 	const loginSystemUser = ( userName, password ) => {
 		DocspaceIntegrationSdk.createPasswordHash(
