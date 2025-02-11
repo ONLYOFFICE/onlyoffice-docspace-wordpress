@@ -129,6 +129,7 @@ class OODSP_Plugin {
 		require_once plugin_dir_path( __DIR__ ) . 'pages/main/class-oodsp-main-page.php';
 		require_once plugin_dir_path( __DIR__ ) . 'pages/public-docspace/class-oodsp-public-docspace-page.php';
 		require_once plugin_dir_path( __DIR__ ) . 'pages/settings/class-oodsp-settings-page.php';
+		require_once plugin_dir_path( __DIR__ ) . 'pages/users/class-oodsp-users-page.php';
 	}
 
 	/**
@@ -186,6 +187,11 @@ class OODSP_Plugin {
 		$oodsp_docspace_public_page = new OODSP_Public_DocSpace_Page(
 			$this->oodsp_settings_manager,
 			$this->oodsp_user_service
+		);
+		$oodsp_users_page           = new OODSP_Users_page(
+			$this->oodsp_docspace_client,
+			$this->oodsp_user_service,
+			$this->oodsp_settings_manager,
 		);
 
 		$this->loader->add_action( 'admin_menu', $oodsp_main_page, 'init_menu' );
