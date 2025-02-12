@@ -1,3 +1,13 @@
+.wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace {
+	min-width: 100px;
+	min-height: 100px;
+}
+
+.frame-container {
+	min-width: 100px;
+	min-height: 100px;
+}
+
 .onlyoffice-docspace-block {
 	align-items: center;
 	font-size: 20px;
