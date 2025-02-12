@@ -316,29 +316,41 @@ class OODSP_Docspace_Client {
 			}
 		}
 
+		if ( ! isset( $args['method'] ) ) {
+			$args['method'] = 'GET';
+		}
+
 		$response = wp_remote_request(
 			rtrim( $base_url, '/' ) . $path,
 			$args
 		);
 
 		return $this->handle_response(
+			$args,
 			$response,
 			! empty( $system_user )
 		);
 	}
 
 	/**
-	 * Handles the response from the API call.
+	 * Handles the response from the ONLYOFFICE DocSpace API.
 	 *
-	 * @param mixed $response The response from the API call.
-	 * @param bool  $reset_system_user_on_fail Whether to reset the system user if the request fails.
-	 * @return mixed
-	 * @throws OODSP_Docspace_Client_Exception If the HTTP request fails or the response is invalid.
+	 * @param array $request The original request arguments.
+	 * @param array $response The response from the API.
+	 * @param bool  $reset_system_user_on_fail Whether to reset the system user on failure.
+	 *
+	 * @return array The decoded response data.
+	 *
+	 * @throws OODSP_Docspace_Client_Exception If the request fails or the response is invalid.
 	 */
-	private function handle_response( $response, $reset_system_user_on_fail = false ) {
+	private function handle_response( $request, $response, $reset_system_user_on_fail = false ) {
 		if ( is_wp_error( $response ) ) {
 			throw new OODSP_Docspace_Client_Exception(
-				'HTTP GET request failed: ' . esc_attr( $response->get_error_message() )
+				'HTTP ' . esc_attr( $request['method'] ) . ' request failed: ' . esc_attr( $response->get_error_message() ),
+				// phpcs:ignore WordPress.Security.EscapeOutput
+				$request,
+				// phpcs:ignore WordPress.Security.EscapeOutput
+				$response
 			);
 		}
 
@@ -351,7 +363,12 @@ class OODSP_Docspace_Client {
 		if ( 200 !== $status_code ) {
 			throw new OODSP_Docspace_Client_Exception(
 				'Unexpected HTTP status code: ' . esc_attr( $status_code ),
-				esc_attr( $status_code )
+				// phpcs:ignore WordPress.Security.EscapeOutput
+				$request,
+				// phpcs:ignore WordPress.Security.EscapeOutput
+				$response,
+				// phpcs:ignore WordPress.Security.EscapeOutput
+				$status_code
 			);
 		}
 
@@ -360,7 +377,11 @@ class OODSP_Docspace_Client {
 
 		if ( json_last_error() !== JSON_ERROR_NONE ) {
 			throw new OODSP_Docspace_Client_Exception(
-				'Invalid JSON response: ' . esc_attr( json_last_error_msg() )
+				'Invalid JSON response: ' . esc_attr( json_last_error_msg() ),
+				// phpcs:ignore WordPress.Security.EscapeOutput
+				$request,
+				// phpcs:ignore WordPress.Security.EscapeOutput
+				$response
 			);
 		}
 
