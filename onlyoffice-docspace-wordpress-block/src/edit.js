@@ -168,11 +168,9 @@ const Edit = ({ attributes, setAttributes }) => {
     }
 
     const closeModal = (event) => {
-        if(event._reactName != "onBlur") {
-            setOpen( false );
-            if (DocSpace) {
-                DocSpace.SDK.frames["oodsp-selector-frame"].destroyFrame();
-            }
+        setOpen( false );
+        if (DocSpace) {
+            DocSpace.SDK.frames["oodsp-selector-frame"].destroyFrame();
         }
     }
 
