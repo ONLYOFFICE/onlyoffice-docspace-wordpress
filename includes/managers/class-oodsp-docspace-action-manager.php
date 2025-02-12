@@ -38,6 +38,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
 class OODSP_DocSpace_Action_Manager {
+	private const SHARED_GROUP_NAME = 'WordPress Users (%s)';
+
 	/**
 	 * OODSP_Docspace_Client
 	 *
@@ -97,7 +99,7 @@ class OODSP_DocSpace_Action_Manager {
 
 		if ( empty( $shared_group ) ) {
 			$docspace_group = $this->oodsp_docspace_client->create_group(
-				'WordPress Users(' . get_bloginfo( 'name' ) . ')',
+				sprintf( self::SHARED_GROUP_NAME, get_bloginfo( 'name' ) ),
 				$system_docspace_account->get_id(),
 				$docspace_accounts_ids
 			);
