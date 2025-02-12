@@ -164,6 +164,14 @@ class OODSP_Users_Page {
 			OODSP_VERSION
 		);
 
+		if ( function_exists( 'wp_set_script_translations' ) ) {
+			wp_set_script_translations(
+				OODSP_PLUGIN_NAME . '-users',
+				'onlyoffice-docspace-plugin',
+				plugin_dir_path( OODSP_PLUGIN_FILE ) . 'languages/'
+			);
+		}
+
 		add_action( 'admin_footer', array( $this, 'oodsp_create_docspace_user_confirm_dialog' ), 30 );
 	}
 

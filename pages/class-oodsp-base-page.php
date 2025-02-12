@@ -178,6 +178,14 @@ abstract class OODSP_Base_Page {
 				OODSP_VERSION,
 				true
 			);
+
+			if ( function_exists( 'wp_set_script_translations' ) ) {
+				wp_set_script_translations(
+					OODSP_PLUGIN_NAME . '_' . $this->menu_slug,
+					'onlyoffice-docspace-plugin',
+					plugin_dir_path( OODSP_PLUGIN_FILE ) . 'languages/'
+				);
+			}
 		}
 
 		if ( file_exists( $this->class_path . '/css/index.css' ) ) {
