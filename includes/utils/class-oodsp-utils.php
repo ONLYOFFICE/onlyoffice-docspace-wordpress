@@ -148,6 +148,27 @@ class OODSP_Utils {
 	}
 
 	/**
+	 * Retrieves the base URL of the site.
+	 *
+	 * @return string The base URL of the site.
+	 */
+	public static function get_base_url() {
+		$site_url = site_url();
+
+		$scheme = wp_parse_url( $site_url, PHP_URL_SCHEME );
+		$host   = wp_parse_url( $site_url, PHP_URL_HOST );
+		$port   = wp_parse_url( $site_url, PHP_URL_PORT );
+
+		$base_url = $scheme . '://' . $host;
+
+		if ( ! empty( $port ) ) {
+			$base_url .= ':' . $port;
+		}
+
+		return $base_url;
+	}
+
+	/**
 	 * Get sanitized variable from request.
 	 *
 	 * @param string $var_name      The name of the variable to retrieve.

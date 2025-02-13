@@ -58,7 +58,7 @@
 				);
 				?>
 			</p>
-			<p><b><?php esc_html_e( 'WordPress portal address:', 'onlyoffice-docspace-plugin' ); ?><span> <?php echo esc_html( get_site_url() ); ?></span></b></p>
+			<p><b><?php esc_html_e( 'WordPress portal address:', 'onlyoffice-docspace-plugin' ); ?><span> <?php echo esc_html( OODSP_Utils::get_base_url() ); ?></span></b></p>
 		</div>
 		
 		<form id='oodsp-general-settings-form' action="admin.php?page=onlyoffice-docspace-settings" method="post" autocomplete="off">

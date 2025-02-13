@@ -162,7 +162,7 @@ class OODSP_Settings_Page extends OODSP_Base_Page {
 
 		try {
 			$docspace_csp_settings = $this->oodsp_docspace_client->get_csp_settings( $docspace_url );
-			$site_url              = rtrim( get_site_url(), '/' );
+			$site_url              = rtrim( OODSP_Utils::get_base_url(), '/' );
 
 			$allowed_domains = array_filter(
 				$docspace_csp_settings['domains'],
