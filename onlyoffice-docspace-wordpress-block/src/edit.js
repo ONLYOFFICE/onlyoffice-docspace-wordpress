@@ -35,7 +35,7 @@ import {
     SelectControl
 } from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
-import { blockStyle, onlyofficeIcon } from "./index";
+import { onlyofficeIcon } from "./index";
 import { __ } from '@wordpress/i18n';
 import { getIconByType, getPublicIconByType } from "./icons";
 
@@ -44,6 +44,11 @@ const Edit = ({ attributes, setAttributes }) => {
     const [modalTitle, setModalTitle] = useState();
     const [modalConfig, setModalConfig] = useState( {} );
     const [showDefaultIcon, setShowDefaultIcon] = useState( false );
+
+    const blockStyle = {
+        height: '500px',
+        background: '#a2ccef'
+    };
 
     const themes = [
         {
