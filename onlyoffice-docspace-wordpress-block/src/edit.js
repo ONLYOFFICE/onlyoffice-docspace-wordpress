@@ -176,8 +176,12 @@ const Edit = ({ attributes, setAttributes }) => {
 
     const getAbsoluteUrl = (relativeUrl) => {
         const docSpaceUrl = _oodspMain.docspaceUrl.endsWith( "/" ) ? _oodspMain.docspaceUrl.slice( 0, -1 ) : _oodspMain.docspaceUrl;
-
         let url;
+
+        if ( ! docSpaceUrl || docSpaceUrl === '' ) {
+            return relativeUrl;
+        }
+
         if ( relativeUrl.startsWith( "http://" ) || relativeUrl.startsWith( "https://" ) ) {
             var originRelativeUrl = new URL( relativeUrl ).origin;
             url = new URL( relativeUrl.replace( originRelativeUrl, docSpaceUrl ) );
