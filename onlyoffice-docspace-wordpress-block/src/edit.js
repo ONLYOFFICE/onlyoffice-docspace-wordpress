@@ -68,7 +68,7 @@ const Edit = ({ attributes, setAttributes }) => {
 
     const script = () => {
         if (isOpen) {
-            wp.oodsp.initLoginManager(
+            oodsp.main.loadDocspace(
                 "oodsp-selector-frame",
                 function() {
                     DocSpace.SDK.initFrame(modalConfig);
@@ -157,7 +157,7 @@ const Edit = ({ attributes, setAttributes }) => {
             mode: mode,
             selectorType: "roomsOnly",
             theme: "Base",
-            locale: _oodsp.locale,
+            locale: _oodspMain.locale,
             events: {
                 onSelectCallback: onSelectCallback,
                 onCloseCallback: onCloseCallback,
@@ -174,6 +174,21 @@ const Edit = ({ attributes, setAttributes }) => {
                 DocSpace.SDK.frames["oodsp-selector-frame"].destroyFrame();
             }
         }
+    }
+
+    const getAbsoluteUrl = (relativeUrl) => {
+        const docSpaceUrl = _oodspMain.docspaceUrl.endsWith( "/" ) ? _oodspMain.docspaceUrl.slice( 0, -1 ) : _oodspMain.docspaceUrl;
+
+        let url;
+        if ( relativeUrl.startsWith( "http://" ) || relativeUrl.startsWith( "https://" ) ) {
+            var originRelativeUrl = new URL( relativeUrl ).origin;
+            url = new URL( relativeUrl.replace( originRelativeUrl, docSpaceUrl ) );
+        } else {
+            url = new URL( docSpaceUrl );
+            url.pathname = relativeUrl
+        }
+
+        return url.toString();
     }
 
     if (attributes.hasOwnProperty('width') && attributes.width.length > 0) {
@@ -238,7 +253,7 @@ const Edit = ({ attributes, setAttributes }) => {
                                     <div class="entity-icon">
                                         {
                                             attributes.icon && !showDefaultIcon ? 
-                                                <img src={ wp.oodsp.getAbsoluteUrl(attributes.icon) } onError={() => { setShowDefaultIcon( true ) }} />
+                                                <img src={ getAbsoluteUrl(attributes.icon) } onError={() => { setShowDefaultIcon( true ) }} />
                                                 :
                                                 <>{entityIcon}</>
                                         }

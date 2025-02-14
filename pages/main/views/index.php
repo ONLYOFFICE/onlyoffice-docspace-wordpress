@@ -1,12 +1,9 @@
 <?php
 /**
- * Fired during plugin deactivation.
+ * ONLYOFFICE DocSpace Main Page View.
  *
- * @link       https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress
- * @since      1.0.0
- *
- * @package    Onlyoffice_Docspace_Wordpress
- * @subpackage Onlyoffice_Docspace_Wordpress/includes
+ * @package Onlyoffice_Docspace_Wordpress
+ * @subpackage Onlyoffice_Docspace_Wordpress/pages/main/view
  */
 
 /**
@@ -28,30 +25,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+?>
 
-/**
- * Fired during plugin deactivation.
- *
- * This class defines all code necessary to run during the plugin's deactivation.
- *
- * @package    Onlyoffice_Docspace_Wordpress
- * @subpackage Onlyoffice_Docspace_Wordpress/includes
- * @author     Ascensio System SIA <integration@onlyoffice.com>
- */
-class OODSP_Deactivator {
-
-	/**
-	 * Set defaults on deactivation.
-	 *
-	 * @since    1.0.0
-	 */
-	public static function deactivate() { }
-
-	/**
-	 * Set defaults on unistall.
-	 */
-	public static function uninstall() { }
-}
+<div class="wrap"> 
+	<div class="ds-frame" style="height: calc(100vh - 65px - 32px);">
+		<div id="oodsp-manager-frame"></div>
+	</div>
+</div>

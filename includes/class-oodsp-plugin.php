@@ -55,28 +55,31 @@ class OODSP_Plugin {
 	 * the plugin.
 	 *
 	 * @since    1.0.0
-	 * @access   protected
-	 * @var      OODSP_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @access   private
+	 * @var OODSP_Loader $loader    Maintains and registers all hooks for the plugin.
 	 */
-	protected $loader;
+	private $loader;
 
 	/**
-	 * The unique identifier of this plugin.
+	 * OODSP_Docspace_Client
 	 *
-	 * @since    1.0.0
-	 * @access   protected
-	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
+	 * @var OODSP_Docspace_Client $oodsp_docspace_client
 	 */
-	protected $plugin_name;
+	private OODSP_Docspace_Client $oodsp_docspace_client;
 
 	/**
-	 * The current version of the plugin.
+	 * OODSP_User_Service
 	 *
-	 * @since    1.0.0
-	 * @access   protected
-	 * @var      string    $version    The current version of the plugin.
+	 * @var OODSP_User_Service $oodsp_user_service
 	 */
-	protected $version;
+	private OODSP_User_Service $oodsp_user_service;
+
+	/**
+	 * OODSP_Settings_Manager
+	 *
+	 * @var OODSP_Settings_Manager $oodsp_settings_manager
+	 */
+	private OODSP_Settings_Manager $oodsp_settings_manager;
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -88,13 +91,16 @@ class OODSP_Plugin {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		$this->version     = OODSP_VERSION;
-		$this->plugin_name = OODSP_PLUGIN_NAME;
-
 		$this->load_dependencies();
+
+		$this->loader                 = new OODSP_Loader();
+		$this->oodsp_settings_manager = new OODSP_Settings_Manager();
+		$this->oodsp_user_service     = new OODSP_User_Service();
+		$this->oodsp_docspace_client  = new OODSP_Docspace_Client( $this->oodsp_settings_manager );
+
 		$this->set_locale();
-		$this->define_admin_hooks();
-		$this->define_public_hooks();
+		$this->register_resources();
+		$this->define_hooks();
 	}
 
 	/**
@@ -107,19 +113,22 @@ class OODSP_Plugin {
 	 * @access   private
 	 */
 	private function load_dependencies() {
-		require_once plugin_dir_path( __DIR__ ) . 'admin/settings/class-oodsp-settings.php';
-		require_once plugin_dir_path( __DIR__ ) . 'admin/class-oodsp-docspace.php';
-		require_once plugin_dir_path( __DIR__ ) . 'admin/class-oodsp-ajax.php';
-		require_once plugin_dir_path( __DIR__ ) . 'includes/managers/class-oodsp-docspace-action-manager.php';
-		require_once plugin_dir_path( __DIR__ ) . 'includes/managers/class-oodsp-request-manager.php';
-		require_once plugin_dir_path( __DIR__ ) . 'includes/managers/class-oodsp-security-manager.php';
+		require_once plugin_dir_path( __DIR__ ) . 'controller/class-oodsp-user-controller.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/client/class-oodsp-docspace-client.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/exception/class-oodsp-docspace-client-exception.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/managers/class-oodsp-settings-manager.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/model/class-oodsp-docspace-account.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/model/class-oodsp-system-user.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/resources/templates/class-oodsp-templates.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/resources/class-oodsp-resource-registry.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/service/class-oodsp-user-service.php';
 		require_once plugin_dir_path( __DIR__ ) . 'includes/utils/class-oodsp-utils.php';
-		require_once plugin_dir_path( __DIR__ ) . 'includes/users/class-oodsp-users-list-table.php';
 		require_once plugin_dir_path( __DIR__ ) . 'includes/class-oodsp-i18n.php';
 		require_once plugin_dir_path( __DIR__ ) . 'includes/class-oodsp-loader.php';
-		require_once plugin_dir_path( __DIR__ ) . 'public/class-oodsp-public-docspace.php';
-
-		$this->loader = new OODSP_Loader();
+		require_once plugin_dir_path( __DIR__ ) . 'pages/class-oodsp-base-page.php';
+		require_once plugin_dir_path( __DIR__ ) . 'pages/main/class-oodsp-main-page.php';
+		require_once plugin_dir_path( __DIR__ ) . 'pages/public-docspace/class-oodsp-public-docspace-page.php';
+		require_once plugin_dir_path( __DIR__ ) . 'pages/settings/class-oodsp-settings-page.php';
 	}
 
 	/**
@@ -132,58 +141,68 @@ class OODSP_Plugin {
 	 * @access   private
 	 */
 	private function set_locale() {
-
 		$plugin_i18n = new OODSP_I18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 	}
 
 	/**
-	 * Register all of the hooks related to the admin area functionality
-	 * of the plugin.
+	 * Register resources for the plugin.
 	 *
-	 * @since    1.0.0
-	 * @access   private
+	 * This method initializes and registers the resource registry,
+	 * which handles the registration of scripts, styles, and other assets
+	 * required for the plugin's functionality.
+	 *
+	 * @access private
+	 * @return void
 	 */
-	private function define_admin_hooks() {
-		$plugin_docspace = new OODSP_DocSpace();
-
-		$this->loader->add_action( 'admin_menu', $plugin_docspace, 'init_menu' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_docspace, 'enqueue_scripts' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_docspace, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_footer', $plugin_docspace, 'docspace_login_template', 30 );
-
-		$plugin_settings = new OODSP_Settings();
-
-		add_filter(
-			'set-screen-option',
-			function ( $status, $option, $value ) {
-				return ( 'docspace_page_onlyoffice_docspace_settings_per_page' === $option ) ? (int) $value : $status;
-			},
-			10,
-			3
+	private function register_resources() {
+		$oodsp_resource_registry = new OODSP_Resource_Registry(
+			$this->oodsp_user_service,
+			$this->oodsp_settings_manager
 		);
 
-		$this->loader->add_action( 'admin_menu', $plugin_settings, 'init_menu' );
-		$this->loader->add_action( 'admin_init', $plugin_settings, 'init' );
-
-		$plugin_ajax = new OODSP_Ajax();
-		$this->loader->add_action( 'wp_ajax_oodsp_credentials', $plugin_ajax, 'oodsp_credentials' );
-		$this->loader->add_action( 'wp_ajax_nopriv_oodsp_credentials', $plugin_ajax, 'no_priv_oodsp_credentials' );
+		$this->loader->add_action( 'init', $oodsp_resource_registry, 'register_resources' );
 	}
 
 	/**
-	 * Register all of the hooks related to the public-facing functionality
-	 * of the plugin.
+	 * Define the hooks for the plugin.
 	 *
-	 * @since    1.0.0
+	 * This method sets up various hooks for admin and public functionality.
+	 *
 	 * @access   private
 	 */
-	private function define_public_hooks() {
-		$plugin_public_docspace = new OODSP_Public_DocSpace();
+	private function define_hooks() {
+		$oodsp_main_page            = new OODSP_Main_Page(
+			$this->oodsp_docspace_client,
+			$this->oodsp_user_service,
+			$this->oodsp_settings_manager,
+		);
+		$oodsp_settings_page        = new OODSP_Settings_Page(
+			$this->oodsp_settings_manager,
+			$this->oodsp_docspace_client,
+			$this->oodsp_user_service
+		);
+		$oodsp_docspace_public_page = new OODSP_Public_DocSpace_Page(
+			$this->oodsp_settings_manager,
+			$this->oodsp_user_service
+		);
 
-		$this->loader->add_action( 'init', $plugin_public_docspace, 'init_shortcodes' );
-		$this->loader->add_action( 'init', $plugin_public_docspace, 'onlyoffice_custom_block' );
+		$this->loader->add_action( 'admin_menu', $oodsp_main_page, 'init_menu' );
+		$this->loader->add_action( 'admin_menu', $oodsp_settings_page, 'init_menu' );
+		$this->loader->add_action( 'init', $oodsp_docspace_public_page, 'init_shortcode' );
+		$this->loader->add_action( 'init', $oodsp_docspace_public_page, 'init_block' );
+
+		$oodsp_user_controller = new OODSP_User_Controller(
+			$this->oodsp_docspace_client,
+			$this->oodsp_user_service,
+			$this->oodsp_settings_manager
+		);
+
+		$this->loader->add_action( 'wp_ajax_oodsp_get_user', $oodsp_user_controller, 'get_user' );
+		$this->loader->add_action( 'wp_ajax_oodsp_set_user', $oodsp_user_controller, 'set_user' );
+		$this->loader->add_action( 'wp_ajax_oodsp_set_system_user', $oodsp_user_controller, 'set_system_user' );
+		$this->loader->add_action( 'wp_ajax_oodsp_delete_user', $oodsp_user_controller, 'delete_user' );
 	}
 
 	/**
@@ -193,36 +212,5 @@ class OODSP_Plugin {
 	 */
 	public function run() {
 		$this->loader->run();
-	}
-
-	/**
-	 * The name of the plugin used to uniquely identify it within the context of
-	 * WordPress and to define internationalization functionality.
-	 *
-	 * @since     1.0.0
-	 * @return    string    The name of the plugin.
-	 */
-	public function get_plugin_name() {
-		return $this->plugin_name;
-	}
-
-	/**
-	 * The reference to the class that orchestrates the hooks with the plugin.
-	 *
-	 * @since     1.0.0
-	 * @return    OODSP_Loader    Orchestrates the hooks of the plugin.
-	 */
-	public function get_loader() {
-		return $this->loader;
-	}
-
-	/**
-	 * Retrieve the version number of the plugin.
-	 *
-	 * @since     1.0.0
-	 * @return    string    The version number of the plugin.
-	 */
-	public function get_version() {
-		return $this->version;
 	}
 }

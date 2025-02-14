@@ -1,12 +1,9 @@
 <?php
 /**
- * Fired during plugin deactivation.
- *
- * @link       https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress
- * @since      1.0.0
+ * OODSP Docspace Client Exception
  *
  * @package    Onlyoffice_Docspace_Wordpress
- * @subpackage Onlyoffice_Docspace_Wordpress/includes
+ * @subpackage Onlyoffice_Docspace_Wordpress/includes/exception
  */
 
 /**
@@ -33,25 +30,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Fired during plugin deactivation.
+ * Class OODSP_Docspace_Client_Exception
  *
- * This class defines all code necessary to run during the plugin's deactivation.
+ * This class represents an exception specific to the ONLYOFFICE Docspace client.
+ * It extends the built-in RuntimeException class to provide additional context
+ * and functionality for handling errors related to the ONLYOFFICE Docspace client.
  *
- * @package    Onlyoffice_Docspace_Wordpress
- * @subpackage Onlyoffice_Docspace_Wordpress/includes
- * @author     Ascensio System SIA <integration@onlyoffice.com>
+ * @package Onlyoffice_Docspace_Wordpress
  */
-class OODSP_Deactivator {
+class OODSP_Docspace_Client_Exception extends RuntimeException {
 
 	/**
-	 * Set defaults on deactivation.
+	 * Prints the stack trace of the exception.
 	 *
-	 * @since    1.0.0
+	 * This method outputs the stack trace of the current exception instance.
+	 *
+	 * @return void
 	 */
-	public static function deactivate() { }
-
-	/**
-	 * Set defaults on unistall.
-	 */
-	public static function uninstall() { }
+	public function printStackTrace() {
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+			error_log( $this->__tostring() );
+		}
+	}
 }
