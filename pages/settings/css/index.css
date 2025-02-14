@@ -48,6 +48,15 @@
 	margin: 5px 0 15px;
 }
 
+.oodsp-notice-section .oodsp-notice-section-content {
+	display: flex;
+	flex-direction: row;
+}
+
+.oodsp-notice-section .oodsp-notice-section-alert {
+	margin: 1em 1em 0 0;
+}
+
 .oodsp-white-frame {
 	background-color: #fff;
 	border: 1px solid #bbbcbf;

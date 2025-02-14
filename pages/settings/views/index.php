@@ -45,20 +45,27 @@
 			class="oodsp-notice-section"
 			<?php echo ! empty( $this->oodsp_settings_manager->get_docspace_url() ) ? 'hidden' : ''; ?>
 		>
-			<p><b><?php esc_html_e( 'Check the CSP settings', 'onlyoffice-docspace-plugin' ); ?></b></p>
-			<p>
-				<?php
-				echo wp_kses(
-					__( 'Before connecting the app, please go to the <b>DocSpace Settings - Developer tools - JavaScript SDK</b> and add the following credentials to the allow list:', 'onlyoffice-docspace-plugin' ),
-					array(
-						'b' => array(
-							'class' => array(),
-						),
-					)
-				);
-				?>
-			</p>
-			<p><b><?php esc_html_e( 'WordPress portal address:', 'onlyoffice-docspace-plugin' ); ?><span> <?php echo esc_html( OODSP_Utils::get_base_url() ); ?></span></b></p>
+			<div class="oodsp-notice-section-content">
+				<div class="oodsp-notice-section-alert">
+					<img src="<?php echo esc_url( OODSP_PLUGIN_URL . 'includes/resources/images/alert-blue.svg' ); ?>" >
+				</div>
+				<div>
+					<p><b><?php esc_html_e( 'Check the CSP settings', 'onlyoffice-docspace-plugin' ); ?></b></p>
+					<p>
+						<?php
+						echo wp_kses(
+							__( 'Before connecting the plugin, please go to the <b>DocSpace Settings - Developer tools - JavaScript SDK</b> and add your WordPress address to the allow list:', 'onlyoffice-docspace-plugin' ),
+							array(
+								'b' => array(
+									'class' => array(),
+								),
+							)
+						);
+						?>
+					</p>
+					<p><b><?php esc_html_e( 'WordPress portal address:', 'onlyoffice-docspace-plugin' ); ?><span> <?php echo esc_html( OODSP_Utils::get_base_url() ); ?></span></b></p>
+				</div>
+			</div>
 		</div>
 		
 		<form id='oodsp-general-settings-form' action="admin.php?page=onlyoffice-docspace-settings" method="post" autocomplete="off">
