@@ -151,7 +151,7 @@ class OODSP_Settings_Page extends OODSP_Base_Page {
 		$docspace_url = trim(
 			OODSP_Utils::get_var_from_request(
 				'docspace_url',
-				'sanitize_url',
+				'sanitize_text_field',
 				''
 			)
 		);
