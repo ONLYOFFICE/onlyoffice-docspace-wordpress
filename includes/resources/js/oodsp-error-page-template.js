@@ -10,13 +10,18 @@ window.wp = window.wp || {};
 
 	oodsp.templates.docspaceUnavailable = ( frameId ) => {
 		const errorTemplate = wp.template( 'oodsp-error' );
+		let showLogo = true;
+
+		if (
+			$( '#' + frameId ).parents( '.oodsp-selector-frame-modal' ).length
+		) {
+			showLogo = false;
+		}
 
 		$( '#' + frameId ).html(
 			errorTemplate( {
-				header: __(
-					'Not yet available',
-					'onlyoffice-docspace-wordpress'
-				),
+				showLogo,
+				header: __( 'Not yet available', 'onlyoffice-docspace-plugin' ),
 				message: _oodspTemplates.isAdmin
 					? wp.i18n.sprintf(
 							/* translators: %1$s: opening link tag, %2$s: closing link tag */
@@ -62,6 +67,7 @@ window.wp = window.wp || {};
 
 		$( '#' + frameId ).html(
 			errorTemplate( {
+				showLogo: true,
 				header: _oodspTemplates.isAnonymous
 					? __(
 							'Authorization unsuccessful!',
