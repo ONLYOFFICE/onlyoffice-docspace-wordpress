@@ -41,6 +41,7 @@ import { getIconByType, getPublicIconByType } from "./icons";
 
 const Edit = ({ attributes, setAttributes }) => {
     const [isOpen, setOpen] = useState( false );
+    const [modalTitle, setModalTitle] = useState();
     const [modalConfig, setModalConfig] = useState( {} );
     const [showDefaultIcon, setShowDefaultIcon] = useState( false );
 
@@ -149,9 +150,9 @@ const Edit = ({ attributes, setAttributes }) => {
                 break;
         }
 
+        setModalTitle( __("ONLYOFFICE DocSpace", "onlyoffice-docspace-plugin") );
         setModalConfig ({
             frameId: "oodsp-selector-frame",
-            title: event.target.dataset.title || "",
             width: "100%",
             height: "100%",
             mode: mode,
@@ -159,6 +160,9 @@ const Edit = ({ attributes, setAttributes }) => {
             theme: "Base",
             locale: _oodspMain.locale,
             events: {
+                onAppReady: () => {
+                    setModalTitle( event.target.dataset.title || "" );
+                },
                 onSelectCallback: onSelectCallback,
                 onCloseCallback: onCloseCallback,
             }
@@ -339,7 +343,7 @@ const Edit = ({ attributes, setAttributes }) => {
                 </>
             }
             { isOpen && (
-                <Modal onRequestClose={ closeModal } title={ modalConfig.title } >
+                <Modal onRequestClose={ closeModal } title={ modalTitle } >
                     <div class="oodsp-selector-frame-modal">
                         <div id="oodsp-selector-frame"></div>
                     </div>
