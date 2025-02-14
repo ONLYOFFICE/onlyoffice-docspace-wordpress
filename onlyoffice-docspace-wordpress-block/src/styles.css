@@ -30,6 +30,12 @@
     height: 100%;
 }
 
+@media (min-width: 960px) {
+    .components-modal__frame {
+        max-height: calc(100% - 120px);
+    }
+}
+
 .oodsp-selector-frame-modal {
     display: flex;
     vertical-align: middle;
