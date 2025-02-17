@@ -43,6 +43,52 @@ class OODSP_User_Service {
 
 
 	/**
+	 * Retrieves all DocSpace accounts, optionally including empty accounts.
+	 *
+	 * This function queries the database for user metadata to find all users
+	 * with DocSpace accounts. If $return_empty is set to true, it also includes
+	 * users without DocSpace accounts.
+	 *
+	 * @param bool $return_empty Whether to include users without DocSpace accounts.
+	 * @return array An associative array of user IDs and their DocSpace accounts.
+	 */
+	public function get_all_docspace_accounts( $return_empty = false ) {
+		$args = array(
+			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+			'meta_query' => array(
+				array(
+					'key'     => self::META_KEY,
+					'compare' => 'EXISTS',
+				),
+			),
+			'fields'     => array( 'ID' ),
+		);
+
+		if ( $return_empty ) {
+			$args['meta_query']['relation'] = 'OR';
+			array_push(
+				$args['meta_query'],
+				array(
+					'key'     => self::META_KEY,
+					'compare' => 'NOT EXISTS',
+				)
+			);
+		}
+
+		$user_query = new WP_User_Query( $args );
+		$users      = $user_query->get_results();
+
+		$docspace_accounts = array();
+		if ( ! empty( $users ) ) {
+			foreach ( $users as $user ) {
+				$docspace_accounts[ $user->ID ] = self::get_docspace_account( $user->ID );
+			}
+		}
+
+		return $docspace_accounts;
+	}
+
+	/**
 	 * Retrieves a DocSpace account associated with a user.
 	 *
 	 * @param int $user_id The user ID.

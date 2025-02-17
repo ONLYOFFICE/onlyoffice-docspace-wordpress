@@ -8,6 +8,7 @@
 - setting System User
 
 ## Changed
+- export functionality to DocSpace has been moved to the main Users page
 - export users from wordpress to docspace with role User (rename User to Guest, PowerUser to User)
 - error stubs (unavailable, unauthorized)
 - settings page design

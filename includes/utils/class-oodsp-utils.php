@@ -95,6 +95,59 @@ class OODSP_Utils {
 	}
 
 	/**
+	 * Generates a random DocSpace password hash.
+	 *
+	 * @param array $hash_settings An array containing hash settings (salt, iterations, size).
+	 * @return string The generated password hash.
+	 */
+	public static function generate_random_docspace_password_hash( $hash_settings ) {
+		$password = wp_generate_password(
+			16,
+			true,
+			false
+		);
+
+		$bits = hash_pbkdf2(
+			'sha256',
+			$password,
+			$hash_settings['salt'],
+			$hash_settings['iterations'],
+			$hash_settings['size'] / 8,
+			true
+		);
+
+		return bin2hex( $bits );
+	}
+
+	/**
+	 * Extracts DocSpace user data from a WordPress user object.
+	 *
+	 * @param WP_User $user WordPress user object.
+	 * @return array An array containing email, first name, and last name.
+	 */
+	public static function get_docspace_user_data_from_wp_user( $user ) {
+		$email      = $user->user_email;
+		$login      = $user->user_login;
+		$first_name = preg_replace( '/[^\p{L}\p{M} \-]/u', '-', $user->first_name );
+		$last_name  = preg_replace( '/[^\p{L}\p{M} \-]/u', '-', $user->last_name );
+
+		if ( $first_name && ! $last_name ) {
+			$last_name = $first_name;
+		}
+
+		if ( ! $first_name && $last_name ) {
+			$first_name = $last_name;
+		}
+
+		if ( ! $first_name && ! $last_name ) {
+			$first_name = preg_replace( '/[^\p{L}\p{M} \-]/u', '-', $login );
+			$last_name  = $first_name;
+		}
+
+		return array( $email, $first_name, $last_name );
+	}
+
+	/**
 	 * Get sanitized variable from request.
 	 *
 	 * @param string $var_name      The name of the variable to retrieve.
