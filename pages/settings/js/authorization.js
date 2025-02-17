@@ -10,6 +10,30 @@
 	const passwordInput = $( 'input[name="docspace-password"]' );
 	const systemUserCheckbox = jQuery( 'input[name="docspace-system-user"]' );
 
+	const currentUrl = new URL( window.location.href );
+	if ( currentUrl.searchParams.get( 'save_docspace_user' ) ) {
+		const wpAdminCanonical =
+			document.getElementById( 'wp-admin-canonical' ).href;
+		const wpAdminCanonicalUrl = new URL( wpAdminCanonical );
+
+		wpAdminCanonicalUrl.searchParams.delete( 'save_docspace_user' );
+
+		window.history.replaceState(
+			null,
+			null,
+			wpAdminCanonicalUrl.href + window.location.hash
+		);
+
+		oodsp.ui.addNotice(
+			'oodsp-authorization-notice',
+			wp.i18n.__(
+				'Successful authorization. Settings saved.',
+				'onlyoffice-docspace-plugin'
+			),
+			'success'
+		);
+	}
+
 	$( '#oodsp-authorization-login-button' ).on( 'click', function ( event ) {
 		event.preventDefault();
 		oodsp.ui.clearNotices();
@@ -100,7 +124,11 @@
 				try {
 					await oodsp.client.postSystemUser( userName, passwordHash );
 
-					window.location.reload();
+					currentUrl.searchParams.append(
+						'save_docspace_user',
+						true
+					);
+					window.location.href = currentUrl.href;
 				} catch ( e ) {
 					oodsp.ui.hideLoader();
 
@@ -133,7 +161,11 @@
 						passwordHash
 					);
 
-					window.location.reload();
+					currentUrl.searchParams.append(
+						'save_docspace_user',
+						true
+					);
+					window.location.href = currentUrl.href;
 				} catch ( e ) {
 					oodsp.ui.hideLoader();
 
