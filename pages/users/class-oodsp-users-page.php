@@ -325,7 +325,7 @@ class OODSP_Users_Page {
 		$error_count       = 0;
 		$docspace_accounts = array();
 		foreach ( $user_ids as $user_id ) {
-			$user             = get_user( $user_id );
+			$user             = get_userdata( $user_id );
 			$docspace_account = $this->oodsp_user_service->get_docspace_account( $user_id );
 			if ( ! empty( $docspace_account ) ) {
 				++$skipped_count;
