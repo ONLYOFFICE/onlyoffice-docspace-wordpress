@@ -102,6 +102,7 @@
 							'close'
 						);
 					},
+					class: 'ok',
 				},
 				{
 					text: wp.i18n.__( 'Cancel', 'onlyoffice-docspace-plugin' ),
@@ -110,6 +111,7 @@
 							'close'
 						);
 					},
+					class: 'cancel',
 				},
 			],
 		} );
