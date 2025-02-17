@@ -91,6 +91,7 @@ if ( ! empty( $system_user ) && $user->ID === $system_user->get_id() ) {
 						</div
 					</td>
 				</tr>
+				<?php if ( empty( $docspace_account ) || $is_system_user ) { ?>
 				<tr class="form-field">
 					<th scope="row"></th>
 					<td>
@@ -110,6 +111,7 @@ if ( ! empty( $system_user ) && $user->ID === $system_user->get_id() ) {
 						</fieldset>
 					</td>
 				</tr>
+				<?php } ?>
 			</tbody>
 		</table>
 		<p <?php echo ! empty( $docspace_account ) ? 'hidden' : ''; ?> >	
