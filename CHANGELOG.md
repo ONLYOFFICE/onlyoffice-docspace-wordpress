@@ -2,8 +2,10 @@
 
 ##
 ## Added
-- creating shared group WordPress Users after connecting DocSpace
+- creating shared group WordPress Users after login System User
+- inviting to shared group users which authorize in plugin
 - inviting created through the plugin users to shared group WordPress Users
+- exclude from the shared group after logout
 
 ## Changed
 - export users from wordpress to docspace with role User (rename User to Guest, PowerUser to User)
