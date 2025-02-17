@@ -6,6 +6,7 @@
 - inviting created through the plugin users to shared group WordPress Users
 
 ## Changed
+- export functionality to DocSpace has been moved to the main Users page
 - export users from wordpress to docspace with role User (rename User to Guest, PowerUser to User)
 - error stubs (unavailable, unauthorized)
 - settings page design
