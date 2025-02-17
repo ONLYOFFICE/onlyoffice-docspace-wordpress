@@ -214,6 +214,7 @@ class OODSP_Users_Page {
 			return;
 		}
 
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$order = isset( $_GET['order'] ) && 'desc' === $_GET['order'] ? 'DESC' : 'ASC';
 
 		$docspace_accounts = $this->oodsp_user_service->get_all_docspace_accounts( true );
@@ -439,10 +440,13 @@ class OODSP_Users_Page {
 	 * of the bulk action to create DocSpace users.
 	 */
 	public function create_docspace_user_bulk_action_admin_notice() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( ! empty( $_GET['update'] ) ) {
 			$messages = array();
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			switch ( $_GET['update'] ) {
 				case 'create_docspace_user':
+					// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 					if ( ! empty( $_GET['create_count'] ) ) {
 						$messages[] = wp_get_admin_notice(
 							__( 'DocSpace users updated successfully.', 'onlyoffice-docspace-plugin' ),
@@ -454,6 +458,7 @@ class OODSP_Users_Page {
 						);
 					}
 
+					// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 					if ( ! empty( $_GET['skipped_count'] ) ) {
 						$messages[] = wp_get_admin_notice(
 							__( 'DocSpace users skiped successfully.', 'onlyoffice-docspace-plugin' ),
@@ -465,6 +470,7 @@ class OODSP_Users_Page {
 						);
 					}
 
+					// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 					if ( ! empty( $_GET['error_count'] ) ) {
 						$messages[] = wp_get_admin_notice(
 							__( 'DocSpace users error.', 'onlyoffice-docspace-plugin' ),
