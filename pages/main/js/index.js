@@ -11,6 +11,7 @@
 	};
 
 	const showDocspace = ( config ) => {
+		config.src = DocSpace.SDK.src;
 		DocSpace.SDK.initManager( Object.assign( defaultConfig, config ) );
 	};
 

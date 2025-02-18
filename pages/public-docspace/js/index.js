@@ -77,6 +77,7 @@
 					} else {
 						DocSpace.SDK.initSystem( {
 							frameId: oodspConfigs[ i ].frameId,
+							src: DocSpace.SDK.src,
 							width: '100%',
 							height: '100%',
 							waiting: true,
@@ -109,6 +110,8 @@
 
 				continue;
 			}
+
+			config.src = DocSpace.SDK.src;
 
 			DocSpace.SDK.frames[ config.frameId ].initFrame( config );
 		}

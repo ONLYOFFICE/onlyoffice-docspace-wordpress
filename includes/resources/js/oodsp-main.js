@@ -60,7 +60,10 @@
 
 		const onSignOut = async () => {
 			await DocSpace.SDK.frames[ frameId ].destroyFrame();
-			await DocSpace.SDK.initSystem( { frameId } );
+			await DocSpace.SDK.initSystem( {
+				frameId,
+				src: DocSpace.SDK.src,
+			} );
 			await oodsp.client.deleteUser();
 			await DocSpace.SDK.frames[ frameId ].destroyFrame();
 

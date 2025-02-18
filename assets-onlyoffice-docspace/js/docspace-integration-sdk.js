@@ -66,6 +66,7 @@
     const createPasswordHash = function (frameId, password, onSuccess, onAppError) {
         DocSpace.SDK.initSystem({
             frameId: frameId,
+            src: DocSpace.SDK.src,
             events: {
                 "onAppReady": async function () {
                     const hashSettings = await DocSpace.SDK.frames[frameId].getHashSettings();
@@ -105,6 +106,7 @@
     const loginByPasswordHash = function (frameId, email, onRequestPasswordHash, onSuccessLogin, onUnSuccessLogin, onAppError, reauthorize = false) {
         DocSpace.SDK.initSystem({
             frameId: frameId,
+            src: DocSpace.SDK.src,
             width: "100%",
             height: "100%",
             events: {
@@ -150,6 +152,7 @@
     const logout = function (frameId, onLogout, onAppError) {
         DocSpace.SDK.initSystem({
             frameId: frameId,
+            src: DocSpace.SDK.src,
             width: "100%",
             height: "100%",
             events: {
@@ -185,6 +188,7 @@
         script.onload = () => {
             // Remove attribute loading after loading is complete.
             script.removeAttribute("loading");
+            DocSpace.SDK.src = url
             resolve(null);
         };
         script.onerror = (error) => {
