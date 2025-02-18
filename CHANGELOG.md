@@ -2,10 +2,13 @@
 
 ##
 ## Added
-- creating shared group WordPress Users after connecting DocSpace
-- inviting created through the plugin users to shared group WordPress Users
 - Disconnect button in connection settings
 - setting System User
+- creating shared group WordPress Users after connecting DocSpace
+- creating shared group WordPress Users after login System User
+- inviting to shared group users which authorize in plugin
+- inviting created through the plugin users to shared group WordPress Users
+- exclude from the shared group after logout
 
 ## Changed
 - export functionality to DocSpace has been moved to the main Users page

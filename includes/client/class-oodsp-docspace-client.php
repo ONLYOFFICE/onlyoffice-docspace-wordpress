@@ -122,11 +122,9 @@ class OODSP_Docspace_Client {
 
 	/**
 	 * Logs out the user.
-	 *
-	 * @return array The response data.
 	 */
 	public function logout() {
-		$response = $this->request(
+		$this->request(
 			'/api/2.0/authentication/logout',
 			array(
 				'method'  => 'POST',
@@ -135,8 +133,6 @@ class OODSP_Docspace_Client {
 				),
 			)
 		);
-
-		return $response['response'];
 	}
 
 	/**
@@ -220,6 +216,80 @@ class OODSP_Docspace_Client {
 	}
 
 	/**
+	 * Creates a new group in ONLYOFFICE DocSpace.
+	 *
+	 * @param string $group_name    The name of the new group.
+	 * @param string $group_manager The ID of the group manager.
+	 * @param array  $members       Array of user IDs to be added as members.
+	 *
+	 * @return array The response data from the group creation request.
+	 */
+	public function create_group( $group_name, $group_manager, $members ) {
+		$response = $this->request(
+			'/api/2.0/group',
+			array(
+				'method'  => 'POST',
+				'headers' => array(
+					'Content-Type' => 'application/json; charset=utf-8',
+				),
+				'body'    => wp_json_encode(
+					array(
+						'groupName'    => $group_name,
+						'groupManager' => $group_manager,
+						'members'      => $members,
+					)
+				),
+			)
+		);
+
+		return $response['response'];
+	}
+
+	/**
+	 * Updates an existing group in ONLYOFFICE DocSpace.
+	 *
+	 * @param string $group_id         The ID of the group to update.
+	 * @param string $group_name       The new name for the group (optional).
+	 * @param string $group_manager    The ID of the new group manager (optional).
+	 * @param array  $members_to_add   Array of user IDs to add to the group (optional).
+	 * @param array  $members_to_remove Array of user IDs to remove from the group (optional).
+	 *
+	 * @return array The response data from the group update request.
+	 */
+	public function update_group( $group_id, $group_name, $group_manager, $members_to_add, $members_to_remove ) {
+		$body = array();
+
+		if ( ! empty( $group_name ) ) {
+			$body['groupName'] = $group_name;
+		}
+
+		if ( ! empty( $group_manager ) ) {
+			$body['groupManager'] = $group_manager;
+		}
+
+		if ( ! empty( $members_to_add ) ) {
+			$body['membersToAdd'] = $members_to_add;
+		}
+
+		if ( ! empty( $members_to_remove ) ) {
+			$body['membersToRemove'] = $members_to_remove;
+		}
+
+		$response = $this->request(
+			'/api/2.0/group/' . $group_id,
+			array(
+				'method'  => 'PUT',
+				'headers' => array(
+					'Content-Type' => 'application/json; charset=utf-8',
+				),
+				'body'    => wp_json_encode( $body ),
+			)
+		);
+
+		return $response['response'];
+	}
+
+	/**
 	 * Makes a request to the ONLYOFFICE DocSpace API.
 	 *
 	 * @param string $path The path to the API endpoint.
@@ -278,7 +348,8 @@ class OODSP_Docspace_Client {
 
 		if ( 200 !== $status_code ) {
 			throw new OODSP_Docspace_Client_Exception(
-				'Unexpected HTTP status code:' . esc_attr( $status_code )
+				'Unexpected HTTP status code: ' . esc_attr( $status_code ),
+				esc_attr( $status_code )
 			);
 		}
 
