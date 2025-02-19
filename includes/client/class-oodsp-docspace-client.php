@@ -309,9 +309,11 @@ class OODSP_Docspace_Client {
 		if ( ! $this->exist_asc_auth_key( $args ) && $use_system_user_authorization ) {
 			$system_user = $this->oodsp_settings_manager->get_system_user();
 
-			$args['cookies'] = array(
-				'asc_auth_key' => $system_user->get_token(),
-			);
+			if ( ! empty( $system_user ) ) {
+				$args['cookies'] = array(
+					'asc_auth_key' => $system_user->get_token(),
+				);
+			}
 		}
 
 		$response = wp_remote_request(
