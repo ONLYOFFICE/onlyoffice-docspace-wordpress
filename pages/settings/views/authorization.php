@@ -50,12 +50,13 @@ if ( ! empty( $system_user ) && $user->ID === $system_user->get_id() ) {
 		<table class="form-table" role="presentation">
 			<tbody>
 				<tr class="form-field form-required">
-					<th scope="row"><?php esc_html_e( 'Login', 'onlyoffice-docspace-plugin' ); ?></th>
+					<th scope="row"><?php esc_html_e( 'Email', 'onlyoffice-docspace-plugin' ); ?></th>
 					<td>
 						<input
 							name="docspace-login"
 							type="text"
 							class="regular-text"
+							placeholder="<?php esc_html_e( 'Email', 'onlyoffice-docspace-plugin' ); ?>"
 							value="<?php echo ! empty( $docspace_account ) ? esc_attr( $docspace_account->get_user_name() ) : ''; ?>"
 							<?php echo ! empty( $docspace_account ) ? 'disabled' : ''; ?>
 						>
@@ -73,6 +74,7 @@ if ( ! empty( $system_user ) && $user->ID === $system_user->get_id() ) {
 											name="docspace-password"
 											type="password" 
 											class="input password-input"
+											placeholder="<?php esc_html_e( 'Password', 'onlyoffice-docspace-plugin' ); ?>"
 											value="<?php echo ! empty( $docspace_account ) ? '********' : ''; ?>"
 											<?php echo ! empty( $docspace_account ) ? 'disabled' : ''; ?>
 										/>

@@ -86,6 +86,7 @@ class OODSP_Templates {
 									size="20" 
 									autocapitalize="off"
 									required="required"
+									placeholder="<?php esc_html_e( 'Email', 'onlyoffice-docspace-plugin' ); ?>"
 									value="{{{data.userName}}}"
 								/>
 							</p>
@@ -101,6 +102,7 @@ class OODSP_Templates {
 										size="20"
 										spellcheck="false"
 										required="required"
+										placeholder="<?php esc_html_e( 'Password', 'onlyoffice-docspace-plugin' ); ?>"
 										value="{{{data.password}}}"
 									>
 									<button type="button" class="button button-secondary wp-hide-pw hide-if-no-js" data-toggle="0" aria-label="<?php esc_attr_e( 'Show password' ); ?>">
@@ -140,6 +142,7 @@ class OODSP_Templates {
 									size="20" 
 									autocapitalize="off"
 									required="required"
+									placeholder="<?php esc_html_e( 'Email', 'onlyoffice-docspace-plugin' ); ?>"
 									value="{{{data.userName}}}"
 								/>
 							</p>
