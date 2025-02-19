@@ -52,3 +52,27 @@
 	cursor: pointer;
 }
 
+#oodsp-submit-password {
+	width: 100%;
+	float: none;
+}
+
+.reset-password-link-wrap {
+	margin-top: 15px;
+	text-align: center;
+}
+
+.reset-password-link {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#oodsp-reset-password-submit {
+	width: 49%;
+	float: left;
+}
+
+#oodsp-reset-password-cancel {
+	width: 49%;
+	float: right;
+}

@@ -50,6 +50,19 @@ class HttpError extends Error {
 		} );
 	};
 
+	oodsp.client.resetPassword = async ( url, email ) => {
+		const baseUrl = url.endsWith( '/' ) ? url.slice( 0, -1 ) : url;
+		await ajaxRequest( {
+			url: `${ baseUrl }/api/2.0/people/password`,
+			method: 'POST',
+			contentType: 'application/json; charset=utf-8',
+			dataType: 'json',
+			data: JSON.stringify( {
+				email,
+			} ),
+		} );
+	};
+
 	const ajaxRequest = ( options ) => {
 		return new Promise( ( resolve, reject ) => {
 			$.ajax( {
@@ -59,7 +72,7 @@ class HttpError extends Error {
 					reject(
 						new HttpError(
 							xhr.status,
-							xhr.responseJSON.data.message || error
+							xhr.responseJSON?.data?.message || error
 						)
 					);
 				},
