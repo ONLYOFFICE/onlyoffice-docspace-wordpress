@@ -10,6 +10,7 @@
 - inviting created through the plugin users to shared group WordPress Users
 - exclude from the shared group after logout
 - drop saved DocSpace Account after sign out in DocSpace(Sign out button)
+- reset password on login page
 
 ## Changed
 - export functionality to DocSpace has been moved to the main Users page
