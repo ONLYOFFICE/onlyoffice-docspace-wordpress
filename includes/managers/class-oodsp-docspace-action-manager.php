@@ -88,7 +88,7 @@ class OODSP_DocSpace_Action_Manager {
 		$system_docspace_account = $this->oodsp_user_service->get_docspace_account( $system_user->get_id() );
 		$docspace_accounts       = $this->oodsp_user_service->get_all_docspace_accounts();
 		$docspace_accounts_ids   = array();
-		
+
 		foreach ( $docspace_accounts as $key => $docspace_account ) {
 			$docspace_accounts_ids[] = $docspace_account->get_id();
 		}
