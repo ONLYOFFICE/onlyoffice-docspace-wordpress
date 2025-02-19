@@ -2,10 +2,17 @@
 
 ##
 ## Added
+- Disconnect button in connection settings
+- setting System User
 - creating shared group WordPress Users after connecting DocSpace
+- creating shared group WordPress Users after login System User
+- inviting to shared group users which authorize in plugin
 - inviting created through the plugin users to shared group WordPress Users
+- exclude from the shared group after logout
+- drop saved DocSpace Account after sign out in DocSpace(Sign out button)
 
 ## Changed
+- export functionality to DocSpace has been moved to the main Users page
 - export users from wordpress to docspace with role User (rename User to Guest, PowerUser to User)
 - error stubs (unavailable, unauthorized)
 - settings page design
