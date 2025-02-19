@@ -4,7 +4,7 @@
 	window.oodsp = window.oodsp || {};
 	window.oodsp.main = window.oodsp.main || {};
 
-	oodsp.main.loadDocspace = function ( frameId, onSuccessLogin ) {
+	oodsp.main.loadDocspace = function ( frameId, callback ) {
 		DocspaceIntegrationSdk.initScript(
 			'oodsp-api-js',
 			_oodspMain.docspaceUrl
@@ -47,6 +47,32 @@
 
 				oodsp.templates.docspaceUnavailable( frameId );
 			} );
+
+		const onSuccessLogin = function () {
+			const config = {
+				events: {
+					onSignOut,
+				},
+			};
+
+			callback( config );
+		};
+
+		const onSignOut = async () => {
+			await DocSpace.SDK.frames[ frameId ].destroyFrame();
+			await DocSpace.SDK.initSystem( { frameId } );
+			await oodsp.client.deleteUser();
+			await DocSpace.SDK.frames[ frameId ].destroyFrame();
+
+			openLoginPage(
+				frameId,
+				_oodspMain.docspaceUrl,
+				_oodspMain.docspaceUser.user_name,
+				'',
+				false,
+				onSuccessLogin
+			);
+		};
 	};
 
 	const openLoginPage = function (
@@ -77,6 +103,13 @@
 							userNameValue,
 							passwordHashValue
 						);
+
+						_oodspMain.docspaceUser = {
+							id: userInfo.id,
+							user_name: userNameValue,
+							password_hash: passwordHashValue,
+						};
+
 						onSuccessLogin();
 					},
 					function () {
