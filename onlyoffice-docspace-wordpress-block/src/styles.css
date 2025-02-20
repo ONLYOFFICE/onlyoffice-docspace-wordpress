@@ -1,3 +1,8 @@
+.wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace {
+    min-width: 100px;
+    min-height: 100px;
+}
+
 .wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor {
     align-items: center;
     color: white;
@@ -11,6 +16,8 @@
     text-align: center;
     vertical-align: middle;
     width: inherit;
+    min-width: 100px;
+    min-height: 100px;
 }
 
 .components-modal__content {
@@ -23,6 +30,12 @@
     height: 100%;
 }
 
+@media (min-width: 960px) {
+    .components-modal__frame {
+        max-height: calc(100% - 120px);
+    }
+}
+
 .oodsp-selector-frame-modal {
     display: flex;
     vertical-align: middle;
@@ -32,6 +45,10 @@
 }
 .oodsp-selector-frame-modal:has(.oodsp-login) {
     height: unset !important;
+}
+
+.onlyoffice-error .main {
+    padding: 0 0 50px 0;
 }
 
 #oodsp-selector-frame-container {

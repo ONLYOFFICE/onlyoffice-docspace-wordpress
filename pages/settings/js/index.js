@@ -23,12 +23,14 @@
 
 					$( '#oodsp-disconnect-confirm-dialog' ).dialog( 'close' );
 				},
+				class: 'ok',
 			},
 			{
 				text: wp.i18n.__( 'Cancel', 'onlyoffice-docspace-plugin' ),
 				click: () => {
 					$( '#oodsp-disconnect-confirm-dialog' ).dialog( 'close' );
 				},
+				class: 'cancel',
 			},
 		],
 	} );

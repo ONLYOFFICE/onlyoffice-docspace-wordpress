@@ -24,11 +24,6 @@ import json from '../block.json';
 import edit from './edit';
 import save from './save';
 
-export const blockStyle = {
-    height: '500px',
-    background: '#a2ccef'
- };
-
 export const onlyofficeIcon = (
     <svg
         width="66"

@@ -182,22 +182,24 @@ class OODSP_Templates {
 		?>
 		<script type="text/html" id="tmpl-oodsp-error">
 			<div class="onlyoffice-error" >
-				<div class="main">
-					<#
-						if ( data.showLogo ) {
-					#> 
-					<div class="header">
-						<img src="<?php echo esc_url( OODSP_PLUGIN_URL . 'includes/resources/images/onlyoffice-docspace.svg' ); ?>" />
-					</div>
-					<#
-						}
-					#>
-					<div class="image">
-						<img src="{{{data.image}}}" />
-					</div>
-					<div class="info">
-						<div class="text-bold">{{{data.header || ""}}}</div>
-						<div class="text-normal">{{{data.message}}}</div>
+				<div class="wraper">
+					<div class="main">
+						<#
+							if ( data.showLogo ) {
+						#> 
+						<div class="header">
+							<img src="<?php echo esc_url( OODSP_PLUGIN_URL . 'includes/resources/images/onlyoffice-docspace.svg' ); ?>" />
+						</div>
+						<#
+							}
+						#>
+						<div class="image">
+							<img src="{{{data.image}}}" />
+						</div>
+						<div class="info">
+							<div class="text-bold">{{{data.header || ""}}}</div>
+							<div class="text-normal">{{{data.message}}}</div>
+						</div>
 					</div>
 				</div>
 			</div>
