@@ -456,13 +456,19 @@ class OODSP_Users_Page {
 			$skipped_count = 0;
 			$error_count   = 0;
 
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if ( isset( $_GET['create_count'] ) ) {
+				// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$create_count = absint( wp_unslash( $_GET['create_count'] ) );
 			}
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if ( isset( $_GET['skipped_count'] ) ) {
+				// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$skipped_count = absint( wp_unslash( $_GET['skipped_count'] ) );
 			}
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			if ( isset( $_GET['error_count'] ) ) {
+				// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$error_count = absint( wp_unslash( $_GET['error_count'] ) );
 			}
 
