@@ -71,4 +71,27 @@
 			} );
 		} );
 	} );
+
+	$( '.oodsp-tooltip' ).tooltip( {
+		// eslint-disable-next-line object-shorthand
+		content: function () {
+			return $( this ).attr( 'title' );
+		},
+		tooltipClass: 'oodsp-tooltip-text',
+		position: {
+			at: 'right-20',
+		},
+		open: ( event, ui ) => {
+			ui.tooltip.hover(
+				function () {
+					$( this ).stop( true ).fadeTo( 200, 1 );
+				},
+				function () {
+					$( this ).fadeOut( 200, function () {
+						$( this ).remove();
+					} );
+				}
+			);
+		},
+	} );
 } )( jQuery );
