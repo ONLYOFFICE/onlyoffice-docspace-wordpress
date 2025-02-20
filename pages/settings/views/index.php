@@ -31,14 +31,14 @@
 	<div class="header">
 		<div class="h1"><?php echo esc_html( get_admin_page_title() ); ?></div>
 
-		<div><?php esc_html_e( 'Configure ONLYOFFICE DocSpace plugin settings.', 'onlyoffice-docspace-plugin' ); ?></div>
+		<div><?php esc_html_e( 'Configure the ONLYOFFICE DocSpace plugin.', 'onlyoffice-docspace-plugin' ); ?></div>
 	</div>
 
 	<?php settings_errors(); ?>
 	<div id="onlyoffice-docspace-settings-notice"></div>
 
 	<div class="oodsp-white-frame">
-		<div class="header-section"><?php esc_html_e( 'General settings', 'onlyoffice-docspace-plugin' ); ?></div>
+		<div class="header-section"><?php esc_html_e( 'Connection settings', 'onlyoffice-docspace-plugin' ); ?></div>
 
 		<div
 			id="oodsp-settings-csp-notice"
@@ -147,6 +147,6 @@
 		id="oodsp-disconnect-confirm-dialog"
 		title="<?php esc_html_e( 'Warning', 'onlyoffice-docspace-plugin' ); ?>"
 	>
-		<p><?php esc_html_e( 'If you press the Disconnect button, you will not have access to ONLYOFFICE DocSpace. This will remove the connections between Rooms and Pages, and disconnect all users.', 'onlyoffice-docspace-plugin' ); ?></p>
+		<p><?php esc_html_e( 'If you press the Disconnect button, you will not have access to the currently connected ONLYOFFICE DocSpace. This will remove the connections between Rooms and Pages, and disconnect all users.', 'onlyoffice-docspace-plugin' ); ?></p>
 	</div>
 </div>

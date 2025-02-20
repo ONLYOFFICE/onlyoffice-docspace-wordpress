@@ -185,7 +185,7 @@ window.wp = window.wp || {};
 		userAuthFailed: {
 			type: 'error',
 			text: __(
-				'User authentication failed',
+				'Invalid credentials. Please try again.',
 				'onlyoffice-docspace-plugin'
 			),
 		},
@@ -205,7 +205,7 @@ window.wp = window.wp || {};
 		},
 		notValidEmail: {
 			type: 'error',
-			text: __( 'The email is not valid', 'onlyoffice-docspace-plugin' ),
+			text: __( 'Incorrect email', 'onlyoffice-docspace-plugin' ),
 		},
 		rateLimitExceeded: {
 			type: 'error',

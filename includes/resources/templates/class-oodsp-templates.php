@@ -57,7 +57,17 @@ class OODSP_Templates {
 
 					<form name="loginform" id="oodsp-login-form">
 						<h1 id="header">
+							<#
+							if ( ! data.resetPassword ) {
+							#> 
 							<?php esc_html_e( 'WordPress requests access to your ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ); ?>
+							<#
+							} else {
+							#> 
+							<?php esc_html_e( 'Password recovery for', 'onlyoffice-docspace-plugin' ); ?>
+							<#
+							}
+							#> 
 							<br>
 							<div title="{{{data.domain}}}">{{{data.domain}}}</div>
 						</h1>
@@ -116,11 +126,11 @@ class OODSP_Templates {
 									id="oodsp-submit-password"
 									type="submit" 
 									class="button button-primary button-large" 
-									value="<?php esc_attr_e( 'Log In' ); ?>"
+									value="<?php esc_attr_e( 'Log In', 'onlyoffice-docspace-plugin' ); ?>"
 								>
 							</div>
 							<div class="reset-password-link-wrap">
-								<a id="oodsp-reset-password-link" class="reset-password-link"><?php esc_html_e( 'Reset password' ); ?></a>
+								<a id="oodsp-reset-password-link" class="reset-password-link"><?php esc_html_e( 'Reset password', 'onlyoffice-docspace-plugin' ); ?></a>
 							</div>
 						</div>
 						<#
@@ -153,13 +163,13 @@ class OODSP_Templates {
 									type="submit"
 									name="wp-submit"
 									class="button button-primary button-large"
-									value="<?php esc_attr_e( 'Send' ); ?>"
+									value="<?php esc_attr_e( 'Send', 'onlyoffice-docspace-plugin' ); ?>"
 								>
 								<input
 									id="oodsp-reset-password-cancel"
 									type="button"
 									class="button button-large"
-									value="<?php esc_attr_e( 'Cancel' ); ?>"
+									value="<?php esc_attr_e( 'Cancel', 'onlyoffice-docspace-plugin' ); ?>"
 								>
 							</p>
 						</div>

@@ -180,7 +180,7 @@
 				oodsp.ui.addNotice(
 					'oodsp-authorization-notice',
 					wp.i18n.__(
-						'User authentication failed',
+						'Invalid credentials. Please try again.',
 						'onlyoffice-docspace-plugin'
 					),
 					'error'
@@ -233,7 +233,7 @@
 		oodsp.ui.addNotice(
 			'oodsp-authorization-notice',
 			wp.i18n.__(
-				'ONLYOFFICE DocSpace cannot be reached.',
+				'ONLYOFFICE DocSpace cannot be reached',
 				'onlyoffice-docspace-plugin'
 			),
 			'error'

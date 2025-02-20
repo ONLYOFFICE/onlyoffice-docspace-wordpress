@@ -104,7 +104,7 @@ if ( ! empty( $system_user ) && $user->ID === $system_user->get_id() ) {
 									<?php echo $is_system_user || ( empty( $docspace_account ) && ! $this->oodsp_settings_manager->exist_system_user() ) ? 'checked' : ''; ?>
 									<?php echo ! empty( $docspace_account ) || ! $this->oodsp_settings_manager->exist_system_user() ? 'disabled' : ''; ?>
 								>
-								System User
+								<?php esc_html_e( 'Use this account as System user (DocSpace Admin type required)', 'onlyoffice-docspace-plugin' ); ?>
 								<div
 									class="oodsp-tooltip"
 									title="<?php esc_html_e( 'By clicking this checkbox, you agree that the following actions might be done on your behalf: exporting users from WordPress to DocSpace, creating groups and managing group members in DocSpace.', 'onlyoffice-docspace-plugin' ); ?>">
@@ -125,7 +125,7 @@ if ( ! empty( $system_user ) && $user->ID === $system_user->get_id() ) {
 				type="submit"
 				id="oodsp-authorization-login-button"
 				class="button button-primary"
-				value="<?php esc_html_e( 'Login', 'onlyoffice-docspace-plugin' ); ?>"
+				value="<?php esc_html_e( 'Sign in', 'onlyoffice-docspace-plugin' ); ?>"
 			>
 		</p>
 		<p
@@ -136,7 +136,7 @@ if ( ! empty( $system_user ) && $user->ID === $system_user->get_id() ) {
 				type="submit"
 				id="oodsp-authorization-logout-button"
 				class="button button-primary"
-				value="<?php esc_html_e( 'Logout', 'onlyoffice-docspace-plugin' ); ?>"
+				value="<?php esc_html_e( 'Sign out', 'onlyoffice-docspace-plugin' ); ?>"
 			>
 		</p>
 	</form>

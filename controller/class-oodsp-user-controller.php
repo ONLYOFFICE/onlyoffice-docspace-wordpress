@@ -104,7 +104,7 @@ class OODSP_User_Controller {
 
 		if ( empty( $id ) || empty( $user_name ) || empty( $password_hash ) ) {
 			wp_send_json_error(
-				array( 'message' => __( 'The required fields are empty', 'onlyoffice-docspace-wordpress' ) ),
+				array( 'message' => __( 'The required fields are empty', 'onlyoffice-docspace-plugin' ) ),
 				400
 			);
 		}
@@ -156,14 +156,14 @@ class OODSP_User_Controller {
 
 		if ( empty( $user_name ) || empty( $password_hash ) ) {
 			wp_send_json_error(
-				array( 'message' => __( 'The required fields are empty', 'onlyoffice-docspace-wordpress' ) ),
+				array( 'message' => __( 'The required fields are empty', 'onlyoffice-docspace-plugin' ) ),
 				400
 			);
 		}
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_send_json_error(
-				array( 'message' => __( 'The current user does not have permission to perform this action', 'onlyoffice-docspace-wordpress' ) ),
+				array( 'message' => __( 'The current user does not have permission to perform this action', 'onlyoffice-docspace-plugin' ) ),
 				403
 			);
 		}
@@ -175,7 +175,7 @@ class OODSP_User_Controller {
 			);
 		} catch ( OODSP_Docspace_Client_Exception $e ) {
 			wp_send_json_error(
-				array( 'message' => __( 'User authentication failed', 'onlyoffice-docspace-wordpress' ) ),
+				array( 'message' => __( 'Invalid credentials. Please try again.', 'onlyoffice-docspace-plugin' ) ),
 				401
 			);
 		}
@@ -187,7 +187,7 @@ class OODSP_User_Controller {
 
 		if ( ! $docspace_user['isAdmin'] ) {
 			wp_send_json_error(
-				array( 'message' => __( 'The specified user is not a ONLYOFFICE DocSpace administrator', 'onlyoffice-docspace-wordpress' ) ),
+				array( 'message' => __( 'The specified user is not a ONLYOFFICE DocSpace administrator', 'onlyoffice-docspace-plugin' ) ),
 				403
 			);
 		}

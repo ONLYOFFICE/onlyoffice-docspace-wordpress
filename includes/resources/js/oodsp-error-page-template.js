@@ -36,7 +36,7 @@ window.wp = window.wp || {};
 					  )
 					: __(
 							'Please contact admin to configure the ONLYOFFICE DocSpace plugin.',
-							'onlyoffice-docspace-wordpress'
+							'onlyoffice-docspace-plugin'
 					  ),
 				image: _oodspTemplates.resourceUrl + 'unavailable.svg',
 			} )

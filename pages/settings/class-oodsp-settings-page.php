@@ -73,7 +73,7 @@ class OODSP_Settings_Page extends OODSP_Base_Page {
 	) {
 		parent::__construct(
 			'onlyoffice-docspace',
-			__( 'ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ),
+			__( 'ONLYOFFICE DocSpace Settings', 'onlyoffice-docspace-plugin' ),
 			__( 'Settings', 'onlyoffice-docspace-plugin' ),
 			'manage_options',
 			'onlyoffice-docspace-settings',
@@ -185,7 +185,7 @@ class OODSP_Settings_Page extends OODSP_Base_Page {
 					'settings_updated',
 					sprintf(
 						wp_kses(
-							/* translators: %1$s: opening anchor tag, %2$s: closing anchor tag */
+							/* translators: %1$s: opening link tag, %2$s: closing link tag */
 							__( 'The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %1$sthe Developer Tools section%2$s.', 'onlyoffice-docspace-plugin' ),
 							array(
 								'a' => array(
@@ -213,7 +213,7 @@ class OODSP_Settings_Page extends OODSP_Base_Page {
 			add_settings_error(
 				'general',
 				'settings_updated',
-				esc_html__( 'ONLYOFFICE DocSpace cannot be reached.', 'onlyoffice-docspace-plugin' )
+				esc_html__( 'ONLYOFFICE DocSpace cannot be reached', 'onlyoffice-docspace-plugin' )
 			);
 
 			$e->printStackTrace();

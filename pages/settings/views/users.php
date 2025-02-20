@@ -35,10 +35,7 @@
 		<?php
 		echo wp_kses(
 			__(
-				'If your WordPress users do not have DocSpace accounts, click the 
-				<strong>Open user list</strong> button to export them to DocSpace. In this case, new
-				users will be authorized via seamless login. If your WordPress users already have
-				DocSpace accounts, they can continue using their current accounts.',
+				'If your WordPress users do not have DocSpace accounts, click the <strong>Open user list</strong> button to export them to DocSpace. After clicking on this button, you will be redirected to the WordPress Users Module. If your WordPress users already have DocSpace accounts, they can continue using their current accounts.',
 				'onlyoffice-docspace-plugin'
 			),
 			array(
