@@ -107,6 +107,11 @@ if ( ! empty( $system_user ) && $user->ID === $system_user->get_id() ) {
 									<?php echo ! empty( $docspace_account ) || ! $this->oodsp_settings_manager->exist_system_user() ? 'disabled' : ''; ?>
 								>
 								System User
+								<div
+									class="oodsp-tooltip"
+									title="<?php esc_html_e( 'By clicking this checkbox, you agree that the following actions might be done on your behalf: exporting users from WordPress to DocSpace, creating groups and managing group members in DocSpace.', 'onlyoffice-docspace-plugin' ); ?>">
+									<img src="<?php echo esc_url( OODSP_PLUGIN_URL . 'includes/resources/images/alert.svg' ); ?>" >
+								</div>
 							</label>
 						</fieldset>
 					</td>

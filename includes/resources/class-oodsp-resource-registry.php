@@ -183,7 +183,7 @@ class OODSP_Resource_Registry {
 		wp_register_script(
 			self::RESOURCE_NAME_PREFIX . '-ui',
 			self::RESOURCE_JS_PATH . 'oodsp-ui.js',
-			array( 'jquery', 'wp-util' ),
+			array( 'jquery', 'wp-util', 'jquery-ui-tooltip' ),
 			OODSP_VERSION,
 			true
 		);

@@ -152,7 +152,7 @@ class OODSP_Users_Page {
 		wp_enqueue_script(
 			OODSP_PLUGIN_NAME . '-users',
 			$this->class_url . 'js/index.js',
-			array( 'jquery', 'jquery-ui-dialog' ),
+			array( 'jquery', 'jquery-ui-dialog', 'oodsp-ui' ),
 			OODSP_VERSION,
 			true
 		);
@@ -160,7 +160,7 @@ class OODSP_Users_Page {
 		wp_enqueue_style(
 			OODSP_PLUGIN_NAME . '-users',
 			$this->class_url . 'css/index.css',
-			array( 'wp-jquery-ui-dialog' ),
+			array( 'wp-jquery-ui-dialog', 'oodsp-ui' ),
 			OODSP_VERSION
 		);
 
@@ -180,8 +180,10 @@ class OODSP_Users_Page {
 		$columns['docspace_account'] = '<span> '
 			. __( 'DocSpace Account', 'onlyoffice-docspace-plugin' )
 			. '</span>'
-			. '<span class="i">'
+			. '<span>'
+			. '<div class="oodsp-tooltip" style="float: left; display: inline-flex;" title="' . __( 'DocSpace Account show if WordPress user already has connected account in DocSpace.', 'onlyoffice-docspace-plugin' ) . '">'
 			. '<img src="' . esc_url( OODSP_PLUGIN_URL ) . 'includes/resources/images/alert.svg">'
+			. '</div>'
 			. '</span>';
 		return $columns;
 	}
