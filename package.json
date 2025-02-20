@@ -4,8 +4,8 @@
 		"@wordpress/scripts": "^30.10.0"
 	},
 	"scripts": {
-		"format:js": "wp-scripts format --ignore-pattern=onlyoffice-docspace-wordpress-block --ignore-pattern=assets-onlyoffice-docspace",
-		"lint:css": "wp-scripts lint-style --ignore-pattern=onlyoffice-docspace-wordpress-block",
-		"lint:js": "wp-scripts lint-js --ignore-pattern=onlyoffice-docspace-wordpress-block --ignore-pattern=assets-onlyoffice-docspace"
+		"format:js": "wp-scripts format --ignore-pattern=assets-onlyoffice-docspace",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js --ignore-pattern=assets-onlyoffice-docspace"
 	}
 }

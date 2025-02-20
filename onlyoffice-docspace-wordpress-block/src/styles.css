@@ -1,126 +1,129 @@
 .wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace {
-    min-width: 100px;
-    min-height: 100px;
+	min-width: 100px;
+	min-height: 100px;
 }
 
 .wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor {
-    align-items: center;
-    color: white;
-    display: flex;
-    font-size: 20px;
-    height: inherit;
-    justify-content: center;
-    margin: 0;
-    max-width: inherit;
-    overflow: hidden;
-    text-align: center;
-    vertical-align: middle;
-    width: inherit;
-    min-width: 100px;
-    min-height: 100px;
+	align-items: center;
+	color: #fff;
+	display: flex;
+	font-size: 20px;
+	height: inherit;
+	justify-content: center;
+	margin: 0;
+	max-width: inherit;
+	overflow: hidden;
+	text-align: center;
+	vertical-align: middle;
+	width: inherit;
+	min-width: 100px;
+	min-height: 100px;
 }
 
 .components-modal__content {
-    padding: 0 !important;
-    min-height: 150px;
-    width: 400px;
+	padding: 0 !important;
+	min-height: 150px;
+	width: 400px;
 }
 
 .components-modal__header ~ div {
-    height: 100%;
+	height: 100%;
 }
 
 @media (min-width: 960px) {
-    .components-modal__frame {
-        max-height: calc(100% - 120px);
-    }
+
+	.components-modal__frame {
+		max-height: calc(100% - 120px);
+	}
 }
 
 .oodsp-selector-frame-modal {
-    display: flex;
-    vertical-align: middle;
-    height: 500px !important;
-    max-height: 100%;
-    justify-content: center;
+	display: flex;
+	vertical-align: middle;
+	height: 500px !important;
+	max-height: 100%;
+	justify-content: center;
 }
+
 .oodsp-selector-frame-modal:has(.oodsp-login) {
-    height: unset !important;
+	height: unset !important;
 }
 
 .onlyoffice-error .main {
-    padding: 0 0 50px 0;
+	padding: 0 0 50px 0;
 }
 
 #oodsp-selector-frame-container {
-    height: 100% !important;
+	height: 100% !important;
 }
 
 #oodsp-selector-frame {
-    display: block;
-    width: 100%;
-    height: 100%;
+	display: block;
+	width: 100%;
+	height: 100%;
 }
 
 .wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor p {
-    margin: 0;
-    text-align: left;
+	margin: 0;
+	text-align: left;
 }
 
 .wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor .entity-icon {
-    border-radius: 22px;
-    width: 128px;
-    height: 128px;
+	border-radius: 22px;
+	width: 128px;
+	height: 128px;
 }
 
 .wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor .entity-info {
-    padding-left:20px;
+	padding-left: 20px;
 }
 
 .wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor .entity-info-label {
-    font-weight: 600;
-    min-width: max-content;
-}
-
-.wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor .entity-info-label svg {
-    width: 18px !important;
-    height: 18px !important;
+	font-weight: 600;
+	min-width: max-content;
 }
 
 .wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor img {
-    border-radius: 22px;
-    width: 100%;
-    height: 100%;
+	border-radius: 22px;
+	width: 100%;
+	height: 100%;
 }
+
 .wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor svg {
-    width: 100%;
-    height: 100%;
+	width: 100%;
+	height: 100%;
+}
+
+.wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor .entity-info-label svg {
+	width: 18px !important;
+	height: 18px !important;
 }
 
 .wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor.room {
-    background: #ECEEF1;
-    color: #333333;
+	background: #eceef1;
+	color: #333;
 }
 
 .wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace__editor.file {
-    background: linear-gradient(121.94deg, #489BEF 0%, #388BDE 99.94%);
+	background: linear-gradient(121.94deg, #489bef 0%, #388bde 99.94%);
 }
 
 .oodsp-selector-frame-modal .oodsp-login {
-    padding: 0;   
-    width: auto;
+	padding: 0;
+	width: auto;
 }
 
 
 .oodsp-selector-frame-modal .login form {
-    border: unset;
-    padding-top: 0;
-    margin-top: 0;
+	border: unset;
+	padding-top: 0;
+	margin-top: 0;
 }
 
-.wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace.alignright{
-    width: 100%;
+.wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace.alignright {
+	width: 100%;
 }
 
 .wp-block-onlyoffice-docspace-wordpress-onlyoffice-docspace.alignleft {
-    width: 100%;
+	width: 100%;
 }
