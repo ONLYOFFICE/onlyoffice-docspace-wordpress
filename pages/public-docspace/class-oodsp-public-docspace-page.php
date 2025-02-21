@@ -245,10 +245,19 @@ class OODSP_Public_DocSpace_Page {
 		$attr_lower_case = array_change_key_case( $attr, CASE_LOWER );
 		$config          = $this->map_attributes( $default_config, $attr_lower_case );
 
+		if ( array_key_exists( 'requesttoken', $attr_lower_case ) ) {
+			$config['requestToken'] = $attr_lower_case['requesttoken'];
+		}
+
 		if ( array_key_exists( 'roomid', $attr_lower_case ) ) {
 			$config['id']               = $attr_lower_case['roomid'];
 			$config['mode']             = 'manager';
 			$config['viewTableColumns'] = 'Name,Size,Type';
+
+			if ( array_key_exists( 'requestToken', $config ) ) {
+				$config['mode']     = 'public-room';
+				$config['rootPath'] = '/rooms/share';
+			}
 		} elseif ( array_key_exists( 'fileid', $attr_lower_case ) ) {
 			$config['id']                  = $attr_lower_case['fileid'];
 			$config['mode']                = 'editor';
@@ -258,11 +267,6 @@ class OODSP_Public_DocSpace_Page {
 				),
 				'integrationMode' => 'embed',
 			);
-		}
-
-		if ( array_key_exists( 'requesttoken', $attr_lower_case ) ) {
-			$config['requestToken'] = $attr_lower_case['requesttoken'];
-			$config['rootPath']     = '/rooms/share';
 		}
 
 		if ( ! empty( $attr_lower_case['width'] ) ) {
