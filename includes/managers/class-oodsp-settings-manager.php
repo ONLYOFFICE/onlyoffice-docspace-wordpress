@@ -62,7 +62,9 @@ class OODSP_Settings_Manager {
 	 * @return string The configured DocSpace URL or empty string if not set.
 	 */
 	public function get_docspace_url() {
-		return $this->get_setting( self::DOCSPACE_URL, '' );
+		$docspace_url = $this->get_setting( self::DOCSPACE_URL, '' );
+
+		return rtrim( $docspace_url, '/' );
 	}
 
 	/**
