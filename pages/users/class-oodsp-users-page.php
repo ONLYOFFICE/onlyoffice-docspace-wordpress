@@ -95,16 +95,19 @@ class OODSP_Users_Page {
 		}
 
 		add_action( 'admin_head', array( $this, 'load_resources' ) );
+		add_action( 'admin_head', array( $this, 'add_users_help_tab' ) );
 		add_filter( 'manage_users_columns', array( $this, 'add_docspace_account_user_column' ) );
 		add_filter( 'manage_users_sortable_columns', array( $this, 'make_docspace_account_user_column_sortable' ) );
 		add_action( 'pre_get_users', array( $this, 'sort_users_by_docspace_account' ) );
 		add_filter( 'manage_users_custom_column', array( $this, 'show_docspace_account_column_data' ), 10, 3 );
+		add_filter( 'bulk_actions-users', array( $this, 'add_oodsp_users_bulk_actions' ) );
+		add_filter( 'removable_query_args', array( $this, 'oodsp_users_bulk_actions_removable_query_args' ) );
+
+		add_filter( 'handle_bulk_actions-users', array( $this, 'handle_unlink_docspace_account_bulk_action' ), 11, 3 );
+		add_action( 'admin_notices', array( $this, 'unlink_docspace_account_bulk_action_admin_notice' ) );
 
 		if ( $this->oodsp_settings_manager->exist_system_user() ) {
-			add_action( 'admin_head', array( $this, 'add_users_help_tab' ) );
-			add_filter( 'bulk_actions-users', array( $this, 'add_create_docspace_user_bulk_action' ) );
 			add_filter( 'handle_bulk_actions-users', array( $this, 'handle_create_docspace_user_bulk_action' ), 10, 3 );
-			add_filter( 'removable_query_args', array( $this, 'create_docspace_user_bulk_action_removable_query_args' ) );
 			add_action( 'admin_notices', array( $this, 'create_docspace_user_bulk_action_admin_notice' ) );
 		}
 	}
@@ -127,9 +130,16 @@ class OODSP_Users_Page {
 
 		$help_tab_action_links['content'] = preg_replace( '/<\/ul>$/', '', $help_tab_action_links['content'] );
 
+		if ( $this->oodsp_settings_manager->exist_system_user() ) {
+			$help_tab_action_links['content'] .= '<li>'
+				. __( '<strong>Export to DocSpace</strong> allows you to create user accounts in DocSpace with emails taken from WordPress.', 'onlyoffice-docspace-plugin' )
+				. '</li>';
+		}
+
 		$help_tab_action_links['content'] .= '<li>'
-			. __( '<strong>Export to DocSpace</strong> allows you to create user accounts in DocSpace with emails taken from WordPress.', 'onlyoffice-docspace-plugin' )
-			. '</li>';
+				. __( '<strong>Unlink DocSpace Account</strong> removes connection between WordPress and DocSpace accounts.', 'onlyoffice-docspace-plugin' )
+				. '</li>';
+
 		$help_tab_action_links['content'] .= '</ul>';
 
 		$current_screen->add_help_tab( $help_tab_action_links );
@@ -287,13 +297,22 @@ class OODSP_Users_Page {
 	}
 
 	/**
-	 * Adds a bulk action to create DocSpace users.
+	 * Adds DocSpace-specific bulk actions to the users list.
 	 *
-	 * @param array $bulk_actions Existing bulk actions.
-	 * @return array Modified bulk actions including the new 'Create in DocSpace' option.
+	 * This function adds two bulk actions to the WordPress users list table:
+	 * - 'Export to DocSpace' for creating DocSpace accounts for WordPress users
+	 * - 'Unlink DocSpace Account' for removing the link between WordPress and DocSpace accounts
+	 *
+	 * @param array $bulk_actions The current array of bulk actions.
+	 * @return array Modified array of bulk actions including DocSpace options.
 	 */
-	public function add_create_docspace_user_bulk_action( $bulk_actions ) {
-		$bulk_actions['create-docspace-user'] = __( 'Export to DocSpace', 'onlyoffice-docspace-plugin' );
+	public function add_oodsp_users_bulk_actions( $bulk_actions ) {
+		if ( $this->oodsp_settings_manager->exist_system_user() ) {
+			$bulk_actions['create-docspace-user'] = __( 'Export to DocSpace', 'onlyoffice-docspace-plugin' );
+		}
+
+		$bulk_actions['unlink-docspace-account'] = __( 'Unlink DocSpace Account', 'onlyoffice-docspace-plugin' );
+
 		return $bulk_actions;
 	}
 
@@ -420,23 +439,22 @@ class OODSP_Users_Page {
 	}
 
 	/**
-	 * Adds query arguments to be removed after the DocSpace user bulk action.
+	 * Adds query arguments that should be removed after bulk actions.
 	 *
-	 * This function appends 'create_count', 'skipped_count', and 'error_count'
-	 * to the list of removable query arguments. These arguments are used to
-	 * display the results of the bulk action and should be removed from the URL
-	 * after the admin notice is displayed.
+	 * This function adds specific query parameters to the list of removable query args
+	 * that should be cleared from the URL after bulk actions are processed.
 	 *
-	 * @param array $query_args Existing removable query arguments.
-	 * @return array Modified list of removable query arguments.
+	 * @param array $query_args Current array of removable query arguments.
+	 * @return array Modified array of removable query arguments.
 	 */
-	public function create_docspace_user_bulk_action_removable_query_args( $query_args ) {
+	public function oodsp_users_bulk_actions_removable_query_args( $query_args ) {
 		array_push(
 			$query_args,
 			'create_count',
 			'skipped_count',
 			'error_count',
-			'error_create_docspace_user'
+			'error_create_docspace_user',
+			'unlinked_count'
 		);
 
 		return $query_args;
@@ -495,7 +513,7 @@ class OODSP_Users_Page {
 						$messages[] = wp_get_admin_notice(
 							sprintf(
 								/* translators: %s: number of users skipped during export to DocSpace because they already have accounts */
-								__( 'Export skipped for %s user(s). User(s) with the indicated email(s) may already exist in DocSpace.', 'onlyoffice-docspace-plugin' ),
+								__( 'Export skipped for %s user(s). DocSpace Account(s) already linked to the WordPress account(s). Unlink DocSpace Account(s) and try again.', 'onlyoffice-docspace-plugin' ),
 								$skipped_count
 							),
 							array(
@@ -560,6 +578,130 @@ class OODSP_Users_Page {
 			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Handles the bulk action to unlink DocSpace accounts.
+	 *
+	 * This function processes the 'unlink-docspace-account' bulk action for selected WordPress users.
+	 * It removes the link between WordPress and DocSpace accounts for the selected users,
+	 * updates shared group memberships, and handles system user unlinking if applicable.
+	 *
+	 * @param string $redirect_to The URL to redirect to after processing.
+	 * @param string $action      The bulk action being performed.
+	 * @param array  $user_ids    An array of user IDs selected for the bulk action.
+	 *
+	 * @return string The modified redirect URL with query parameters indicating the results.
+	 */
+	public function handle_unlink_docspace_account_bulk_action( $redirect_to, $action, $user_ids ) {
+		if ( 'unlink-docspace-account' !== $action ) {
+			return $redirect_to;
+		}
+
+		$system_user = $this->oodsp_settings_manager->get_system_user();
+
+		$unlink_system_user = false;
+		$docspace_accounts  = array();
+
+		foreach ( $user_ids as $user_id ) {
+			$docspace_account = $this->oodsp_user_service->get_docspace_account( $user_id );
+
+			if ( ! empty( $docspace_account ) ) {
+				$this->oodsp_user_service->delete_docspace_account( $user_id );
+				array_push( $docspace_accounts, $docspace_account );
+			}
+
+			if ( ! empty( $system_user ) && $user_id === $system_user->get_id() ) {
+				$unlink_system_user = true;
+			}
+		}
+
+		$shared_group = $this->oodsp_settings_manager->get_shared_group();
+		if ( ! empty( $shared_group ) && ! empty( $system_user ) && ! empty( $docspace_accounts ) ) {
+			try {
+				$docspace_accounts_ids = array_map(
+					function ( $docspace_account ) {
+						return $docspace_account->get_id();
+					},
+					$docspace_accounts
+				);
+
+				$this->oodsp_docspace_client->update_group(
+					$shared_group,
+					'',
+					'',
+					array(),
+					$docspace_accounts_ids
+				);
+			} catch ( OODSP_Docspace_Client_Exception $e ) {
+				$e->printStackTrace();
+			}
+		}
+
+		if ( $unlink_system_user ) {
+			try {
+				$this->oodsp_docspace_client->logout();
+			} catch ( OODSP_Docspace_Client_Exception $e ) {
+				$e->printStackTrace();
+			}
+
+			$this->oodsp_settings_manager->delete_system_user();
+		}
+
+		$redirect_to = add_query_arg(
+			'update',
+			'unlink_docspace_account',
+			$redirect_to
+		);
+		$redirect_to = add_query_arg(
+			'unlinked_count',
+			count( $docspace_accounts ),
+			$redirect_to
+		);
+		return $redirect_to;
+	}
+
+	/**
+	 * Displays admin notices for DocSpace account unlinking bulk actions.
+	 *
+	 * This function checks for update parameters in the URL and displays
+	 * appropriate success messages based on the results of bulk unlinking
+	 * DocSpace accounts from WordPress users.
+	 */
+	public function unlink_docspace_account_bulk_action_admin_notice() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( ! empty( $_GET['update'] ) ) {
+			$unlinked_count = 0;
+
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			if ( isset( $_GET['unlinked_count'] ) ) {
+				// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				$unlinked_count = absint( wp_unslash( $_GET['unlinked_count'] ) );
+			}
+
+			$messages = array();
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			switch ( $_GET['update'] ) {
+				case 'unlink_docspace_account':
+					$messages[] = wp_get_admin_notice(
+						sprintf(
+							/* translators: %s: number of users successfully exported to DocSpace */
+							__( 'Unlinked account(s) successfully for %s user(s).', 'onlyoffice-docspace-plugin' ),
+							$unlinked_count
+						),
+						array(
+							'id'          => 'unlink_docspace_account-success-message',
+							'type'        => 'success',
+							'dismissible' => true,
+						)
+					);
+					break;
+			}
+
+			foreach ( $messages as $message ) {
+				echo wp_kses_post( $message );
+			}
+		}
 	}
 
 	/**
