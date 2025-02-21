@@ -17,28 +17,29 @@
 			'onlyoffice-docspace-block'
 		);
 		const oodspConfigs = [];
+		const oodspPublicConfigs = [];
 
 		for ( const frame of frames ) {
-			oodspConfigs.push( JSON.parse( frame.dataset.config ) );
+			let config = JSON.parse( frame.dataset.config );
+			config = Object.assign( config, defaultConfig );
+
+			if ( config.requestToken && config.requestToken.length > 0 ) {
+				oodspPublicConfigs.push( config );
+			} else {
+				oodspConfigs.push( config );
+			}
 		}
 
 		const countElements = oodspConfigs.length;
-
-		if ( countElements === 0 ) {
-			return;
-		}
 
 		DocspaceIntegrationSdk.initScript(
 			'oodsp-api-js',
 			_oodspDocspacePublic.docspaceUrl
 		)
 			.then( function () {
-				for ( let i = 0; i < countElements; i++ ) {
-					oodspConfigs[ i ] = Object.assign(
-						oodspConfigs[ i ],
-						defaultConfig
-					);
+				_initAllPublicFrames( oodspPublicConfigs );
 
+				for ( let i = 0; i < countElements; i++ ) {
 					if ( i === 0 ) {
 						if (
 							_oodspDocspacePublic.isAnonymous ||
@@ -114,6 +115,14 @@
 			config.src = DocSpace.SDK.src;
 
 			DocSpace.SDK.frames[ config.frameId ].initFrame( config );
+		}
+	};
+
+	const _initAllPublicFrames = ( oodspConfigs ) => {
+		for ( const config of oodspConfigs ) {
+			config.src = DocSpace.SDK.src;
+
+			DocSpace.SDK.initFrame( config );
 		}
 	};
 } )( jQuery );
