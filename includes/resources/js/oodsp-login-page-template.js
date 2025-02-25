@@ -67,10 +67,10 @@ window.wp = window.wp || {};
 	const initLoginWindowEvents = ( domain ) => {
 		$( '#oodsp-login-form' ).submit( ( event ) => {
 			event.preventDefault();
-			const userNameValue = $( '#oodsp-username' ).val();
+			const userNameValue = $( '#oodsp-username' ).val().trim();
 			const passwordValue = $( '#oodsp-password' ).val();
 
-			if ( '' === userNameValue.trim() ) {
+			if ( '' === userNameValue ) {
 				openLoginWindow( domain, userNameValue, passwordValue, [
 					_messages.emptyEmail,
 				] );
@@ -95,7 +95,7 @@ window.wp = window.wp || {};
 		} );
 
 		$( '#oodsp-reset-password-link' ).on( 'click', () => {
-			const userNameValue = $( '#oodsp-username' ).val();
+			const userNameValue = $( '#oodsp-username' ).val().trim();
 
 			openResetPasswordWindow( domain, userNameValue );
 		} );
@@ -114,9 +114,9 @@ window.wp = window.wp || {};
 	const initResetPasswordWindowEvents = ( domain ) => {
 		$( '#oodsp-login-form' ).submit( async ( event ) => {
 			event.preventDefault();
-			const userNameValue = $( '#oodsp-username' ).val();
+			const userNameValue = $( '#oodsp-username' ).val().trim();
 
-			if ( '' === userNameValue.trim() ) {
+			if ( '' === userNameValue ) {
 				openResetPasswordWindow( domain, userNameValue, [
 					_messages.emptyEmail,
 				] );
@@ -155,7 +155,7 @@ window.wp = window.wp || {};
 		} );
 
 		$( '#oodsp-reset-password-cancel' ).on( 'click', () => {
-			const userNameValue = $( '#oodsp-username' ).val();
+			const userNameValue = $( '#oodsp-username' ).val().trim();
 
 			openLoginWindow( domain, userNameValue, '', [] );
 		} );
