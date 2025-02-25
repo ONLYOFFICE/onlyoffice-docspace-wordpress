@@ -24,6 +24,7 @@
 
 #oodsp-settings .form-field input:not([type="checkbox"]) {
 	width: 25em;
+	font-family: unset;
 }
 
 @media screen and (max-width: 782px) {
