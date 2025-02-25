@@ -188,7 +188,11 @@
         script.onload = () => {
             // Remove attribute loading after loading is complete.
             script.removeAttribute("loading");
-            DocSpace.SDK.src = url
+
+            if (DocSpace && DocSpace.SDK) {
+                DocSpace.SDK.src = url;
+            }
+
             resolve(null);
         };
         script.onerror = (error) => {
