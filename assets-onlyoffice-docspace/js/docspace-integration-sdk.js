@@ -189,7 +189,7 @@
             // Remove attribute loading after loading is complete.
             script.removeAttribute("loading");
 
-            if (DocSpace && DocSpace.SDK) {
+            if (window.DocSpace && window.DocSpace.SDK) {
                 DocSpace.SDK.src = url;
             }
 
