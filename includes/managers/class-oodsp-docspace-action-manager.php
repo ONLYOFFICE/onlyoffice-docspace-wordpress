@@ -86,10 +86,9 @@ class OODSP_DocSpace_Action_Manager {
 	 * configuration within the DocSpace environment.
 	 */
 	public function init_shared_group() {
-		$system_user             = $this->oodsp_settings_manager->get_system_user();
-		$system_docspace_account = $this->oodsp_user_service->get_docspace_account( $system_user->get_id() );
-		$docspace_accounts       = $this->oodsp_user_service->get_all_docspace_accounts();
-		$docspace_accounts_ids   = array();
+		$system_user           = $this->oodsp_settings_manager->get_system_user();
+		$docspace_accounts     = $this->oodsp_user_service->get_all_docspace_accounts();
+		$docspace_accounts_ids = array();
 
 		foreach ( $docspace_accounts as $key => $docspace_account ) {
 			$docspace_accounts_ids[] = $docspace_account->get_id();
@@ -100,7 +99,7 @@ class OODSP_DocSpace_Action_Manager {
 		if ( empty( $shared_group ) ) {
 			$docspace_group = $this->oodsp_docspace_client->create_group(
 				sprintf( self::SHARED_GROUP_NAME, get_bloginfo( 'name' ) ),
-				$system_docspace_account->get_id(),
+				$system_user->get_id(),
 				$docspace_accounts_ids
 			);
 
@@ -110,7 +109,7 @@ class OODSP_DocSpace_Action_Manager {
 				$docspace_group = $this->oodsp_docspace_client->update_group(
 					$shared_group,
 					'',
-					$system_docspace_account->get_id(),
+					$system_user->get_id(),
 					$docspace_accounts_ids,
 					array()
 				);

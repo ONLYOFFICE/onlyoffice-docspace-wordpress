@@ -125,6 +125,7 @@ class OODSP_Plugin {
 	 * @access   private
 	 */
 	private function load_dependencies() {
+		require_once plugin_dir_path( __DIR__ ) . 'controller/class-oodsp-settings-controller.php';
 		require_once plugin_dir_path( __DIR__ ) . 'controller/class-oodsp-user-controller.php';
 		require_once plugin_dir_path( __DIR__ ) . 'includes/client/class-oodsp-docspace-client.php';
 		require_once plugin_dir_path( __DIR__ ) . 'includes/exception/class-oodsp-docspace-client-exception.php';
@@ -212,16 +213,22 @@ class OODSP_Plugin {
 		$this->loader->add_action( 'init', $oodsp_docspace_public_page, 'init_shortcode' );
 		$this->loader->add_action( 'init', $oodsp_docspace_public_page, 'init_block' );
 
-		$oodsp_user_controller = new OODSP_User_Controller(
+		$oodsp_settings_controller = new OODSP_Settings_Controller(
 			$this->oodsp_docspace_client,
 			$this->oodsp_user_service,
 			$this->oodsp_settings_manager,
 			$this->oodsp_docspace_action_manager
 		);
 
-		$this->loader->add_action( 'wp_ajax_oodsp_get_user', $oodsp_user_controller, 'get_user' );
+		$oodsp_user_controller = new OODSP_User_Controller(
+			$this->oodsp_docspace_client,
+			$this->oodsp_user_service,
+			$this->oodsp_settings_manager,
+		);
+
+		$this->loader->add_action( 'wp_ajax_oodsp_set_system_user', $oodsp_settings_controller, 'set_system_user' );
+		$this->loader->add_action( 'wp_ajax_oodsp_delete_system_user', $oodsp_settings_controller, 'delete_system_user' );
 		$this->loader->add_action( 'wp_ajax_oodsp_set_user', $oodsp_user_controller, 'set_user' );
-		$this->loader->add_action( 'wp_ajax_oodsp_set_system_user', $oodsp_user_controller, 'set_system_user' );
 		$this->loader->add_action( 'wp_ajax_oodsp_delete_user', $oodsp_user_controller, 'delete_user' );
 	}
 
