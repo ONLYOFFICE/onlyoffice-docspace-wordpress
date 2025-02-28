@@ -166,7 +166,10 @@ class OODSP_Resource_Registry {
 			'_oodspClient',
 			array(
 				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-				'nonce'   => wp_create_nonce( 'oodsp_user_controller' ),
+				'nonce'   => array(
+					'settingsController' => wp_create_nonce( 'oodsp_settings_controller' ),
+					'userController'     => wp_create_nonce( 'oodsp_user_controller' ),
+				),
 			)
 		);
 	}
