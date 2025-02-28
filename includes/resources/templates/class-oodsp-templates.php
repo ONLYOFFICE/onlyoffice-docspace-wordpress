@@ -126,7 +126,7 @@ class OODSP_Templates {
 									id="oodsp-submit-password"
 									type="submit" 
 									class="button button-primary button-large" 
-									value="<?php esc_attr_e( 'Log In', 'onlyoffice-docspace-plugin' ); ?>"
+									value="<?php esc_attr_e( 'Sign In', 'onlyoffice-docspace-plugin' ); ?>"
 								>
 							</div>
 							<div class="reset-password-link-wrap">
