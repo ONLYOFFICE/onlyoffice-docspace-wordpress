@@ -75,7 +75,7 @@
 			<table class="form-table" role="presentation">
 				<tbody>
 					<tr class="form-field form-required">
-						<th scope="row"><?php esc_html_e( 'DocSpace Service Address', 'onlyoffice-docspace-plugin' ); ?></th>
+						<th scope="row"><?php esc_html_e( 'DocSpace Portal Address', 'onlyoffice-docspace-plugin' ); ?></th>
 						<td>
 							<input
 								id="docspace_url"

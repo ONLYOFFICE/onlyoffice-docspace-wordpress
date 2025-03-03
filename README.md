@@ -8,7 +8,7 @@ Navigate to the Plugins section in your WordPress administrative dashboard and c
 
 Once ready, go to the plugin settings and specify the following parameters:
 
-- DocSpace Service Address
+- DocSpace Portal Address
 - Admin Login and Password
 
 When you click on the Save button, a user with the **Room admin** role will be created in ONLYOFFICE DocSpace, with the same data as the current WordPress user. A public user (WordPress Viewer) will be also added to DocSpace with the View Only access. 
