@@ -8,7 +8,6 @@
 ( function ( $ ) {
 	const loginInput = $( 'input[name="docspace-login"]' );
 	const passwordInput = $( 'input[name="docspace-password"]' );
-	const systemUserCheckbox = jQuery( 'input[name="docspace-system-user"]' );
 
 	const currentUrl = new URL( window.location.href );
 	if ( currentUrl.searchParams.get( 'save_docspace_user' ) ) {
@@ -44,13 +43,21 @@
 
 		const userName = loginInput.val();
 		const password = passwordInput.val();
-		const systemUser = systemUserCheckbox.is( ':checked' );
 
-		if ( systemUser && _oodspAuthorization.existSystemUser ) {
-			showConfirmDialog( userName, password, systemUser );
-		} else {
-			handleAuthorization( userName, password, systemUser );
-		}
+		oodsp.ui.showLoader();
+
+		DocspaceIntegrationSdk.initScript(
+			'oodsp-api-js',
+			_oodspAuthorization.docspaceUrl
+		)
+			.then( () => {
+				loginSystemUser( userName, password );
+			} )
+			.catch( () => {
+				oodsp.ui.hideLoader();
+
+				onLoadAppError();
+			} );
 	} );
 
 	$( '#oodsp-authorization-logout-button' ).on( 'click', async ( event ) => {
@@ -59,64 +66,11 @@
 		oodsp.ui.clearNotices();
 
 		try {
-			await oodsp.client.deleteUser();
+			await oodsp.client.deleteSystemUser();
 		} finally {
 			window.location.reload();
 		}
 	} );
-
-	const handleAuthorization = ( userName, password, systemUser ) => {
-		oodsp.ui.showLoader();
-
-		DocspaceIntegrationSdk.initScript(
-			'oodsp-api-js',
-			_oodspAuthorization.docspaceUrl
-		)
-			.then( () => {
-				if ( systemUser ) {
-					loginSystemUser( userName, password );
-				} else {
-					loginUser( userName, password );
-				}
-			} )
-			.catch( () => {
-				oodsp.ui.hideLoader();
-
-				onLoadAppError();
-			} );
-	};
-
-	const showConfirmDialog = ( userName, password, systemUser ) => {
-		$( '#oodsp-save-system-user-confirm-dialog' ).dialog( {
-			autoOpen: false,
-			modal: true,
-			buttons: [
-				{
-					text: wp.i18n.__(
-						'Continue',
-						'onlyoffice-docspace-plugin'
-					),
-					click: () => {
-						handleAuthorization( userName, password, systemUser );
-						$( '#oodsp-save-system-user-confirm-dialog' ).dialog(
-							'close'
-						);
-					},
-					class: 'ok',
-				},
-				{
-					text: wp.i18n.__( 'Cancel', 'onlyoffice-docspace-plugin' ),
-					click: () => {
-						$( '#oodsp-save-system-user-confirm-dialog' ).dialog(
-							'close'
-						);
-					},
-					class: 'cancel',
-				},
-			],
-		} );
-		$( '#oodsp-save-system-user-confirm-dialog' ).dialog( 'open' );
-	};
 
 	const loginSystemUser = ( userName, password ) => {
 		DocspaceIntegrationSdk.createPasswordHash(
@@ -138,55 +92,6 @@
 				}
 			},
 			function ( error ) {
-				oodsp.ui.hideLoader();
-
-				onAppError( error );
-			}
-		);
-	};
-
-	const loginUser = ( userName, password ) => {
-		DocspaceIntegrationSdk.loginByPassword(
-			'oodsp-system-frame',
-			userName,
-			password,
-			async ( passwordHash ) => {
-				try {
-					const userInfo =
-						await DocSpace.SDK.frames[
-							'oodsp-system-frame'
-						].getUserInfo();
-
-					await oodsp.client.postUser(
-						userInfo.id,
-						userName,
-						passwordHash
-					);
-
-					currentUrl.searchParams.append(
-						'save_docspace_user',
-						true
-					);
-					window.location.href = currentUrl.href;
-				} catch ( e ) {
-					oodsp.ui.hideLoader();
-
-					handleAuthorizationError( e );
-				}
-			},
-			() => {
-				oodsp.ui.hideLoader();
-
-				oodsp.ui.addNotice(
-					'oodsp-authorization-notice',
-					wp.i18n.__(
-						'Invalid credentials. Please try again.',
-						'onlyoffice-docspace-plugin'
-					),
-					'error'
-				);
-			},
-			( error ) => {
 				oodsp.ui.hideLoader();
 
 				onAppError( error );

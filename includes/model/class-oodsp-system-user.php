@@ -39,11 +39,25 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class OODSP_System_User {
 	/**
-	 * The id of the system user.
+	 * The ID of the system user.
 	 *
-	 * @var string The id of the system user.
+	 * @var string The ID of the system user.
 	 */
 	private $id;
+
+	/**
+	 * The username of the system user.
+	 *
+	 * @var string The username of the system user.
+	 */
+	private $user_name;
+
+	/**
+	 * The password hash of the system user.
+	 *
+	 * @var string The password hash of the system user.
+	 */
+	private $password_hash;
 
 	/**
 	 * The token of the system user.
@@ -53,23 +67,45 @@ class OODSP_System_User {
 	private $token;
 
 	/**
-	 * Construct a new system user.
+	 * Constructor for the system user.
 	 *
-	 * @param string $id The id of the user.
-	 * @param string $token The token of the user.
+	 * @param string $id           The ID of the system user.
+	 * @param string $user_name    The username of the system user.
+	 * @param string $password_hash The password hash of the system user.
+	 * @param string $token        The token of the system user.
 	 */
-	public function __construct( $id = '', $token = '' ) {
-		$this->id    = $id;
-		$this->token = $token;
+	public function __construct( $id = '', $user_name = '', $password_hash = '', $token = '' ) {
+		$this->id            = $id;
+		$this->user_name     = $user_name;
+		$this->password_hash = $password_hash;
+		$this->token         = $token;
 	}
 
 	/**
-	 * Get the id of the system user.
+	 * Get the ID of the system user.
 	 *
-	 * @return string The id of the system user.
+	 * @return string The ID of the system user.
 	 */
 	public function get_id() {
 		return $this->id;
+	}
+
+	/**
+	 * Get the username of the system user.
+	 *
+	 * @return string The username of the system user.
+	 */
+	public function get_user_name() {
+		return $this->user_name;
+	}
+
+	/**
+	 * Get the password hash of the system user.
+	 *
+	 * @return string The password hash of the system user.
+	 */
+	public function get_password_hash() {
+		return $this->password_hash;
 	}
 
 	/**

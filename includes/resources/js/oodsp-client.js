@@ -18,9 +18,20 @@ class HttpError extends Error {
 			method: 'POST',
 			data: {
 				action: 'oodsp_set_system_user',
-				_ajax_nonce: _oodspClient.nonce,
+				_ajax_nonce: _oodspClient.nonce.settingsController,
 				userName,
 				passwordHash,
+			},
+		} );
+	};
+
+	oodsp.client.deleteSystemUser = async () => {
+		await ajaxRequest( {
+			url: _oodspClient.ajaxUrl,
+			method: 'POST',
+			data: {
+				action: 'oodsp_delete_system_user',
+				_ajax_nonce: _oodspClient.nonce.settingsController,
 			},
 		} );
 	};
@@ -31,7 +42,7 @@ class HttpError extends Error {
 			method: 'POST',
 			data: {
 				action: 'oodsp_set_user',
-				_ajax_nonce: _oodspClient.nonce,
+				_ajax_nonce: _oodspClient.nonce.userController,
 				id,
 				userName,
 				passwordHash,
@@ -45,7 +56,7 @@ class HttpError extends Error {
 			method: 'POST',
 			data: {
 				action: 'oodsp_delete_user',
-				_ajax_nonce: _oodspClient.nonce,
+				_ajax_nonce: _oodspClient.nonce.userController,
 			},
 		} );
 	};

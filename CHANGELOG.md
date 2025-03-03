@@ -3,7 +3,7 @@
 ##
 ## Added
 - Disconnect button in connection settings
-- setting System User
+- setting Log in as a DocSpace Admin
 - creating shared group WordPress Users after connecting DocSpace
 - creating shared group WordPress Users after login System User
 - inviting to shared group users which authorize in plugin

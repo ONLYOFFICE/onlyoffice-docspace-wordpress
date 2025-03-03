@@ -28,20 +28,13 @@
 ?>
 
 <?php
-$user             = wp_get_current_user();
-$docspace_account = $this->oodsp_user_service->get_docspace_account( $user->ID );
-$system_user      = $this->oodsp_settings_manager->get_system_user();
-$is_system_user   = false;
-
-if ( ! empty( $system_user ) && $user->ID === $system_user->get_id() ) {
-	$is_system_user = true;
-}
+$system_user = $this->oodsp_settings_manager->get_system_user();
 ?>
 
 <div id="oodsp-authorization-notice"></div>
 
 <div class="oodsp-white-frame">
-	<div class="header-section"><?php esc_html_e( 'DocSpace Authorization', 'onlyoffice-docspace-plugin' ); ?></div>
+	<div class="header-section"><?php esc_html_e( 'Log in as a DocSpace Admin', 'onlyoffice-docspace-plugin' ); ?></div>
 
 	<form id="oodsp-authorization-form" action="admin.php?page=onlyoffice-docspace-settings" method="post" autocomplete="off">
 		<?php
@@ -57,8 +50,8 @@ if ( ! empty( $system_user ) && $user->ID === $system_user->get_id() ) {
 							type="text"
 							class="regular-text"
 							placeholder="<?php esc_html_e( 'Email', 'onlyoffice-docspace-plugin' ); ?>"
-							value="<?php echo ! empty( $docspace_account ) ? esc_attr( $docspace_account->get_user_name() ) : ''; ?>"
-							<?php echo ! empty( $docspace_account ) ? 'disabled' : ''; ?>
+							value="<?php echo ! empty( $system_user ) ? esc_attr( $system_user->get_user_name() ) : ''; ?>"
+							<?php echo ! empty( $system_user ) ? 'disabled' : ''; ?>
 						>
 					</td>
 				</tr>
@@ -75,8 +68,8 @@ if ( ! empty( $system_user ) && $user->ID === $system_user->get_id() ) {
 											type="password" 
 											class="input password-input"
 											placeholder="<?php esc_html_e( 'Password', 'onlyoffice-docspace-plugin' ); ?>"
-											value="<?php echo ! empty( $docspace_account ) ? '********' : ''; ?>"
-											<?php echo ! empty( $docspace_account ) ? 'disabled' : ''; ?>
+											value="<?php echo ! empty( $system_user ) ? '********' : ''; ?>"
+											<?php echo ! empty( $system_user ) ? 'disabled' : ''; ?>
 										/>
 									</div>
 									<button
@@ -84,7 +77,7 @@ if ( ! empty( $system_user ) && $user->ID === $system_user->get_id() ) {
 										class="button button-secondary wp-hide-pw hide-if-no-js"
 										data-toggle="0"
 										aria-label="<?php esc_attr_e( 'Show password' ); ?>"
-										<?php echo ! empty( $docspace_account ) ? 'disabled' : ''; ?>
+										<?php echo ! empty( $system_user ) ? 'disabled' : ''; ?>
 									>
 										<span class="dashicons dashicons-visibility" aria-hidden="true"></span>
 									</button>
@@ -93,33 +86,16 @@ if ( ! empty( $system_user ) && $user->ID === $system_user->get_id() ) {
 						</div
 					</td>
 				</tr>
-				<?php if ( empty( $docspace_account ) || $is_system_user ) { ?>
-				<tr class="form-field">
-					<td colspan="2" style="padding-left: 0;">
-						<fieldset>
-							<label for="users_can_register">
-								<input
-									name="docspace-system-user"
-									type="checkbox"
-									<?php echo $is_system_user || ( empty( $docspace_account ) && ! $this->oodsp_settings_manager->exist_system_user() ) ? 'checked' : ''; ?>
-									<?php echo ! empty( $docspace_account ) || ! $this->oodsp_settings_manager->exist_system_user() ? 'disabled' : ''; ?>
-								>
-								<?php esc_html_e( 'Use this account as System user (DocSpace Admin type required)', 'onlyoffice-docspace-plugin' ); ?>
-								<div
-									class="oodsp-tooltip"
-									title="<?php esc_html_e( 'By clicking this checkbox, you agree that the following actions might be done on your behalf: exporting users from WordPress to DocSpace, creating groups and managing group members in DocSpace.', 'onlyoffice-docspace-plugin' ); ?>">
-									<img src="<?php echo esc_url( OODSP_PLUGIN_URL . 'includes/resources/images/alert.svg' ); ?>" >
-								</div>
-							</label>
-						</fieldset>
-					</td>
-				</tr>
-				<?php } ?>
 			</tbody>
 		</table>
+		<p>
+			<?php
+			esc_html_e( 'We use this account to make API calls from DocSpace to WordPress. This account must have the DocSpace Admin type to export users from WordPress to DocSpace, create groups, manage group members in DocSpace.', 'onlyoffice-docspace-plugin' );
+			?>
+			</p>
 		<p
 			class="block-buttons"
-			<?php echo ! empty( $docspace_account ) ? 'hidden' : ''; ?>
+			<?php echo ! empty( $system_user ) ? 'hidden' : ''; ?>
 		>	
 			<input
 				type="submit"
@@ -130,7 +106,7 @@ if ( ! empty( $system_user ) && $user->ID === $system_user->get_id() ) {
 		</p>
 		<p
 			class="block-buttons"
-			<?php echo empty( $docspace_account ) ? 'hidden' : ''; ?>
+			<?php echo empty( $system_user ) ? 'hidden' : ''; ?>
 		>	
 			<input
 				type="submit"
