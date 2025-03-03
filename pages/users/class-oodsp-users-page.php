@@ -728,8 +728,8 @@ class OODSP_Users_Page {
 		} else {
 			$text .= sprintf(
 				/* translators: %s: ONLYOFFICE DocSpace plugin */
-				__( 'To export users automatically, please configure system user in %s.', 'onlyoffice-docspace-plugin' ),
-				"<a href='" . admin_url( 'admin.php?page=onlyoffice-docspace-settings' ) . "'>" . __( 'ONLYOFFICE DocSpace plugin', 'onlyoffice-docspace-plugin' ) . '</a>'
+				__( 'To export users automatically, please %s.', 'onlyoffice-docspace-plugin' ),
+				"<a href='" . admin_url( 'admin.php?page=onlyoffice-docspace-settings' ) . "'>" . __( 'Log in as a DocSpace Admin', 'onlyoffice-docspace-plugin' ) . '</a>'
 			);
 			$text .= '<br><br>';
 		}
