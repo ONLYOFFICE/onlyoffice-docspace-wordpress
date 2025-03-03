@@ -90,7 +90,7 @@ $system_user = $this->oodsp_settings_manager->get_system_user();
 		</table>
 		<p>
 			<?php
-			esc_html_e( 'We use this account for makes API calls from DocSpace to WordPress. This account must have DocSpace Admin type to export users from WordPress to DocSpace, creating groups, managing group members in DocSpace.', 'onlyoffice-docspace-plugin' );
+			esc_html_e( 'We use this account to make API calls from DocSpace to WordPress. This account must have the DocSpace Admin type to export users from WordPress to DocSpace, create groups, manage group members in DocSpace.', 'onlyoffice-docspace-plugin' );
 			?>
 			</p>
 		<p
