@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Language: fr_FR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 3.4.1\n"
 
@@ -124,279 +124,277 @@ msgstr "Éditeur"
 #: onlyoffice-docspace-wordpress.php
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "ONLYOFFICE DocSpace"
-msgstr ""
+msgstr "ONLYOFFICE DocSpace"
 
 #. Plugin URI of the plugin
 #: onlyoffice-docspace-wordpress.php
 msgid "https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress"
-msgstr ""
+msgstr "https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress"
 
 #. Description of the plugin
 #: onlyoffice-docspace-wordpress.php
 msgid "Add ONLYOFFICE DocSpace on page"
-msgstr ""
+msgstr "Ajouter ONLYOFFICE DocSpace à la page"
 
 #. Author of the plugin
 #: onlyoffice-docspace-wordpress.php
 msgid "Ascensio System SIA"
-msgstr ""
+msgstr "Ascensio System SIA"
 
 #. Author URI of the plugin
 #: onlyoffice-docspace-wordpress.php
 msgid "https://www.onlyoffice.com"
-msgstr ""
+msgstr "https://www.onlyoffice.com/fr/"
 
 #: controller/class-oodsp-settings-controller.php:101
 #: controller/class-oodsp-user-controller.php:97
 msgid "The required fields are empty"
-msgstr ""
+msgstr "Les champs obligatoires sont vides"
 
 #: controller/class-oodsp-settings-controller.php:108
 msgid "The current user does not have permission to perform this action"
-msgstr ""
+msgstr "L'utilisateur actuel n'a pas la permission d'effectuer cette action"
 
 #: controller/class-oodsp-settings-controller.php:120
 #: includes/resources/js/oodsp-login-page-template.js:187
 msgid "Invalid credentials. Please try again."
-msgstr ""
+msgstr "Informations d'identification non valides. Veuillez réessayer."
 
 #: controller/class-oodsp-settings-controller.php:132
 msgid "The specified user is not a ONLYOFFICE DocSpace administrator"
-msgstr ""
+msgstr "L'utilisateur spécifié n'est pas un administrateur ONLYOFFICE DocSpace"
 
 #: includes/resources/templates/class-oodsp-templates.php:67
 msgid "Password recovery for"
-msgstr ""
+msgstr "Récupération du mot de passe pour"
 
 #: includes/resources/templates/class-oodsp-templates.php:86
 msgid "Please enter your DocSpace credentials to sync it with your WordPress account:"
-msgstr ""
+msgstr "Veuillez saisir vos identifiants DocSpace pour les synchroniser avec votre compte WordPress :"
 
 #: includes/resources/templates/class-oodsp-templates.php:99
 #: includes/resources/templates/class-oodsp-templates.php:155
 #: pages/settings/views/authorization.php:46
 #: pages/settings/views/authorization.php:52
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
 #: includes/resources/templates/class-oodsp-templates.php:129
 msgid "Sign In"
-msgstr ""
+msgstr "S'inscrire"
 
 #: includes/resources/templates/class-oodsp-templates.php:133
 msgid "Reset password"
-msgstr ""
+msgstr "Réinitialiser le mot de passe"
 
 #: includes/resources/templates/class-oodsp-templates.php:142
 msgid "Please enter the email address you used while registering in DocSpace to get the password recovery instructions."
-msgstr ""
+msgstr "Veuillez saisir votre e-mail utilisé lors de l'enregistrement dans DocSpace pour obtenir les instructions de récupération du mot de passe."
 
 #: includes/resources/templates/class-oodsp-templates.php:166
 msgid "Send"
-msgstr ""
+msgstr "Envoyer"
 
 #: includes/resources/templates/class-oodsp-templates.php:172
-#: pages/settings/views/index.php:108
-#: pages/settings/js/index.js:29
+#: pages/settings/views/index.php:108 pages/settings/js/index.js:29
 #: pages/users/js/index.js:27
 msgid "Cancel"
-msgstr ""
+msgstr "Annuler"
 
 #: pages/public-docspace/class-oodsp-public-docspace-page.php:108
 msgid "Add ONLYOFFICE DocSpace"
-msgstr ""
+msgstr "Ajouter ONLYOFFICE DocSpace"
 
 #. translators: %1$s: opening link tag, %2$s: closing link tag
 #: pages/settings/class-oodsp-settings-page.php:189
 #: pages/settings/js/authorization.js:121
 msgid "The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %1$sthe Developer Tools section%2$s."
-msgstr ""
+msgstr "Le domaine actuel n'est pas défini dans les paramètres de la politique de sécurité du contenu (CSP). Veuillez l'ajouter via %1$la section Outils de développement%2$s."
 
 #: pages/settings/class-oodsp-settings-page.php:216
 #: pages/users/class-oodsp-users-page.php:544
 #: pages/settings/js/authorization.js:140
 msgid "ONLYOFFICE DocSpace cannot be reached"
-msgstr ""
+msgstr "ONLYOFFICE DocSpace n'est pas joignable"
 
 #: pages/settings/class-oodsp-settings-page.php:237
 msgid "ONLYOFFICE DocSpace successfully disconnected"
-msgstr ""
+msgstr "ONLYOFFICE DocSpace déconnecté avec succès"
 
 #: pages/settings/views/authorization.php:37
 #: pages/users/class-oodsp-users-page.php:732
 msgid "Log in as a DocSpace Admin"
-msgstr ""
+msgstr "Se connecter en tant qu'administrateur DocSpace"
 
 #: pages/settings/views/authorization.php:93
 msgid "We use this account to make API calls from DocSpace to WordPress. This account must have the DocSpace Admin type to export users from WordPress to DocSpace, create groups, manage group members in DocSpace."
-msgstr ""
+msgstr "Nous utilisons ce compte pour effectuer des appels API de DocSpace vers WordPress. Ce compte doit avoir le type administrateur DocSpace pour exporter des utilisateurs de WordPress vers DocSpace, créer des groupes et gérer les membres des groupes dans DocSpace."
 
 #: pages/settings/views/authorization.php:104
 msgid "Sign in"
-msgstr ""
+msgstr "Se connecter"
 
 #: pages/settings/views/authorization.php:115
 msgid "Sign out"
-msgstr ""
+msgstr "Déconnexion"
 
 #: pages/settings/views/authorization.php:129
 #: pages/settings/views/index.php:148
 msgid "Warning"
-msgstr ""
+msgstr "Attention"
 
 #: pages/settings/views/authorization.php:131
 msgid "Do you agree to connect your DocSpace account? The app will use it to perform actions."
-msgstr ""
+msgstr "Acceptez-vous de connecter votre compte DocSpace ? L'application l'utilisera pour effectuer des actions."
 
 #: pages/settings/views/index.php:34
 msgid "Configure the ONLYOFFICE DocSpace plugin."
-msgstr ""
+msgstr "Configurer le plugin ONLYOFFICE DocSpace."
 
 #: pages/settings/views/index.php:41
 msgid "Connection settings"
-msgstr ""
+msgstr "Paramètres de connexion"
 
 #: pages/settings/views/index.php:57
 msgid "Before connecting the plugin, please go to the <b>DocSpace Settings - Developer tools - JavaScript SDK</b> and add your WordPress address to the allow list:"
-msgstr ""
+msgstr "Avant de connecter le plugin, veuillez vous rendre dans les <b>Paramètres de DocSpace - Outils de développement - JavaScript SDK</b> et ajoutez votre adresse WordPress à la liste des adresses autorisées :"
 
 #: pages/settings/views/index.php:78
 msgid "DocSpace Portal Address"
-msgstr ""
+msgstr "Adresse du portail DocSpace"
 
 #: pages/settings/views/index.php:102
 msgid "Connect"
-msgstr ""
+msgstr "Connecter"
 
 #: pages/settings/views/index.php:121
 msgid "Change"
-msgstr ""
+msgstr "Modifier"
 
-#: pages/settings/views/index.php:127
-#: pages/settings/js/index.js:17
+#: pages/settings/views/index.php:127 pages/settings/js/index.js:17
 msgid "Disconnect"
-msgstr ""
+msgstr "Déconnecter"
 
 #: pages/settings/views/index.php:150
 msgid "If you press the Disconnect button, you will not have access to the currently connected ONLYOFFICE DocSpace. This will remove the connections between Rooms and Pages, and disconnect all users."
-msgstr ""
+msgstr "Si vous appuyez sur le bouton Déconnecter, vous n'aurez plus accès à ONLYOFFICE DocSpace actuellement connecté. Cela supprimera les connexions entre les salles et les pages, et déconnectera tous les utilisateurs."
 
 #: pages/settings/views/users.php:32
 msgid "User export (Optional)"
-msgstr ""
+msgstr "Exportation des utilisateurs (facultatif)"
 
 #: pages/settings/views/users.php:37
 msgid "If your WordPress users do not have DocSpace accounts, click the <strong>Open user list</strong> button to export them to DocSpace. After clicking on this button, you will be redirected to the WordPress Users Module. If your WordPress users already have DocSpace accounts, they can continue using their current accounts."
-msgstr ""
+msgstr "Si vos utilisateurs WordPress n'ont pas de compte DocSpace, cliquez sur le bouton <strong>Ouvrir la liste des utilisateurs</strong> pour les exporter vers DocSpace. Après avoir cliqué sur ce bouton, vous serez redirigé vers le module Utilisateurs WordPress. Si vos utilisateurs WordPress ont déjà des comptes DocSpace, ils peuvent continuer à utiliser leurs comptes actuels."
 
 #: pages/settings/views/users.php:50
 msgid "Open user list"
-msgstr ""
+msgstr "Ouvrir la liste des utilisateurs"
 
 #: pages/users/class-oodsp-users-page.php:135
 msgid "<strong>Export to DocSpace</strong> allows you to create user accounts in DocSpace with emails taken from WordPress."
-msgstr ""
+msgstr "<strong>Exporter vers DocSpace</strong> vous permet de créer des comptes d'utilisateurs dans DocSpace avec des e-mails provenant de WordPress."
 
 #: pages/users/class-oodsp-users-page.php:140
 msgid "<strong>Unlink DocSpace Account</strong> removes connection between WordPress and DocSpace accounts."
-msgstr ""
+msgstr "<strong>Dissocier le compte DocSpace</strong> supprime la connexion entre les comptes WordPress et DocSpace."
 
 #: pages/users/class-oodsp-users-page.php:199
 msgid "DocSpace Account"
-msgstr ""
+msgstr "Compte DocSpace"
 
 #: pages/users/class-oodsp-users-page.php:311
 #: pages/users/class-oodsp-users-page.php:573
 msgid "Export to DocSpace"
-msgstr ""
+msgstr "Exporter vers DocSpace"
 
 #: pages/users/class-oodsp-users-page.php:314
 msgid "Unlink DocSpace Account"
-msgstr ""
+msgstr "Déconnecter le compte DocSpace"
 
 #. translators: %s: number of users successfully exported to DocSpace
 #: pages/users/class-oodsp-users-page.php:501
 msgid "Export completed successfully for %s user(s)."
-msgstr ""
+msgstr "L'exportation a été effectuée avec succès pour %s utilisateur(s)."
 
 #. translators: %s: number of users skipped during export to DocSpace because they already have accounts
 #: pages/users/class-oodsp-users-page.php:516
 msgid "Export skipped for %s user(s). DocSpace Account(s) already linked to the WordPress account(s). Unlink DocSpace Account(s) and try again."
-msgstr ""
+msgstr "Exportation ignorée pour %s utilisateur(s). Le(s) compte(s) DocSpace est (sont) déjà lié(s) au(x) compte(s) WordPress. Détachez le(s) compte(s) DocSpace et réessayez."
 
 #. translators: %s: number of users that failed to export because their emails already exist in DocSpace
 #: pages/users/class-oodsp-users-page.php:531
 msgid "Export failed for %s user(s). User(s) with the indicated email(s) already exist in DocSpace."
-msgstr ""
+msgstr "L'exportation a échoué pour %s utilisateur(s). Le(s) utilisateur(s) avec le(s) e-mail(s) indiqué(s) existe(nt) déjà dans DocSpace."
 
 #: pages/users/class-oodsp-users-page.php:576
 msgid "WordPress email will be used for the user login in DocSpace. Password will be generated automatically. Users can change their password manually in their profiles. The password for the existing DocSpace account won't be overwritten. These users can apply their current credentials."
-msgstr ""
+msgstr "L'e-mail de WordPress sera utilisée pour la connexion de l'utilisateur dans DocSpace. Le mot de passe sera généré automatiquement. Les utilisateurs peuvent modifier leur mot de passe manuellement dans leur profil. Le mot de passe du compte DocSpace existant ne sera pas écrasé. Ces utilisateurs peuvent appliquer leurs informations d'identification actuelles."
 
 #. translators: %s: number of users successfully exported to DocSpace
 #: pages/users/class-oodsp-users-page.php:689
 msgid "Unlinked account(s) successfully for %s user(s)."
-msgstr ""
+msgstr "Compte(s) dissocié(s) avec succès pour %s utilisateur(s)."
 
 #: pages/users/class-oodsp-users-page.php:722
 msgid "DocSpace Account shows if a WordPress user has already linked their WordPress and DocSpace accounts."
-msgstr ""
+msgstr "Le compte DocSpace indique si un utilisateur de WordPress a déjà lié ses comptes WordPress et DocSpace."
 
 #: pages/users/class-oodsp-users-page.php:726
 msgid "To export users to DocSpace, select the required user(s) and click the <strong>Export to DocSpace</strong> option in the <strong>Bulk actions</strong> drop-down menu. The user will be created in DocSpace with their email taken from WordPress. In this case, new users will be authorized via seamless login."
-msgstr ""
+msgstr "Pour exporter des utilisateurs vers DocSpace, sélectionnez le(s) utilisateur(s) souhaité(s) et cliquez <strong>Exporter vers DocSpace</strong> dans les <strong>Actions groupées</strong> dans le menu déroulant. L'utilisateur sera créé dans DocSpace avec son e-mail provenant de WordPress. Dans ce cas, les nouveaux utilisateurs seront autorisés par le biais d'une connexion transparente."
 
 #. translators: %s: ONLYOFFICE DocSpace plugin
 #: pages/users/class-oodsp-users-page.php:731
 msgid "To export users automatically, please %s."
-msgstr ""
+msgstr "Pour exporter les utilisateurs automatiquement, veuillez %s."
 
 #: pages/users/class-oodsp-users-page.php:737
 msgid "If your WordPress users already have DocSpace accounts, they can continue using their current accounts. Accounts will be linked automatically once these users log into the ONLYOFFICE DocSpace plugin."
-msgstr ""
+msgstr "Si vos utilisateurs WordPress ont déjà un compte DocSpace, ils peuvent continuer à l'utiliser. Les comptes seront liés automatiquement lorsque ces utilisateurs se connecteront au plugin ONLYOFFICE DocSpace."
 
 #: pages/users/class-oodsp-users-page.php:739
 msgid "For more information:"
-msgstr ""
+msgstr "Pour plus d'informations :"
 
 #: includes/resources/js/oodsp-error-page-template.js:24
 msgid "Not yet available"
-msgstr ""
+msgstr "Pas encore disponible"
 
 #. translators: %1$s: opening link tag, %2$s: closing link tag
 #: includes/resources/js/oodsp-error-page-template.js:28
 msgid "Go to the %1$ssettings%2$s to configure ONLYOFFICE DocSpace plugin."
-msgstr ""
+msgstr "Allez dans les %1$paramètres%2$s pour configurer le plugin ONLYOFFICE DocSpace."
 
 #: includes/resources/js/oodsp-error-page-template.js:37
 msgid "Please contact admin to configure the ONLYOFFICE DocSpace plugin."
-msgstr ""
+msgstr "Veuillez contacter l'administrateur pour configurer le plugin ONLYOFFICE DocSpace."
 
 #. translators: %s: email address
 #: includes/resources/js/oodsp-login-page-template.js:146
 msgid "The password change instruction has been sent to <strong>%s</strong> email address."
-msgstr ""
+msgstr "Les instructions de changement de mot de passe ont été envoyées à l'e-mail <strong>%s</strong>."
 
 #: includes/resources/js/oodsp-login-page-template.js:194
 msgid "The email field is empty"
-msgstr ""
+msgstr "Le champ e-mail est vide"
 
 #: includes/resources/js/oodsp-login-page-template.js:201
 msgid "The password field is empty"
-msgstr ""
+msgstr "Le champ du mot de passe est vide"
 
 #: includes/resources/js/oodsp-login-page-template.js:208
 msgid "Incorrect email"
-msgstr ""
+msgstr "E-mail incorrect"
 
 #: includes/resources/js/oodsp-login-page-template.js:212
 msgid "Rate limit exceeded"
-msgstr ""
+msgstr "Limite de tarif dépassée"
 
 #: pages/settings/js/authorization.js:28
 msgid "Successful authorization. Settings saved."
-msgstr ""
+msgstr "Autorisation réussie. Paramètres enregistrés."
 
 #: pages/users/js/index.js:15
 msgid "Export"
-msgstr ""
+msgstr "Exportation"

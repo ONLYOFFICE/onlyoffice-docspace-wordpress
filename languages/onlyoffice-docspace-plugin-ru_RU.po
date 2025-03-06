@@ -144,12 +144,12 @@ msgstr "Ascensio System SIA"
 #. Author URI of the plugin
 #: onlyoffice-docspace-wordpress.php
 msgid "https://www.onlyoffice.com"
-msgstr "https://www.onlyoffice.com"
+msgstr "https://www.onlyoffice.com/ru/"
 
 #: controller/class-oodsp-settings-controller.php:101
 #: controller/class-oodsp-user-controller.php:97
 msgid "The required fields are empty"
-msgstr "Пустые необходимые поля"
+msgstr "Необходимые поля пустые"
 
 #: controller/class-oodsp-settings-controller.php:108
 msgid "The current user does not have permission to perform this action"
@@ -215,7 +215,7 @@ msgstr "Текущий домен не установлен в настройк�
 #: pages/users/class-oodsp-users-page.php:544
 #: pages/settings/js/authorization.js:140
 msgid "ONLYOFFICE DocSpace cannot be reached"
-msgstr "ONLYOFFICE DocSpace недоступен."
+msgstr "ONLYOFFICE DocSpace недоступен"
 
 #: pages/settings/class-oodsp-settings-page.php:237
 msgid "ONLYOFFICE DocSpace successfully disconnected"
@@ -228,7 +228,7 @@ msgstr "Войдите как администратор DocSpace "
 
 #: pages/settings/views/authorization.php:93
 msgid "We use this account to make API calls from DocSpace to WordPress. This account must have the DocSpace Admin type to export users from WordPress to DocSpace, create groups, manage group members in DocSpace."
-msgstr "Мы используем эту учетную запись для выполнения вызовов API от DocSpace в WordPress. Эта учетная запись должна иметь тип администратора DocSpace для экспорта пользователей из WordPress в DocSpace, создания групп, управления участниками групп в DocSpace."
+msgstr "Мы используем эту учетную запись для выполнения вызовов API из DocSpace в WordPress. Эта учетная запись должна иметь тип администратора DocSpace для экспорта пользователей из WordPress в DocSpace, создания групп, управления участниками групп в DocSpace."
 
 #: pages/settings/views/authorization.php:104
 msgid "Sign in"
@@ -245,7 +245,7 @@ msgstr "Внимание"
 
 #: pages/settings/views/authorization.php:131
 msgid "Do you agree to connect your DocSpace account? The app will use it to perform actions."
-msgstr "Вы согласны подключить свою учетную запись DocSpace? Приложение будет использовать его для выполнения действий."
+msgstr "Вы согласны подключить свою учетную запись DocSpace? Приложение будет использовать ее для выполнения действий."
 
 #: pages/settings/views/index.php:34
 msgid "Configure the ONLYOFFICE DocSpace plugin."
@@ -277,7 +277,7 @@ msgstr "Отключить"
 
 #: pages/settings/views/index.php:150
 msgid "If you press the Disconnect button, you will not have access to the currently connected ONLYOFFICE DocSpace. This will remove the connections between Rooms and Pages, and disconnect all users."
-msgstr "Если вы нажмете кнопку Отключить, у вас не будет доступа к текущему подключенному ONLYOFFICE DocSpace. Это приведет к удалению соединений между комнатами и Страницами и к отключению всех пользователей."
+msgstr "Если вы нажмете кнопку Отключить, у вас не будет доступа к текущему подключенному ONLYOFFICE DocSpace. Это приведет к удалению соединений между Комнатами и Страницами и к отключению всех пользователей."
 
 #: pages/settings/views/users.php:32
 msgid "User export (Optional)"
@@ -285,7 +285,7 @@ msgstr "Экспорт пользователей (необязательно)"
 
 #: pages/settings/views/users.php:37
 msgid "If your WordPress users do not have DocSpace accounts, click the <strong>Open user list</strong> button to export them to DocSpace. After clicking on this button, you will be redirected to the WordPress Users Module. If your WordPress users already have DocSpace accounts, they can continue using their current accounts."
-msgstr "Если у ваших пользователей WordPress нет учетных записей DocSpace, нажмите кнопку <strong>Открыть список пользователей</strong>, чтобы экспортировать их в DocSpace. После нажатия на эту кнопку вы будете перенаправлены в модуль WordPress Пользователи. Если у ваших пользователей WordPress уже есть учетные записи DocSpace, они могут продолжать использовать свои текущие учетные записи."
+msgstr "Если у ваших пользователей WordPress нет учетных записей DocSpace, нажмите кнопку <strong>Открыть список пользователей</strong>, чтобы экспортировать их в DocSpace. После нажатия на эту кнопку вы будете перенаправлены в модуль Пользователи в WordPress. Если у ваших пользователей WordPress уже есть учетные записи DocSpace, они могут продолжать использовать свои текущие учетные записи."
 
 #: pages/settings/views/users.php:50
 msgid "Open user list"
@@ -325,7 +325,7 @@ msgstr "Экспорт пропущен для %s пользователя(ей)
 #. translators: %s: number of users that failed to export because their emails already exist in DocSpace
 #: pages/users/class-oodsp-users-page.php:531
 msgid "Export failed for %s user(s). User(s) with the indicated email(s) already exist in DocSpace."
-msgstr "Экспорт не удался для %s пользователя(ей). Пользователи с указанным адресом электронной почты уже существуют в DocSpace."
+msgstr "Экспорт не удался для %s пользователя(ей). Пользователи с указанными адресами электронной почты уже существуют в DocSpace."
 
 #: pages/users/class-oodsp-users-page.php:576
 msgid "WordPress email will be used for the user login in DocSpace. Password will be generated automatically. Users can change their password manually in their profiles. The password for the existing DocSpace account won't be overwritten. These users can apply their current credentials."
@@ -334,7 +334,7 @@ msgstr "Для входа пользователя в DocSpace будет исп
 #. translators: %s: number of users successfully exported to DocSpace
 #: pages/users/class-oodsp-users-page.php:689
 msgid "Unlinked account(s) successfully for %s user(s)."
-msgstr "Успешно отвязаны учетные записи для %s пользователя(ей)."
+msgstr "Учетные записи для %s пользователя(ей) успешно отключены."
 
 #: pages/users/class-oodsp-users-page.php:722
 msgid "DocSpace Account shows if a WordPress user has already linked their WordPress and DocSpace accounts."
@@ -342,7 +342,7 @@ msgstr "Учетная запись DocSpace показывает, связал 
 
 #: pages/users/class-oodsp-users-page.php:726
 msgid "To export users to DocSpace, select the required user(s) and click the <strong>Export to DocSpace</strong> option in the <strong>Bulk actions</strong> drop-down menu. The user will be created in DocSpace with their email taken from WordPress. In this case, new users will be authorized via seamless login."
-msgstr "Чтобы экспортировать пользователей в DocSpace, выберите нужного пользователя(ей) и выберите опцию <strong>Экспортировать в DocSpace</strong> в раскрывающемся меню <strong>Массовые действия</strong>. Пользователь будет создан в DocSpace с адресом электронной почты из WordPress. В этом случае новые пользователи будут авторизованы через бесшовный вход."
+msgstr "Чтобы экспортировать пользователей в DocSpace, выберите нужного(ых) пользователя(ей) и выберите опцию <strong>Экспортировать в DocSpace</strong> в раскрывающемся меню <strong>Массовые действия</strong>. Пользователь будет создан в DocSpace с адресом электронной почты из WordPress. В этом случае новые пользователи будут авторизованы через бесшовный вход."
 
 #. translators: %s: ONLYOFFICE DocSpace plugin
 #: pages/users/class-oodsp-users-page.php:731
@@ -389,7 +389,7 @@ msgstr "Неверный адрес электронной почты"
 
 #: includes/resources/js/oodsp-login-page-template.js:212
 msgid "Rate limit exceeded"
-msgstr "Превышен лимит скорости"
+msgstr "Превышен лимит тарифа"
 
 #: pages/settings/js/authorization.js:28
 msgid "Successful authorization. Settings saved."
