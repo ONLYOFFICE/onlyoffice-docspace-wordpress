@@ -61,16 +61,15 @@ class HttpError extends Error {
 		} );
 	};
 
-	oodsp.client.resetPassword = async ( url, email ) => {
-		const baseUrl = url.endsWith( '/' ) ? url.slice( 0, -1 ) : url;
+	oodsp.client.resetPassword = async ( email ) => {
 		await ajaxRequest( {
-			url: `${ baseUrl }/api/2.0/people/password`,
+			url: _oodspClient.ajaxUrl,
 			method: 'POST',
-			contentType: 'application/json; charset=utf-8',
-			dataType: 'json',
-			data: JSON.stringify( {
+			data: {
+				action: 'oodsp_reset_password',
+				_ajax_nonce: _oodspClient.nonce.userController,
 				email,
-			} ),
+			},
 		} );
 	};
 

@@ -229,6 +229,7 @@ class OODSP_Plugin {
 		$this->loader->add_action( 'wp_ajax_oodsp_set_system_user', $oodsp_settings_controller, 'set_system_user' );
 		$this->loader->add_action( 'wp_ajax_oodsp_delete_system_user', $oodsp_settings_controller, 'delete_system_user' );
 		$this->loader->add_action( 'wp_ajax_oodsp_set_user', $oodsp_user_controller, 'set_user' );
+		$this->loader->add_action( 'wp_ajax_oodsp_reset_password', $oodsp_user_controller, 'reset_password' );
 		$this->loader->add_action( 'wp_ajax_oodsp_delete_user', $oodsp_user_controller, 'delete_user' );
 	}
 
