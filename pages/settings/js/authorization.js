@@ -1,4 +1,4 @@
-/* global jQuery, oodsp, DocspaceIntegrationSdk, HttpError, _oodspAuthorization, DocSpace */
+/* global jQuery, oodsp, DocspaceIntegrationSdk, HttpError, _oodspAuthorization */
 
 /**
  * Adds authorization functionality to the window.
