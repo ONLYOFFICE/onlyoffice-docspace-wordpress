@@ -160,4 +160,34 @@ class OODSP_User_Controller {
 
 		$this->oodsp_user_service->delete_docspace_account( $user->ID );
 	}
+
+	/**
+	 * Resets the password for a DocSpace user account.
+	 *
+	 * This method handles the password reset request by sending
+	 * a reset link to the specified email address. It validates
+	 * the email input and communicates with the DocSpace client
+	 * to initiate the password reset process.
+	 */
+	public function reset_password() {
+		check_ajax_referer( 'oodsp_user_controller' );
+
+		$email = trim( OODSP_Utils::get_var_from_request( 'email' ) );
+
+		if ( empty( $email ) ) {
+			wp_send_json_error(
+				array( 'message' => __( 'The required fields are empty', 'onlyoffice-docspace-plugin' ) ),
+				400
+			);
+		}
+
+		try {
+			$this->oodsp_docspace_client->reset_password( $email );
+		} catch ( OODSP_Docspace_Client_Exception $e ) {
+			wp_send_json_error(
+				array( 'message' => $e->getMessage() ),
+				$e->getCode()
+			);
+		}
+	}
 }

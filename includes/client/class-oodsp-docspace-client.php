@@ -216,6 +216,34 @@ class OODSP_Docspace_Client {
 	}
 
 	/**
+	 * Initiates a password reset for a user in ONLYOFFICE DocSpace.
+	 *
+	 * @param string $email The email address of the user whose password needs to be reset.
+	 *
+	 * @return array The response data from the password reset request.
+	 */
+	public function reset_password( $email ) {
+		$response = $this->request(
+			'/api/2.0/people/password',
+			array(
+				'method'  => 'POST',
+				'headers' => array(
+					'Content-Type' => 'application/json; charset=utf-8',
+				),
+				'body'    => wp_json_encode(
+					array(
+						'email' => $email,
+					)
+				),
+			),
+			'',
+			false
+		);
+
+		return $response['response'];
+	}
+
+	/**
 	 * Creates a new group in ONLYOFFICE DocSpace.
 	 *
 	 * @param string $group_name    The name of the new group.
