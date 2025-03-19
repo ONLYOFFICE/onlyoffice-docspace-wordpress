@@ -401,3 +401,7 @@ msgstr "已跳过 %1$s 个用户的导出。协作空间帐户已链接到 WordP
 #: pages/users/class-oodsp-users-page.php:527
 msgid "Export failed for %1$s user(s). User(s) with the indicated email(s) already exist in DocSpace: %2$s."
 msgstr "%1$s 个用户的导出失败。协作空间中已存在具有指定电子邮件的用户: %2$s"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js:1
+msgid "Background color"
+msgstr ""

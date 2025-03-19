@@ -392,6 +392,10 @@ msgid "View"
 msgstr ""
 
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
+msgid "Background color"
+msgstr ""
+
+#: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "Replace"
 msgstr ""
 

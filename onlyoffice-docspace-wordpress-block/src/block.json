@@ -33,6 +33,12 @@
 		},
 		"editorType": {
 			"type": "string"
+		},
+		"documentType": {
+			"type": "string"
+		},
+		"slidePlayerBackground": {
+			"type": "string"
 		}
 	},
 	"supports": {
