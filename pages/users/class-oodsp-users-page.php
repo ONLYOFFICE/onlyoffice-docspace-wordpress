@@ -616,28 +616,6 @@ class OODSP_Users_Page {
 			}
 		}
 
-		$shared_group = $this->oodsp_settings_manager->get_shared_group();
-		if ( ! empty( $shared_group ) && ! empty( $system_user ) && ! empty( $docspace_accounts ) ) {
-			try {
-				$docspace_accounts_ids = array_map(
-					function ( $docspace_account ) {
-						return $docspace_account->get_id();
-					},
-					$docspace_accounts
-				);
-
-				$this->oodsp_docspace_client->update_group(
-					$shared_group,
-					'',
-					'',
-					array(),
-					$docspace_accounts_ids
-				);
-			} catch ( OODSP_Docspace_Client_Exception $e ) {
-				$e->printStackTrace();
-			}
-		}
-
 		if ( $unlink_system_user ) {
 			try {
 				$this->oodsp_docspace_client->logout();
