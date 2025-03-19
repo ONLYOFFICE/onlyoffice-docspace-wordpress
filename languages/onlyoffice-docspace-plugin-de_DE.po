@@ -148,6 +148,7 @@ msgstr "https://www.onlyoffice.com/de"
 
 #: controller/class-oodsp-settings-controller.php:101
 #: controller/class-oodsp-user-controller.php:97
+#: controller/class-oodsp-user-controller.php:179
 msgid "The required fields are empty"
 msgstr "Die erforderlichen Felder sind leer"
 
