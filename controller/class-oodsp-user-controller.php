@@ -139,24 +139,7 @@ class OODSP_User_Controller {
 	public function delete_user() {
 		check_ajax_referer( 'oodsp_user_controller' );
 
-		$user             = wp_get_current_user();
-		$docspace_account = $this->oodsp_user_service->get_docspace_account( $user->ID );
-		$system_user      = $this->oodsp_settings_manager->get_system_user();
-		$shared_group     = $this->oodsp_settings_manager->get_shared_group();
-
-		if ( ! empty( $system_user ) && ! empty( $docspace_account ) && ! empty( $shared_group ) ) {
-			try {
-				$this->oodsp_docspace_client->update_group(
-					$shared_group,
-					'',
-					'',
-					array(),
-					array( $docspace_account->get_id() )
-				);
-			} catch ( OODSP_Docspace_Client_Exception $e ) {
-				$e->printStackTrace();
-			}
-		}
+		$user = wp_get_current_user();
 
 		$this->oodsp_user_service->delete_docspace_account( $user->ID );
 	}
