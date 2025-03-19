@@ -267,6 +267,13 @@ class OODSP_Public_DocSpace_Page {
 				),
 				'integrationMode' => 'embed',
 			);
+
+			if ( ! empty( $attr_lower_case['documenttype'] )
+				&& 'slide' === $attr_lower_case['documenttype']
+				&& ! empty( $attr_lower_case['slideplayerbackground'] )
+			) {
+				$config['editorCustomization']['slidePlayerBackground'] = $attr_lower_case['slideplayerbackground'];
+			}
 		}
 
 		if ( ! empty( $attr_lower_case['width'] ) ) {
