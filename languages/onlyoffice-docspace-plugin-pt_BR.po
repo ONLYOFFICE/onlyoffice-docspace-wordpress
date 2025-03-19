@@ -214,7 +214,7 @@ msgid "The current domain is not set in the Content Security Policy (CSP) settin
 msgstr "O domínio atual não está definido nas configurações da Política de Segurança de Conteúdo (CSP). Adicione-o por meio da %1$s seção Ferramentas do Desenvolvedor%2$s."
 
 #: pages/settings/class-oodsp-settings-page.php:216
-#: pages/users/class-oodsp-users-page.php:544
+#: pages/users/class-oodsp-users-page.php:541
 #: pages/settings/js/authorization.js:140
 msgid "ONLYOFFICE DocSpace cannot be reached"
 msgstr "O ONLYOFFICE DocSpace não pode ser acessado"
@@ -224,7 +224,7 @@ msgid "ONLYOFFICE DocSpace successfully disconnected"
 msgstr "O ONLYOFFICE DocSpace foi desconectado com sucesso"
 
 #: pages/settings/views/authorization.php:37
-#: pages/users/class-oodsp-users-page.php:732
+#: pages/users/class-oodsp-users-page.php:729
 msgid "Log in as a DocSpace Admin"
 msgstr "Faça login como um administrador do DocSpace"
 
@@ -307,7 +307,7 @@ msgid "DocSpace Account"
 msgstr "Conta DocSpace"
 
 #: pages/users/class-oodsp-users-page.php:311
-#: pages/users/class-oodsp-users-page.php:573
+#: pages/users/class-oodsp-users-page.php:570
 msgid "Export to DocSpace"
 msgstr "Exportar para DocSpace"
 
@@ -316,47 +316,37 @@ msgid "Unlink DocSpace Account"
 msgstr "Desvincular conta DocSpace"
 
 #. translators: %s: number of users successfully exported to DocSpace
-#: pages/users/class-oodsp-users-page.php:501
+#: pages/users/class-oodsp-users-page.php:496
 msgid "Export completed successfully for %s user(s)."
 msgstr "Exportação concluída com sucesso para %s usuário(s)."
 
-#. translators: %s: number of users skipped during export to DocSpace because they already have accounts
-#: pages/users/class-oodsp-users-page.php:516
-msgid "Export skipped for %s user(s). DocSpace Account(s) already linked to the WordPress account(s). Unlink DocSpace Account(s) and try again."
-msgstr "Exportação ignorada para %s usuário(s). Conta(s) DocSpace já vinculadas à(s) conta(s) WordPress. Desvincule conta(s) DocSpace e tente novamente."
-
-#. translators: %s: number of users that failed to export because their emails already exist in DocSpace
-#: pages/users/class-oodsp-users-page.php:531
-msgid "Export failed for %s user(s). User(s) with the indicated email(s) already exist in DocSpace."
-msgstr "Exportação falhou para %s usuário(s). Usuário(s) com o(s) e-mail(s) indicado(s) já existem no DocSpace."
-
-#: pages/users/class-oodsp-users-page.php:576
+#: pages/users/class-oodsp-users-page.php:573
 msgid "WordPress email will be used for the user login in DocSpace. Password will be generated automatically. Users can change their password manually in their profiles. The password for the existing DocSpace account won't be overwritten. These users can apply their current credentials."
 msgstr "O e-mail do WordPress será usado para o login do usuário no DocSpace. A senha será gerada automaticamente. Os usuários podem alterar suas senhas manualmente em seus perfis. A senha da conta DocSpace existente não será substituída. Esses usuários podem aplicar suas credenciais atuais."
 
 #. translators: %s: number of users successfully exported to DocSpace
-#: pages/users/class-oodsp-users-page.php:689
+#: pages/users/class-oodsp-users-page.php:686
 msgid "Unlinked account(s) successfully for %s user(s)."
 msgstr "Conta(s) desvinculada(s) com sucesso para %s usuário(s)."
 
-#: pages/users/class-oodsp-users-page.php:722
+#: pages/users/class-oodsp-users-page.php:719
 msgid "DocSpace Account shows if a WordPress user has already linked their WordPress and DocSpace accounts."
 msgstr "A conta DocSpace mostra se um usuário WordPress já vinculou suas contas WordPress e DocSpace."
 
-#: pages/users/class-oodsp-users-page.php:726
+#: pages/users/class-oodsp-users-page.php:723
 msgid "To export users to DocSpace, select the required user(s) and click the <strong>Export to DocSpace</strong> option in the <strong>Bulk actions</strong> drop-down menu. The user will be created in DocSpace with their email taken from WordPress. In this case, new users will be authorized via seamless login."
 msgstr "Para exportar usuários para o DocSpace, selecione o(s) usuário(s) necessário(s) e clique na opção <strong>Exportar para o DocSpace</strong> no menu suspenso <strong>Ações em massa</strong>. O usuário será criado no DocSpace com seu e-mail obtido do WordPress. Neste caso, novos usuários serão autorizados por meio de login contínuo."
 
 #. translators: %s: ONLYOFFICE DocSpace plugin
-#: pages/users/class-oodsp-users-page.php:731
+#: pages/users/class-oodsp-users-page.php:728
 msgid "To export users automatically, please %s."
 msgstr "Para exportar usuários automaticamente, %s."
 
-#: pages/users/class-oodsp-users-page.php:737
+#: pages/users/class-oodsp-users-page.php:734
 msgid "If your WordPress users already have DocSpace accounts, they can continue using their current accounts. Accounts will be linked automatically once these users log into the ONLYOFFICE DocSpace plugin."
 msgstr "Se seus usuários do WordPress já tiverem contas no DocSpace, eles podem continuar usando suas contas atuais. As contas serão vinculadas automaticamente assim que esses usuários fizerem login no plugin ONLYOFFICE DocSpace."
 
-#: pages/users/class-oodsp-users-page.php:739
+#: pages/users/class-oodsp-users-page.php:736
 msgid "For more information:"
 msgstr "Para mais informações:"
 
@@ -401,3 +391,13 @@ msgstr "Autorização bem-sucedida. Configurações salvas."
 #: pages/users/js/index.js:15
 msgid "Export"
 msgstr "Exportar"
+
+#. translators: %1$s: number of skipped users, %2$s: list of users who already have a DocSpace account
+#: pages/users/class-oodsp-users-page.php:511
+msgid "Export skipped for %1$s user(s). DocSpace Account(s) already linked to the WordPress account(s): %2$s. Unlink DocSpace Account(s) and try again."
+msgstr ""
+
+#. translators: %1$s: number of users that failed to export, %2$s: list of user emails that already exist in DocSpace
+#: pages/users/class-oodsp-users-page.php:527
+msgid "Export failed for %1$s user(s). User(s) with the indicated email(s) already exist in DocSpace: %2$s."
+msgstr ""

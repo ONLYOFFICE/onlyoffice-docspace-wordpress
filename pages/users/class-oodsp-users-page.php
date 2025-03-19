@@ -349,15 +349,15 @@ class OODSP_Users_Page {
 
 		$hash_settings = $settings['passwordHash'];
 
-		$create_count      = 0;
-		$skipped_count     = 0;
-		$error_count       = 0;
+		$created_users     = array();
+		$skipped_users     = array();
+		$error_users       = array();
 		$docspace_accounts = array();
 		foreach ( $user_ids as $user_id ) {
 			$user             = get_userdata( $user_id );
 			$docspace_account = $this->oodsp_user_service->get_docspace_account( $user_id );
 			if ( ! empty( $docspace_account ) ) {
-				++$skipped_count;
+				array_push( $skipped_users, $user->user_email );
 				continue;
 			}
 
@@ -385,10 +385,10 @@ class OODSP_Users_Page {
 					$user_id,
 					$docspace_account
 				);
-				++$create_count;
+				array_push( $created_users, $user->user_email );
 				array_push( $docspace_accounts, $docspace_account );
 			} catch ( OODSP_Docspace_Client_Exception $e ) {
-				++$error_count;
+				array_push( $error_users, $user->user_email );
 			}
 		}
 
@@ -419,20 +419,15 @@ class OODSP_Users_Page {
 			'create_docspace_user',
 			$redirect_to
 		);
-		$redirect_to = add_query_arg(
-			'create_count',
-			$create_count,
-			$redirect_to
-		);
-		$redirect_to = add_query_arg(
-			'skipped_count',
-			$skipped_count,
-			$redirect_to
-		);
-		$redirect_to = add_query_arg(
-			'error_count',
-			$error_count,
-			$redirect_to
+
+		set_transient(
+			'oodsp_create_docspace_user_transient',
+			array(
+				'created_users' => $created_users,
+				'skipped_users' => $skipped_users,
+				'error_users'   => $error_users,
+			),
+			30
 		);
 
 		return $redirect_to;
@@ -450,9 +445,6 @@ class OODSP_Users_Page {
 	public function oodsp_users_bulk_actions_removable_query_args( $query_args ) {
 		array_push(
 			$query_args,
-			'create_count',
-			'skipped_count',
-			'error_count',
 			'error_create_docspace_user',
 			'unlinked_count'
 		);
@@ -470,36 +462,39 @@ class OODSP_Users_Page {
 	public function create_docspace_user_bulk_action_admin_notice() {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		if ( ! empty( $_GET['update'] ) ) {
-			$create_count  = 0;
-			$skipped_count = 0;
-			$error_count   = 0;
-
-			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			if ( isset( $_GET['create_count'] ) ) {
-				// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-				$create_count = absint( wp_unslash( $_GET['create_count'] ) );
-			}
-			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			if ( isset( $_GET['skipped_count'] ) ) {
-				// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-				$skipped_count = absint( wp_unslash( $_GET['skipped_count'] ) );
-			}
-			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			if ( isset( $_GET['error_count'] ) ) {
-				// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-				$error_count = absint( wp_unslash( $_GET['error_count'] ) );
-			}
-
 			$messages = array();
+
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			switch ( $_GET['update'] ) {
 				case 'create_docspace_user':
-					if ( ! empty( $create_count ) ) {
+					$oodsp_create_docspace_user_transient = get_transient( 'oodsp_create_docspace_user_transient' );
+
+					$created_users = array();
+					$skipped_users = array();
+					$error_users   = array();
+
+					if ( ! empty( $oodsp_create_docspace_user_transient ) ) {
+						if ( isset( $oodsp_create_docspace_user_transient['created_users'] ) ) {
+							$created_users = $oodsp_create_docspace_user_transient['created_users'];
+						}
+
+						if ( isset( $oodsp_create_docspace_user_transient['skipped_users'] ) ) {
+							$skipped_users = $oodsp_create_docspace_user_transient['skipped_users'];
+						}
+
+						if ( isset( $oodsp_create_docspace_user_transient['error_users'] ) ) {
+							$error_users = $oodsp_create_docspace_user_transient['error_users'];
+						}
+
+						delete_transient( 'oodsp_create_docspace_user_transient' );
+					}
+
+					if ( ! empty( $created_users ) ) {
 						$messages[] = wp_get_admin_notice(
 							sprintf(
 								/* translators: %s: number of users successfully exported to DocSpace */
 								__( 'Export completed successfully for %s user(s).', 'onlyoffice-docspace-plugin' ),
-								$create_count
+								count( $created_users )
 							),
 							array(
 								'id'          => 'create_docspace_user-success-message',
@@ -509,12 +504,13 @@ class OODSP_Users_Page {
 						);
 					}
 
-					if ( ! empty( $skipped_count ) ) {
+					if ( ! empty( $skipped_users ) ) {
 						$messages[] = wp_get_admin_notice(
 							sprintf(
-								/* translators: %s: number of users skipped during export to DocSpace because they already have accounts */
-								__( 'Export skipped for %s user(s). DocSpace Account(s) already linked to the WordPress account(s). Unlink DocSpace Account(s) and try again.', 'onlyoffice-docspace-plugin' ),
-								$skipped_count
+								/* translators: %1$s: number of skipped users, %2$s: list of users who already have a DocSpace account */
+								__( 'Export skipped for %1$s user(s). DocSpace Account(s) already linked to the WordPress account(s): %2$s. Unlink DocSpace Account(s) and try again.', 'onlyoffice-docspace-plugin' ),
+								count( $skipped_users ),
+								implode( ', ', $skipped_users )
 							),
 							array(
 								'id'          => 'create_docspace_user-warning-message',
@@ -524,12 +520,13 @@ class OODSP_Users_Page {
 						);
 					}
 
-					if ( ! empty( $error_count ) ) {
+					if ( ! empty( $error_users ) ) {
 						$messages[] = wp_get_admin_notice(
 							sprintf(
-								/* translators: %s: number of users that failed to export because their emails already exist in DocSpace */
-								__( 'Export failed for %s user(s). User(s) with the indicated email(s) already exist in DocSpace.', 'onlyoffice-docspace-plugin' ),
-								$error_count
+								/* translators: %1$s: number of users that failed to export, %2$s: list of user emails that already exist in DocSpace */
+								__( 'Export failed for %1$s user(s). User(s) with the indicated email(s) already exist in DocSpace: %2$s.', 'onlyoffice-docspace-plugin' ),
+								count( $error_users ),
+								implode( ', ', $error_users )
 							),
 							array(
 								'id'          => 'create_docspace_user-error-message',

@@ -214,7 +214,7 @@ msgid "The current domain is not set in the Content Security Policy (CSP) settin
 msgstr "Die aktuelle Domäne ist in den Content Security Policy (CSP)-Einstellungen nicht festgelegt. Bitte fügen Sie sie über den %1$sAbschnitt Entwicklertools%2$s hinzu."
 
 #: pages/settings/class-oodsp-settings-page.php:216
-#: pages/users/class-oodsp-users-page.php:544
+#: pages/users/class-oodsp-users-page.php:541
 #: pages/settings/js/authorization.js:140
 msgid "ONLYOFFICE DocSpace cannot be reached"
 msgstr "ONLYOFFICE DocSpace kann nicht erreicht werden"
@@ -224,7 +224,7 @@ msgid "ONLYOFFICE DocSpace successfully disconnected"
 msgstr "ONLYOFFICE DocSpace erfolgreich getrennt"
 
 #: pages/settings/views/authorization.php:37
-#: pages/users/class-oodsp-users-page.php:732
+#: pages/users/class-oodsp-users-page.php:729
 msgid "Log in as a DocSpace Admin"
 msgstr "Als DocSpace-Administrator anmelden"
 
@@ -307,7 +307,7 @@ msgid "DocSpace Account"
 msgstr "DocSpace-Konto"
 
 #: pages/users/class-oodsp-users-page.php:311
-#: pages/users/class-oodsp-users-page.php:573
+#: pages/users/class-oodsp-users-page.php:570
 msgid "Export to DocSpace"
 msgstr "Nach DocSpace exportieren"
 
@@ -316,47 +316,37 @@ msgid "Unlink DocSpace Account"
 msgstr "DocSpace-Konto aufheben"
 
 #. translators: %s: number of users successfully exported to DocSpace
-#: pages/users/class-oodsp-users-page.php:501
+#: pages/users/class-oodsp-users-page.php:496
 msgid "Export completed successfully for %s user(s)."
 msgstr "Export für %s Benutzer erfolgreich abgeschlossen."
 
-#. translators: %s: number of users skipped during export to DocSpace because they already have accounts
-#: pages/users/class-oodsp-users-page.php:516
-msgid "Export skipped for %s user(s). DocSpace Account(s) already linked to the WordPress account(s). Unlink DocSpace Account(s) and try again."
-msgstr "Export für %s Benutzer übersprungen. DocSpace-Konten sind bereits mit den WordPress-Konten verknüpft. Trennen Sie die Verknüpfung der DocSpace-Konten und versuchen Sie es erneut."
-
-#. translators: %s: number of users that failed to export because their emails already exist in DocSpace
-#: pages/users/class-oodsp-users-page.php:531
-msgid "Export failed for %s user(s). User(s) with the indicated email(s) already exist in DocSpace."
-msgstr "Der Export für %s Benutzer ist fehlgeschlagen. Benutzer mit den angegebenen E-Mail-Adressen sind bereits in DocSpace vorhanden."
-
-#: pages/users/class-oodsp-users-page.php:576
+#: pages/users/class-oodsp-users-page.php:573
 msgid "WordPress email will be used for the user login in DocSpace. Password will be generated automatically. Users can change their password manually in their profiles. The password for the existing DocSpace account won't be overwritten. These users can apply their current credentials."
 msgstr "Für die Benutzeranmeldung in DocSpace wird die WordPress-E-Mail-Adresse verwendet. Das Passwort wird automatisch generiert. Benutzer können ihr Passwort manuell in ihren Profilen ändern. Das Passwort für das bestehende DocSpace-Konto wird nicht überschrieben. Diese Benutzer können ihre aktuellen Anmeldeinformationen verwenden."
 
 #. translators: %s: number of users successfully exported to DocSpace
-#: pages/users/class-oodsp-users-page.php:689
+#: pages/users/class-oodsp-users-page.php:686
 msgid "Unlinked account(s) successfully for %s user(s)."
 msgstr "Die Verknüpfung der Konten für %s Benutzer wurde erfolgreich aufgehoben."
 
-#: pages/users/class-oodsp-users-page.php:722
+#: pages/users/class-oodsp-users-page.php:719
 msgid "DocSpace Account shows if a WordPress user has already linked their WordPress and DocSpace accounts."
 msgstr "DocSpace-Konto zeigt an, ob ein WordPress-Benutzer die WordPress- und DocSpace-Konten bereits verknüpft hat."
 
-#: pages/users/class-oodsp-users-page.php:726
+#: pages/users/class-oodsp-users-page.php:723
 msgid "To export users to DocSpace, select the required user(s) and click the <strong>Export to DocSpace</strong> option in the <strong>Bulk actions</strong> drop-down menu. The user will be created in DocSpace with their email taken from WordPress. In this case, new users will be authorized via seamless login."
 msgstr "Um Benutzer nach DocSpace zu exportieren, wählen Sie die gewünschten Benutzer aus und klicken Sie im Dropdown-Menü <strong>Massenaktionen</strong> auf die Option <strong>Nach DocSpace exportieren</strong>. Der Benutzer wird in DocSpace mit einer aus WordPress übernommenen E-Mail-Adresse erstellt. In diesem Fall werden neue Benutzer über eine nahtlose Anmeldung autorisiert."
 
 #. translators: %s: ONLYOFFICE DocSpace plugin
-#: pages/users/class-oodsp-users-page.php:731
+#: pages/users/class-oodsp-users-page.php:728
 msgid "To export users automatically, please %s."
 msgstr "Um Benutzer automatisch zu exportieren, %s."
 
-#: pages/users/class-oodsp-users-page.php:737
+#: pages/users/class-oodsp-users-page.php:734
 msgid "If your WordPress users already have DocSpace accounts, they can continue using their current accounts. Accounts will be linked automatically once these users log into the ONLYOFFICE DocSpace plugin."
 msgstr "Wenn Ihre WordPress-Benutzer bereits über DocSpace-Konten verfügen, können sie ihre aktuellen Konten weiterhin verwenden. Die Konten werden automatisch verknüpft, sobald sich diese Benutzer beim ONLYOFFICE DocSpace-Plugin anmelden."
 
-#: pages/users/class-oodsp-users-page.php:739
+#: pages/users/class-oodsp-users-page.php:736
 msgid "For more information:"
 msgstr "Für weitere Informationen:"
 
@@ -401,3 +391,13 @@ msgstr "Erfolgreiche Autorisierung. Einstellungen gespeichert."
 #: pages/users/js/index.js:15
 msgid "Export"
 msgstr "Export"
+
+#. translators: %1$s: number of skipped users, %2$s: list of users who already have a DocSpace account
+#: pages/users/class-oodsp-users-page.php:511
+msgid "Export skipped for %1$s user(s). DocSpace Account(s) already linked to the WordPress account(s): %2$s. Unlink DocSpace Account(s) and try again."
+msgstr ""
+
+#. translators: %1$s: number of users that failed to export, %2$s: list of user emails that already exist in DocSpace
+#: pages/users/class-oodsp-users-page.php:527
+msgid "Export failed for %1$s user(s). User(s) with the indicated email(s) already exist in DocSpace: %2$s."
+msgstr ""
