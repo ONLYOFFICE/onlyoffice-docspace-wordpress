@@ -401,3 +401,7 @@ msgstr "Экспорт пропущен для %1$s пользователя(е�
 #: pages/users/class-oodsp-users-page.php:527
 msgid "Export failed for %1$s user(s). User(s) with the indicated email(s) already exist in DocSpace: %2$s."
 msgstr "Экспорт не удался для %1$s пользователя(ей). Пользователи с указанными адресами электронной почты уже существуют в DocSpace: %2$s."
+
+#: onlyoffice-docspace-wordpress-block/build/index.js:1
+msgid "Background color"
+msgstr ""
