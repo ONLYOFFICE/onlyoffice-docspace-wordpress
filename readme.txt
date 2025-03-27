@@ -3,7 +3,7 @@ Contributors: onlyoffice
 Tags: onlyoffice, integration, docspace
 Requires at least: 6.2
 Tested up to: 6.7.2
-Stable tag: 2.1.3
+Stable tag: 3.0.0
 Requires PHP: 8.0
 License: GPLv2
 License URI: https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress/blob/master/LICENSE
@@ -132,6 +132,21 @@ ONLYOFFICE DocSpace is a room-based collaborative environment. With ONLYOFFICE D
 5. Access ONLYOFFICE DocSpace within WordPress
 
 == Changelog ==
+= 3.0.0 =
+* Disconnect button in connection settings
+* setting Log in as a DocSpace Admin
+* creating shared group WordPress Users after connecting DocSpace
+* creating shared group WordPress Users after login System User
+* inviting to shared group users which authorize in plugin
+* inviting created through the plugin users to shared group WordPress Users
+* drop saved DocSpace Account after sign out in DocSpace(Sign out button)
+* reset password on login page
+* action Unlink DocSpace Account on Users page
+* export functionality to DocSpace has been moved to the main Users page
+* export users from wordpress to docspace with role User (rename User to Guest, PowerUser to User)
+* error stubs (unavailable, unauthorized)
+* settings page design
+
 = 2.1.2 =
 * fixed xss vulnerabilities in onlyoffice-docspace page component
 

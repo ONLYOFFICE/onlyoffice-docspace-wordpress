@@ -1,6 +1,6 @@
 # Change Log
 
-##
+## 3.0.0
 ## Added
 - Disconnect button in connection settings
 - setting Log in as a DocSpace Admin
@@ -8,7 +8,6 @@
 - creating shared group WordPress Users after login System User
 - inviting to shared group users which authorize in plugin
 - inviting created through the plugin users to shared group WordPress Users
-- exclude from the shared group after logout
 - drop saved DocSpace Account after sign out in DocSpace(Sign out button)
 - reset password on login page
 - action Unlink DocSpace Account on Users page
