@@ -148,7 +148,7 @@ msgstr "https://www.onlyoffice.com/zh/"
 
 #: controller/class-oodsp-settings-controller.php:101
 #: controller/class-oodsp-user-controller.php:97
-#: controller/class-oodsp-user-controller.php:179
+#: controller/class-oodsp-user-controller.php:162
 msgid "The required fields are empty"
 msgstr "必填字段为空"
 
@@ -224,7 +224,7 @@ msgid "ONLYOFFICE DocSpace successfully disconnected"
 msgstr "ONLYOFFICE 协作空间已成功断开连接"
 
 #: pages/settings/views/authorization.php:37
-#: pages/users/class-oodsp-users-page.php:729
+#: pages/users/class-oodsp-users-page.php:707
 msgid "Log in as a DocSpace Admin"
 msgstr "以协作空间管理员身份登录"
 
@@ -325,28 +325,28 @@ msgid "WordPress email will be used for the user login in DocSpace. Password wil
 msgstr "WordPress 电子邮件将用于用户登录协作空间。密码将自动生成。用户可以在其个人资料中手动更改密码。现有协作空间帐户的密码不会被覆盖。这些用户可以应用其当前凭据。"
 
 #. translators: %s: number of users successfully exported to DocSpace
-#: pages/users/class-oodsp-users-page.php:686
+#: pages/users/class-oodsp-users-page.php:664
 msgid "Unlinked account(s) successfully for %s user(s)."
 msgstr "已成功为 %s 个用户取消链接帐户。"
 
-#: pages/users/class-oodsp-users-page.php:719
+#: pages/users/class-oodsp-users-page.php:697
 msgid "DocSpace Account shows if a WordPress user has already linked their WordPress and DocSpace accounts."
 msgstr "协作空间帐户显示 WordPress 用户是否已链接其 WordPress 和协作空间 帐户。"
 
-#: pages/users/class-oodsp-users-page.php:723
+#: pages/users/class-oodsp-users-page.php:701
 msgid "To export users to DocSpace, select the required user(s) and click the <strong>Export to DocSpace</strong> option in the <strong>Bulk actions</strong> drop-down menu. The user will be created in DocSpace with their email taken from WordPress. In this case, new users will be authorized via seamless login."
 msgstr "要将用户导出到协作空间，请选择所需的用户，然后单击<strong>批量操作</strong>下拉菜单中的<strong>导出到协作空间</strong>选项。用户将在协作空间 中创建，其电子邮件来自 WordPress。在这种情况下，新用户将通过无缝登录获得授权。"
 
 #. translators: %s: ONLYOFFICE DocSpace plugin
-#: pages/users/class-oodsp-users-page.php:728
+#: pages/users/class-oodsp-users-page.php:706
 msgid "To export users automatically, please %s."
 msgstr "要自动导出用户，请 %s。"
 
-#: pages/users/class-oodsp-users-page.php:734
+#: pages/users/class-oodsp-users-page.php:712
 msgid "If your WordPress users already have DocSpace accounts, they can continue using their current accounts. Accounts will be linked automatically once these users log into the ONLYOFFICE DocSpace plugin."
 msgstr "如果您的 WordPress 用户已经拥有协作空间帐户，他们可以继续使用其当前帐户。一旦这些用户登录 ONLYOFFICE 协作空间插件，帐户将自动链接。"
 
-#: pages/users/class-oodsp-users-page.php:736
+#: pages/users/class-oodsp-users-page.php:714
 msgid "For more information:"
 msgstr "更多信息："
 
@@ -395,9 +395,9 @@ msgstr "导出"
 #. translators: %1$s: number of skipped users, %2$s: list of users who already have a DocSpace account
 #: pages/users/class-oodsp-users-page.php:511
 msgid "Export skipped for %1$s user(s). DocSpace Account(s) already linked to the WordPress account(s): %2$s. Unlink DocSpace Account(s) and try again."
-msgstr ""
+msgstr "已跳过 %1$s 个用户的导出。协作空间帐户已链接到 WordPress 帐户: %1$s。取消链接协作空间 帐户并重试。"
 
 #. translators: %1$s: number of users that failed to export, %2$s: list of user emails that already exist in DocSpace
 #: pages/users/class-oodsp-users-page.php:527
 msgid "Export failed for %1$s user(s). User(s) with the indicated email(s) already exist in DocSpace: %2$s."
-msgstr ""
+msgstr "%1$s 个用户的导出失败。协作空间中已存在具有指定电子邮件的用户: %2$s"
