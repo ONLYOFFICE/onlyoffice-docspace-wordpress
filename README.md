@@ -32,7 +32,7 @@ The WordPress Users page introduces a *DocSpace Account* column once DocSpace is
 
 **Exporting users from WordPress to DocSpace**
 
-WordPress administrators have the ability to export users from WordPress to DocSpace. Exported users will gain seamless access to DocSpace, with an automatically generated password assigned to them. Their WordPress email address will serve as their login credential in DocSpace. Once exported, the user is added to the *WordPress Users* group in DocSpace.
+WordPress administrators have the ability to export users from WordPress to DocSpace. Exported users will gain seamless login to DocSpace, with an automatically generated password assigned to them. Their WordPress email address will serve as their login credential in DocSpace. Once exported, the user is added to the *WordPress Users* group in DocSpace.
 
 If a WordPress user with an email address already registered in DocSpace is exported, a notification will appear. In this scenario, the user’s existing DocSpace credentials, including their password, remain unchanged.
 
@@ -54,7 +54,7 @@ To log out of the DocSpace account, open DocSpace from the left-hand menu. Acces
 
 ### Password recovery
 
-If a user forgets their password or seamless authorization fails, they can click the *Reset Password* button during the login process. This will open a password reset window. If the entered email is registered in DocSpace, password reset instructions will be sent to that email address.
+If a user forgets their password or seamless login fails, they can click the *Reset Password* button during the login process. This will open a password reset window. If the entered email is registered in DocSpace, password reset instructions will be sent to that email address.
 
 ### DocSpace in the left panel
 
