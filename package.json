@@ -1,0 +1,14 @@
+{
+	"name": "@onlyoffice/onlyoffice-docspace-wordpress",
+	"devDependencies": {
+		"@wordpress/scripts": "^30.14.0"
+	},
+	"overrides": {
+		"@babel/runtime": "7.27.0"
+	},
+	"scripts": {
+		"format:js": "wp-scripts format --ignore-pattern=assets-onlyoffice-docspace",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js --ignore-pattern=assets-onlyoffice-docspace"
+	}
+}

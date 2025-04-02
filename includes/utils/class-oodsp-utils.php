@@ -11,7 +11,7 @@
 
 /**
  *
- * (c) Copyright Ascensio System SIA 2024
+ * (c) Copyright Ascensio System SIA 2025
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -75,89 +75,9 @@ class OODSP_Utils {
 	);
 
 	/**
-	 * OODSP_Settings
-	 *
-	 * @access   private
-	 * @var      OODSP_Settings    $plugin_settings
-	 */
-	private $plugin_settings;
-
-	/**
-	 * Initialize the class and set its properties.
-	 */
-	public function __construct() {
-		$this->plugin_settings = new OODSP_Settings();
-	}
-
-	/**
-	 * Register the JavaScript for the OODSP Utils.
-	 */
-	public function enqueue_scripts() {
-		$current_user = wp_get_current_user()->user_email;
-
-		$message_docspace_unavailable = __( 'Portal unavailable! Please contact the administrator!', 'onlyoffice-docspace-plugin' );
-
-		if ( is_user_logged_in() ) {
-			if ( current_user_can( 'manage_options' ) ) {
-				$message_docspace_unavailable = __( 'Go to the settings to configure ONLYOFFICE DocSpace connector.', 'onlyoffice-docspace-plugin' );
-			}
-
-			$message_unauthorized_header  = __( 'Authorization unsuccessful!', 'onlyoffice-docspace-plugin' );
-			$message_unauthorized_message = __( 'Please contact the administrator.', 'onlyoffice-docspace-plugin' );
-
-			if ( current_user_can( 'upload_files' ) ) {
-				$message_unauthorized_message = __( 'Please proceed to the DocSpace plugin via the left side menu and enter your password to restore access.', 'onlyoffice-docspace-plugin' );
-			}
-		} else {
-			$message_unauthorized_header  = __( 'Access denied!', 'onlyoffice-docspace-plugin' );
-			$message_unauthorized_message = __( 'Please log in to the site!', 'onlyoffice-docspace-plugin' );
-		}
-
-		wp_enqueue_script(
-			'oodsp-utils',
-			OODSP_PLUGIN_URL . 'includes/js/oodsp-utils.js',
-			array( 'wp-util' ),
-			OODSP_VERSION,
-			true
-		);
-
-		wp_localize_script(
-			'oodsp-utils',
-			'_oodsp',
-			array(
-				'docspaceUrl' => $this->plugin_settings->get_onlyoffice_docspace_setting( OODSP_Settings::DOCSPACE_URL ),
-				'currentUser' => $current_user,
-				'locale'      => $this->get_locale_for_docspace(),
-				'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
-				'isAnonymous' => ! is_user_logged_in(),
-				'messages'    => array(
-					'docspaceUnavailable' => $message_docspace_unavailable,
-					'unauthorizedHeader'  => $message_unauthorized_header,
-					'unauthorizedMessage' => $message_unauthorized_message,
-				),
-			)
-		);
-
-		add_action( 'wp_footer', array( $this, 'oodsp_error_template' ), 30 );
-		add_action( 'admin_footer', array( $this, 'oodsp_error_template' ), 30 );
-	}
-
-	/**
-	 * Register the stylesheets for the OODSP Utils.
-	 */
-	public function enqueue_styles() {
-		wp_enqueue_style(
-			'oodsp-utils',
-			OODSP_PLUGIN_URL . 'includes/css/oodsp-utils.css',
-			array(),
-			OODSP_VERSION
-		);
-	}
-
-	/**
 	 *  DocSpace login template.
 	 */
-	public function get_locale_for_docspace() {
+	public static function get_locale_for_docspace() {
 		$locale = str_replace( '_', '-', get_user_locale() );
 
 		if ( in_array( $locale, self::LOCALES, true ) ) {
@@ -175,28 +95,110 @@ class OODSP_Utils {
 	}
 
 	/**
-	 *  OODSP error template.
+	 * Generates a random DocSpace password hash.
 	 *
-	 * @return void
+	 * @param array $hash_settings An array containing hash settings (salt, iterations, size).
+	 * @return string The generated password hash.
 	 */
-	public function oodsp_error_template() {
-		?>
-		<script type="text/html" id="tmpl-oodsp-error">
-			<div class="onlyoffice-error" >
-				<div class="onlyoffice-error-body">
-					<div class="onlyoffice-error-table js">
-						<div>
-							<img src="<?php echo esc_url( OODSP_PLUGIN_URL . 'includes/images/onlyoffice.svg' ); ?>" style="width: 100%; padding: 0 10px;" />
-						</div>
-						<div style="padding: 16px;">
-							<img src="<?php echo esc_url( OODSP_PLUGIN_URL . 'includes/images/unavailable.svg' ); ?>" style="width: 100%"/>
-						</div>
-						<div class="header-message">{{{data.header || ""}}}</div>
-						<div class="message">{{{data.message}}}</div>
-					</div>
-				</div>
-			</div>
-		</script>
-		<?php
+	public static function generate_random_docspace_password_hash( $hash_settings ) {
+		$password = wp_generate_password(
+			16,
+			true,
+			false
+		);
+
+		$bits = hash_pbkdf2(
+			'sha256',
+			$password,
+			$hash_settings['salt'],
+			$hash_settings['iterations'],
+			$hash_settings['size'] / 8,
+			true
+		);
+
+		return bin2hex( $bits );
+	}
+
+	/**
+	 * Extracts DocSpace user data from a WordPress user object.
+	 *
+	 * @param WP_User $user WordPress user object.
+	 * @return array An array containing email, first name, and last name.
+	 */
+	public static function get_docspace_user_data_from_wp_user( $user ) {
+		$email      = $user->user_email;
+		$login      = $user->user_login;
+		$first_name = preg_replace( '/[^\p{L}\p{M} \-]/u', '-', $user->first_name );
+		$last_name  = preg_replace( '/[^\p{L}\p{M} \-]/u', '-', $user->last_name );
+
+		if ( $first_name && ! $last_name ) {
+			$last_name = $first_name;
+		}
+
+		if ( ! $first_name && $last_name ) {
+			$first_name = $last_name;
+		}
+
+		if ( ! $first_name && ! $last_name ) {
+			$first_name = preg_replace( '/[^\p{L}\p{M} \-]/u', '-', $login );
+			$last_name  = $first_name;
+		}
+
+		return array( $email, $first_name, $last_name );
+	}
+
+	/**
+	 * Retrieves the base URL of the site.
+	 *
+	 * @return string The base URL of the site.
+	 */
+	public static function get_base_url() {
+		$site_url = site_url();
+
+		$scheme = wp_parse_url( $site_url, PHP_URL_SCHEME );
+		$host   = wp_parse_url( $site_url, PHP_URL_HOST );
+		$port   = wp_parse_url( $site_url, PHP_URL_PORT );
+
+		$base_url = $scheme . '://' . $host;
+
+		if ( ! empty( $port ) ) {
+			$base_url .= ':' . $port;
+		}
+
+		return $base_url;
+	}
+
+	/**
+	 * Get sanitized variable from request.
+	 *
+	 * @param string $var_name      The name of the variable to retrieve.
+	 * @param string $filter_type   Optional. The type of filtering to apply. Default 'sanitize_text_field'.
+	 * @param mixed  $default_value Optional. Default value to return if the variable is not set.
+	 *
+	 * @return mixed The filtered value of the requested variable.
+	 */
+	public static function get_var_from_request(
+		$var_name,
+		$filter_type = 'sanitize_text_field',
+		$default_value = ''
+	) {
+		if ( ! isset( $_REQUEST[ $var_name ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			return $default_value;
+		}
+
+		$var_value = wp_unslash( $_REQUEST[ $var_name ] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+
+		switch ( $filter_type ) {
+			case 'sanitize_text_field':
+				return sanitize_text_field( $var_value );
+			case 'sanitize_url':
+				return esc_url_raw( $var_value );
+			case 'sanitize_email':
+				return sanitize_email( $var_value );
+			case 'absint':
+				return absint( $var_value );
+			default:
+				return sanitize_text_field( $var_value );
+		}
 	}
 }

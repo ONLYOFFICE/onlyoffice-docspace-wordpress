@@ -2,8 +2,8 @@
 Contributors: onlyoffice
 Tags: onlyoffice, integration, docspace
 Requires at least: 6.2
-Tested up to: 6.3.1
-Stable tag: 2.1.2
+Tested up to: 6.7.2
+Stable tag: 2.1.3
 Requires PHP: 8.0
 License: GPLv2
 License URI: https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress/blob/master/LICENSE
@@ -117,7 +117,7 @@ On the frontend, the following DocSpace elements are inserted:
 
 = How to configure the plugin? =
 
-Go to WordPress administrative dashboard -> ONLYOFFICE DocSpace -> Settings. Specify the DocSpace Service Address, Admin Login and Password. When you click on the Save button, a user with the Room admin role will be created in ONLYOFFICE DocSpace, with the same data as the current WordPress user. A public user (WordPress Viewer) will be also added to DocSpace with the View Only access.
+Go to WordPress administrative dashboard -> ONLYOFFICE DocSpace -> Settings. Specify the DocSpace Portal Address, Admin Login and Password. When you click on the Save button, a user with the Room admin role will be created in ONLYOFFICE DocSpace, with the same data as the current WordPress user. A public user (WordPress Viewer) will be also added to DocSpace with the View Only access.
 
 = What is ONLYOFFICE DocSpace? =
 
