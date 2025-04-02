@@ -6,7 +6,9 @@ This plugin enables users to access ONLYOFFICE DocSpace, a room-based collaborat
 
 At first, go to your ONLYOFFICE DocSpace ([sign in](https://www.onlyoffice.com/docspace-registration.aspx) / [sign up](https://www.onlyoffice.com/docspace-registration.aspx#login)) -> **Settings -> Developer Tools - > JavaScript SDK**. There,  enter your WordPress site address in the *Embed DocSpace as iframe* section.
 
-To install the plugin, navigate to the Plugins section in your WordPress administrative dashboard and click **Add New**. Then, click **Upload Plugin** and select the zipped plugin.
+A WordPress administrator can install the plugin via the Marketplace: [https://wordpress.com/plugins/onlyoffice-docspace](https://wordpress.com/plugins/onlyoffice-docspace).
+
+If you want to install the plugin via your WordPress administrative dashboard, navigate to the Plugins section and click **Add New**. Then, click **Upload Plugin** and select the zipped plugin.
 
 Once ready, go to the plugin settings and specify the DocSpace address in the **Connection settings**. 
 
