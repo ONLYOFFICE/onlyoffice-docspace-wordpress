@@ -1,8 +1,8 @@
 # WordPress ONLYOFFICE DocSpace integration plugin
 
-This plugin enables users to access ONLYOFFICE DocSpace, a room-based collaborative environment, from [WordPress](https://wordpress.org/), as well as add DocSpace rooms and files to the WordPress pages.  
+This plugin enables users to access ONLYOFFICE DocSpace, a room-based collaborative environment, from [WordPress](https://wordpress.org/), as well as add DocSpace rooms and files to the WordPress pages.
 
-## Plugin installation and configuration 
+## Plugin installation and configuration
 
 At first, go to your ONLYOFFICE DocSpace ([sign in](https://www.onlyoffice.com/docspace-registration.aspx) / [sign up](https://www.onlyoffice.com/docspace-registration.aspx#login)) -> **Settings -> Developer Tools - > JavaScript SDK**. There,  enter your WordPress site address in the *Embed DocSpace as iframe* section.
 
@@ -10,7 +10,7 @@ A WordPress administrator can install the plugin via the Marketplace: [https://w
 
 If you want to install the plugin via your WordPress administrative dashboard, navigate to the Plugins section and click **Add New**. Then, click **Upload Plugin** and select the zipped plugin.
 
-Once ready, go to the plugin settings and specify the DocSpace address in the **Connection settings**. 
+Once ready, go to the plugin settings and specify the DocSpace address in the **Connection settings**.
 
 ### Log in as DocSpace Admin
 
@@ -60,13 +60,13 @@ If a user forgets their password or seamless login fails, they can click the *Re
 
 ### DocSpace in the left panel
 
-Once the plugin is configured, DocSpace will become accessible to users with the _upload_files_ capability. This includes standard WordPress roles such as Super Admin, Administrator, Editor, and Author. 
+Once the plugin is configured, DocSpace will become accessible to users with the _upload_files_ capability. This includes standard WordPress roles such as Super Admin, Administrator, Editor, and Author.
 
 Users will gain access to a [fully functional DocSpace](https://www.onlyoffice.com/docspace.aspx), where they can create rooms, invite participants, and collaborate on documents within rooms, based on their assigned permissions. When inviting others to a room using the *Invite users from list* button, only existing DocSpace users will be displayed.
 
 ### Adding a DocSpace room or file to the WordPress page
 
-When creating a post, you can add the ONLYOFFICE DocSpace element (block) – room or file. 
+When creating a post, you can add the ONLYOFFICE DocSpace element (block) – room or file.
 
 To add a room, click the **Select room** button, select the desired room and press Select. In the block settings, you can specify the desired width, height, and theme (light/dark) to be displayed on the page.
 
@@ -96,7 +96,7 @@ The plugin allows working with office files via [ONLYOFFICE DocSpace](https://ww
 - creating a user in DocSpace using WordPress user data
 - getting a DocSpace user by email
 - setting a password for a DocSpace user
-- getting authorization cookies of a DocSpace user 
+- getting authorization cookies of a DocSpace user
 - getting a DocSpace file
 - getting a DocSpace folder
 - inviting a user to a DocSpace room
@@ -107,9 +107,9 @@ On the frontend, the following DocSpace elements are inserted:
 - room selection control
 - file display control
 - room display control
-- system frame for checking authorization 
+- system frame for checking authorization
 
-*Useful resources:* 
+*Useful resources:*
 
 - [ONLYOFFICE DocSpace Terms of use](https://onlyo.co/41Y69Rf)
 - [Privacy Policy](https://www.onlyoffice.com/Privacy.aspx)
@@ -122,5 +122,5 @@ Code repository: [github.com/ONLYOFFICE/onlyoffice-docspace-wordpress](https://g
 
 ## User feedback and support
 
-In case of technical problems, the best way to get help is to submit your issues [here](https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress/issues). 
+In case of technical problems, the best way to get help is to submit your issues [here](https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress/issues).
 Alternatively, you can contact ONLYOFFICE team on [forum.onlyoffice.com](https://forum.onlyoffice.com/).
