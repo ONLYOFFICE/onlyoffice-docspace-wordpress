@@ -2,7 +2,9 @@
     "require-dev": {
         "wp-cli/wp-cli-bundle": "*",
         "squizlabs/php_codesniffer": "^3.7.2",
-        "wp-coding-standards/wpcs": "^3.0.1"
+        "wp-coding-standards/wpcs": "^3.0.1",
+        "captainhook/plugin-composer": "^5.3",
+        "ramsey/conventional-commits": "^1.6"
     },
     "scripts": {
         "phpcs": "phpcs --standard=Wordpress --extensions=php --runtime-set minimum_wp_version 6.2 --ignore=*/assets-onlyoffice-docspace/*,*/onlyoffice-docspace-wordpress-block/*,*/vendor/*,*/node_modules/* ./",
@@ -15,7 +17,8 @@
     },
     "config": {
         "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "captainhook/plugin-composer": true
         }
     }
 }
