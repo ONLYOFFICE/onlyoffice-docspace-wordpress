@@ -117,7 +117,7 @@ On the frontend, the following DocSpace elements are inserted:
 
 = How to configure the plugin? =
 
-Go to WordPress administrative dashboard -> ONLYOFFICE DocSpace -> Settings. Specify the DocSpace Portal Address, Admin Login and Password. When you click on the Save button, a user with the Room admin role will be created in ONLYOFFICE DocSpace, with the same data as the current WordPress user. A public user (WordPress Viewer) will be also added to DocSpace with the View Only access.
+At first, go to your ONLYOFFICE DocSpace, switch to the Developer Tools and enter your WordPress URL in the JavaScript SDK section. Then, open your WordPress and enter the DocSpace address in the plugin's connection settings. Once connected, the "Log in as DocSpace Admin" option appears; the admin must log in here. Successful authorization also activates an optional User Export option.
 
 = What is ONLYOFFICE DocSpace? =
 
