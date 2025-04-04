@@ -1,3 +1,7 @@
+#oodsp-authorization-form .password-input-wrapper {
+	display: inline-block;
+}
+
 #oodsp-authorization-form .wp-pwd {
 	margin-top: 0 !important;
 }
