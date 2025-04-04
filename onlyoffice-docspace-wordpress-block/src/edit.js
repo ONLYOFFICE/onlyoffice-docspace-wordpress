@@ -472,7 +472,11 @@ const Edit = ( { attributes, setAttributes } ) => {
 				</>
 			) }
 			{ isOpen && (
-				<Modal onRequestClose={ closeModal } title={ modalTitle }>
+				<Modal
+					title={ modalTitle }
+					onRequestClose={ closeModal }
+					focusOnMount={ false }
+				>
 					<div className="oodsp-selector-frame-modal">
 						<div id="oodsp-selector-frame"></div>
 					</div>
