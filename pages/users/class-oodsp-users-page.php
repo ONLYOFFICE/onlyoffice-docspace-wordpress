@@ -393,7 +393,7 @@ class OODSP_Users_Page {
 		}
 
 		$shared_group = $this->oodsp_settings_manager->get_shared_group();
-		if ( ! empty( $shared_group ) ) {
+		if ( ! empty( $shared_group ) && ! empty( $docspace_accounts ) ) {
 			try {
 				$docspace_accounts_ids = array_map(
 					function ( $docspace_account ) {
