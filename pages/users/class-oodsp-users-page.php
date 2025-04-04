@@ -490,7 +490,7 @@ class OODSP_Users_Page {
 					}
 
 					if ( ! empty( $created_users ) ) {
-						$messages[] = wp_get_admin_notice(
+						$messages[] = OODSP_Utils::wp_get_admin_notice(
 							sprintf(
 								/* translators: %s: number of users successfully exported to DocSpace */
 								__( 'Export completed successfully for %s user(s).', 'onlyoffice-docspace-plugin' ),
@@ -505,7 +505,7 @@ class OODSP_Users_Page {
 					}
 
 					if ( ! empty( $skipped_users ) ) {
-						$messages[] = wp_get_admin_notice(
+						$messages[] = OODSP_Utils::wp_get_admin_notice(
 							sprintf(
 								/* translators: %1$s: number of skipped users, %2$s: list of users who already have a DocSpace account */
 								__( 'Export skipped for %1$s user(s). DocSpace Account(s) already linked to the WordPress account(s): %2$s. Unlink DocSpace Account(s) and try again.', 'onlyoffice-docspace-plugin' ),
@@ -521,7 +521,7 @@ class OODSP_Users_Page {
 					}
 
 					if ( ! empty( $error_users ) ) {
-						$messages[] = wp_get_admin_notice(
+						$messages[] = OODSP_Utils::wp_get_admin_notice(
 							sprintf(
 								/* translators: %1$s: number of users that failed to export, %2$s: list of user emails that already exist in DocSpace */
 								__( 'Export failed for %1$s user(s). User(s) with the indicated email(s) already exist in DocSpace: %2$s.', 'onlyoffice-docspace-plugin' ),
@@ -537,7 +537,7 @@ class OODSP_Users_Page {
 					}
 					break;
 				case 'error_create_docspace_user':
-					$messages[] = wp_get_admin_notice(
+					$messages[] = OODSP_Utils::wp_get_admin_notice(
 						__( 'ONLYOFFICE DocSpace cannot be reached', 'onlyoffice-docspace-plugin' ),
 						array(
 							'id'          => 'create_docspace_user-error-message',
@@ -658,7 +658,7 @@ class OODSP_Users_Page {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			switch ( $_GET['update'] ) {
 				case 'unlink_docspace_account':
-					$messages[] = wp_get_admin_notice(
+					$messages[] = OODSP_Utils::wp_get_admin_notice(
 						sprintf(
 							/* translators: %s: number of users successfully exported to DocSpace */
 							__( 'Unlinked account(s) successfully for %s user(s).', 'onlyoffice-docspace-plugin' ),
