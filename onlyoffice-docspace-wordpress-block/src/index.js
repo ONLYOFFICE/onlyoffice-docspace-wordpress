@@ -20,7 +20,7 @@ import { registerBlockType } from '@wordpress/blocks';
 
 import './styles.css';
 
-import json from '../block.json';
+import metadata from './block.json';
 import edit from './edit';
 import save from './save';
 
@@ -55,9 +55,7 @@ export const onlyofficeIcon = (
 	</svg>
 );
 
-const { name } = json;
-
-registerBlockType( name, {
+registerBlockType( metadata.name, {
 	icon: onlyofficeIcon,
 	edit,
 	save,

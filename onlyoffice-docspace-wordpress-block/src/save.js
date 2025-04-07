@@ -17,7 +17,7 @@
  */
 
 import { RawHTML } from '@wordpress/element';
-import block from '../block.json';
+import block from './block.json';
 
 const Save = ( { attributes } ) => {
 	if ( ! attributes.roomId && ! attributes.fileId ) {

@@ -41,6 +41,8 @@ if ( ! function_exists( 'WP_Filesystem' ) ) {
  * @subpackage Onlyoffice_Docspace_Wordpress/pages/public-docspace
  */
 class OODSP_Public_DocSpace_Page {
+	private const PATH_TO_BLOCK = 'onlyoffice-docspace-wordpress-block/build';
+
 	/**
 	 * The path to the class file.
 	 *
@@ -103,12 +105,12 @@ class OODSP_Public_DocSpace_Page {
 		$this->register_block_resources();
 
 		register_block_type(
-			plugin_dir_path( OODSP_PLUGIN_FILE ) . 'onlyoffice-docspace-wordpress-block',
+			plugin_dir_path( OODSP_PLUGIN_FILE ) . 'onlyoffice-docspace-wordpress-block/build',
 			array(
 				'description'     => __( 'Add ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ),
 				'render_callback' => array( $this, 'docspace_block_render_callback' ),
-				'editorScript'    => OODSP_PLUGIN_NAME . '-block-editor',
-				'editorStyle'     => OODSP_PLUGIN_NAME . '-block-editor',
+				'editor_script'   => OODSP_PLUGIN_NAME . '-block-editor',
+				'editor_style'    => OODSP_PLUGIN_NAME . '-block-editor',
 			),
 		);
 	}
@@ -119,19 +121,21 @@ class OODSP_Public_DocSpace_Page {
 	 * This method registers the JavaScript and CSS files required for the block editor.
 	 */
 	protected function register_block_resources() {
+		$asset_file = include plugin_dir_path( OODSP_PLUGIN_FILE ) . self::PATH_TO_BLOCK . '/index.asset.php';
+
 		wp_register_script(
 			OODSP_PLUGIN_NAME . '-block-editor',
-			OODSP_PLUGIN_URL . 'onlyoffice-docspace-wordpress-block/build/index.js',
-			array( 'oodsp-main' ),
-			OODSP_VERSION,
+			OODSP_PLUGIN_URL . self::PATH_TO_BLOCK . '/index.js',
+			array_merge( $asset_file['dependencies'], array( 'oodsp-main' ) ),
+			$asset_file['version'],
 			true
 		);
 
 		wp_register_style(
 			OODSP_PLUGIN_NAME . '-block-editor',
-			OODSP_PLUGIN_URL . 'onlyoffice-docspace-wordpress-block/build/index.css',
+			OODSP_PLUGIN_URL . self::PATH_TO_BLOCK . '/index.css',
 			array( 'oodsp-main' ),
-			OODSP_VERSION,
+			$asset_file['version'],
 		);
 
 		if ( function_exists( 'wp_set_script_translations' ) ) {
