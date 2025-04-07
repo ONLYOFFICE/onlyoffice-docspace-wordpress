@@ -8,10 +8,10 @@
 	"textdomain": "onlyoffice-docspace-plugin",
 	"attributes": {
 		"fileId": {
-			"type": "string"
+			"type": ["number", "string"]
 		},
 		"roomId": {
-			"type": "string"
+			"type": ["number", "string"]
 		},
 		"name": {
 			"type": "string"
