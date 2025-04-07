@@ -33,6 +33,10 @@ jobs:
         run: |
           composer install
           composer translations
+          rm -rf captainhook.json
+          rm -rf package.json
+          rm -rf package-lock.json
+          rm -rf README.md
           rm -rf vendor
           cd ${{ github.workspace }}/onlyoffice-docspace-wordpress-block
           npm install
