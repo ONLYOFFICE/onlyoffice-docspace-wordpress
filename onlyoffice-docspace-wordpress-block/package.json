@@ -1,6 +1,6 @@
 {
 	"name": "onlyoffice-wordpress-docspace-component",
-	"version": "2.1.2",
+	"version": "3.0.0",
 	"private": true,
 	"description": "",
 	"author": "Ascensio System SIA",
@@ -13,14 +13,21 @@
 	"repository": "",
 	"main": "build/index.js",
 	"dependencies": {
-		"@wordpress/block-editor": "^14.2.0",
-		"@wordpress/blocks": "^13.7.0",
-		"@wordpress/components": "^28.7.0",
-		"@wordpress/element": "^6.7.0",
-		"@wordpress/i18n": "^5.7.0"
+		"@wordpress/block-editor": "^14.16.0",
+		"@wordpress/blocks": "^14.10.0",
+		"@wordpress/components": "^29.7.0",
+		"@wordpress/element": "^6.21.0",
+		"@wordpress/i18n": "^5.21.0"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^26.12.0"
+		"@wordpress/scripts": "27.9.0"
+	},
+	"overrides": {
+		"@babel/runtime": "7.27.0",
+		"cookie": "1.0.2",
+		"cross-spawn": "7.0.6",
+		"tar-fs":"3.0.8",
+		"ws": "8.18.1"
 	},
 	"scripts": {
 		"build": "wp-scripts build",
@@ -28,10 +35,5 @@
 		"lint:js": "wp-scripts lint-js",
 		"packages-update": "wp-scripts packages-update",
 		"start": "wp-scripts start"
-	},
-	"overrides": {
-		"cookie": "0.7.0",
-		"cross-spawn": "6.0.6",
-		"ws": "8.17.1"
 	}
 }

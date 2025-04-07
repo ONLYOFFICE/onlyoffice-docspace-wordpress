@@ -11,7 +11,7 @@
 
 /**
  *
- * (c) Copyright Ascensio System SIA 2024
+ * (c) Copyright Ascensio System SIA 2025
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -53,14 +53,5 @@ class OODSP_Deactivator {
 	/**
 	 * Set defaults on unistall.
 	 */
-	public static function uninstall() {
-		global $wpdb;
-
-		$oodsp_users_table = $wpdb->prefix . OODSP_Security_Manager::DOCSPACE_USERS_TABLE;
-
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.DirectDatabaseQuery
-		$wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %i', $oodsp_users_table ) );
-
-		delete_option( 'oodsp_settings' );
-	}
+	public static function uninstall() { }
 }

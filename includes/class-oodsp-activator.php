@@ -11,7 +11,7 @@
 
 /**
  *
- * (c) Copyright Ascensio System SIA 2024
+ * (c) Copyright Ascensio System SIA 2025
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -42,6 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author     Ascensio System SIA <integration@onlyoffice.com>
  */
 class OODSP_Activator {
+	const DOCSPACE_USERS_TABLE = 'docspace_users';
 
 	/**
 	 * Set defaults on activation.
@@ -51,20 +52,9 @@ class OODSP_Activator {
 	public static function activate() {
 		global $wpdb;
 
-		$charset_collate   = $wpdb->get_charset_collate();
-		$oodsp_users_table = $wpdb->prefix . OODSP_Security_Manager::DOCSPACE_USERS_TABLE;
+		$oodsp_users_table = $wpdb->prefix . self::DOCSPACE_USERS_TABLE;
 
-		$sql = "CREATE TABLE IF NOT EXISTS $oodsp_users_table (
-		id bigint(50) NOT NULL AUTO_INCREMENT,
-		user_id bigint(20) UNSIGNED NOT NULL,
-		user_pass varchar(225),
-		PRIMARY KEY (id),
-		FOREIGN KEY (user_id) REFERENCES wp_users(ID) 
-		) $charset_collate;";
-
-		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-		dbDelta( $sql );
-		$is_error = empty( $wpdb->last_error );
-		return $is_error;
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.DirectDatabaseQuery
+		$wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %i', $oodsp_users_table ) );
 	}
 }

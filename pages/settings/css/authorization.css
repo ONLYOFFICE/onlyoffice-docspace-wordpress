@@ -1,0 +1,18 @@
+#oodsp-authorization-form .password-input-wrapper {
+	display: inline-block;
+}
+
+#oodsp-authorization-form .wp-pwd {
+	margin-top: 0 !important;
+}
+
+@media screen and (max-width: 782px) {
+
+	#oodsp-authorization-form .wp-pwd button.wp-hide-pw {
+		right: 0;
+	}
+}
+
+#oodsp-authorization-form .form-table .form-required.form-pwd.form-invalid td::after {
+	display: none !important;
+}

@@ -1,5 +1,23 @@
 # Change Log
 
+## 3.0.0
+## Added
+- Disconnect button in connection settings
+- setting Log in as a DocSpace Admin
+- creating shared group WordPress Users after connecting DocSpace
+- creating shared group WordPress Users after login System User
+- inviting to shared group users which authorize in plugin
+- inviting created through the plugin users to shared group WordPress Users
+- drop saved DocSpace Account after sign out in DocSpace(Sign out button)
+- reset password on login page
+- action Unlink DocSpace Account on Users page
+
+## Changed
+- export functionality to DocSpace has been moved to the main Users page
+- export users from wordpress to docspace with role User (rename User to Guest, PowerUser to User)
+- error stubs (unavailable, unauthorized)
+- settings page design
+
 ## 2.1.2
 ## Changed
 - fixed xss vulnerabilities in onlyoffice-docspace page component
