@@ -37,7 +37,7 @@
 			_oodspDocspacePublic.docspaceUrl
 		)
 			.then( function () {
-				_initAllPublicFrames( oodspPublicConfigs );
+				_initFrames( oodspPublicConfigs );
 
 				for ( let i = 0; i < countElements; i++ ) {
 					if ( i === 0 ) {
@@ -45,12 +45,7 @@
 							_oodspDocspacePublic.isAnonymous ||
 							! _oodspDocspacePublic.docspaceUser
 						) {
-							DocspaceIntegrationSdk.logout(
-								oodspConfigs[ 0 ].frameId,
-								function () {
-									_initAllFrames( oodspConfigs, true );
-								}
-							);
+							_showUnauthorizedTemplates( oodspConfigs );
 						} else {
 							DocspaceIntegrationSdk.loginByPasswordHash(
 								oodspConfigs[ 0 ].frameId,
@@ -60,18 +55,10 @@
 										.password_hash;
 								},
 								function () {
-									_initAllFrames( oodspConfigs, false );
+									_initFrames( oodspConfigs );
 								},
 								function () {
-									DocspaceIntegrationSdk.logout(
-										oodspConfigs[ 0 ].frameId,
-										function () {
-											_initAllFrames(
-												oodspConfigs,
-												true
-											);
-										}
-									);
+									_showUnauthorizedTemplates( oodspConfigs );
 								}
 							);
 						}
@@ -96,33 +83,21 @@
 			} );
 	} );
 
-	const _initAllFrames = ( oodspConfigs, requiredRequestToken ) => {
-		for ( const config of oodspConfigs ) {
-			if (
-				requiredRequestToken &&
-				( ! config.hasOwnProperty( 'requestToken' ) ||
-					config.requestToken.length <= 0 )
-			) {
-				if ( DocSpace.SDK.frames[ config.frameId ] !== null ) {
-					DocSpace.SDK.frames[ config.frameId ].destroyFrame();
-				}
-
-				oodsp.templates.docspaceUnauthorized( config.frameId );
-
-				continue;
-			}
-
-			config.src = DocSpace.SDK.src;
-
-			DocSpace.SDK.frames[ config.frameId ].initFrame( config );
-		}
-	};
-
-	const _initAllPublicFrames = ( oodspConfigs ) => {
+	const _initFrames = ( oodspConfigs ) => {
 		for ( const config of oodspConfigs ) {
 			config.src = DocSpace.SDK.src;
 
 			DocSpace.SDK.initFrame( config );
+		}
+	};
+
+	const _showUnauthorizedTemplates = ( oodspConfigs ) => {
+		for ( const config of oodspConfigs ) {
+			if ( DocSpace.SDK.frames[ config.frameId ] ) {
+				DocSpace.SDK.frames[ config.frameId ].destroyFrame();
+			}
+
+			oodsp.templates.docspaceUnauthorized( config.frameId );
 		}
 	};
 } )( jQuery );
