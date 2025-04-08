@@ -1,5 +1,9 @@
 # Change Log
 
+##
+## Changed
+- fixed compatibility of the Gutenberg editor element, ONLYOFFICE DocSpace between versions of the plugin 2.x and 3.x
+
 ## 3.0.0
 ## Added
 - Disconnect button in connection settings
