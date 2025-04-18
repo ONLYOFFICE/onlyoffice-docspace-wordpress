@@ -46,6 +46,7 @@
 							! _oodspDocspacePublic.docspaceUser
 						) {
 							_showUnauthorizedTemplates( oodspConfigs );
+							return;
 						} else {
 							DocspaceIntegrationSdk.loginByPasswordHash(
 								oodspConfigs[ 0 ].frameId,
