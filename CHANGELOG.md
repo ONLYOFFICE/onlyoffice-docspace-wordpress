@@ -1,5 +1,8 @@
 # Change Log
 
+## Added
+- presentation background color selector
+
 ##
 ## Changed
 - docspace-sdk-js v2.0.0
