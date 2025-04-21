@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.4.1\n"
 
@@ -197,8 +197,7 @@ msgid "Send"
 msgstr "发送"
 
 #: includes/resources/templates/class-oodsp-templates.php:172
-#: pages/settings/views/index.php:108
-#: pages/settings/js/index.js:29
+#: pages/settings/views/index.php:108 pages/settings/js/index.js:29
 #: pages/users/js/index.js:27
 msgid "Cancel"
 msgstr "取消"
@@ -273,8 +272,7 @@ msgstr "连接"
 msgid "Change"
 msgstr "更改"
 
-#: pages/settings/views/index.php:127
-#: pages/settings/js/index.js:17
+#: pages/settings/views/index.php:127 pages/settings/js/index.js:17
 msgid "Disconnect"
 msgstr "断开连接"
 
@@ -404,4 +402,4 @@ msgstr "%1$s 个用户的导出失败。协作空间中已存在具有指定电�
 
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "Background color"
-msgstr ""
+msgstr "背景颜色"
