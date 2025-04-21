@@ -73,8 +73,6 @@ class OODSP_Settings_Page extends OODSP_Base_Page {
 	) {
 		parent::__construct(
 			'onlyoffice-docspace',
-			__( 'ONLYOFFICE DocSpace Settings', 'onlyoffice-docspace-plugin' ),
-			__( 'Settings', 'onlyoffice-docspace-plugin' ),
 			'manage_options',
 			'onlyoffice-docspace-settings',
 			plugin_dir_path( __FILE__ ),
@@ -86,6 +84,24 @@ class OODSP_Settings_Page extends OODSP_Base_Page {
 		$this->oodsp_settings_manager = $oodsp_settings_manager;
 		$this->oodsp_docspace_client  = $oodsp_docspace_client;
 		$this->oodsp_user_service     = $oodsp_user_service;
+	}
+
+	/**
+	 * Get the page title.
+	 *
+	 * @return string The page title.
+	 */
+	protected function get_page_title() {
+		return __( 'ONLYOFFICE DocSpace Settings', 'onlyoffice-docspace-plugin' );
+	}
+
+	/**
+	 * Get the menu title.
+	 *
+	 * @return string The menu title.
+	 */
+	protected function get_menu_title() {
+		return __( 'Settings', 'onlyoffice-docspace-plugin' );
 	}
 
 	/**
