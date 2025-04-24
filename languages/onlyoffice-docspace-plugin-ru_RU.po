@@ -13,7 +13,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: Poedit 3.4.1\n"
 
-#: pages/settings/class-oodsp-settings-page.php:76
+#: pages/settings/class-oodsp-settings-page.php:95
 msgid "ONLYOFFICE DocSpace Settings"
 msgstr "Настройки ONLYOFFICE DocSpace"
 
@@ -25,7 +25,7 @@ msgstr "Проверьте настройки CSP"
 msgid "WordPress portal address:"
 msgstr "Адрес портала WordPress:"
 
-#: pages/settings/class-oodsp-settings-page.php:77
+#: pages/settings/class-oodsp-settings-page.php:104
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "Settings"
 msgstr "Настройки"
@@ -36,7 +36,7 @@ msgstr "Настройки"
 msgid "Password"
 msgstr "Пароль"
 
-#: pages/settings/class-oodsp-settings-page.php:209
+#: pages/settings/class-oodsp-settings-page.php:225
 msgid "Settings saved"
 msgstr "Настройки сохранены"
 
@@ -203,23 +203,23 @@ msgstr "Отправить"
 msgid "Cancel"
 msgstr "Отменить"
 
-#: pages/public-docspace/class-oodsp-public-docspace-page.php:108
+#: pages/public-docspace/class-oodsp-public-docspace-page.php:110
 msgid "Add ONLYOFFICE DocSpace"
 msgstr "Добавить ONLYOFFICE DocSpace"
 
 #. translators: %1$s: opening link tag, %2$s: closing link tag
-#: pages/settings/class-oodsp-settings-page.php:189
+#: pages/settings/class-oodsp-settings-page.php:205
 #: pages/settings/js/authorization.js:121
 msgid "The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %1$sthe Developer Tools section%2$s."
 msgstr "Текущий домен не установлен в настройках Политики безопасности контента (CSP). Пожалуйста, добавьте его через %1$sраздел Инструменты разработчика%2$s."
 
-#: pages/settings/class-oodsp-settings-page.php:216
+#: pages/settings/class-oodsp-settings-page.php:232
 #: pages/users/class-oodsp-users-page.php:541
 #: pages/settings/js/authorization.js:140
 msgid "ONLYOFFICE DocSpace cannot be reached"
 msgstr "ONLYOFFICE DocSpace недоступен"
 
-#: pages/settings/class-oodsp-settings-page.php:237
+#: pages/settings/class-oodsp-settings-page.php:253
 msgid "ONLYOFFICE DocSpace successfully disconnected"
 msgstr "ONLYOFFICE DocSpace успешно отключен"
 
@@ -401,3 +401,7 @@ msgstr "Экспорт пропущен для %1$s пользователя(е�
 #: pages/users/class-oodsp-users-page.php:527
 msgid "Export failed for %1$s user(s). User(s) with the indicated email(s) already exist in DocSpace: %2$s."
 msgstr "Экспорт не удался для %1$s пользователя(ей). Пользователи с указанными адресами электронной почты уже существуют в DocSpace: %2$s."
+
+#: onlyoffice-docspace-wordpress-block/build/index.js:1
+msgid "Background color"
+msgstr "Цвет фона"
