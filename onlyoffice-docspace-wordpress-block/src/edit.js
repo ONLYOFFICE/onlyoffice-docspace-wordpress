@@ -334,7 +334,10 @@ const Edit = ( { attributes, setAttributes } ) => {
 									/>
 									{ attributes.documentType === 'slide' ? (
 										<div>
-											<Flex direction="column">
+											<Flex
+												direction="column"
+												style={ { height: 'unset' } }
+											>
 												<FlexItem>
 													<label
 														htmlFor="slidePlayerBackground"
