@@ -78,7 +78,10 @@
 				// eslint-disable-next-line no-console
 				console.error( error );
 
-				for ( const config of oodspConfigs ) {
+				for ( const config of [
+					...oodspConfigs,
+					...oodspPublicConfigs,
+				] ) {
 					oodsp.templates.docspaceUnavailable( config.frameId );
 				}
 			} );
