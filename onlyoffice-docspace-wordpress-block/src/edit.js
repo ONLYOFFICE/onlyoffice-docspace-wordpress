@@ -37,7 +37,7 @@ import {
 	SelectControl,
 	ColorPicker,
 	FlexItem,
-	Flex
+	Flex,
 } from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
 import { onlyofficeIcon } from './index';
@@ -129,9 +129,14 @@ const Edit = ( { attributes, setAttributes } ) => {
 	const onSelectFileCallback = ( event ) => {
 		Object.keys( attributes ).forEach( ( key ) => {
 			if (
-				[ 'roomId', 'fileId', 'name', 'icon', 'requestToken', 'documentType' ].includes(
-					key
-				)
+				[
+					'roomId',
+					'fileId',
+					'name',
+					'icon',
+					'requestToken',
+					'documentType',
+				].includes( key )
 			) {
 				delete attributes[ key ];
 			}
@@ -322,37 +327,54 @@ const Edit = ( { attributes, setAttributes } ) => {
 										value={ attributes.editorType }
 										options={ editorTypes }
 										onChange={ ( value ) => {
-											setAttributes( { editorType: value } );
+											setAttributes( {
+												editorType: value,
+											} );
 										} }
 									/>
 									{ attributes.documentType === 'slide' ? (
-										<Flex
-											direction="column"
-										>
-											<FlexItem>
-												<label
-													style={ { 
-														fontSize: '11px',
-														fontWeight: '500',
-														lineHeight: '1.4',
-														textTransform: 'uppercase',
-														boxSizing: 'border-box',
-														display: 'block',
-													} }
-												>
-													{	 __('Background color', 'onlyoffice-docspace-plugin')}
-												</label>
-											</FlexItem>
-											<FlexItem>
-												<ColorPicker
-													defaultValue={ attributes.slidePlayerBackground || '#000000' }
-													onChange={ ( color ) => {
-														setAttributes({ slidePlayerBackground: color });
-													} }
-												/>
-										 	</FlexItem>
-										</Flex>
-									)	: (
+										<div>
+											<Flex direction="column">
+												<FlexItem>
+													<label
+														htmlFor="slidePlayerBackground"
+														style={ {
+															fontSize: '11px',
+															fontWeight: '500',
+															lineHeight: '1.4',
+															textTransform:
+																'uppercase',
+															boxSizing:
+																'border-box',
+															display: 'block',
+														} }
+													>
+														{ __(
+															'Background color',
+															'onlyoffice-docspace-plugin'
+														) }
+													</label>
+												</FlexItem>
+												<FlexItem>
+													<ColorPicker
+														id="slidePlayerBackground"
+														defaultValue={
+															attributes.slidePlayerBackground ||
+															'#000000'
+														}
+														onChange={ (
+															color
+														) => {
+															setAttributes( {
+																slidePlayerBackground:
+																	color,
+															} );
+														} }
+													/>
+												</FlexItem>
+											</Flex>
+										</div>
+									) : (
 										''
 									) }
 								</>
