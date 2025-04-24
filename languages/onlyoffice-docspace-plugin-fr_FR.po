@@ -2,18 +2,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Language: fr_FR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 3.4.1\n"
 
-#: pages/settings/class-oodsp-settings-page.php:76
+#: pages/settings/class-oodsp-settings-page.php:95
 msgid "ONLYOFFICE DocSpace Settings"
 msgstr "Paramètres d'ONLYOFFICE DocSpace"
 
@@ -25,7 +25,7 @@ msgstr "Vérifier les paramètres du CSP"
 msgid "WordPress portal address:"
 msgstr "Adresse du portail WordPress :"
 
-#: pages/settings/class-oodsp-settings-page.php:77
+#: pages/settings/class-oodsp-settings-page.php:104
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "Settings"
 msgstr "Paramètres"
@@ -36,7 +36,7 @@ msgstr "Paramètres"
 msgid "Password"
 msgstr "Mot de passe"
 
-#: pages/settings/class-oodsp-settings-page.php:209
+#: pages/settings/class-oodsp-settings-page.php:225
 msgid "Settings saved"
 msgstr "Paramètres enregistrés"
 
@@ -197,28 +197,29 @@ msgid "Send"
 msgstr "Envoyer"
 
 #: includes/resources/templates/class-oodsp-templates.php:172
-#: pages/settings/views/index.php:108 pages/settings/js/index.js:29
+#: pages/settings/views/index.php:108
+#: pages/settings/js/index.js:29
 #: pages/users/js/index.js:27
 msgid "Cancel"
 msgstr "Annuler"
 
-#: pages/public-docspace/class-oodsp-public-docspace-page.php:108
+#: pages/public-docspace/class-oodsp-public-docspace-page.php:110
 msgid "Add ONLYOFFICE DocSpace"
 msgstr "Ajouter ONLYOFFICE DocSpace"
 
 #. translators: %1$s: opening link tag, %2$s: closing link tag
-#: pages/settings/class-oodsp-settings-page.php:189
+#: pages/settings/class-oodsp-settings-page.php:205
 #: pages/settings/js/authorization.js:121
 msgid "The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %1$sthe Developer Tools section%2$s."
 msgstr "Le domaine actuel n'est pas défini dans les paramètres de la politique de sécurité du contenu (CSP). Veuillez l'ajouter via %1$la section Outils de développement%2$s."
 
-#: pages/settings/class-oodsp-settings-page.php:216
+#: pages/settings/class-oodsp-settings-page.php:232
 #: pages/users/class-oodsp-users-page.php:541
 #: pages/settings/js/authorization.js:140
 msgid "ONLYOFFICE DocSpace cannot be reached"
 msgstr "ONLYOFFICE DocSpace n'est pas joignable"
 
-#: pages/settings/class-oodsp-settings-page.php:237
+#: pages/settings/class-oodsp-settings-page.php:253
 msgid "ONLYOFFICE DocSpace successfully disconnected"
 msgstr "ONLYOFFICE DocSpace déconnecté avec succès"
 
@@ -272,7 +273,8 @@ msgstr "Connecter"
 msgid "Change"
 msgstr "Modifier"
 
-#: pages/settings/views/index.php:127 pages/settings/js/index.js:17
+#: pages/settings/views/index.php:127
+#: pages/settings/js/index.js:17
 msgid "Disconnect"
 msgstr "Déconnecter"
 
