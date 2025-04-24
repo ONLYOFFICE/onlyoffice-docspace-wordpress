@@ -47,22 +47,22 @@
 						) {
 							_showUnauthorizedTemplates( oodspConfigs );
 							return;
-						} else {
-							DocspaceIntegrationSdk.loginByPasswordHash(
-								oodspConfigs[ 0 ].frameId,
-								_oodspDocspacePublic.docspaceUser.user_name,
-								function () {
-									return _oodspDocspacePublic.docspaceUser
-										.password_hash;
-								},
-								function () {
-									_initFrames( oodspConfigs );
-								},
-								function () {
-									_showUnauthorizedTemplates( oodspConfigs );
-								}
-							);
 						}
+
+						DocspaceIntegrationSdk.loginByPasswordHash(
+							oodspConfigs[ 0 ].frameId,
+							_oodspDocspacePublic.docspaceUser.user_name,
+							function () {
+								return _oodspDocspacePublic.docspaceUser
+									.password_hash;
+							},
+							function () {
+								_initFrames( oodspConfigs );
+							},
+							function () {
+								_showUnauthorizedTemplates( oodspConfigs );
+							}
+						);
 					} else {
 						DocSpace.SDK.initSystem( {
 							frameId: oodspConfigs[ i ].frameId,
