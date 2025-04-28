@@ -35,6 +35,9 @@ import {
 	ToolbarGroup,
 	Dropdown,
 	SelectControl,
+	ColorPicker,
+	FlexItem,
+	Flex,
 } from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
 import { onlyofficeIcon } from './index';
@@ -126,9 +129,14 @@ const Edit = ( { attributes, setAttributes } ) => {
 	const onSelectFileCallback = ( event ) => {
 		Object.keys( attributes ).forEach( ( key ) => {
 			if (
-				[ 'roomId', 'fileId', 'name', 'icon', 'requestToken' ].includes(
-					key
-				)
+				[
+					'roomId',
+					'fileId',
+					'name',
+					'icon',
+					'requestToken',
+					'documentType',
+				].includes( key )
 			) {
 				delete attributes[ key ];
 			}
@@ -143,6 +151,7 @@ const Edit = ( { attributes, setAttributes } ) => {
 			fileId: new String( event.id ),
 			name: event.title,
 			icon: event.icon,
+			documentType: event.documentType,
 		} );
 
 		if ( requestToken ) {
@@ -309,17 +318,69 @@ const Edit = ( { attributes, setAttributes } ) => {
 								} }
 							/>
 							{ attributes.fileId ? (
-								<SelectControl
-									label={ __(
-										'View',
-										'onlyoffice-docspace-plugin'
+								<>
+									<SelectControl
+										label={ __(
+											'View',
+											'onlyoffice-docspace-plugin'
+										) }
+										value={ attributes.editorType }
+										options={ editorTypes }
+										onChange={ ( value ) => {
+											setAttributes( {
+												editorType: value,
+											} );
+										} }
+									/>
+									{ attributes.documentType === 'slide' ? (
+										<div>
+											<Flex
+												direction="column"
+												style={ { height: 'unset' } }
+											>
+												<FlexItem>
+													<label
+														htmlFor="slidePlayerBackground"
+														style={ {
+															fontSize: '11px',
+															fontWeight: '500',
+															lineHeight: '1.4',
+															textTransform:
+																'uppercase',
+															boxSizing:
+																'border-box',
+															display: 'block',
+														} }
+													>
+														{ __(
+															'Background color',
+															'onlyoffice-docspace-plugin'
+														) }
+													</label>
+												</FlexItem>
+												<FlexItem>
+													<ColorPicker
+														id="slidePlayerBackground"
+														defaultValue={
+															attributes.slidePlayerBackground ||
+															'#000000'
+														}
+														onChange={ (
+															color
+														) => {
+															setAttributes( {
+																slidePlayerBackground:
+																	color,
+															} );
+														} }
+													/>
+												</FlexItem>
+											</Flex>
+										</div>
+									) : (
+										''
 									) }
-									value={ attributes.editorType }
-									options={ editorTypes }
-									onChange={ ( value ) => {
-										setAttributes( { editorType: value } );
-									} }
-								/>
+								</>
 							) : (
 								''
 							) }

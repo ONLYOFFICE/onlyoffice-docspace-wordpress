@@ -1,5 +1,13 @@
 # Change Log
 
+## 3.1.0
+## Added
+- presentation background color selector
+
+## Changed
+- docspace-sdk-js v2.0.0
+- improved loading speed of public room
+
 ## 3.0.1
 ## Changed
 - fixed compatibility of the Gutenberg editor element, ONLYOFFICE DocSpace between versions of the plugin 2.x and 3.x

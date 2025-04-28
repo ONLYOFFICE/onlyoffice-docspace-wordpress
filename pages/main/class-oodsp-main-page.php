@@ -76,8 +76,6 @@ class OODSP_Main_Page extends OODSP_Base_Page {
 	) {
 		parent::__construct(
 			'onlyoffice-docspace',
-			'DocSpace',
-			'DocSpace',
 			'upload_files',
 			'onlyoffice-docspace',
 			plugin_dir_path( __FILE__ ),
@@ -89,6 +87,24 @@ class OODSP_Main_Page extends OODSP_Base_Page {
 		$this->oodsp_docspace_client  = $oodsp_docspace_client;
 		$this->oodsp_settings_manager = $oodsp_settings_manager;
 		$this->oodsp_user_service     = $oodsp_user_service;
+	}
+
+	/**
+	 * Get the page title.
+	 *
+	 * @return string The page title.
+	 */
+	protected function get_page_title(): string {
+		return 'DocSpace';
+	}
+
+	/**
+	 * Get the menu title.
+	 *
+	 * @return string The menu title.
+	 */
+	protected function get_menu_title(): string {
+		return 'DocSpace';
 	}
 
 	/**

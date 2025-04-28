@@ -13,7 +13,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.4.1\n"
 
-#: pages/settings/class-oodsp-settings-page.php:76
+#: pages/settings/class-oodsp-settings-page.php:95
 msgid "ONLYOFFICE DocSpace Settings"
 msgstr "ONLYOFFICE 协作空间设置"
 
@@ -25,7 +25,7 @@ msgstr "检查 CSP 设置"
 msgid "WordPress portal address:"
 msgstr "WordPress 门户地址："
 
-#: pages/settings/class-oodsp-settings-page.php:77
+#: pages/settings/class-oodsp-settings-page.php:104
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "Settings"
 msgstr "设置"
@@ -36,7 +36,7 @@ msgstr "设置"
 msgid "Password"
 msgstr "密码"
 
-#: pages/settings/class-oodsp-settings-page.php:209
+#: pages/settings/class-oodsp-settings-page.php:225
 msgid "Settings saved"
 msgstr "设置已保存"
 
@@ -203,23 +203,23 @@ msgstr "发送"
 msgid "Cancel"
 msgstr "取消"
 
-#: pages/public-docspace/class-oodsp-public-docspace-page.php:108
+#: pages/public-docspace/class-oodsp-public-docspace-page.php:110
 msgid "Add ONLYOFFICE DocSpace"
 msgstr "添加 ONLYOFFICE 协作空间"
 
 #. translators: %1$s: opening link tag, %2$s: closing link tag
-#: pages/settings/class-oodsp-settings-page.php:189
+#: pages/settings/class-oodsp-settings-page.php:205
 #: pages/settings/js/authorization.js:121
 msgid "The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %1$sthe Developer Tools section%2$s."
 msgstr "当前域未在内容安全策略 (CSP) 设置中设置。请通过 %1$s 开发人员工具部分 %2$s 添加它。"
 
-#: pages/settings/class-oodsp-settings-page.php:216
+#: pages/settings/class-oodsp-settings-page.php:232
 #: pages/users/class-oodsp-users-page.php:541
 #: pages/settings/js/authorization.js:140
 msgid "ONLYOFFICE DocSpace cannot be reached"
 msgstr "无法访问 ONLYOFFICE 协作空间"
 
-#: pages/settings/class-oodsp-settings-page.php:237
+#: pages/settings/class-oodsp-settings-page.php:253
 msgid "ONLYOFFICE DocSpace successfully disconnected"
 msgstr "ONLYOFFICE 协作空间已成功断开连接"
 
@@ -401,3 +401,7 @@ msgstr "已跳过 %1$s 个用户的导出。协作空间帐户已链接到 WordP
 #: pages/users/class-oodsp-users-page.php:527
 msgid "Export failed for %1$s user(s). User(s) with the indicated email(s) already exist in DocSpace: %2$s."
 msgstr "%1$s 个用户的导出失败。协作空间中已存在具有指定电子邮件的用户: %2$s"
+
+#: onlyoffice-docspace-wordpress-block/build/index.js:1
+msgid "Background color"
+msgstr "背景颜色"

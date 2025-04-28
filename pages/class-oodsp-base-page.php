@@ -106,8 +106,6 @@ abstract class OODSP_Base_Page {
 	 * @access public
 	 *
 	 * @param string $parent_slug  The slug name for the parent menu.
-	 * @param string $page_title   The text to be displayed in the title tags.
-	 * @param string $menu_title   The text to be used for the menu.
 	 * @param string $capability   The capability required for this menu.
 	 * @param string $menu_slug    The slug name to refer to this menu.
 	 * @param string $class_path   The path to the class file.
@@ -117,8 +115,6 @@ abstract class OODSP_Base_Page {
 	 */
 	public function __construct(
 		$parent_slug,
-		$page_title,
-		$menu_title,
 		$capability,
 		$menu_slug,
 		$class_path,
@@ -127,8 +123,6 @@ abstract class OODSP_Base_Page {
 		$def_css_deps = array()
 	) {
 		$this->parent_slug  = $parent_slug;
-		$this->page_title   = $page_title;
-		$this->menu_title   = $menu_title;
 		$this->capability   = $capability;
 		$this->menu_slug    = $menu_slug;
 		$this->class_path   = untrailingslashit( $class_path );
@@ -151,8 +145,8 @@ abstract class OODSP_Base_Page {
 
 		$hook = add_submenu_page(
 			$this->parent_slug,
-			$this->page_title,
-			$this->menu_title,
+			$this->get_page_title(),
+			$this->get_menu_title(),
 			$this->capability,
 			$this->menu_slug,
 			array( $this, 'view' )
@@ -244,5 +238,23 @@ abstract class OODSP_Base_Page {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Get the page title.
+	 *
+	 * @return string The page title.
+	 */
+	protected function get_page_title() {
+		return '';
+	}
+
+	/**
+	 * Get the menu title.
+	 *
+	 * @return string The menu title.
+	 */
+	protected function get_menu_title() {
+		return '';
 	}
 }
