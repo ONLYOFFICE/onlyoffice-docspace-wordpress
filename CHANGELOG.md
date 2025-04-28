@@ -1,9 +1,9 @@
 # Change Log
 
+## 3.1.0
 ## Added
 - presentation background color selector
 
-##
 ## Changed
 - docspace-sdk-js v2.0.0
 - improved loading speed of public room

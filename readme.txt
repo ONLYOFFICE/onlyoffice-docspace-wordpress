@@ -3,7 +3,7 @@ Contributors: onlyoffice
 Tags: onlyoffice, integration, docspace
 Requires at least: 6.2
 Tested up to: 6.8
-Stable tag: 3.0.1
+Stable tag: 3.1.0
 Requires PHP: 8.0
 License: GPLv2
 License URI: https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress/blob/master/LICENSE
@@ -132,6 +132,11 @@ ONLYOFFICE DocSpace is a room-based collaborative environment. With ONLYOFFICE D
 5. Access ONLYOFFICE DocSpace within WordPress
 
 == Changelog ==
+= 3.1.0 =
+* presentation background color selector
+* docspace-sdk-js v2.0.0
+* improved loading speed of public room
+
 = 3.0.1 =
 * fixed compatibility of the Gutenberg editor element, ONLYOFFICE DocSpace between versions of the plugin 2.x and 3.x
 
