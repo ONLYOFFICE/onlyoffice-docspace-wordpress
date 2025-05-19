@@ -72,19 +72,19 @@ msgstr "文件"
 msgid "Pick room or media file from your DocSpace"
 msgstr "在协作空间中选择房间或媒体文件"
 
-#: includes/resources/js/oodsp-error-page-template.js:72
+#: includes/resources/js/oodsp-error-page-template.js:69
 msgid "Authorization unsuccessful!"
 msgstr "授权不成功！"
 
-#: includes/resources/js/oodsp-error-page-template.js:61
+#: includes/resources/js/oodsp-error-page-template.js:58
 msgid "Please contact the administrator."
 msgstr "请联系管理员。"
 
-#: includes/resources/js/oodsp-error-page-template.js:56
+#: includes/resources/js/oodsp-error-page-template.js:53
 msgid "Please proceed to the DocSpace plugin via the left side menu and enter your password to restore access."
 msgstr "请通过左侧菜单前往协作空间插件并输入您的密码以恢复访问权限。"
 
-#: includes/resources/js/oodsp-error-page-template.js:76
+#: includes/resources/js/oodsp-error-page-template.js:70
 msgid "Access denied!"
 msgstr "访问被拒！"
 
@@ -372,15 +372,15 @@ msgstr "密码更改指令已发送至 <strong>%s</strong> 电子邮件地址。
 msgid "The email field is empty"
 msgstr "电子邮件字段为空"
 
-#: includes/resources/js/oodsp-login-page-template.js:201
+#: includes/resources/js/oodsp-login-page-template.js:198
 msgid "The password field is empty"
 msgstr "密码字段为空"
 
-#: includes/resources/js/oodsp-login-page-template.js:208
+#: includes/resources/js/oodsp-login-page-template.js:202
 msgid "Incorrect email"
 msgstr "电子邮件不正确"
 
-#: includes/resources/js/oodsp-login-page-template.js:212
+#: includes/resources/js/oodsp-login-page-template.js:206
 msgid "Rate limit exceeded"
 msgstr "超出速率限制"
 

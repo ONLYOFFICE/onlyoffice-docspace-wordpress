@@ -72,19 +72,19 @@ msgstr "Файл"
 msgid "Pick room or media file from your DocSpace"
 msgstr "Выберите комнату или медиафайл из DocSpace "
 
-#: includes/resources/js/oodsp-error-page-template.js:72
+#: includes/resources/js/oodsp-error-page-template.js:69
 msgid "Authorization unsuccessful!"
 msgstr "Авторизация не удалась!"
 
-#: includes/resources/js/oodsp-error-page-template.js:61
+#: includes/resources/js/oodsp-error-page-template.js:58
 msgid "Please contact the administrator."
 msgstr "Пожалуйста, свяжитесь с администратором."
 
-#: includes/resources/js/oodsp-error-page-template.js:56
+#: includes/resources/js/oodsp-error-page-template.js:53
 msgid "Please proceed to the DocSpace plugin via the left side menu and enter your password to restore access."
 msgstr "Пожалуйста, перейдите к плагину DocSpace через меню слева и введите свой пароль, чтобы восстановить доступ."
 
-#: includes/resources/js/oodsp-error-page-template.js:76
+#: includes/resources/js/oodsp-error-page-template.js:70
 msgid "Access denied!"
 msgstr "Доступ запрещен!"
 
@@ -372,15 +372,15 @@ msgstr "Инструкция по смене пароля отправлена �
 msgid "The email field is empty"
 msgstr "Пустое поле электронной почты"
 
-#: includes/resources/js/oodsp-login-page-template.js:201
+#: includes/resources/js/oodsp-login-page-template.js:198
 msgid "The password field is empty"
 msgstr "Пустое поле пароля"
 
-#: includes/resources/js/oodsp-login-page-template.js:208
+#: includes/resources/js/oodsp-login-page-template.js:202
 msgid "Incorrect email"
 msgstr "Неверный адрес электронной почты"
 
-#: includes/resources/js/oodsp-login-page-template.js:212
+#: includes/resources/js/oodsp-login-page-template.js:206
 msgid "Rate limit exceeded"
 msgstr "Превышен лимит тарифа"
 

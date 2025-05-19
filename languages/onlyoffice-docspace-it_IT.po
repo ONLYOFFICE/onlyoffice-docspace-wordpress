@@ -72,19 +72,19 @@ msgstr "File"
 msgid "Pick room or media file from your DocSpace"
 msgstr "Scegli la stanza virtuale o il file multimediale dal tuo DocSpace"
 
-#: includes/resources/js/oodsp-error-page-template.js:72
+#: includes/resources/js/oodsp-error-page-template.js:69
 msgid "Authorization unsuccessful!"
 msgstr "Autorizzazione non riuscita!"
 
-#: includes/resources/js/oodsp-error-page-template.js:61
+#: includes/resources/js/oodsp-error-page-template.js:58
 msgid "Please contact the administrator."
 msgstr "Ti pregiamo di contattare l'amministratore."
 
-#: includes/resources/js/oodsp-error-page-template.js:56
+#: includes/resources/js/oodsp-error-page-template.js:53
 msgid "Please proceed to the DocSpace plugin via the left side menu and enter your password to restore access."
 msgstr "Procedi al plugin DocSpace tramite il menu a sinistra e inserisci la password per ripristinare l'accesso."
 
-#: includes/resources/js/oodsp-error-page-template.js:76
+#: includes/resources/js/oodsp-error-page-template.js:70
 msgid "Access denied!"
 msgstr "Accesso negato!"
 
@@ -372,15 +372,15 @@ msgstr "Le istruzioni per la modifica della password sono state inviate all'indi
 msgid "The email field is empty"
 msgstr "Il campo email è vuoto"
 
-#: includes/resources/js/oodsp-login-page-template.js:201
+#: includes/resources/js/oodsp-login-page-template.js:198
 msgid "The password field is empty"
 msgstr "Il campo password è vuoto"
 
-#: includes/resources/js/oodsp-login-page-template.js:208
+#: includes/resources/js/oodsp-login-page-template.js:202
 msgid "Incorrect email"
 msgstr "Email non corretta"
 
-#: includes/resources/js/oodsp-login-page-template.js:212
+#: includes/resources/js/oodsp-login-page-template.js:206
 msgid "Rate limit exceeded"
 msgstr "Limite di richieste superato"
 
