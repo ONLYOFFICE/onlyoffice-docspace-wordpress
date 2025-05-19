@@ -145,7 +145,7 @@ window.wp = window.wp || {};
 					/* translators: %s: email address */
 					__(
 						'The password change instruction has been sent to <strong>%s</strong> email address.',
-						'onlyoffice-docspace-plugin'
+						'onlyoffice-docspace'
 					),
 					userNameValue
 				),
@@ -186,30 +186,30 @@ window.wp = window.wp || {};
 			type: 'error',
 			text: __(
 				'Invalid credentials. Please try again.',
-				'onlyoffice-docspace-plugin'
+				'onlyoffice-docspace'
 			),
 		},
 		emptyEmail: {
 			type: 'error',
 			text: __(
 				'The email field is empty',
-				'onlyoffice-docspace-plugin'
+				'onlyoffice-docspace'
 			),
 		},
 		emptyPassword: {
 			type: 'error',
 			text: __(
 				'The password field is empty',
-				'onlyoffice-docspace-plugin'
+				'onlyoffice-docspace'
 			),
 		},
 		notValidEmail: {
 			type: 'error',
-			text: __( 'Incorrect email', 'onlyoffice-docspace-plugin' ),
+			text: __( 'Incorrect email', 'onlyoffice-docspace' ),
 		},
 		rateLimitExceeded: {
 			type: 'error',
-			text: __( 'Rate limit exceeded', 'onlyoffice-docspace-plugin' ),
+			text: __( 'Rate limit exceeded', 'onlyoffice-docspace' ),
 		},
 	};
 } )( window.jQuery, window.wp );

@@ -226,7 +226,7 @@ class OODSP_Resource_Registry {
 		if ( function_exists( 'wp_set_script_translations' ) ) {
 			wp_set_script_translations(
 				self::RESOURCE_NAME_PREFIX . '-login-page-template',
-				'onlyoffice-docspace-plugin',
+				'onlyoffice-docspace',
 				plugin_dir_path( OODSP_PLUGIN_FILE ) . 'languages/'
 			);
 		}
@@ -261,7 +261,7 @@ class OODSP_Resource_Registry {
 		if ( function_exists( 'wp_set_script_translations' ) ) {
 			wp_set_script_translations(
 				self::RESOURCE_NAME_PREFIX . '-error-page-template',
-				'onlyoffice-docspace-plugin',
+				'onlyoffice-docspace',
 				plugin_dir_path( OODSP_PLUGIN_FILE ) . 'languages/'
 			);
 		}

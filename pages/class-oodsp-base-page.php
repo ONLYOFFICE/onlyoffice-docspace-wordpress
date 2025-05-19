@@ -176,7 +176,7 @@ abstract class OODSP_Base_Page {
 			if ( function_exists( 'wp_set_script_translations' ) ) {
 				wp_set_script_translations(
 					OODSP_PLUGIN_NAME . '_' . $this->menu_slug,
-					'onlyoffice-docspace-plugin',
+					'onlyoffice-docspace',
 					plugin_dir_path( OODSP_PLUGIN_FILE ) . 'languages/'
 				);
 			}

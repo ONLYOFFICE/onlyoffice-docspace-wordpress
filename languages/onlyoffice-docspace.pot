@@ -12,7 +12,7 @@ msgstr ""
 "POT-Creation-Date: 2025-04-24T10:54:23+03:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
-"X-Domain: onlyoffice-docspace-plugin\n"
+"X-Domain: onlyoffice-docspace\n"
 
 #. Plugin Name of the plugin
 #: onlyoffice-docspace-wordpress.php

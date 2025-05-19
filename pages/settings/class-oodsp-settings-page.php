@@ -92,7 +92,7 @@ class OODSP_Settings_Page extends OODSP_Base_Page {
 	 * @return string The page title.
 	 */
 	protected function get_page_title() {
-		return __( 'ONLYOFFICE DocSpace Settings', 'onlyoffice-docspace-plugin' );
+		return __( 'ONLYOFFICE DocSpace Settings', 'onlyoffice-docspace' );
 	}
 
 	/**
@@ -101,7 +101,7 @@ class OODSP_Settings_Page extends OODSP_Base_Page {
 	 * @return string The menu title.
 	 */
 	protected function get_menu_title() {
-		return __( 'Settings', 'onlyoffice-docspace-plugin' );
+		return __( 'Settings', 'onlyoffice-docspace' );
 	}
 
 	/**
@@ -142,7 +142,7 @@ class OODSP_Settings_Page extends OODSP_Base_Page {
 		if ( function_exists( 'wp_set_script_translations' ) ) {
 			wp_set_script_translations(
 				OODSP_PLUGIN_NAME . $this->menu_slug . '-authorization',
-				'onlyoffice-docspace-plugin',
+				'onlyoffice-docspace',
 				plugin_dir_path( OODSP_PLUGIN_FILE ) . 'languages/'
 			);
 		}
@@ -202,7 +202,7 @@ class OODSP_Settings_Page extends OODSP_Base_Page {
 					sprintf(
 						wp_kses(
 							/* translators: %1$s: opening link tag, %2$s: closing link tag */
-							__( 'The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %1$sthe Developer Tools section%2$s.', 'onlyoffice-docspace-plugin' ),
+							__( 'The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %1$sthe Developer Tools section%2$s.', 'onlyoffice-docspace' ),
 							array(
 								'a' => array(
 									'href'   => array(),
@@ -222,14 +222,14 @@ class OODSP_Settings_Page extends OODSP_Base_Page {
 			add_settings_error(
 				'general',
 				'settings_updated',
-				esc_html__( 'Settings saved', 'onlyoffice-docspace-plugin' ),
+				esc_html__( 'Settings saved', 'onlyoffice-docspace' ),
 				'success'
 			);
 		} catch ( OODSP_Docspace_Client_Exception $e ) {
 			add_settings_error(
 				'general',
 				'settings_updated',
-				esc_html__( 'ONLYOFFICE DocSpace cannot be reached', 'onlyoffice-docspace-plugin' )
+				esc_html__( 'ONLYOFFICE DocSpace cannot be reached', 'onlyoffice-docspace' )
 			);
 
 			$e->printStackTrace();
@@ -250,7 +250,7 @@ class OODSP_Settings_Page extends OODSP_Base_Page {
 		add_settings_error(
 			'general',
 			'settings_updated',
-			esc_html__( 'ONLYOFFICE DocSpace successfully disconnected', 'onlyoffice-docspace-plugin' ),
+			esc_html__( 'ONLYOFFICE DocSpace successfully disconnected', 'onlyoffice-docspace' ),
 			'success'
 		);
 	}

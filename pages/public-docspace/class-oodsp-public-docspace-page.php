@@ -107,7 +107,7 @@ class OODSP_Public_DocSpace_Page {
 		register_block_type(
 			plugin_dir_path( OODSP_PLUGIN_FILE ) . 'onlyoffice-docspace-wordpress-block/build',
 			array(
-				'description'     => __( 'Add ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ),
+				'description'     => __( 'Add ONLYOFFICE DocSpace', 'onlyoffice-docspace' ),
 				'render_callback' => array( $this, 'docspace_block_render_callback' ),
 				'editor_script'   => OODSP_PLUGIN_NAME . '-block-editor',
 				'editor_style'    => OODSP_PLUGIN_NAME . '-block-editor',
@@ -141,7 +141,7 @@ class OODSP_Public_DocSpace_Page {
 		if ( function_exists( 'wp_set_script_translations' ) ) {
 			wp_set_script_translations(
 				OODSP_PLUGIN_NAME . '-block-editor',
-				'onlyoffice-docspace-plugin',
+				'onlyoffice-docspace',
 				plugin_dir_path( OODSP_PLUGIN_FILE ) . 'languages/'
 			);
 		}
