@@ -182,9 +182,7 @@ const Edit = ( { attributes, setAttributes } ) => {
 				break;
 		}
 
-		setModalTitle(
-			__( 'ONLYOFFICE DocSpace', 'onlyoffice-docspace' )
-		);
+		setModalTitle( __( 'ONLYOFFICE DocSpace', 'onlyoffice-docspace' ) );
 		setModalConfig( {
 			frameId: 'oodsp-selector-frame',
 			width: '100%',
@@ -277,10 +275,7 @@ const Edit = ( { attributes, setAttributes } ) => {
 				<>
 					<InspectorControls key="setting">
 						<PanelBody
-							title={ __(
-								'Settings',
-								'onlyoffice-docspace'
-							) }
+							title={ __( 'Settings', 'onlyoffice-docspace' ) }
 						>
 							{ showWidthControl ? (
 								<HeightControl
@@ -297,20 +292,14 @@ const Edit = ( { attributes, setAttributes } ) => {
 								''
 							) }
 							<HeightControl
-								label={ __(
-									'Height',
-									'onlyoffice-docspace'
-								) }
+								label={ __( 'Height', 'onlyoffice-docspace' ) }
 								value={ attributes.height }
 								onChange={ ( value ) =>
 									setAttributes( { height: value } )
 								}
 							/>
 							<SelectControl
-								label={ __(
-									'Theme',
-									'onlyoffice-docspace'
-								) }
+								label={ __( 'Theme', 'onlyoffice-docspace' ) }
 								value={ attributes.theme }
 								options={ themes }
 								onChange={ ( value ) => {
@@ -510,10 +499,7 @@ const Edit = ( { attributes, setAttributes } ) => {
 							data-mode="room-selector"
 							onClick={ openModal }
 						>
-							{ __(
-								'Select room',
-								'onlyoffice-docspace'
-							) }
+							{ __( 'Select room', 'onlyoffice-docspace' ) }
 						</Button>
 						<Button
 							variant="primary"
@@ -524,10 +510,7 @@ const Edit = ( { attributes, setAttributes } ) => {
 							data-mode="file-selector"
 							onClick={ openModal }
 						>
-							{ __(
-								'Select file',
-								'onlyoffice-docspace'
-							) }
+							{ __( 'Select file', 'onlyoffice-docspace' ) }
 						</Button>
 					</Placeholder>
 				</>

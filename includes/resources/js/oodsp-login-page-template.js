@@ -191,17 +191,11 @@ window.wp = window.wp || {};
 		},
 		emptyEmail: {
 			type: 'error',
-			text: __(
-				'The email field is empty',
-				'onlyoffice-docspace'
-			),
+			text: __( 'The email field is empty', 'onlyoffice-docspace' ),
 		},
 		emptyPassword: {
 			type: 'error',
-			text: __(
-				'The password field is empty',
-				'onlyoffice-docspace'
-			),
+			text: __( 'The password field is empty', 'onlyoffice-docspace' ),
 		},
 		notValidEmail: {
 			type: 'error',

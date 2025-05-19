@@ -46,10 +46,7 @@ window.wp = window.wp || {};
 	oodsp.templates.docspaceUnauthorized = ( frameId ) => {
 		const errorTemplate = wp.template( 'oodsp-error' );
 
-		let message = __(
-			'Please log in to the site!',
-			'onlyoffice-docspace'
-		);
+		let message = __( 'Please log in to the site!', 'onlyoffice-docspace' );
 
 		if ( ! _oodspTemplates.isAnonymous ) {
 			if ( _oodspTemplates.hasDocSpaceWindow ) {
@@ -69,10 +66,7 @@ window.wp = window.wp || {};
 			errorTemplate( {
 				showLogo: true,
 				header: _oodspTemplates.isAnonymous
-					? __(
-							'Authorization unsuccessful!',
-							'onlyoffice-docspace'
-					  )
+					? __( 'Authorization unsuccessful!', 'onlyoffice-docspace' )
 					: __( 'Access denied!', 'onlyoffice-docspace' ),
 				message,
 				image: _oodspTemplates.resourceUrl + 'unauthorized.svg',
