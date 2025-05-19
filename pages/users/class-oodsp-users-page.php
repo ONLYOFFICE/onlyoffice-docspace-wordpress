@@ -132,12 +132,12 @@ class OODSP_Users_Page {
 
 		if ( $this->oodsp_settings_manager->exist_system_user() ) {
 			$help_tab_action_links['content'] .= '<li>'
-				. __( '<strong>Export to DocSpace</strong> allows you to create user accounts in DocSpace with emails taken from WordPress.', 'onlyoffice-docspace-plugin' )
+				. __( '<strong>Export to DocSpace</strong> allows you to create user accounts in DocSpace with emails taken from WordPress.', 'onlyoffice-docspace' )
 				. '</li>';
 		}
 
 		$help_tab_action_links['content'] .= '<li>'
-				. __( '<strong>Unlink DocSpace Account</strong> removes connection between WordPress and DocSpace accounts.', 'onlyoffice-docspace-plugin' )
+				. __( '<strong>Unlink DocSpace Account</strong> removes connection between WordPress and DocSpace accounts.', 'onlyoffice-docspace' )
 				. '</li>';
 
 		$help_tab_action_links['content'] .= '</ul>';
@@ -177,7 +177,7 @@ class OODSP_Users_Page {
 		if ( function_exists( 'wp_set_script_translations' ) ) {
 			wp_set_script_translations(
 				OODSP_PLUGIN_NAME . '-users',
-				'onlyoffice-docspace-plugin',
+				'onlyoffice-docspace',
 				plugin_dir_path( OODSP_PLUGIN_FILE ) . 'languages/'
 			);
 		}
@@ -196,7 +196,7 @@ class OODSP_Users_Page {
 	 */
 	public function add_docspace_account_user_column( $columns ) {
 		$columns['docspace_account'] = '<span> '
-			. __( 'DocSpace Account', 'onlyoffice-docspace-plugin' )
+			. __( 'DocSpace Account', 'onlyoffice-docspace' )
 			. '</span>'
 			. '<span>'
 			. '<div class="oodsp-tooltip" style="float: left; display: inline-flex;" title="' . $this->get_docspace_account_tooltip_text() . '">'
@@ -308,10 +308,10 @@ class OODSP_Users_Page {
 	 */
 	public function add_oodsp_users_bulk_actions( $bulk_actions ) {
 		if ( $this->oodsp_settings_manager->exist_system_user() ) {
-			$bulk_actions['create-docspace-user'] = __( 'Export to DocSpace', 'onlyoffice-docspace-plugin' );
+			$bulk_actions['create-docspace-user'] = __( 'Export to DocSpace', 'onlyoffice-docspace' );
 		}
 
-		$bulk_actions['unlink-docspace-account'] = __( 'Unlink DocSpace Account', 'onlyoffice-docspace-plugin' );
+		$bulk_actions['unlink-docspace-account'] = __( 'Unlink DocSpace Account', 'onlyoffice-docspace' );
 
 		return $bulk_actions;
 	}
@@ -493,7 +493,7 @@ class OODSP_Users_Page {
 						$messages[] = OODSP_Utils::wp_get_admin_notice(
 							sprintf(
 								/* translators: %s: number of users successfully exported to DocSpace */
-								__( 'Export completed successfully for %s user(s).', 'onlyoffice-docspace-plugin' ),
+								__( 'Export completed successfully for %s user(s).', 'onlyoffice-docspace' ),
 								count( $created_users )
 							),
 							array(
@@ -508,7 +508,7 @@ class OODSP_Users_Page {
 						$messages[] = OODSP_Utils::wp_get_admin_notice(
 							sprintf(
 								/* translators: %1$s: number of skipped users, %2$s: list of users who already have a DocSpace account */
-								__( 'Export skipped for %1$s user(s). DocSpace Account(s) already linked to the WordPress account(s): %2$s. Unlink DocSpace Account(s) and try again.', 'onlyoffice-docspace-plugin' ),
+								__( 'Export skipped for %1$s user(s). DocSpace Account(s) already linked to the WordPress account(s): %2$s. Unlink DocSpace Account(s) and try again.', 'onlyoffice-docspace' ),
 								count( $skipped_users ),
 								implode( ', ', $skipped_users )
 							),
@@ -524,7 +524,7 @@ class OODSP_Users_Page {
 						$messages[] = OODSP_Utils::wp_get_admin_notice(
 							sprintf(
 								/* translators: %1$s: number of users that failed to export, %2$s: list of user emails that already exist in DocSpace */
-								__( 'Export failed for %1$s user(s). User(s) with the indicated email(s) already exist in DocSpace: %2$s.', 'onlyoffice-docspace-plugin' ),
+								__( 'Export failed for %1$s user(s). User(s) with the indicated email(s) already exist in DocSpace: %2$s.', 'onlyoffice-docspace' ),
 								count( $error_users ),
 								implode( ', ', $error_users )
 							),
@@ -538,7 +538,7 @@ class OODSP_Users_Page {
 					break;
 				case 'error_create_docspace_user':
 					$messages[] = OODSP_Utils::wp_get_admin_notice(
-						__( 'ONLYOFFICE DocSpace cannot be reached', 'onlyoffice-docspace-plugin' ),
+						__( 'ONLYOFFICE DocSpace cannot be reached', 'onlyoffice-docspace' ),
 						array(
 							'id'          => 'create_docspace_user-error-message',
 							'type'        => 'error',
@@ -567,10 +567,10 @@ class OODSP_Users_Page {
 		<div hidden>
 			<div
 				id="oodsp-create-docspace-user-confirm-dialog"
-				title="<?php esc_html_e( 'Export to DocSpace', 'onlyoffice-docspace-plugin' ); ?>"
+				title="<?php esc_html_e( 'Export to DocSpace', 'onlyoffice-docspace' ); ?>"
 			>
 				<p>
-					<?php esc_html_e( "WordPress email will be used for the user login in DocSpace. Password will be generated automatically. Users can change their password manually in their profiles. The password for the existing DocSpace account won't be overwritten. These users can apply their current credentials.", 'onlyoffice-docspace-plugin' ); ?>
+					<?php esc_html_e( "WordPress email will be used for the user login in DocSpace. Password will be generated automatically. Users can change their password manually in their profiles. The password for the existing DocSpace account won't be overwritten. These users can apply their current credentials.", 'onlyoffice-docspace' ); ?>
 				</p>
 			</div>
 		</div>
@@ -661,7 +661,7 @@ class OODSP_Users_Page {
 					$messages[] = OODSP_Utils::wp_get_admin_notice(
 						sprintf(
 							/* translators: %s: number of users successfully exported to DocSpace */
-							__( 'Unlinked account(s) successfully for %s user(s).', 'onlyoffice-docspace-plugin' ),
+							__( 'Unlinked account(s) successfully for %s user(s).', 'onlyoffice-docspace' ),
 							$unlinked_count
 						),
 						array(
@@ -694,24 +694,24 @@ class OODSP_Users_Page {
 	 * @return string Formatted tooltip text with HTML markup
 	 */
 	private function get_docspace_account_tooltip_text() {
-		$text  = __( 'DocSpace Account shows if a WordPress user has already linked their WordPress and DocSpace accounts.', 'onlyoffice-docspace-plugin' );
+		$text  = __( 'DocSpace Account shows if a WordPress user has already linked their WordPress and DocSpace accounts.', 'onlyoffice-docspace' );
 		$text .= '<br><br>';
 
 		if ( $this->oodsp_settings_manager->exist_system_user() ) {
-			$text .= __( 'To export users to DocSpace, select the required user(s) and click the <strong>Export to DocSpace</strong> option in the <strong>Bulk actions</strong> drop-down menu. The user will be created in DocSpace with their email taken from WordPress. In this case, new users will be authorized via seamless login.', 'onlyoffice-docspace-plugin' );
+			$text .= __( 'To export users to DocSpace, select the required user(s) and click the <strong>Export to DocSpace</strong> option in the <strong>Bulk actions</strong> drop-down menu. The user will be created in DocSpace with their email taken from WordPress. In this case, new users will be authorized via seamless login.', 'onlyoffice-docspace' );
 			$text .= '<br><br>';
 		} else {
 			$text .= sprintf(
 				/* translators: %s: ONLYOFFICE DocSpace plugin */
-				__( 'To export users automatically, please %s.', 'onlyoffice-docspace-plugin' ),
-				"<a href='" . admin_url( 'admin.php?page=onlyoffice-docspace-settings' ) . "'>" . __( 'Log in as a DocSpace Admin', 'onlyoffice-docspace-plugin' ) . '</a>'
+				__( 'To export users automatically, please %s.', 'onlyoffice-docspace' ),
+				"<a href='" . admin_url( 'admin.php?page=onlyoffice-docspace-settings' ) . "'>" . __( 'Log in as a DocSpace Admin', 'onlyoffice-docspace' ) . '</a>'
 			);
 			$text .= '<br><br>';
 		}
 
-		$text .= __( 'If your WordPress users already have DocSpace accounts, they can continue using their current accounts. Accounts will be linked automatically once these users log into the ONLYOFFICE DocSpace plugin.', 'onlyoffice-docspace-plugin' );
+		$text .= __( 'If your WordPress users already have DocSpace accounts, they can continue using their current accounts. Accounts will be linked automatically once these users log into the ONLYOFFICE DocSpace plugin.', 'onlyoffice-docspace' );
 		$text .= '<br><br>';
-		$text .= '<strong>' . __( 'For more information:', 'onlyoffice-docspace-plugin' ) . '</strong>';
+		$text .= '<strong>' . __( 'For more information:', 'onlyoffice-docspace' ) . '</strong>';
 		$text .= " <a href='https://helpcenter.onlyoffice.com/userguides/docspace-inviting-users.aspx' target='_blank'>https://helpcenter.onlyoffice.com/userguides/docspace-inviting-users.aspx</a>";
 
 		return $text;

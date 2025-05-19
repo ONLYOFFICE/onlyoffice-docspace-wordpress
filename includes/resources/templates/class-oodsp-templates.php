@@ -60,11 +60,11 @@ class OODSP_Templates {
 							<#
 							if ( ! data.resetPassword ) {
 							#> 
-							<?php esc_html_e( 'WordPress requests access to your ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' ); ?>
+							<?php esc_html_e( 'WordPress requests access to your ONLYOFFICE DocSpace', 'onlyoffice-docspace' ); ?>
 							<#
 							} else {
 							#> 
-							<?php esc_html_e( 'Password recovery for', 'onlyoffice-docspace-plugin' ); ?>
+							<?php esc_html_e( 'Password recovery for', 'onlyoffice-docspace' ); ?>
 							<#
 							}
 							#> 
@@ -83,7 +83,7 @@ class OODSP_Templates {
 						<div>
 							<p style="padding-bottom: 25px;">
 								<label for="user_login">
-								<?php esc_html_e( 'Please enter your DocSpace credentials to sync it with your WordPress account:', 'onlyoffice-docspace-plugin' ); ?>
+								<?php esc_html_e( 'Please enter your DocSpace credentials to sync it with your WordPress account:', 'onlyoffice-docspace' ); ?>
 								</label>
 							</p>
 
@@ -96,7 +96,7 @@ class OODSP_Templates {
 									size="20" 
 									autocapitalize="off"
 									required="required"
-									placeholder="<?php esc_html_e( 'Email', 'onlyoffice-docspace-plugin' ); ?>"
+									placeholder="<?php esc_html_e( 'Email', 'onlyoffice-docspace' ); ?>"
 									value="{{{data.userName}}}"
 								/>
 							</p>
@@ -112,7 +112,7 @@ class OODSP_Templates {
 										size="20"
 										spellcheck="false"
 										required="required"
-										placeholder="<?php esc_html_e( 'Password', 'onlyoffice-docspace-plugin' ); ?>"
+										placeholder="<?php esc_html_e( 'Password', 'onlyoffice-docspace' ); ?>"
 										value="{{{data.password}}}"
 									>
 									<button type="button" class="button button-secondary wp-hide-pw hide-if-no-js" data-toggle="0" aria-label="<?php esc_attr_e( 'Show password' ); ?>">
@@ -126,11 +126,11 @@ class OODSP_Templates {
 									id="oodsp-submit-password"
 									type="submit" 
 									class="button button-primary button-large" 
-									value="<?php esc_attr_e( 'Sign In', 'onlyoffice-docspace-plugin' ); ?>"
+									value="<?php esc_attr_e( 'Sign In', 'onlyoffice-docspace' ); ?>"
 								>
 							</div>
 							<div class="reset-password-link-wrap">
-								<a id="oodsp-reset-password-link" class="reset-password-link"><?php esc_html_e( 'Reset password', 'onlyoffice-docspace-plugin' ); ?></a>
+								<a id="oodsp-reset-password-link" class="reset-password-link"><?php esc_html_e( 'Reset password', 'onlyoffice-docspace' ); ?></a>
 							</div>
 						</div>
 						<#
@@ -139,7 +139,7 @@ class OODSP_Templates {
 						<div>
 							<p style="padding-bottom: 25px;">
 								<label for="user_login">
-								<?php esc_html_e( 'Please enter the email address you used while registering in DocSpace to get the password recovery instructions.', 'onlyoffice-docspace-plugin' ); ?>
+								<?php esc_html_e( 'Please enter the email address you used while registering in DocSpace to get the password recovery instructions.', 'onlyoffice-docspace' ); ?>
 								</label>
 							</p>
 
@@ -152,7 +152,7 @@ class OODSP_Templates {
 									size="20" 
 									autocapitalize="off"
 									required="required"
-									placeholder="<?php esc_html_e( 'Email', 'onlyoffice-docspace-plugin' ); ?>"
+									placeholder="<?php esc_html_e( 'Email', 'onlyoffice-docspace' ); ?>"
 									value="{{{data.userName}}}"
 								/>
 							</p>
@@ -163,13 +163,13 @@ class OODSP_Templates {
 									type="submit"
 									name="wp-submit"
 									class="button button-primary button-large"
-									value="<?php esc_attr_e( 'Send', 'onlyoffice-docspace-plugin' ); ?>"
+									value="<?php esc_attr_e( 'Send', 'onlyoffice-docspace' ); ?>"
 								>
 								<input
 									id="oodsp-reset-password-cancel"
 									type="button"
 									class="button button-large"
-									value="<?php esc_attr_e( 'Cancel', 'onlyoffice-docspace-plugin' ); ?>"
+									value="<?php esc_attr_e( 'Cancel', 'onlyoffice-docspace' ); ?>"
 								>
 							</p>
 						</div>

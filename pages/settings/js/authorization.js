@@ -27,7 +27,7 @@
 			'oodsp-authorization-notice',
 			wp.i18n.__(
 				'Successful authorization. Settings saved.',
-				'onlyoffice-docspace-plugin'
+				'onlyoffice-docspace'
 			),
 			'success'
 		);
@@ -120,7 +120,7 @@
 					/* translators: %1$s: opening link tag, %2$s: closing link tag */
 					wp.i18n.__(
 						'The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %1$sthe Developer Tools section%2$s.',
-						'onlyoffice-docspace-plugin'
+						'onlyoffice-docspace'
 					),
 					'<a href="' +
 						_oodspAuthorization.developerToolsUrl +
@@ -139,7 +139,7 @@
 			'oodsp-authorization-notice',
 			wp.i18n.__(
 				'ONLYOFFICE DocSpace cannot be reached',
-				'onlyoffice-docspace-plugin'
+				'onlyoffice-docspace'
 			),
 			'error'
 		);

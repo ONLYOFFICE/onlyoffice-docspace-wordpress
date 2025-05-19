@@ -34,7 +34,7 @@ $system_user = $this->oodsp_settings_manager->get_system_user();
 <div id="oodsp-authorization-notice"></div>
 
 <div class="oodsp-white-frame">
-	<div class="header-section"><?php esc_html_e( 'Log in as a DocSpace Admin', 'onlyoffice-docspace-plugin' ); ?></div>
+	<div class="header-section"><?php esc_html_e( 'Log in as a DocSpace Admin', 'onlyoffice-docspace' ); ?></div>
 
 	<form id="oodsp-authorization-form" action="admin.php?page=onlyoffice-docspace-settings" method="post" autocomplete="off">
 		<?php
@@ -43,20 +43,20 @@ $system_user = $this->oodsp_settings_manager->get_system_user();
 		<table class="form-table" role="presentation">
 			<tbody>
 				<tr class="form-field form-required">
-					<th scope="row"><?php esc_html_e( 'Email', 'onlyoffice-docspace-plugin' ); ?></th>
+					<th scope="row"><?php esc_html_e( 'Email', 'onlyoffice-docspace' ); ?></th>
 					<td>
 						<input
 							name="docspace-login"
 							type="text"
 							class="regular-text"
-							placeholder="<?php esc_html_e( 'Email', 'onlyoffice-docspace-plugin' ); ?>"
+							placeholder="<?php esc_html_e( 'Email', 'onlyoffice-docspace' ); ?>"
 							value="<?php echo ! empty( $system_user ) ? esc_attr( $system_user->get_user_name() ) : ''; ?>"
 							<?php echo ! empty( $system_user ) ? 'disabled' : ''; ?>
 						>
 					</td>
 				</tr>
 				<tr class="form-field form-required form-pwd">
-					<th scope="row"><?php esc_html_e( 'Password', 'onlyoffice-docspace-plugin' ); ?></th>
+					<th scope="row"><?php esc_html_e( 'Password', 'onlyoffice-docspace' ); ?></th>
 					<td>
 						<div class="js">
 							<div class="user-pass-wrap">
@@ -67,7 +67,7 @@ $system_user = $this->oodsp_settings_manager->get_system_user();
 											name="docspace-password"
 											type="password" 
 											class="input password-input"
-											placeholder="<?php esc_html_e( 'Password', 'onlyoffice-docspace-plugin' ); ?>"
+											placeholder="<?php esc_html_e( 'Password', 'onlyoffice-docspace' ); ?>"
 											value="<?php echo ! empty( $system_user ) ? '********' : ''; ?>"
 											<?php echo ! empty( $system_user ) ? 'disabled' : ''; ?>
 										/>
@@ -90,7 +90,7 @@ $system_user = $this->oodsp_settings_manager->get_system_user();
 		</table>
 		<p>
 			<?php
-			esc_html_e( 'We use this account to make API calls from DocSpace to WordPress. This account must have the DocSpace Admin type to export users from WordPress to DocSpace, create groups, manage group members in DocSpace.', 'onlyoffice-docspace-plugin' );
+			esc_html_e( 'We use this account to make API calls from DocSpace to WordPress. This account must have the DocSpace Admin type to export users from WordPress to DocSpace, create groups, manage group members in DocSpace.', 'onlyoffice-docspace' );
 			?>
 			</p>
 		<p
@@ -101,7 +101,7 @@ $system_user = $this->oodsp_settings_manager->get_system_user();
 				type="submit"
 				id="oodsp-authorization-login-button"
 				class="button button-primary"
-				value="<?php esc_html_e( 'Sign in', 'onlyoffice-docspace-plugin' ); ?>"
+				value="<?php esc_html_e( 'Sign in', 'onlyoffice-docspace' ); ?>"
 			>
 		</p>
 		<p
@@ -112,7 +112,7 @@ $system_user = $this->oodsp_settings_manager->get_system_user();
 				type="submit"
 				id="oodsp-authorization-logout-button"
 				class="button button-primary"
-				value="<?php esc_html_e( 'Sign out', 'onlyoffice-docspace-plugin' ); ?>"
+				value="<?php esc_html_e( 'Sign out', 'onlyoffice-docspace' ); ?>"
 			>
 		</p>
 	</form>
@@ -126,9 +126,9 @@ $system_user = $this->oodsp_settings_manager->get_system_user();
 	<div hidden>
 		<div
 			id="oodsp-save-system-user-confirm-dialog"
-			title="<?php esc_html_e( 'Warning', 'onlyoffice-docspace-plugin' ); ?>"
+			title="<?php esc_html_e( 'Warning', 'onlyoffice-docspace' ); ?>"
 		>
-			<p><?php esc_html_e( 'Do you agree to connect your DocSpace account? The app will use it to perform actions.', 'onlyoffice-docspace-plugin' ); ?></p>
+			<p><?php esc_html_e( 'Do you agree to connect your DocSpace account? The app will use it to perform actions.', 'onlyoffice-docspace' ); ?></p>
 		</div>
 	</div>
 </div>

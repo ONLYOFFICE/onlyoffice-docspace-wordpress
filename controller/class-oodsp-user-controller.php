@@ -94,7 +94,7 @@ class OODSP_User_Controller {
 
 		if ( empty( $id ) || empty( $user_name ) || empty( $password_hash ) ) {
 			wp_send_json_error(
-				array( 'message' => __( 'The required fields are empty', 'onlyoffice-docspace-plugin' ) ),
+				array( 'message' => __( 'The required fields are empty', 'onlyoffice-docspace' ) ),
 				400
 			);
 		}
@@ -159,7 +159,7 @@ class OODSP_User_Controller {
 
 		if ( empty( $email ) ) {
 			wp_send_json_error(
-				array( 'message' => __( 'The required fields are empty', 'onlyoffice-docspace-plugin' ) ),
+				array( 'message' => __( 'The required fields are empty', 'onlyoffice-docspace' ) ),
 				400
 			);
 		}

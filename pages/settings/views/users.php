@@ -29,14 +29,14 @@
 
 <div class="oodsp-white-frame">
 	<div class="header-section">
-		<?php esc_html_e( 'User export (Optional)', 'onlyoffice-docspace-plugin' ); ?>
+		<?php esc_html_e( 'User export (Optional)', 'onlyoffice-docspace' ); ?>
 	</div>
 	<p>
 		<?php
 		echo wp_kses(
 			__(
 				'If your WordPress users do not have DocSpace accounts, click the <strong>Open user list</strong> button to export them to DocSpace. After clicking on this button, you will be redirected to the WordPress Users Module. If your WordPress users already have DocSpace accounts, they can continue using their current accounts.',
-				'onlyoffice-docspace-plugin'
+				'onlyoffice-docspace'
 			),
 			array(
 				'strong' => array(),
@@ -47,7 +47,7 @@
 	<form method="get" action="users.php">
 		<?php
 		submit_button(
-			__( 'Open user list', 'onlyoffice-docspace-plugin' ),
+			__( 'Open user list', 'onlyoffice-docspace' ),
 			'secondary',
 			false,
 			false

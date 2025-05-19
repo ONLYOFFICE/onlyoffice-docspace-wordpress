@@ -57,22 +57,22 @@ const Edit = ( { attributes, setAttributes } ) => {
 
 	const themes = [
 		{
-			label: __( 'Light', 'onlyoffice-docspace-plugin' ),
+			label: __( 'Light', 'onlyoffice-docspace' ),
 			value: 'Base',
 		},
 		{
-			label: __( 'Dark', 'onlyoffice-docspace-plugin' ),
+			label: __( 'Dark', 'onlyoffice-docspace' ),
 			value: 'Dark',
 		},
 	];
 
 	const editorTypes = [
 		{
-			label: __( 'Embedded', 'onlyoffice-docspace-plugin' ),
+			label: __( 'Embedded', 'onlyoffice-docspace' ),
 			value: 'embedded',
 		},
 		{
-			label: __( 'Editor', 'onlyoffice-docspace-plugin' ),
+			label: __( 'Editor', 'onlyoffice-docspace' ),
 			value: 'desktop',
 		},
 	];
@@ -182,9 +182,7 @@ const Edit = ( { attributes, setAttributes } ) => {
 				break;
 		}
 
-		setModalTitle(
-			__( 'ONLYOFFICE DocSpace', 'onlyoffice-docspace-plugin' )
-		);
+		setModalTitle( __( 'ONLYOFFICE DocSpace', 'onlyoffice-docspace' ) );
 		setModalConfig( {
 			frameId: 'oodsp-selector-frame',
 			width: '100%',
@@ -260,8 +258,8 @@ const Edit = ( { attributes, setAttributes } ) => {
 	const entityType = ! showPlaceholder && attributes.roomId ? 'room' : 'file';
 	const entityLabel =
 		! showPlaceholder && attributes.roomId
-			? __( 'Room', 'onlyoffice-docspace-plugin' )
-			: __( 'File', 'onlyoffice-docspace-plugin' );
+			? __( 'Room', 'onlyoffice-docspace' )
+			: __( 'File', 'onlyoffice-docspace' );
 	const entityIcon = getIconByType( entityType );
 	const entytiIsPublic =
 		attributes.hasOwnProperty( 'requestToken' ) &&
@@ -277,16 +275,13 @@ const Edit = ( { attributes, setAttributes } ) => {
 				<>
 					<InspectorControls key="setting">
 						<PanelBody
-							title={ __(
-								'Settings',
-								'onlyoffice-docspace-plugin'
-							) }
+							title={ __( 'Settings', 'onlyoffice-docspace' ) }
 						>
 							{ showWidthControl ? (
 								<HeightControl
 									label={ __(
 										'Width',
-										'onlyoffice-docspace-plugin'
+										'onlyoffice-docspace'
 									) }
 									value={ attributes.width }
 									onChange={ ( value ) =>
@@ -297,20 +292,14 @@ const Edit = ( { attributes, setAttributes } ) => {
 								''
 							) }
 							<HeightControl
-								label={ __(
-									'Height',
-									'onlyoffice-docspace-plugin'
-								) }
+								label={ __( 'Height', 'onlyoffice-docspace' ) }
 								value={ attributes.height }
 								onChange={ ( value ) =>
 									setAttributes( { height: value } )
 								}
 							/>
 							<SelectControl
-								label={ __(
-									'Theme',
-									'onlyoffice-docspace-plugin'
-								) }
+								label={ __( 'Theme', 'onlyoffice-docspace' ) }
 								value={ attributes.theme }
 								options={ themes }
 								onChange={ ( value ) => {
@@ -322,7 +311,7 @@ const Edit = ( { attributes, setAttributes } ) => {
 									<SelectControl
 										label={ __(
 											'View',
-											'onlyoffice-docspace-plugin'
+											'onlyoffice-docspace'
 										) }
 										value={ attributes.editorType }
 										options={ editorTypes }
@@ -354,7 +343,7 @@ const Edit = ( { attributes, setAttributes } ) => {
 													>
 														{ __(
 															'Background color',
-															'onlyoffice-docspace-plugin'
+															'onlyoffice-docspace'
 														) }
 													</label>
 												</FlexItem>
@@ -441,7 +430,7 @@ const Edit = ( { attributes, setAttributes } ) => {
 									>
 										{ __(
 											'Replace',
-											'onlyoffice-docspace-plugin'
+											'onlyoffice-docspace'
 										) }
 									</ToolbarButton>
 								) }
@@ -453,7 +442,7 @@ const Edit = ( { attributes, setAttributes } ) => {
 													event.target.dataset.title =
 														__(
 															'Select room',
-															'onlyoffice-docspace-plugin'
+															'onlyoffice-docspace'
 														);
 													event.target.dataset.mode =
 														'room-selector';
@@ -463,7 +452,7 @@ const Edit = ( { attributes, setAttributes } ) => {
 											>
 												{ __(
 													'Room',
-													'onlyoffice-docspace-plugin'
+													'onlyoffice-docspace'
 												) }
 											</MenuItem>
 											<MenuItem
@@ -471,7 +460,7 @@ const Edit = ( { attributes, setAttributes } ) => {
 													event.target.dataset.title =
 														__(
 															'Select file',
-															'onlyoffice-docspace-plugin'
+															'onlyoffice-docspace'
 														);
 													event.target.dataset.mode =
 														'file-selector';
@@ -481,7 +470,7 @@ const Edit = ( { attributes, setAttributes } ) => {
 											>
 												{ __(
 													'File',
-													'onlyoffice-docspace-plugin'
+													'onlyoffice-docspace'
 												) }
 											</MenuItem>
 										</NavigableMenu>
@@ -498,36 +487,30 @@ const Edit = ( { attributes, setAttributes } ) => {
 						label="ONLYOFFICE DocSpace"
 						instructions={ __(
 							'Pick room or media file from your DocSpace',
-							'onlyoffice-docspace-plugin'
+							'onlyoffice-docspace'
 						) }
 					>
 						<Button
 							variant="primary"
 							data-title={ __(
 								'Select room',
-								'onlyoffice-docspace-plugin'
+								'onlyoffice-docspace'
 							) }
 							data-mode="room-selector"
 							onClick={ openModal }
 						>
-							{ __(
-								'Select room',
-								'onlyoffice-docspace-plugin'
-							) }
+							{ __( 'Select room', 'onlyoffice-docspace' ) }
 						</Button>
 						<Button
 							variant="primary"
 							data-title={ __(
 								'Select file',
-								'onlyoffice-docspace-plugin'
+								'onlyoffice-docspace'
 							) }
 							data-mode="file-selector"
 							onClick={ openModal }
 						>
-							{ __(
-								'Select file',
-								'onlyoffice-docspace-plugin'
-							) }
+							{ __( 'Select file', 'onlyoffice-docspace' ) }
 						</Button>
 					</Placeholder>
 				</>

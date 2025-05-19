@@ -31,14 +31,14 @@
 	<div class="header">
 		<div class="h1"><?php echo esc_html( get_admin_page_title() ); ?></div>
 
-		<div><?php esc_html_e( 'Configure the ONLYOFFICE DocSpace plugin.', 'onlyoffice-docspace-plugin' ); ?></div>
+		<div><?php esc_html_e( 'Configure the ONLYOFFICE DocSpace plugin.', 'onlyoffice-docspace' ); ?></div>
 	</div>
 
 	<?php settings_errors(); ?>
 	<div id="onlyoffice-docspace-settings-notice"></div>
 
 	<div class="oodsp-white-frame">
-		<div class="header-section"><?php esc_html_e( 'Connection settings', 'onlyoffice-docspace-plugin' ); ?></div>
+		<div class="header-section"><?php esc_html_e( 'Connection settings', 'onlyoffice-docspace' ); ?></div>
 
 		<div
 			id="oodsp-settings-csp-notice"
@@ -50,11 +50,11 @@
 					<img src="<?php echo esc_url( OODSP_PLUGIN_URL . 'includes/resources/images/alert-blue.svg' ); ?>" >
 				</div>
 				<div>
-					<p><b><?php esc_html_e( 'Check the CSP settings', 'onlyoffice-docspace-plugin' ); ?></b></p>
+					<p><b><?php esc_html_e( 'Check the CSP settings', 'onlyoffice-docspace' ); ?></b></p>
 					<p>
 						<?php
 						echo wp_kses(
-							__( 'Before connecting the plugin, please go to the <b>DocSpace Settings - Developer tools - JavaScript SDK</b> and add your WordPress address to the allow list:', 'onlyoffice-docspace-plugin' ),
+							__( 'Before connecting the plugin, please go to the <b>DocSpace Settings - Developer tools - JavaScript SDK</b> and add your WordPress address to the allow list:', 'onlyoffice-docspace' ),
 							array(
 								'b' => array(
 									'class' => array(),
@@ -63,7 +63,7 @@
 						);
 						?>
 					</p>
-					<p><b><?php esc_html_e( 'WordPress portal address:', 'onlyoffice-docspace-plugin' ); ?><span> <?php echo esc_html( OODSP_Utils::get_base_url() ); ?></span></b></p>
+					<p><b><?php esc_html_e( 'WordPress portal address:', 'onlyoffice-docspace' ); ?><span> <?php echo esc_html( OODSP_Utils::get_base_url() ); ?></span></b></p>
 				</div>
 			</div>
 		</div>
@@ -75,7 +75,7 @@
 			<table class="form-table" role="presentation">
 				<tbody>
 					<tr class="form-field form-required">
-						<th scope="row"><?php esc_html_e( 'DocSpace Portal Address', 'onlyoffice-docspace-plugin' ); ?></th>
+						<th scope="row"><?php esc_html_e( 'DocSpace Portal Address', 'onlyoffice-docspace' ); ?></th>
 						<td>
 							<input
 								id="docspace_url"
@@ -99,13 +99,13 @@
 					id="oodsp-general-settings-save-button"
 					class="button button-primary"
 					type="submit"
-					value="<?php esc_html_e( 'Connect', 'onlyoffice-docspace-plugin' ); ?>"
+					value="<?php esc_html_e( 'Connect', 'onlyoffice-docspace' ); ?>"
 				>
 				<input
 					id="oodsp-general-settings-cancel-button"
 					class="button"
 					type="submit"
-					value="<?php esc_html_e( 'Cancel', 'onlyoffice-docspace-plugin' ); ?>"
+					value="<?php esc_html_e( 'Cancel', 'onlyoffice-docspace' ); ?>"
 					style="<?php echo empty( $this->oodsp_settings_manager->get_docspace_url() ) ? 'display: none;' : ''; ?>"
 				>
 			</p>
@@ -118,13 +118,13 @@
 					id="oodsp-general-settings-change-button"
 					type="submit"
 					class="button"
-					value="<?php esc_html_e( 'Change', 'onlyoffice-docspace-plugin' ); ?>"
+					value="<?php esc_html_e( 'Change', 'onlyoffice-docspace' ); ?>"
 				>
 				<input
 					id="oodsp-general-settings-disconnect-button"	
 					type="submit"
 					class="button"
-					value="<?php esc_html_e( 'Disconnect', 'onlyoffice-docspace-plugin' ); ?>"
+					value="<?php esc_html_e( 'Disconnect', 'onlyoffice-docspace' ); ?>"
 				>
 			</p>
 		</form>
@@ -145,8 +145,8 @@
 <div hidden>
 	<div
 		id="oodsp-disconnect-confirm-dialog"
-		title="<?php esc_html_e( 'Warning', 'onlyoffice-docspace-plugin' ); ?>"
+		title="<?php esc_html_e( 'Warning', 'onlyoffice-docspace' ); ?>"
 	>
-		<p><?php esc_html_e( 'If you press the Disconnect button, you will not have access to the currently connected ONLYOFFICE DocSpace. This will remove the connections between Rooms and Pages, and disconnect all users.', 'onlyoffice-docspace-plugin' ); ?></p>
+		<p><?php esc_html_e( 'If you press the Disconnect button, you will not have access to the currently connected ONLYOFFICE DocSpace. This will remove the connections between Rooms and Pages, and disconnect all users.', 'onlyoffice-docspace' ); ?></p>
 	</div>
 </div>

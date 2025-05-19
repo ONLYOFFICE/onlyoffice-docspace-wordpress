@@ -9,122 +9,122 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Language: zh_CN\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.4.1\n"
 
 #: pages/settings/class-oodsp-settings-page.php:95
 msgid "ONLYOFFICE DocSpace Settings"
-msgstr "ONLYOFFICE 协作空间设置"
+msgstr "Einstellungen von ONLYOFFICE DocSpace"
 
 #: pages/settings/views/index.php:53
 msgid "Check the CSP settings"
-msgstr "检查 CSP 设置"
+msgstr "CSP-Einstellungen überprüfen"
 
 #: pages/settings/views/index.php:66
 msgid "WordPress portal address:"
-msgstr "WordPress 门户地址："
+msgstr "Adresse des WordPress-Portals:"
 
 #: pages/settings/class-oodsp-settings-page.php:104
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "Settings"
-msgstr "设置"
+msgstr "Einstellungen"
 
 #: includes/resources/templates/class-oodsp-templates.php:115
 #: pages/settings/views/authorization.php:59
 #: pages/settings/views/authorization.php:70
 msgid "Password"
-msgstr "密码"
+msgstr "Kennwort"
 
 #: pages/settings/class-oodsp-settings-page.php:225
 msgid "Settings saved"
-msgstr "设置已保存"
+msgstr "Einstellungen gespeichert"
 
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "Width"
-msgstr "宽度"
+msgstr "Breite"
 
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "Height"
-msgstr "高度"
+msgstr "Höhe"
 
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "Replace"
-msgstr "替换"
+msgstr "Ersetzen"
 
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "Select room"
-msgstr "选择房间"
+msgstr "Raum wählen"
 
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "Select file"
-msgstr "选择文件"
+msgstr "Datei wählen"
 
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "Room"
-msgstr "房间"
+msgstr "Raum"
 
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "File"
-msgstr "文件"
+msgstr "Datei"
 
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "Pick room or media file from your DocSpace"
-msgstr "在协作空间中选择房间或媒体文件"
+msgstr "Wählen Sie einen Raum oder eine Mediendatei aus Ihrem DocSpace"
 
-#: includes/resources/js/oodsp-error-page-template.js:72
+#: includes/resources/js/oodsp-error-page-template.js:69
 msgid "Authorization unsuccessful!"
-msgstr "授权不成功！"
+msgstr "Autorisierung fehlgeschlagen!"
 
-#: includes/resources/js/oodsp-error-page-template.js:61
+#: includes/resources/js/oodsp-error-page-template.js:58
 msgid "Please contact the administrator."
-msgstr "请联系管理员。"
+msgstr "Bitte wenden Sie sich an den Administrator."
 
-#: includes/resources/js/oodsp-error-page-template.js:56
+#: includes/resources/js/oodsp-error-page-template.js:53
 msgid "Please proceed to the DocSpace plugin via the left side menu and enter your password to restore access."
-msgstr "请通过左侧菜单前往协作空间插件并输入您的密码以恢复访问权限。"
+msgstr "Bitte gehen Sie über das Menü auf der linken Seite zum DocSpace-Plugin und geben Sie Ihr Passwort ein, um den Zugang wiederherzustellen."
 
-#: includes/resources/js/oodsp-error-page-template.js:76
+#: includes/resources/js/oodsp-error-page-template.js:70
 msgid "Access denied!"
-msgstr "访问被拒！"
+msgstr "Zugriff verweigert!"
 
 #: includes/resources/js/oodsp-error-page-template.js:49
 msgid "Please log in to the site!"
-msgstr "请登录网站！"
+msgstr "Bitte loggen Sie sich auf der Seite ein!"
 
 #: includes/resources/templates/class-oodsp-templates.php:63
 msgid "WordPress requests access to your ONLYOFFICE DocSpace"
-msgstr "WordPress 请求访问您的 ONLYOFFICE 协作空间"
+msgstr "WordPress fordert Zugang zu Ihrem ONLYOFFICE DocSpace an"
 
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "Theme"
-msgstr "主題"
+msgstr "Thema"
 
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "Light"
-msgstr "淺色主題"
+msgstr "Hell"
 
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "Dark"
-msgstr "深色的"
+msgstr "Dunkel"
 
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "View"
-msgstr "视图"
+msgstr "Ansicht"
 
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "Embedded"
-msgstr "嵌入式"
+msgstr "Eingebettete"
 
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "Editor"
-msgstr "编辑器"
+msgstr "Editor"
 
 #. Plugin Name of the plugin
 #: onlyoffice-docspace-wordpress.php
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "ONLYOFFICE DocSpace"
-msgstr "ONLYOFFICE 协作空间"
+msgstr "ONLYOFFICE DocSpace"
 
 #. Plugin URI of the plugin
 #: onlyoffice-docspace-wordpress.php
@@ -134,7 +134,7 @@ msgstr "https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress"
 #. Description of the plugin
 #: onlyoffice-docspace-wordpress.php
 msgid "Add ONLYOFFICE DocSpace on page"
-msgstr "在页面上添加 ONLYOFFICE 协作空间"
+msgstr "ONLYOFFICE DocSpace auf der Seite hinzufügen"
 
 #. Author of the plugin
 #: onlyoffice-docspace-wordpress.php
@@ -144,264 +144,264 @@ msgstr "Ascensio System SIA"
 #. Author URI of the plugin
 #: onlyoffice-docspace-wordpress.php
 msgid "https://www.onlyoffice.com"
-msgstr "https://www.onlyoffice.com/zh/"
+msgstr "https://www.onlyoffice.com/de"
 
 #: controller/class-oodsp-settings-controller.php:101
 #: controller/class-oodsp-user-controller.php:97
 #: controller/class-oodsp-user-controller.php:162
 msgid "The required fields are empty"
-msgstr "必填字段为空"
+msgstr "Die erforderlichen Felder sind leer"
 
 #: controller/class-oodsp-settings-controller.php:108
 msgid "The current user does not have permission to perform this action"
-msgstr "当前用户无权执行此操作"
+msgstr "Der aktuelle Benutzer ist nicht berechtigt, diese Aktion auszuführen"
 
 #: controller/class-oodsp-settings-controller.php:120
 #: includes/resources/js/oodsp-login-page-template.js:187
 msgid "Invalid credentials. Please try again."
-msgstr "凭证无效。请重试。"
+msgstr "Ungültige Anmeldedaten. Bitte versuchen Sie es erneut."
 
 #: controller/class-oodsp-settings-controller.php:132
 msgid "The specified user is not a ONLYOFFICE DocSpace administrator"
-msgstr "指定的用户不是 ONLYOFFICE 协作空间管理员"
+msgstr "Der angegebene Benutzer ist kein ONLYOFFICE DocSpace-Administrator"
 
 #: includes/resources/templates/class-oodsp-templates.php:67
 msgid "Password recovery for"
-msgstr "密码恢复"
+msgstr "Passwort-Wiederherstellung für"
 
 #: includes/resources/templates/class-oodsp-templates.php:86
 msgid "Please enter your DocSpace credentials to sync it with your WordPress account:"
-msgstr "请输入您的协作空间凭证以将其与您的 WordPress 帐户同步："
+msgstr "Bitte geben Sie Ihre DocSpace-Anmeldedaten ein, um sie mit Ihrem WordPress-Konto zu synchronisieren:"
 
 #: includes/resources/templates/class-oodsp-templates.php:99
 #: includes/resources/templates/class-oodsp-templates.php:155
 #: pages/settings/views/authorization.php:46
 #: pages/settings/views/authorization.php:52
 msgid "Email"
-msgstr "电子邮件"
+msgstr "E-Mail"
 
 #: includes/resources/templates/class-oodsp-templates.php:129
 msgid "Sign In"
-msgstr "登录"
+msgstr "Anmelden"
 
 #: includes/resources/templates/class-oodsp-templates.php:133
 msgid "Reset password"
-msgstr "重置密码"
+msgstr "Passwort zurücksetzen"
 
 #: includes/resources/templates/class-oodsp-templates.php:142
 msgid "Please enter the email address you used while registering in DocSpace to get the password recovery instructions."
-msgstr "请输入您在协作空间注册时使用的电子邮件地址以获取密码恢复说​​明。"
+msgstr "Bitte geben Sie die E-Mail-Adresse ein, die Sie bei der Registrierung in DocSpace verwendet haben, um Anweisungen zur Passwortwiederherstellung zu erhalten."
 
 #: includes/resources/templates/class-oodsp-templates.php:166
 msgid "Send"
-msgstr "发送"
+msgstr "Senden"
 
 #: includes/resources/templates/class-oodsp-templates.php:172
 #: pages/settings/views/index.php:108
 #: pages/settings/js/index.js:29
 #: pages/users/js/index.js:27
 msgid "Cancel"
-msgstr "取消"
+msgstr "Stornieren"
 
 #: pages/public-docspace/class-oodsp-public-docspace-page.php:110
 msgid "Add ONLYOFFICE DocSpace"
-msgstr "添加 ONLYOFFICE 协作空间"
+msgstr "ONLYOFFICE DocSpace hinzufügen"
 
 #. translators: %1$s: opening link tag, %2$s: closing link tag
 #: pages/settings/class-oodsp-settings-page.php:205
 #: pages/settings/js/authorization.js:121
 msgid "The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %1$sthe Developer Tools section%2$s."
-msgstr "当前域未在内容安全策略 (CSP) 设置中设置。请通过 %1$s 开发人员工具部分 %2$s 添加它。"
+msgstr "Die aktuelle Domäne ist in den Content Security Policy (CSP)-Einstellungen nicht festgelegt. Bitte fügen Sie sie über den %1$sAbschnitt Entwicklertools%2$s hinzu."
 
 #: pages/settings/class-oodsp-settings-page.php:232
 #: pages/users/class-oodsp-users-page.php:541
 #: pages/settings/js/authorization.js:140
 msgid "ONLYOFFICE DocSpace cannot be reached"
-msgstr "无法访问 ONLYOFFICE 协作空间"
+msgstr "ONLYOFFICE DocSpace kann nicht erreicht werden"
 
 #: pages/settings/class-oodsp-settings-page.php:253
 msgid "ONLYOFFICE DocSpace successfully disconnected"
-msgstr "ONLYOFFICE 协作空间已成功断开连接"
+msgstr "ONLYOFFICE DocSpace erfolgreich getrennt"
 
 #: pages/settings/views/authorization.php:37
 #: pages/users/class-oodsp-users-page.php:707
 msgid "Log in as a DocSpace Admin"
-msgstr "以协作空间管理员身份登录"
+msgstr "Als DocSpace-Administrator anmelden"
 
 #: pages/settings/views/authorization.php:93
 msgid "We use this account to make API calls from DocSpace to WordPress. This account must have the DocSpace Admin type to export users from WordPress to DocSpace, create groups, manage group members in DocSpace."
-msgstr "我们使用此帐户从协作空间向 WordPress 进行 API 调用。此帐户必须具有协作空间管理员类型才能将用户从 WordPress 导出到协作空间、创建组、管理协作空间中的组成员。"
+msgstr "Wir verwenden dieses Konto, um API-Aufrufe von DocSpace an WordPress zu tätigen. Dieses Konto muss den Typ DocSpace-Administrator haben, um Benutzer von WordPress nach DocSpace zu exportieren, Gruppen zu erstellen und Gruppenmitglieder in DocSpace zu verwalten."
 
 #: pages/settings/views/authorization.php:104
 msgid "Sign in"
-msgstr "登录"
+msgstr "Anmelden"
 
 #: pages/settings/views/authorization.php:115
 msgid "Sign out"
-msgstr "退出"
+msgstr "Abmelden"
 
 #: pages/settings/views/authorization.php:129
 #: pages/settings/views/index.php:148
 msgid "Warning"
-msgstr "警告"
+msgstr "Warnung"
 
 #: pages/settings/views/authorization.php:131
 msgid "Do you agree to connect your DocSpace account? The app will use it to perform actions."
-msgstr "您是否同意连接您的协作空间帐户？该应用程序将使用它来执行操作。"
+msgstr "Sind Sie mit der Verbindung Ihres DocSpace-Kontos einverstanden? Die App wird es für die Ausführung von Aktionen verwenden."
 
 #: pages/settings/views/index.php:34
 msgid "Configure the ONLYOFFICE DocSpace plugin."
-msgstr "配置 ONLYOFFICE 协作空间插件。"
+msgstr "Konfigurieren Sie das ONLYOFFICE DocSpace-Plugin."
 
 #: pages/settings/views/index.php:41
 msgid "Connection settings"
-msgstr "连接设置"
+msgstr "Verbindungseinstellungen"
 
 #: pages/settings/views/index.php:57
 msgid "Before connecting the plugin, please go to the <b>DocSpace Settings - Developer tools - JavaScript SDK</b> and add your WordPress address to the allow list:"
-msgstr "在连接插件之前，请转到 <b>协作空间设置 - 开发人员工具 - JavaScript SDK</b> 并将您的 WordPress 地址添加到允许列表："
+msgstr "Bevor Sie das Plugin verbinden, gehen Sie bitte zu <b>DocSpace-Einstellungen – Entwicklertools – JavaScript SDK</b> und fügen Sie Ihre WordPress-Adresse zur Zulassungsliste hinzu:"
 
 #: pages/settings/views/index.php:78
 msgid "DocSpace Portal Address"
-msgstr "协作空间门户地址"
+msgstr "DocSpace-Adresse"
 
 #: pages/settings/views/index.php:102
 msgid "Connect"
-msgstr "连接"
+msgstr "Verbinden"
 
 #: pages/settings/views/index.php:121
 msgid "Change"
-msgstr "更改"
+msgstr "Ändern"
 
 #: pages/settings/views/index.php:127
 #: pages/settings/js/index.js:17
 msgid "Disconnect"
-msgstr "断开连接"
+msgstr "Trennen"
 
 #: pages/settings/views/index.php:150
 msgid "If you press the Disconnect button, you will not have access to the currently connected ONLYOFFICE DocSpace. This will remove the connections between Rooms and Pages, and disconnect all users."
-msgstr "如果按下断开连接按钮，您将无法访问当前连接的 ONLYOFFICE 协作空间。这将删除房间和页面之间的连接，并断开所有用户。"
+msgstr "Wenn Sie die Schaltfläche Trennen drücken, haben Sie keinen Zugriff mehr auf den aktuell verbundenen ONLYOFFICE DocSpace. Dadurch werden die Verbindungen zwischen Räumen und Seiten entfernt und alle Benutzer getrennt."
 
 #: pages/settings/views/users.php:32
 msgid "User export (Optional)"
-msgstr "用户导出（可选）"
+msgstr "Benutzerexport (optional)"
 
 #: pages/settings/views/users.php:37
 msgid "If your WordPress users do not have DocSpace accounts, click the <strong>Open user list</strong> button to export them to DocSpace. After clicking on this button, you will be redirected to the WordPress Users Module. If your WordPress users already have DocSpace accounts, they can continue using their current accounts."
-msgstr "如果您的 WordPress 用户没有协作空间 帐户，请单击<strong>打开用户列表</strong>按钮将其导出到协作空间。单击此按钮后，您将被重定向到 WordPress 用户模块。如果您的 WordPress 用户已经拥有协作空间帐户，他们可以继续使用他们当前的帐户。"
+msgstr "Wenn Ihre WordPress-Benutzer keine DocSpace-Konten haben, klicken Sie auf die Schaltfläche <strong>Benutzerliste öffnen</strong>, um sie nach DocSpace zu exportieren. Nachdem Sie auf diese Schaltfläche geklickt haben, werden Sie zum WordPress-Benutzermodul weitergeleitet. Wenn Ihre WordPress-Benutzer bereits DocSpace-Konten haben, können sie ihre aktuellen Konten weiterhin verwenden."
 
 #: pages/settings/views/users.php:50
 msgid "Open user list"
-msgstr "打开用户列表"
+msgstr "Benutzerliste öffnen"
 
 #: pages/users/class-oodsp-users-page.php:135
 msgid "<strong>Export to DocSpace</strong> allows you to create user accounts in DocSpace with emails taken from WordPress."
-msgstr "<strong>导出到协作空间</strong> 允许您使用从 WordPress 获取的电子邮件在协作空间中创建用户帐户。"
+msgstr "Mit <strong>Nach DocSpace exportieren</strong> können Sie in DocSpace Benutzerkonten mit E-Mails aus WordPress erstellen."
 
 #: pages/users/class-oodsp-users-page.php:140
 msgid "<strong>Unlink DocSpace Account</strong> removes connection between WordPress and DocSpace accounts."
-msgstr "<strong>取消链接协作空间 帐户</strong> 删除 WordPress 和协作空间 帐户之间的连接。"
+msgstr "<strong>DocSpace-Konto aufheben</strong> entfernt die Verbindung zwischen WordPress- und DocSpace-Konten."
 
 #: pages/users/class-oodsp-users-page.php:199
 msgid "DocSpace Account"
-msgstr "协作空间帐户"
+msgstr "DocSpace-Konto"
 
 #: pages/users/class-oodsp-users-page.php:311
 #: pages/users/class-oodsp-users-page.php:570
 msgid "Export to DocSpace"
-msgstr "导出到协作空间"
+msgstr "Nach DocSpace exportieren"
 
 #: pages/users/class-oodsp-users-page.php:314
 msgid "Unlink DocSpace Account"
-msgstr "取消链接协作空间帐户"
+msgstr "DocSpace-Konto aufheben"
 
 #. translators: %s: number of users successfully exported to DocSpace
 #: pages/users/class-oodsp-users-page.php:496
 msgid "Export completed successfully for %s user(s)."
-msgstr "已成功为 %s 个用户完成导出。"
+msgstr "Export für %s Benutzer erfolgreich abgeschlossen."
 
 #: pages/users/class-oodsp-users-page.php:573
 msgid "WordPress email will be used for the user login in DocSpace. Password will be generated automatically. Users can change their password manually in their profiles. The password for the existing DocSpace account won't be overwritten. These users can apply their current credentials."
-msgstr "WordPress 电子邮件将用于用户登录协作空间。密码将自动生成。用户可以在其个人资料中手动更改密码。现有协作空间帐户的密码不会被覆盖。这些用户可以应用其当前凭据。"
+msgstr "Für die Benutzeranmeldung in DocSpace wird die WordPress-E-Mail-Adresse verwendet. Das Passwort wird automatisch generiert. Benutzer können ihr Passwort manuell in ihren Profilen ändern. Das Passwort für das bestehende DocSpace-Konto wird nicht überschrieben. Diese Benutzer können ihre aktuellen Anmeldeinformationen verwenden."
 
 #. translators: %s: number of users successfully exported to DocSpace
 #: pages/users/class-oodsp-users-page.php:664
 msgid "Unlinked account(s) successfully for %s user(s)."
-msgstr "已成功为 %s 个用户取消链接帐户。"
+msgstr "Die Verknüpfung der Konten für %s Benutzer wurde erfolgreich aufgehoben."
 
 #: pages/users/class-oodsp-users-page.php:697
 msgid "DocSpace Account shows if a WordPress user has already linked their WordPress and DocSpace accounts."
-msgstr "协作空间帐户显示 WordPress 用户是否已链接其 WordPress 和协作空间 帐户。"
+msgstr "DocSpace-Konto zeigt an, ob ein WordPress-Benutzer die WordPress- und DocSpace-Konten bereits verknüpft hat."
 
 #: pages/users/class-oodsp-users-page.php:701
 msgid "To export users to DocSpace, select the required user(s) and click the <strong>Export to DocSpace</strong> option in the <strong>Bulk actions</strong> drop-down menu. The user will be created in DocSpace with their email taken from WordPress. In this case, new users will be authorized via seamless login."
-msgstr "要将用户导出到协作空间，请选择所需的用户，然后单击<strong>批量操作</strong>下拉菜单中的<strong>导出到协作空间</strong>选项。用户将在协作空间 中创建，其电子邮件来自 WordPress。在这种情况下，新用户将通过无缝登录获得授权。"
+msgstr "Um Benutzer nach DocSpace zu exportieren, wählen Sie die gewünschten Benutzer aus und klicken Sie im Dropdown-Menü <strong>Massenaktionen</strong> auf die Option <strong>Nach DocSpace exportieren</strong>. Der Benutzer wird in DocSpace mit einer aus WordPress übernommenen E-Mail-Adresse erstellt. In diesem Fall werden neue Benutzer über eine nahtlose Anmeldung autorisiert."
 
 #. translators: %s: ONLYOFFICE DocSpace plugin
 #: pages/users/class-oodsp-users-page.php:706
 msgid "To export users automatically, please %s."
-msgstr "要自动导出用户，请 %s。"
+msgstr "Um Benutzer automatisch zu exportieren, %s."
 
 #: pages/users/class-oodsp-users-page.php:712
 msgid "If your WordPress users already have DocSpace accounts, they can continue using their current accounts. Accounts will be linked automatically once these users log into the ONLYOFFICE DocSpace plugin."
-msgstr "如果您的 WordPress 用户已经拥有协作空间帐户，他们可以继续使用其当前帐户。一旦这些用户登录 ONLYOFFICE 协作空间插件，帐户将自动链接。"
+msgstr "Wenn Ihre WordPress-Benutzer bereits über DocSpace-Konten verfügen, können sie ihre aktuellen Konten weiterhin verwenden. Die Konten werden automatisch verknüpft, sobald sich diese Benutzer beim ONLYOFFICE DocSpace-Plugin anmelden."
 
 #: pages/users/class-oodsp-users-page.php:714
 msgid "For more information:"
-msgstr "更多信息："
+msgstr "Für weitere Informationen:"
 
 #: includes/resources/js/oodsp-error-page-template.js:24
 msgid "Not yet available"
-msgstr "尚不可用"
+msgstr "Noch nicht verfügbar"
 
 #. translators: %1$s: opening link tag, %2$s: closing link tag
 #: includes/resources/js/oodsp-error-page-template.js:28
 msgid "Go to the %1$ssettings%2$s to configure ONLYOFFICE DocSpace plugin."
-msgstr "转到 %1$ssettings%2$s 配置 ONLYOFFICE 协作空间插件。"
+msgstr "Gehen Sie zu den %1$sEinstellungen%2$s, um das ONLYOFFICE DocSpace-Plugin zu konfigurieren."
 
 #: includes/resources/js/oodsp-error-page-template.js:37
 msgid "Please contact admin to configure the ONLYOFFICE DocSpace plugin."
-msgstr "请联系管理员配置 ONLYOFFICE 协作空间插件。"
+msgstr "Bitte wenden Sie sich an den Administrator, um das ONLYOFFICE DocSpace-Plugin zu konfigurieren."
 
 #. translators: %s: email address
 #: includes/resources/js/oodsp-login-page-template.js:146
 msgid "The password change instruction has been sent to <strong>%s</strong> email address."
-msgstr "密码更改指令已发送至 <strong>%s</strong> 电子邮件地址。"
+msgstr "Die Anleitung zur Passwortänderung wurde an die E-Mail-Adresse <strong>%s</strong> gesendet."
 
 #: includes/resources/js/oodsp-login-page-template.js:194
 msgid "The email field is empty"
-msgstr "电子邮件字段为空"
+msgstr "Das E-Mail-Feld ist leer"
 
-#: includes/resources/js/oodsp-login-page-template.js:201
+#: includes/resources/js/oodsp-login-page-template.js:198
 msgid "The password field is empty"
-msgstr "密码字段为空"
+msgstr "Das Passwortfeld ist leer"
 
-#: includes/resources/js/oodsp-login-page-template.js:208
+#: includes/resources/js/oodsp-login-page-template.js:202
 msgid "Incorrect email"
-msgstr "电子邮件不正确"
+msgstr "Falsche E-Mail"
 
-#: includes/resources/js/oodsp-login-page-template.js:212
+#: includes/resources/js/oodsp-login-page-template.js:206
 msgid "Rate limit exceeded"
-msgstr "超出速率限制"
+msgstr "Ratenlimit überschritten"
 
 #: pages/settings/js/authorization.js:28
 msgid "Successful authorization. Settings saved."
-msgstr "授权成功。设置已保存。"
+msgstr "Erfolgreiche Autorisierung. Einstellungen gespeichert."
 
 #: pages/users/js/index.js:15
 msgid "Export"
-msgstr "导出"
+msgstr "Export"
 
 #. translators: %1$s: number of skipped users, %2$s: list of users who already have a DocSpace account
 #: pages/users/class-oodsp-users-page.php:511
 msgid "Export skipped for %1$s user(s). DocSpace Account(s) already linked to the WordPress account(s): %2$s. Unlink DocSpace Account(s) and try again."
-msgstr "已跳过 %1$s 个用户的导出。协作空间帐户已链接到 WordPress 帐户: %1$s。取消链接协作空间 帐户并重试。"
+msgstr "Export für %1$s Benutzer übersprungen. DocSpace-Konten sind bereits mit den WordPress-Konten verknüpft: %2$s. Trennen Sie die Verknüpfung der DocSpace-Konten und versuchen Sie es erneut."
 
 #. translators: %1$s: number of users that failed to export, %2$s: list of user emails that already exist in DocSpace
 #: pages/users/class-oodsp-users-page.php:527
 msgid "Export failed for %1$s user(s). User(s) with the indicated email(s) already exist in DocSpace: %2$s."
-msgstr "%1$s 个用户的导出失败。协作空间中已存在具有指定电子邮件的用户: %2$s"
+msgstr "Der Export für %1$s Benutzer ist fehlgeschlagen. Benutzer mit den angegebenen E-Mail-Adressen sind bereits in DocSpace vorhanden: %2$s."
 
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "Background color"
-msgstr "背景颜色"
+msgstr "Hintergrundfarbe"

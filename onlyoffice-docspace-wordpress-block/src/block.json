@@ -5,7 +5,7 @@
 	"title": "ONLYOFFICE DocSpace",
 	"category": "media",
 	"keywords": ["onlyoffice", "docspace"],
-	"textdomain": "onlyoffice-docspace-plugin",
+	"textdomain": "onlyoffice-docspace",
 	"attributes": {
 		"fileId": {
 			"type": ["number", "string"]

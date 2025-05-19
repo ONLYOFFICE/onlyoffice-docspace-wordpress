@@ -12,7 +12,7 @@
 		modal: true,
 		buttons: [
 			{
-				text: wp.i18n.__( 'Export', 'onlyoffice-docspace-plugin' ),
+				text: wp.i18n.__( 'Export', 'onlyoffice-docspace' ),
 				click: () => {
 					$( '.bulkactions' ).parents( 'form' ).unbind();
 					$( '.bulkactions' ).parents( 'form' ).submit();
@@ -24,7 +24,7 @@
 				class: 'ok',
 			},
 			{
-				text: wp.i18n.__( 'Cancel', 'onlyoffice-docspace-plugin' ),
+				text: wp.i18n.__( 'Cancel', 'onlyoffice-docspace' ),
 				click: () => {
 					$( '#oodsp-create-docspace-user-confirm-dialog' ).dialog(
 						'close'

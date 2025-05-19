@@ -14,7 +14,7 @@
 		modal: true,
 		buttons: [
 			{
-				text: wp.i18n.__( 'Disconnect', 'onlyoffice-docspace-plugin' ),
+				text: wp.i18n.__( 'Disconnect', 'onlyoffice-docspace' ),
 				click: () => {
 					$( '#oodsp-general-settings-form [name="action"]' ).val(
 						'delete'
@@ -26,7 +26,7 @@
 				class: 'ok',
 			},
 			{
-				text: wp.i18n.__( 'Cancel', 'onlyoffice-docspace-plugin' ),
+				text: wp.i18n.__( 'Cancel', 'onlyoffice-docspace' ),
 				click: () => {
 					$( '#oodsp-disconnect-confirm-dialog' ).dialog( 'close' );
 				},
