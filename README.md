@@ -4,13 +4,13 @@ This plugin enables users to access ONLYOFFICE DocSpace, a room-based collaborat
 
 ## Top features ⭐
 
-- Seamless connection to ONLYOFFICE DocSpace  
-- Login to DocSpace directly from WordPress  
-- Export WordPress users into DocSpace (with automatic account creation)  
-- Auto-group and manage WordPress users in a common DocSpace group  
-- Embed rooms or files inside WordPress pages using block editor controls  
-- Support for public, form-filling, and private (collaboration/custom/VDR) rooms  
-- Supports iframe embedding of the full DocSpace workspace panel and individual rooms/files  
+- Seamless connection to ONLYOFFICE DocSpace
+- Login to DocSpace directly from WordPress
+- Export WordPress users into DocSpace (with automatic account creation)
+- Auto-group and manage WordPress users in a common DocSpace group
+- Embed rooms or files inside WordPress pages using block editor controls
+- Support for public, form-filling, and private (collaboration/custom/VDR) rooms
+- Supports iframe embedding of the full DocSpace workspace panel and individual rooms/files
 - Smooth file previews and embedded document editing (via DocSpace)
 
 ## Plugin installation and configuration
@@ -101,7 +101,7 @@ Access rights to rooms and files on the published DocSpace pages are defined bas
 
 Please note the following specifics for DocSpace rooms published on WordPress pages:
 
-- DocSpace left menu is not avaiable;
+- DocSpace left menu is not avaible;
 - Navigation is possible within the added room only;
 - If users have the Room admin or Content creator role, they can create new files.
 
@@ -133,11 +133,11 @@ On the frontend, the following DocSpace elements are inserted:
 
 ## Need help or have an idea? 💡
 
-* **✨ Want to know more?** Check out our [product page](https://www.onlyoffice.com/office-for-wordpress) and [YouTube](https://www.youtube.com/watch?v=DjtyCcQk1eg). 
-* **🐞 Found a bug?** Please report it by creating an [issue](https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress/issues).  
+* **✨ Want to know more?** Check out our [product page](https://www.onlyoffice.com/office-for-wordpress) and [YouTube](https://www.youtube.com/watch?v=DjtyCcQk1eg).
+* **🐞 Found a bug?** Please report it by creating an [issue](https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress/issues).
 * **👨‍💻 Need help for developers?** Check our [API documentation](https://api.onlyoffice.com).
-* **❓ Have a question?** Ask our community and developers on the [ONLYOFFICE Forum](https://community.onlyoffice.com/). 
-* **💡 Want to suggest a feature?** Share your ideas on our [feedback platform](https://feedback.onlyoffice.com/forums/966080-your-voice-matters).  
+* **❓ Have a question?** Ask our community and developers on the [ONLYOFFICE Forum](https://community.onlyoffice.com/).
+* **💡 Want to suggest a feature?** Share your ideas on our [feedback platform](https://feedback.onlyoffice.com/forums/966080-your-voice-matters).
 
 ---
 <p align="center">
