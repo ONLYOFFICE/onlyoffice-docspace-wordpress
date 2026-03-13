@@ -2,11 +2,22 @@
 
 This plugin enables users to access ONLYOFFICE DocSpace, a room-based collaborative environment, from [WordPress](https://wordpress.org/), as well as add DocSpace rooms and files to the WordPress pages.
 
+## Top features ⭐
+
+- Seamless connection to ONLYOFFICE DocSpace
+- Login to DocSpace directly from WordPress
+- Export WordPress users into DocSpace (with automatic account creation)
+- Auto-group and manage WordPress users in a common DocSpace group
+- Embed rooms or files inside WordPress pages using block editor controls
+- Support for public, form-filling, and private (collaboration/custom/VDR) rooms
+- Supports iframe embedding of the full DocSpace workspace panel and individual rooms/files
+- Smooth file previews and embedded document editing (via DocSpace)
+
 ## Plugin installation and configuration
 
-At first, go to your ONLYOFFICE DocSpace ([sign in](https://www.onlyoffice.com/docspace-registration.aspx) / [sign up](https://www.onlyoffice.com/docspace-registration.aspx#login)) -> **Settings -> Developer Tools - > JavaScript SDK**. There,  enter your WordPress site address in the *Embed DocSpace as iframe* section.
+At first, go to your ONLYOFFICE DocSpace ([sign in](https://www.onlyoffice.com/docspace-registration#login) / [sign up](https://www.onlyoffice.com/docspace-registration)) -> **Settings -> Developer Tools - > JavaScript SDK**. There,  enter your WordPress site address in the *Embed DocSpace as iframe* section.
 
-A WordPress administrator can install the plugin via the Marketplace: [https://wordpress.com/plugins/onlyoffice-docspace](https://wordpress.com/plugins/onlyoffice-docspace).
+A WordPress administrator can install the plugin via the Marketplace: [wordpress.com/plugins/onlyoffice-docspace](https://wordpress.com/plugins/onlyoffice-docspace).
 
 If you want to install the plugin via your WordPress administrative dashboard, navigate to the Plugins section and click **Add New**. Then, click **Upload Plugin** and select the zipped plugin.
 
@@ -62,7 +73,7 @@ If a user forgets their password or seamless login fails, they can click the *Re
 
 Once the plugin is configured, DocSpace will become accessible to users with the _upload_files_ capability. This includes standard WordPress roles such as Super Admin, Administrator, Editor, and Author.
 
-Users will gain access to a [fully functional DocSpace](https://www.onlyoffice.com/docspace.aspx), where they can create rooms, invite participants, and collaborate on documents within rooms, based on their assigned permissions. When inviting others to a room using the *Invite users from list* button, only existing DocSpace users will be displayed.
+Users will gain access to a [fully functional DocSpace](https://www.onlyoffice.com/docspace), where they can create rooms, invite participants, and collaborate on documents within rooms, based on their assigned permissions. When inviting others to a room using the *Invite users from list* button, only existing DocSpace users will be displayed.
 
 ### Adding a DocSpace room or file to the WordPress page
 
@@ -71,6 +82,12 @@ When creating a post, you can add the ONLYOFFICE DocSpace element (block) – ro
 To add a room, click the **Select room** button, select the desired room and press Select. In the block settings, you can specify the desired width, height, and theme (light/dark) to be displayed on the page.
 
 To add a file, click the **Select file** button, select the desired file from the room and press Save. In the block settings, you can specify the desired width and height to be displayed on the page, as well as the view - a full editor or Embedded.
+
+<p align="center">
+  <a href="https://www.onlyoffice.com/office-for-wordpress">
+    <img src="https://static-site.onlyoffice.com/public/images/templates/office-for-wordpress/docspace-app/screen2@2x.png" alt="ONLYOFFICE DocSpace for Wordpress" />
+  </a>
+</p>
 
 ### Access rights to a room/file on a DocSpace page
 
@@ -84,13 +101,13 @@ Access rights to rooms and files on the published DocSpace pages are defined bas
 
 Please note the following specifics for DocSpace rooms published on WordPress pages:
 
-- DocSpace left menu is not avaiable;
+- DocSpace left menu is not avaible;
 - Navigation is possible within the added room only;
 - If users have the Room admin or Content creator role, they can create new files.
 
 ## How the plugin is using the ONLYOFFICE DocSpace service
 
-The plugin allows working with office files via [ONLYOFFICE DocSpace](https://www.onlyoffice.com/docspace.aspx) and makes the following requests to the service on the backend:
+The plugin allows working with office files via [ONLYOFFICE DocSpace](https://www.onlyoffice.com/docspace) and makes the following requests to the service on the backend:
 
 - getting a list of DocSpace users
 - creating a user in DocSpace using WordPress user data
@@ -114,13 +131,15 @@ On the frontend, the following DocSpace elements are inserted:
 - [ONLYOFFICE DocSpace Terms of use](https://onlyo.co/41Y69Rf)
 - [Privacy Policy](https://www.onlyoffice.com/Privacy.aspx)
 
-## Project info
+## Need help or have an idea? 💡
 
-Official website: [www.onlyoffice.com](https://www.onlyoffice.com/)
+* **✨ Want to know more?** Check out our [product page](https://www.onlyoffice.com/office-for-wordpress) and [YouTube](https://www.youtube.com/watch?v=DjtyCcQk1eg).
+* **🐞 Found a bug?** Please report it by creating an [issue](https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress/issues).
+* **👨‍💻 Need help for developers?** Check our [API documentation](https://api.onlyoffice.com).
+* **❓ Have a question?** Ask our community and developers on the [ONLYOFFICE Forum](https://community.onlyoffice.com/).
+* **💡 Want to suggest a feature?** Share your ideas on our [feedback platform](https://feedback.onlyoffice.com/forums/966080-your-voice-matters).
 
-Code repository: [github.com/ONLYOFFICE/onlyoffice-docspace-wordpress](https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress)
-
-## User feedback and support
-
-In case of technical problems, the best way to get help is to submit your issues [here](https://github.com/ONLYOFFICE/onlyoffice-docspace-wordpress/issues).
-Alternatively, you can contact ONLYOFFICE team on [forum.onlyoffice.com](https://forum.onlyoffice.com/).
+---
+<p align="center">
+  Made with ❤️ by the <a href="https://www.onlyoffice.com/">ONLYOFFICE Team</a>
+</p>
