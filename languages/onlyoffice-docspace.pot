@@ -1,4 +1,4 @@
-# Copyright (C) 2025 Ascensio System SIA
+# Copyright (C) 2026 Ascensio System SIA
 # This file is distributed under the GNU General Public License v2.0.
 msgid ""
 msgstr ""
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-05-19T11:31:04+03:00\n"
+"POT-Creation-Date: 2026-09-12T19:19:50+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: onlyoffice-docspace\n"
@@ -40,23 +40,44 @@ msgstr ""
 msgid "https://www.onlyoffice.com"
 msgstr ""
 
-#: controller/class-oodsp-settings-controller.php:101
+#: controller/class-oodsp-settings-controller.php:104
 #: controller/class-oodsp-user-controller.php:97
 #: controller/class-oodsp-user-controller.php:162
 msgid "The required fields are empty"
 msgstr ""
 
-#: controller/class-oodsp-settings-controller.php:108
+#: controller/class-oodsp-settings-controller.php:111
 msgid "The current user does not have permission to perform this action"
 msgstr ""
 
-#: controller/class-oodsp-settings-controller.php:120
+#: controller/class-oodsp-settings-controller.php:129
+msgid "The specified user is not a ONLYOFFICE DocSpace administrator"
+msgstr ""
+
+#: controller/class-oodsp-settings-controller.php:236
+#: controller/class-oodsp-settings-controller.php:286
 #: includes/resources/js/oodsp-login-page-template.js:187
 msgid "Invalid credentials. Please try again."
 msgstr ""
 
-#: controller/class-oodsp-settings-controller.php:132
-msgid "The specified user is not a ONLYOFFICE DocSpace administrator"
+#: controller/class-oodsp-settings-controller.php:245
+msgid "Two-factor authentication is enabled for this account, but no mobile phone is specified. Please set it in ONLYOFFICE DocSpace and try again."
+msgstr ""
+
+#: controller/class-oodsp-settings-controller.php:246
+msgid "Two-factor authentication is enabled for this account, but the authenticator application is not connected yet. Please connect it in ONLYOFFICE DocSpace and try again."
+msgstr ""
+
+#: controller/class-oodsp-settings-controller.php:266
+msgid "Too many login attempts. Please try again later."
+msgstr ""
+
+#: controller/class-oodsp-settings-controller.php:274
+msgid "The authentication code is not available. Please try again."
+msgstr ""
+
+#: controller/class-oodsp-settings-controller.php:280
+msgid "Invalid code. Please try again."
 msgstr ""
 
 #: includes/resources/templates/class-oodsp-templates.php:63
@@ -101,6 +122,7 @@ msgid "Send"
 msgstr ""
 
 #: includes/resources/templates/class-oodsp-templates.php:172
+#: pages/settings/views/authorization.php:124
 #: pages/settings/views/index.php:108
 #: pages/settings/js/index.js:29
 #: pages/users/js/index.js:27
@@ -122,7 +144,7 @@ msgstr ""
 
 #. translators: %1$s: opening link tag, %2$s: closing link tag
 #: pages/settings/class-oodsp-settings-page.php:205
-#: pages/settings/js/authorization.js:121
+#: pages/settings/js/authorization.js:263
 msgid "The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %1$sthe Developer Tools section%2$s."
 msgstr ""
 
@@ -132,7 +154,7 @@ msgstr ""
 
 #: pages/settings/class-oodsp-settings-page.php:232
 #: pages/users/class-oodsp-users-page.php:541
-#: pages/settings/js/authorization.js:140
+#: pages/settings/js/authorization.js:282
 msgid "ONLYOFFICE DocSpace cannot be reached"
 msgstr ""
 
@@ -145,24 +167,29 @@ msgstr ""
 msgid "Log in as a DocSpace Admin"
 msgstr ""
 
-#: pages/settings/views/authorization.php:93
+#: pages/settings/views/authorization.php:90
+#: pages/settings/views/authorization.php:98
+msgid "Code"
+msgstr ""
+
+#: pages/settings/views/authorization.php:107
 msgid "We use this account to make API calls from DocSpace to WordPress. This account must have the DocSpace Admin type to export users from WordPress to DocSpace, create groups, manage group members in DocSpace."
 msgstr ""
 
-#: pages/settings/views/authorization.php:104
+#: pages/settings/views/authorization.php:118
 msgid "Sign in"
 msgstr ""
 
-#: pages/settings/views/authorization.php:115
+#: pages/settings/views/authorization.php:136
 msgid "Sign out"
 msgstr ""
 
-#: pages/settings/views/authorization.php:129
+#: pages/settings/views/authorization.php:150
 #: pages/settings/views/index.php:148
 msgid "Warning"
 msgstr ""
 
-#: pages/settings/views/authorization.php:131
+#: pages/settings/views/authorization.php:152
 msgid "Do you agree to connect your DocSpace account? The app will use it to perform actions."
 msgstr ""
 
@@ -399,8 +426,30 @@ msgstr ""
 msgid "Replace"
 msgstr ""
 
-#: pages/settings/js/authorization.js:28
+#: pages/settings/js/authorization.js:40
 msgid "Successful authorization. Settings saved."
+msgstr ""
+
+#. translators: %s: masked mobile phone number
+#: pages/settings/js/authorization.js:163
+msgid "Enter the code sent to %s."
+msgstr ""
+
+#: pages/settings/js/authorization.js:169
+msgid "Enter the code from your authenticator application."
+msgstr ""
+
+#: pages/settings/js/authorization.js:175
+msgid "Confirm"
+msgstr ""
+
+#: pages/settings/js/authorization.js:214
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#. translators: %1$s: error message, %2$s: opening link tag, %3$s: closing link tag
+#: pages/settings/js/authorization.js:231
+msgid "%1$s %2$sOpen ONLYOFFICE DocSpace%3$s"
 msgstr ""
 
 #: pages/users/js/index.js:15

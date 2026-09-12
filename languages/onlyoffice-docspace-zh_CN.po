@@ -146,22 +146,23 @@ msgstr "Ascensio System SIA"
 msgid "https://www.onlyoffice.com"
 msgstr "https://www.onlyoffice.com/zh/"
 
-#: controller/class-oodsp-settings-controller.php:101
+#: controller/class-oodsp-settings-controller.php:104
 #: controller/class-oodsp-user-controller.php:97
 #: controller/class-oodsp-user-controller.php:162
 msgid "The required fields are empty"
 msgstr "必填字段为空"
 
-#: controller/class-oodsp-settings-controller.php:108
+#: controller/class-oodsp-settings-controller.php:111
 msgid "The current user does not have permission to perform this action"
 msgstr "当前用户无权执行此操作"
 
-#: controller/class-oodsp-settings-controller.php:120
+#: controller/class-oodsp-settings-controller.php:236
+#: controller/class-oodsp-settings-controller.php:286
 #: includes/resources/js/oodsp-login-page-template.js:187
 msgid "Invalid credentials. Please try again."
 msgstr "凭证无效。请重试。"
 
-#: controller/class-oodsp-settings-controller.php:132
+#: controller/class-oodsp-settings-controller.php:129
 msgid "The specified user is not a ONLYOFFICE DocSpace administrator"
 msgstr "指定的用户不是 ONLYOFFICE 协作空间管理员"
 
@@ -197,6 +198,7 @@ msgid "Send"
 msgstr "发送"
 
 #: includes/resources/templates/class-oodsp-templates.php:172
+#: pages/settings/views/authorization.php:124
 #: pages/settings/views/index.php:108
 #: pages/settings/js/index.js:29
 #: pages/users/js/index.js:27
@@ -209,13 +211,13 @@ msgstr "添加 ONLYOFFICE 协作空间"
 
 #. translators: %1$s: opening link tag, %2$s: closing link tag
 #: pages/settings/class-oodsp-settings-page.php:205
-#: pages/settings/js/authorization.js:121
+#: pages/settings/js/authorization.js:263
 msgid "The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %1$sthe Developer Tools section%2$s."
 msgstr "当前域未在内容安全策略 (CSP) 设置中设置。请通过 %1$s 开发人员工具部分 %2$s 添加它。"
 
 #: pages/settings/class-oodsp-settings-page.php:232
 #: pages/users/class-oodsp-users-page.php:541
-#: pages/settings/js/authorization.js:140
+#: pages/settings/js/authorization.js:282
 msgid "ONLYOFFICE DocSpace cannot be reached"
 msgstr "无法访问 ONLYOFFICE 协作空间"
 
@@ -228,24 +230,24 @@ msgstr "ONLYOFFICE 协作空间已成功断开连接"
 msgid "Log in as a DocSpace Admin"
 msgstr "以协作空间管理员身份登录"
 
-#: pages/settings/views/authorization.php:93
+#: pages/settings/views/authorization.php:107
 msgid "We use this account to make API calls from DocSpace to WordPress. This account must have the DocSpace Admin type to export users from WordPress to DocSpace, create groups, manage group members in DocSpace."
 msgstr "我们使用此帐户从协作空间向 WordPress 进行 API 调用。此帐户必须具有协作空间管理员类型才能将用户从 WordPress 导出到协作空间、创建组、管理协作空间中的组成员。"
 
-#: pages/settings/views/authorization.php:104
+#: pages/settings/views/authorization.php:118
 msgid "Sign in"
 msgstr "登录"
 
-#: pages/settings/views/authorization.php:115
+#: pages/settings/views/authorization.php:136
 msgid "Sign out"
 msgstr "退出"
 
-#: pages/settings/views/authorization.php:129
+#: pages/settings/views/authorization.php:150
 #: pages/settings/views/index.php:148
 msgid "Warning"
 msgstr "警告"
 
-#: pages/settings/views/authorization.php:131
+#: pages/settings/views/authorization.php:152
 msgid "Do you agree to connect your DocSpace account? The app will use it to perform actions."
 msgstr "您是否同意连接您的协作空间帐户？该应用程序将使用它来执行操作。"
 
@@ -384,7 +386,7 @@ msgstr "电子邮件不正确"
 msgid "Rate limit exceeded"
 msgstr "超出速率限制"
 
-#: pages/settings/js/authorization.js:28
+#: pages/settings/js/authorization.js:40
 msgid "Successful authorization. Settings saved."
 msgstr "授权成功。设置已保存。"
 
@@ -405,3 +407,50 @@ msgstr "%1$s 个用户的导出失败。协作空间中已存在具有指定电�
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "Background color"
 msgstr "背景颜色"
+
+#: controller/class-oodsp-settings-controller.php:245
+msgid "Two-factor authentication is enabled for this account, but no mobile phone is specified. Please set it in ONLYOFFICE DocSpace and try again."
+msgstr "此账户已启用双因素身份验证，但未指定手机号码。请在 ONLYOFFICE DocSpace 中设置后重试。"
+
+#: controller/class-oodsp-settings-controller.php:246
+msgid "Two-factor authentication is enabled for this account, but the authenticator application is not connected yet. Please connect it in ONLYOFFICE DocSpace and try again."
+msgstr "此账户已启用双因素身份验证，但尚未连接身份验证器应用。请在 ONLYOFFICE DocSpace 中连接后重试。"
+
+#: controller/class-oodsp-settings-controller.php:266
+msgid "Too many login attempts. Please try again later."
+msgstr "登录尝试次数过多。请稍后重试。"
+
+#: controller/class-oodsp-settings-controller.php:274
+msgid "The authentication code is not available. Please try again."
+msgstr "身份验证码不可用。请重试。"
+
+#: controller/class-oodsp-settings-controller.php:280
+msgid "Invalid code. Please try again."
+msgstr "验证码无效。请重试。"
+
+#: pages/settings/views/authorization.php:90
+#: pages/settings/views/authorization.php:98
+msgid "Code"
+msgstr "验证码"
+
+#. translators: %s: masked mobile phone number
+#: pages/settings/js/authorization.js:163
+msgid "Enter the code sent to %s."
+msgstr "请输入发送至 %s 的验证码。"
+
+#: pages/settings/js/authorization.js:169
+msgid "Enter the code from your authenticator application."
+msgstr "请输入身份验证器应用中的验证码。"
+
+#: pages/settings/js/authorization.js:175
+msgid "Confirm"
+msgstr "确认"
+
+#: pages/settings/js/authorization.js:214
+msgid "Something went wrong. Please try again."
+msgstr "出现错误。请重试。"
+
+#. translators: %1$s: error message, %2$s: opening link tag, %3$s: closing link tag
+#: pages/settings/js/authorization.js:231
+msgid "%1$s %2$sOpen ONLYOFFICE DocSpace%3$s"
+msgstr "%1$s %2$s打开 ONLYOFFICE DocSpace%3$s"

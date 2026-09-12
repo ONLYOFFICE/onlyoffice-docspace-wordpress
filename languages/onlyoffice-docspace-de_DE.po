@@ -146,22 +146,23 @@ msgstr "Ascensio System SIA"
 msgid "https://www.onlyoffice.com"
 msgstr "https://www.onlyoffice.com/de"
 
-#: controller/class-oodsp-settings-controller.php:101
+#: controller/class-oodsp-settings-controller.php:104
 #: controller/class-oodsp-user-controller.php:97
 #: controller/class-oodsp-user-controller.php:162
 msgid "The required fields are empty"
 msgstr "Die erforderlichen Felder sind leer"
 
-#: controller/class-oodsp-settings-controller.php:108
+#: controller/class-oodsp-settings-controller.php:111
 msgid "The current user does not have permission to perform this action"
 msgstr "Der aktuelle Benutzer ist nicht berechtigt, diese Aktion auszuführen"
 
-#: controller/class-oodsp-settings-controller.php:120
+#: controller/class-oodsp-settings-controller.php:236
+#: controller/class-oodsp-settings-controller.php:286
 #: includes/resources/js/oodsp-login-page-template.js:187
 msgid "Invalid credentials. Please try again."
 msgstr "Ungültige Anmeldedaten. Bitte versuchen Sie es erneut."
 
-#: controller/class-oodsp-settings-controller.php:132
+#: controller/class-oodsp-settings-controller.php:129
 msgid "The specified user is not a ONLYOFFICE DocSpace administrator"
 msgstr "Der angegebene Benutzer ist kein ONLYOFFICE DocSpace-Administrator"
 
@@ -197,6 +198,7 @@ msgid "Send"
 msgstr "Senden"
 
 #: includes/resources/templates/class-oodsp-templates.php:172
+#: pages/settings/views/authorization.php:124
 #: pages/settings/views/index.php:108
 #: pages/settings/js/index.js:29
 #: pages/users/js/index.js:27
@@ -209,13 +211,13 @@ msgstr "ONLYOFFICE DocSpace hinzufügen"
 
 #. translators: %1$s: opening link tag, %2$s: closing link tag
 #: pages/settings/class-oodsp-settings-page.php:205
-#: pages/settings/js/authorization.js:121
+#: pages/settings/js/authorization.js:263
 msgid "The current domain is not set in the Content Security Policy (CSP) settings. Please add it via %1$sthe Developer Tools section%2$s."
 msgstr "Die aktuelle Domäne ist in den Content Security Policy (CSP)-Einstellungen nicht festgelegt. Bitte fügen Sie sie über den %1$sAbschnitt Entwicklertools%2$s hinzu."
 
 #: pages/settings/class-oodsp-settings-page.php:232
 #: pages/users/class-oodsp-users-page.php:541
-#: pages/settings/js/authorization.js:140
+#: pages/settings/js/authorization.js:282
 msgid "ONLYOFFICE DocSpace cannot be reached"
 msgstr "ONLYOFFICE DocSpace kann nicht erreicht werden"
 
@@ -228,24 +230,24 @@ msgstr "ONLYOFFICE DocSpace erfolgreich getrennt"
 msgid "Log in as a DocSpace Admin"
 msgstr "Als DocSpace-Administrator anmelden"
 
-#: pages/settings/views/authorization.php:93
+#: pages/settings/views/authorization.php:107
 msgid "We use this account to make API calls from DocSpace to WordPress. This account must have the DocSpace Admin type to export users from WordPress to DocSpace, create groups, manage group members in DocSpace."
 msgstr "Wir verwenden dieses Konto, um API-Aufrufe von DocSpace an WordPress zu tätigen. Dieses Konto muss den Typ DocSpace-Administrator haben, um Benutzer von WordPress nach DocSpace zu exportieren, Gruppen zu erstellen und Gruppenmitglieder in DocSpace zu verwalten."
 
-#: pages/settings/views/authorization.php:104
+#: pages/settings/views/authorization.php:118
 msgid "Sign in"
 msgstr "Anmelden"
 
-#: pages/settings/views/authorization.php:115
+#: pages/settings/views/authorization.php:136
 msgid "Sign out"
 msgstr "Abmelden"
 
-#: pages/settings/views/authorization.php:129
+#: pages/settings/views/authorization.php:150
 #: pages/settings/views/index.php:148
 msgid "Warning"
 msgstr "Warnung"
 
-#: pages/settings/views/authorization.php:131
+#: pages/settings/views/authorization.php:152
 msgid "Do you agree to connect your DocSpace account? The app will use it to perform actions."
 msgstr "Sind Sie mit der Verbindung Ihres DocSpace-Kontos einverstanden? Die App wird es für die Ausführung von Aktionen verwenden."
 
@@ -384,7 +386,7 @@ msgstr "Falsche E-Mail"
 msgid "Rate limit exceeded"
 msgstr "Ratenlimit überschritten"
 
-#: pages/settings/js/authorization.js:28
+#: pages/settings/js/authorization.js:40
 msgid "Successful authorization. Settings saved."
 msgstr "Erfolgreiche Autorisierung. Einstellungen gespeichert."
 
@@ -405,3 +407,50 @@ msgstr "Der Export für %1$s Benutzer ist fehlgeschlagen. Benutzer mit den angeg
 #: onlyoffice-docspace-wordpress-block/build/index.js:1
 msgid "Background color"
 msgstr "Hintergrundfarbe"
+
+#: controller/class-oodsp-settings-controller.php:245
+msgid "Two-factor authentication is enabled for this account, but no mobile phone is specified. Please set it in ONLYOFFICE DocSpace and try again."
+msgstr "Für dieses Konto ist die Zwei-Faktor-Authentifizierung aktiviert, aber es ist keine Mobiltelefonnummer angegeben. Bitte legen Sie sie in ONLYOFFICE DocSpace fest und versuchen Sie es erneut."
+
+#: controller/class-oodsp-settings-controller.php:246
+msgid "Two-factor authentication is enabled for this account, but the authenticator application is not connected yet. Please connect it in ONLYOFFICE DocSpace and try again."
+msgstr "Für dieses Konto ist die Zwei-Faktor-Authentifizierung aktiviert, aber die Authenticator-App ist noch nicht verbunden. Bitte verbinden Sie sie in ONLYOFFICE DocSpace und versuchen Sie es erneut."
+
+#: controller/class-oodsp-settings-controller.php:266
+msgid "Too many login attempts. Please try again later."
+msgstr "Zu viele Anmeldeversuche. Bitte versuchen Sie es später erneut."
+
+#: controller/class-oodsp-settings-controller.php:274
+msgid "The authentication code is not available. Please try again."
+msgstr "Der Authentifizierungscode ist nicht verfügbar. Bitte versuchen Sie es erneut."
+
+#: controller/class-oodsp-settings-controller.php:280
+msgid "Invalid code. Please try again."
+msgstr "Ungültiger Code. Bitte versuchen Sie es erneut."
+
+#: pages/settings/views/authorization.php:90
+#: pages/settings/views/authorization.php:98
+msgid "Code"
+msgstr "Code"
+
+#. translators: %s: masked mobile phone number
+#: pages/settings/js/authorization.js:163
+msgid "Enter the code sent to %s."
+msgstr "Geben Sie den an %s gesendeten Code ein."
+
+#: pages/settings/js/authorization.js:169
+msgid "Enter the code from your authenticator application."
+msgstr "Geben Sie den Code aus Ihrer Authenticator-App ein."
+
+#: pages/settings/js/authorization.js:175
+msgid "Confirm"
+msgstr "Bestätigen"
+
+#: pages/settings/js/authorization.js:214
+msgid "Something went wrong. Please try again."
+msgstr "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
+
+#. translators: %1$s: error message, %2$s: opening link tag, %3$s: closing link tag
+#: pages/settings/js/authorization.js:231
+msgid "%1$s %2$sOpen ONLYOFFICE DocSpace%3$s"
+msgstr "%1$s %2$sONLYOFFICE DocSpace öffnen%3$s"

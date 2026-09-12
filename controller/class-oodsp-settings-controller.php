@@ -89,12 +89,15 @@ class OODSP_Settings_Controller {
 	/**
 	 * Set system user for DocSpace authentication.
 	 * Validates user credentials and ensures admin privileges.
+	 * With two-factor authentication enabled, the first request returns a challenge
+	 * instead of a token, and the client repeats the call with the one-time code.
 	 */
 	public function set_system_user() {
 		check_ajax_referer( 'oodsp_settings_controller' );
 
 		$user_name     = trim( OODSP_Utils::get_var_from_request( 'userName' ) );
 		$password_hash = trim( OODSP_Utils::get_var_from_request( 'passwordHash' ) );
+		$code          = trim( OODSP_Utils::get_var_from_request( 'code' ) );
 
 		if ( empty( $user_name ) || empty( $password_hash ) ) {
 			wp_send_json_error(
@@ -110,16 +113,10 @@ class OODSP_Settings_Controller {
 			);
 		}
 
-		try {
-			$authentication = $this->oodsp_docspace_client->login(
-				$user_name,
-				password_hash: $password_hash
-			);
-		} catch ( OODSP_Docspace_Client_Exception $e ) {
-			wp_send_json_error(
-				array( 'message' => __( 'Invalid credentials. Please try again.', 'onlyoffice-docspace' ) ),
-				401
-			);
+		$authentication = $this->authenticate( $user_name, $password_hash, $code );
+
+		if ( empty( $authentication['token'] ) ) {
+			$this->send_two_factor_challenge( $authentication );
 		}
 
 		$docspace_user = $this->oodsp_docspace_client->get_user_by_name(
@@ -164,6 +161,131 @@ class OODSP_Settings_Controller {
 		} catch ( OODSP_Docspace_Client_Exception $e ) {
 			$e->printStackTrace();
 		}
+
+		wp_send_json_success( array( 'tfaRequired' => false ) );
+	}
+
+	/**
+	 * Authenticates the DocSpace user, with or without a two-factor authentication code.
+	 *
+	 * Sends the error to the client and terminates the request if the authentication fails.
+	 *
+	 * @param string $user_name     The DocSpace user name.
+	 * @param string $password_hash The hashed password of the DocSpace user.
+	 * @param string $code          The two-factor authentication code, empty on the first attempt.
+	 *
+	 * @return array The authentication response from DocSpace.
+	 */
+	private function authenticate( $user_name, $password_hash, $code ) {
+		try {
+			if ( empty( $code ) ) {
+				return $this->oodsp_docspace_client->login(
+					$user_name,
+					password_hash: $password_hash
+				);
+			}
+
+			return $this->oodsp_docspace_client->login_by_code(
+				$user_name,
+				$password_hash,
+				$code
+			);
+		} catch ( OODSP_Docspace_Client_Exception $e ) {
+			$this->send_authentication_error( $e, ! empty( $code ) );
+		}
+	}
+
+	/**
+	 * Sends the two-factor authentication challenge returned by DocSpace to the client.
+	 *
+	 * @param array $authentication The authentication response from DocSpace.
+	 *
+	 * @return never This method always terminates the request.
+	 */
+	private function send_two_factor_challenge( $authentication ) {
+		$sms         = ! empty( $authentication['sms'] );
+		$tfa         = ! empty( $authentication['tfa'] );
+		$phone_noise = $authentication['phoneNoise'] ?? '';
+		$tfa_key     = $authentication['tfaKey'] ?? '';
+
+		// A mobile phone is registered, DocSpace has sent the code by SMS.
+		if ( $sms && ! empty( $phone_noise ) ) {
+			wp_send_json_success(
+				array(
+					'tfaRequired' => true,
+					'type'        => 'sms',
+					'phoneNoise'  => $phone_noise,
+				)
+			);
+		}
+
+		// The authenticator application is already connected, no new secret is issued.
+		if ( $tfa && empty( $tfa_key ) ) {
+			wp_send_json_success(
+				array(
+					'tfaRequired' => true,
+					'type'        => 'app',
+					'phoneNoise'  => '',
+				)
+			);
+		}
+
+		// Neither factor is announced, so the credentials themselves were rejected.
+		if ( ! $sms && ! $tfa ) {
+			wp_send_json_error(
+				array( 'message' => __( 'Invalid credentials. Please try again.', 'onlyoffice-docspace' ) ),
+				401
+			);
+		}
+
+		// Two-factor authentication is on, but the account has not finished setting it up.
+		wp_send_json_error(
+			array(
+				'message'    => $sms
+					? __( 'Two-factor authentication is enabled for this account, but no mobile phone is specified. Please set it in ONLYOFFICE DocSpace and try again.', 'onlyoffice-docspace' )
+					: __( 'Two-factor authentication is enabled for this account, but the authenticator application is not connected yet. Please connect it in ONLYOFFICE DocSpace and try again.', 'onlyoffice-docspace' ),
+				'confirmUrl' => esc_url_raw( $authentication['confirmUrl'] ?? '' ),
+			),
+			403
+		);
+	}
+
+	/**
+	 * Sends the authentication error to the client.
+	 *
+	 * @param OODSP_Docspace_Client_Exception $exception     The exception thrown by the DocSpace client.
+	 * @param bool                            $with_code     Whether a two-factor authentication code was submitted.
+	 *
+	 * @return never This method always terminates the request.
+	 */
+	private function send_authentication_error( $exception, $with_code ) {
+		$status_code = $exception->getCode();
+
+		if ( 429 === $status_code ) {
+			wp_send_json_error(
+				array( 'message' => __( 'Too many login attempts. Please try again later.', 'onlyoffice-docspace' ) ),
+				429
+			);
+		}
+
+		if ( $with_code ) {
+			if ( 403 === $status_code ) {
+				wp_send_json_error(
+					array( 'message' => __( 'The authentication code is not available. Please try again.', 'onlyoffice-docspace' ) ),
+					403
+				);
+			}
+
+			wp_send_json_error(
+				array( 'message' => __( 'Invalid code. Please try again.', 'onlyoffice-docspace' ) ),
+				401
+			);
+		}
+
+		wp_send_json_error(
+			array( 'message' => __( 'Invalid credentials. Please try again.', 'onlyoffice-docspace' ) ),
+			401
+		);
 	}
 
 	/**
