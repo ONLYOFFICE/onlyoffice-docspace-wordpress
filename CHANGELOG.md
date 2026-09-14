@@ -1,5 +1,8 @@
 # Change Log
 
+## Added
+- support for two-factor authentication when connecting to ONLYOFFICE DocSpace
+
 ## 3.1.0
 ## Added
 - presentation background color selector

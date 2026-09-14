@@ -1,10 +1,11 @@
 /* global oodsp, _oodspClient */
 
 class HttpError extends Error {
-	constructor( statusCode, message = '' ) {
+	constructor( statusCode, message = '', data = null ) {
 		super( message );
 		this.name = 'HttpError';
 		this.statusCode = statusCode;
+		this.data = data;
 	}
 }
 
@@ -12,8 +13,12 @@ class HttpError extends Error {
 	window.oodsp = window.oodsp || {};
 	window.oodsp.client = window.oodsp.client || {};
 
-	oodsp.client.postSystemUser = async ( userName, passwordHash ) => {
-		await ajaxRequest( {
+	oodsp.client.postSystemUser = async (
+		userName,
+		passwordHash,
+		code = ''
+	) => {
+		const response = await ajaxRequest( {
 			url: _oodspClient.ajaxUrl,
 			method: 'POST',
 			data: {
@@ -21,8 +26,11 @@ class HttpError extends Error {
 				_ajax_nonce: _oodspClient.nonce.settingsController,
 				userName,
 				passwordHash,
+				code,
 			},
 		} );
+
+		return response?.data || null;
 	};
 
 	oodsp.client.deleteSystemUser = async () => {
@@ -82,7 +90,8 @@ class HttpError extends Error {
 					reject(
 						new HttpError(
 							xhr.status,
-							xhr.responseJSON?.data?.message || error
+							xhr.responseJSON?.data?.message || error,
+							xhr.responseJSON?.data || null
 						)
 					);
 				},

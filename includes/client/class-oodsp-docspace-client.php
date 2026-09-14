@@ -121,6 +121,38 @@ class OODSP_Docspace_Client {
 	}
 
 	/**
+	 * Authenticates a user with ONLYOFFICE DocSpace using a two-factor authentication code.
+	 *
+	 * @param string $user_name The username for authentication.
+	 * @param string $password_hash The hashed password for authentication.
+	 * @param string $code The two-factor authentication code.
+	 *
+	 * @return array The response data from the authentication request.
+	 */
+	public function login_by_code( $user_name, $password_hash, $code ) {
+		$response = $this->request(
+			'/api/2.0/authentication/' . rawurlencode( $code ),
+			array(
+				'method'  => 'POST',
+				'headers' => array(
+					'Content-Type' => 'application/json; charset=utf-8',
+				),
+				'body'    => wp_json_encode(
+					array(
+						'userName'     => $user_name,
+						'passwordHash' => $password_hash,
+						'code'         => $code,
+					)
+				),
+			),
+			'',
+			false
+		);
+
+		return $response['response'];
+	}
+
+	/**
 	 * Logs out the user.
 	 */
 	public function logout() {
@@ -329,6 +361,7 @@ class OODSP_Docspace_Client {
 	 */
 	private function request( $path, $args = array(), $base_url = '', $use_system_user_authorization = true ) {
 		$args['timeout'] = self::DEFAULT_TIMEOUT;
+		$system_user     = null;
 
 		if ( empty( $base_url ) ) {
 			$base_url = $this->oodsp_settings_manager->get_docspace_url();

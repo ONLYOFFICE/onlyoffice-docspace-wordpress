@@ -86,6 +86,20 @@ $system_user = $this->oodsp_settings_manager->get_system_user();
 						</div
 					</td>
 				</tr>
+				<tr id="oodsp-authorization-code-row" class="form-field" hidden>
+					<th scope="row"><?php esc_html_e( 'Code', 'onlyoffice-docspace' ); ?></th>
+					<td>
+						<input
+							name="docspace-code"
+							type="text"
+							class="regular-text"
+							autocomplete="one-time-code"
+							inputmode="numeric"
+							placeholder="<?php esc_attr_e( 'Code', 'onlyoffice-docspace' ); ?>"
+						>
+						<p id="oodsp-authorization-code-hint" class="description"></p>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 		<p>
@@ -102,6 +116,13 @@ $system_user = $this->oodsp_settings_manager->get_system_user();
 				id="oodsp-authorization-login-button"
 				class="button button-primary"
 				value="<?php esc_html_e( 'Sign in', 'onlyoffice-docspace' ); ?>"
+			>
+			<input
+				type="button"
+				id="oodsp-authorization-cancel-button"
+				class="button button-secondary"
+				value="<?php esc_attr_e( 'Cancel', 'onlyoffice-docspace' ); ?>"
+				hidden
 			>
 		</p>
 		<p
