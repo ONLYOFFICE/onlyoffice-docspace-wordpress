@@ -1,85 +1,77 @@
 # CLAUDE.md
 
-Guidance for Claude Code when working in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## What this is
 
-`onlyoffice-docspace-wordpress` — a WordPress plugin (text domain `onlyoffice-docspace`, PHP class prefix `OODSP_`) that embeds ONLYOFFICE DocSpace into WordPress: a DocSpace admin menu page, a Gutenberg block/shortcode for embedding rooms and files, and export of WordPress users into DocSpace.
+The WordPress plugin "ONLYOFFICE DocSpace" (WordPress.org slug and text domain `onlyoffice-docspace`, main file `onlyoffice-docspace-wordpress.php`). It connects WordPress to an ONLYOFFICE DocSpace portal: it embeds DocSpace in the admin dashboard, links WordPress users to DocSpace accounts and exports them, and adds a Gutenberg block and an `[onlyoffice-docspace]` shortcode that embed DocSpace rooms and files in posts.
 
-## Commands
+The supported WordPress and PHP versions are the `Requires at least` / `Requires PHP` headers in the main plugin file and `readme.txt`. Keep the two identical: WordPress checks only the main file's headers on activation.
+
+Sibling DocSpace integrations on GitHub (`ONLYOFFICE/onlyoffice-docspace-drupal`, `ONLYOFFICE/moodle-mod_onlyofficedocspace`) and the DocSpace JS SDK docs (api.onlyoffice.com) are the references for SDK usage; check them for prior art.
+
+## Branches
+
+- PRs target `develop`. `master` holds released code; merging into `master` tags and builds a release (see `.github/workflows/`).
+- Branch names: `<type>/<short-kebab-description>` (`feature/`, `fix/`, `bugfix/`, `chore/`, `ci/`, `docs/`).
+
+## Setup and commands
 
 ```bash
-# PHP lint (WordPress Coding Standards) — also runs as a pre-commit hook
-composer phpcs
-vendor/bin/phpcbf --standard=Wordpress <file>   # autofix
-
-# JS/CSS lint + format (run from the repo root)
-npm run lint:js
-npm run lint:css
-npm run format:js
-
-# Build the Gutenberg block (separate npm package)
-cd onlyoffice-docspace-wordpress-block && npm install && npm run build
-cd onlyoffice-docspace-wordpress-block && npm run start   # watch mode
-
-# Translations (wp-cli comes from composer require-dev)
-composer make-pot        # regenerate languages/onlyoffice-docspace.pot
-composer update-po       # merge the .pot into the .po files
-composer translations    # compile .mo + per-script .json
+composer install                  # dev tools only (phpcs + WPCS, wp-cli, CaptainHook git hooks); no runtime deps
+npm ci                            # root: wp-scripts for linting
+cd onlyoffice-docspace-wordpress-block && npm ci && npm run build   # block build/ (gitignored); the plugin fails without it
+composer phpcs                    # WordPress coding standards; see the script for ignored paths and minimum_wp_version
+vendor/bin/phpcs --standard=WordPress <path>   # lint one file (phpcbf to autofix)
+npm run lint:js                   # wp-scripts eslint (format:js to autofix)
+npm run lint:css                  # wp-scripts stylelint
+composer make-pot && composer update-po   # refresh languages/onlyoffice-docspace.pot and every .po
+composer translations             # build .mo and JS .json translations (gitignored, built at release)
 ```
 
-`composer phpcs` uses the `Wordpress` standard and skips `assets-onlyoffice-docspace/`, `onlyoffice-docspace-wordpress-block/`, `vendor/`, and `node_modules/`. CI ([.github/workflows/lint.yml](.github/workflows/lint.yml)) runs the JS/CSS lints first, then phpcs.
+CaptainHook enforces Conventional Commits on `commit-msg` and runs `composer phpcs` on `pre-commit`. CI runs the linters in `.github/workflows/lint.yml`; read it for the PHP and Node versions.
 
-## Architecture
+Runtime behaviour depends on a live DocSpace portal and the JS SDK in a browser, so lints don't show that a change works. The WordPress site's origin must be in the portal's *Developer Tools → JavaScript SDK* allow list.
 
-**Bootstrap.** [onlyoffice-docspace-wordpress.php](onlyoffice-docspace-wordpress.php) defines the `OODSP_*` constants, registers activate/deactivate/uninstall hooks, and constructs `OODSP_Plugin`. `OODSP_Plugin::__construct()` requires every class file, builds the four long-lived services, then registers everything through `OODSP_Loader` (a deferred `add_action`/`add_filter` queue flushed by `run()`).
+## Structure
 
-**Services** (constructed once, injected everywhere):
+- `includes/class-oodsp-plugin.php` — builds the services, registers every hook through `OODSP_Loader` and the `wp_ajax_oodsp_*` actions.
+- `includes/client/class-oodsp-docspace-client.php` — the only server-side DocSpace REST client. Throws `OODSP_Docspace_Client_Exception` on any non-200.
+- `includes/managers/` — settings (the `oodsp_settings` option) and the shared-group logic.
+- `includes/service/class-oodsp-user-service.php` — the WordPress user ↔ DocSpace account link (user meta `docspace_account`).
+- `includes/resources/` — shared script/style registrations (`oodsp-main`, `oodsp-client`, `oodsp-ui`, login and error templates) and the `wp.template` HTML.
+- `assets-onlyoffice-docspace/js/docspace-integration-sdk.js` — loads the DocSpace JS SDK from the portal (the SDK version is pinned there) and wraps hashing, login and logout.
+- `controller/` — AJAX handlers for the system user and the current user's account.
+- `pages/` — admin pages (`main` DocSpace manager, `settings`), the Users list integration (`users`), and front-end rendering of the block and shortcode (`public-docspace`).
+- `onlyoffice-docspace-wordpress-block/` — Gutenberg block source and `src/block.json`.
 
-| Class | Role |
-|---|---|
-| `OODSP_Settings_Manager` | all reads/writes of the single `oodsp_settings` option |
-| `OODSP_User_Service` | the `docspace_account` user meta |
-| `OODSP_Docspace_Client` | HTTP calls to the DocSpace REST API (`/api/2.0/...`) |
-| `OODSP_DocSpace_Action_Manager` | higher-level DocSpace operations (the shared group) |
+## Rules
 
-**Directories.**
+- Plain DocSpace passwords never reach WordPress. The browser hashes them with the SDK (`createHash` with the portal's hash settings) and only the hash is posted and stored. Keep this for any new form that takes a DocSpace password.
+- Call DocSpace from PHP only through `OODSP_Docspace_Client`, and catch `OODSP_Docspace_Client_Exception` (log with `printStackTrace()`). A 401 on a system-user call deletes the stored system user on purpose.
+- Every `wp_ajax_oodsp_*` handler checks its nonce (`oodsp_settings_controller` / `oodsp_user_controller`) and the capability it needs.
+- WordPress lowercases shortcode attribute names. The render code reads lowercase keys; keep that when adding block attributes.
+- The block's saved markup (`src/save.js`) and `block.json` attributes are stored in posts. Changing either without a `deprecated` entry breaks block validation. `fileId`/`roomId` accept number or string on purpose, for blocks saved by older versions.
+- Option, user-meta and AJAX action names are stored on user sites; don't rename them without a migration.
+- Add user-visible changes to the top of `CHANGELOG.md` under `## Added` or `## Changed`, without a version header; the version is added at release time. Release CI takes the version from the first dotted number in that file.
 
-- `includes/` — services, models, `OODSP_Utils`, `OODSP_Docspace_Client_Exception`, and `includes/resources/` (the shared JS/CSS/images plus `OODSP_Resource_Registry` and `OODSP_Templates`).
-- `pages/` — one directory per admin screen, each with `class-oodsp-*-page.php` + `views/`, `js/`, `css/`. Screens extending [OODSP_Base_Page](pages/class-oodsp-base-page.php) get `add_submenu_page`, automatic enqueue of their own `js/index.js` and `css/index.css`, and rendering of `views/index.php`. `OODSP_Users_Page` and `OODSP_Public_DocSpace_Page` do *not* extend it — they hook into existing WordPress screens instead.
-- `controller/` — `wp_ajax_*` handlers only. Every method starts with `check_ajax_referer()` and replies via `wp_send_json_error()`.
-- `onlyoffice-docspace-wordpress-block/` — a self-contained npm package for the Gutenberg block (its own `package.json`, `.eslintrc`, and pinned `@wordpress/scripts`, different from the root one). `src/` is the source; `build/` is generated and gitignored but ships in the release zip.
-- `assets-onlyoffice-docspace/js/docspace-integration-sdk.js` — a vendored copy of the DocSpace JS SDK loader (exposes `window.DocspaceIntegrationSdk`, pulls `static/scripts/sdk/<version>/api.js` from the configured portal). Excluded from lint and formatting; treat it as third-party.
+## Coding practices
 
-**Frontend assets.** `OODSP_Resource_Registry::register_resources()` (on `init`) `wp_register_script`s the shared handles — `oodsp-main`, `oodsp-client`, `oodsp-ui`, `oodsp-login-page-template`, `oodsp-error-page-template`, `docspace-integration-sdk` — and localizes the `_oodsp*` globals. Pages then just declare these handles as dependencies. Browser code attaches to a single `window.oodsp` namespace (`oodsp.main`, `oodsp.client`, `oodsp.ui`, `oodsp.templates`); `oodsp.client` is the only place that talks to `admin-ajax.php`. `OODSP_Templates` prints `wp.template` (`<script type="text/html" id="tmpl-...">`) markup on `admin_footer`/`wp_footer`.
-
-## Persistence and auth model
-
-Two distinct DocSpace identities, easy to confuse:
-
-- **System user** — one DocSpace *administrator*, stored in `oodsp_settings['system_user']` (id, user name, password hash, `asc_auth_key` token). `OODSP_Docspace_Client` attaches its token as a cookie to every server-side request unless one is passed explicitly. A 401 from DocSpace deletes it automatically. It gates user export and the shared group.
-- **Per-user DocSpace account** — `docspace_account` user meta (id, user name, password hash) for each WordPress user. Used client-side: the password hash is handed to the SDK's `loginByPasswordHash` so the iframe logs in seamlessly; if that fails the JS falls back to the in-frame login template.
-
-Everything else lives in the `oodsp_settings` option: `docspace_url` and `shared_group` (the id of the `WordPress Users (<site name>)` DocSpace group). Disconnecting resets the whole option and drops the meta for all users. There are no custom database tables — activation only drops a legacy `{prefix}docspace_users` table left by 1.x.
+- Before writing new code, check whether WordPress core already provides it (HTTP API, options, user meta, list-table hooks, `wp.template`, capabilities). Use public APIs only; avoid functions and classes marked private or `@access private`.
+- Write code for the lowest WordPress and PHP versions the plugin declares. Check the `@since` of every core function you use in the WordPress developer reference. Where a newer core function is needed, copy it into `OODSP_Utils`, as `wp_get_admin_notice()` is.
+- Sanitize input early (`OODSP_Utils::get_var_from_request()` or `sanitize_*( wp_unslash( ... ) )`), escape output late (`esc_html`, `esc_attr`, `esc_url`, `wp_kses`), including JSON placed in HTML attributes.
+- Inject services through constructors, as the existing classes do (`OODSP_Plugin` builds them once). Don't create new service instances inside methods.
+- Before using a DocSpace JS SDK method, option or event, check that the SDK version pinned in `docspace-integration-sdk.js` supports it. Before using a DocSpace REST endpoint, check the DocSpace API docs.
+- Read and write the `oodsp_settings` option only through `OODSP_Settings_Manager`, and the `docspace_account` user meta only through `OODSP_User_Service`.
+- Call AJAX actions from JS only through `oodsp.client`, which adds the nonce. Handlers fail with `wp_send_json_error( array( 'message' => ... ), <HTTP status> )`.
+- Load and log in to the DocSpace SDK only through `DocspaceIntegrationSdk` or `oodsp.main.loadDocspace()`; never add another SDK `<script>`.
 
 ## Conventions
 
-- WordPress Coding Standards throughout: tabs, Yoda conditions, `snake_case` methods, one class per file named `class-oodsp-<thing>.php`, full docblocks on every class/method/property (phpcs enforces them).
-- Every PHP file opens with the GPL-2.0 header block and an `if ( ! defined( 'ABSPATH' ) ) { exit; }` guard. JS source files carry the same header (the vendored SDK and generated `build/` aside).
-- All user-facing strings go through `__()`/`esc_html_e()`/`wp.i18n.__()` with the `onlyoffice-docspace` text domain; scripts with strings also need `wp_set_script_translations()`.
-- The code targets **PHP 8.0+** — union return types (`OODSP_System_User|null`), typed properties, named arguments, trailing commas in parameter lists.
-- Errors from the DocSpace API surface as `OODSP_Docspace_Client_Exception`. Either convert it into a user-facing notice, or swallow it with `$e->printStackTrace()` (which only logs when `WP_DEBUG` is on) — never let it escape into a hook callback.
-- Reading request data goes through `OODSP_Utils::get_var_from_request()`, which unslashes and sanitizes.
-
-## Release mechanics
-
-Commits must follow Conventional Commits — `captainhook.json` wires a `commit-msg` validator and a `pre-commit` `composer phpcs`. Work branches off `develop`; `master` is the release branch.
-
-A version bump touches four places, and they must agree:
-
-1. `CHANGELOG.md` — the first `## <version>` heading is what [create-tag.yml](.github/workflows/create-tag.yml) greps to create the `v*` tag, and [release.yml](.github/workflows/release.yml) slices the same file for the release notes.
-2. [onlyoffice-docspace-wordpress.php](onlyoffice-docspace-wordpress.php) — the `Version:` header *and* the `OODSP_VERSION` constant (which also cache-busts every enqueued asset).
-3. `readme.txt` — `Stable tag`.
-4. `onlyoffice-docspace-wordpress-block/package.json` — `version`.
-
-The release job builds the block, compiles translations, then strips `vendor/`, `node_modules/`, both `package.json` files, `composer.*`, `captainhook.json`, `README.md`, `.github/`, and `.gitignore` before zipping. So `build/`, `languages/*.mo` and `languages/*.json` are gitignored yet required in the shipped artifact — regenerate them locally when testing an installed copy.
+- PHP follows the WordPress coding standards. Classes are `OODSP_*` in `class-oodsp-*.php` files. Options, AJAX actions and global functions are prefixed `oodsp`; shared script handles are `oodsp-*`, page handles start with `OODSP_PLUGIN_NAME`. Every PHP class file starts with the `ABSPATH` guard.
+- Register new hooks in `OODSP_Plugin` through the loader; the hooks in the `OODSP_Users_Page` constructor are an older exception. Admin pages extend `OODSP_Base_Page`, which enqueues `js/index.js` and `css/index.css` from the page folder and includes `views/index.php`.
+- Register shared assets in `OODSP_Resource_Registry` and depend on their handles; pass PHP data with `wp_localize_script` (`_oodsp*` globals). Front-end JS hangs off `window.oodsp`.
+- Admin JavaScript is jQuery in an IIFE; the block is React with `@wordpress/*` packages built by `wp-scripts`.
+- Every translatable string passes the literal text domain `onlyoffice-docspace` (PHP `__()` family, JS `wp.i18n` / `@wordpress/i18n`), except strings WordPress core already translates, which are called without a domain to reuse core's translation. Add a `translators:` comment for placeholders. Scripts with strings need `wp_set_script_translations`. After adding strings, build the block (`make-pot` reads block strings from `build/`), update the `.pot` and every `.po`, and translate them yourself; a human reviewer checks translations.
+- PHP files and the block's `src/*.js` carry the GPL license header. Copy it from an existing file of the same kind onto any new one.
+- Commit messages follow Conventional Commits: `<type>(<optional scope>): <description>` with a lowercase type (`feat`, `fix`, `refactor`, `docs`, `ci`, `style`, `build`, `chore`).
